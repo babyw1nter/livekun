@@ -17,7 +17,6 @@ import { defineComponent, PropType, watch, ref, nextTick } from 'vue'
 import GiftCapsule from '@/components/AtomicComponents/GiftCapsule.vue'
 
 interface IListItem {
-  type: number
   avatarUrl: string
   money: number
   nickname?: string
@@ -49,7 +48,7 @@ export default defineComponent({
     },
     level: {
       type: Array as PropType<number[]>,
-      default: () => [1, 100, 500]
+      default: () => [1, 200, 500]
     },
     duration: {
       type: Array as PropType<number[]>,
