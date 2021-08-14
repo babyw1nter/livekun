@@ -3,7 +3,7 @@
     <GiftCard
       v-for="(item, index) in list"
       :key="index"
-      :type="`level-${item.type}`"
+      :type="item.type"
       :avatar-url="item.avatarUrl"
       :nickname="item.nickname"
       :money="item.money"
@@ -17,12 +17,12 @@ import { defineComponent, PropType, watch, ref, nextTick } from 'vue'
 import GiftCard from '@/components/AtomicComponents/GiftCard.vue'
 
 interface IListItem {
-  type: number
+  type: string
   avatarUrl: string
   money: number
-  nickname?: string
+  nickname: string
   message?: string
-  uid?: number
+  uid: number
   [propName: string]: unknown
 }
 
@@ -33,12 +33,17 @@ export default defineComponent({
   },
   props: {
     list: {
-      type: Array as PropType<IListItem[]>,
-      required: true
+      type: Array as PropType<IListItem[]>
     }
   },
   setup(props) {
-    return {}
+    const giftCardCache = ref<IListItem[]>([])
+
+    const add = (item: IListItem) => {
+      giftCardCache.value.push(item)
+    }
+
+    return { giftCardCache, add }
   }
 })
 </script>
