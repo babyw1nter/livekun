@@ -132,7 +132,7 @@ export default defineComponent({
     }
   }
 
-  &.level-3 {
+  &.guard-monthly {
     .card-body {
       background: #573594;
     }
@@ -141,7 +141,7 @@ export default defineComponent({
     }
   }
 
-  &.level-4 {
+  &.guard-annual {
     .card-body {
       background: #ff9800;
     }

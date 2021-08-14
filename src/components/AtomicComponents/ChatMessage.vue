@@ -37,7 +37,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .chat-message {
-  display: inline-block;
+  display: block;
   margin-bottom: 4px;
 
   span.chat-message-avatar {
@@ -57,6 +57,18 @@ export default defineComponent({
     margin-left: 6px;
     margin-right: 6px;
     color: #ccc;
+  }
+
+  &.guard-monthly {
+    span.nickname {
+      color: #9480b9;
+    }
+  }
+
+  &.guard-annual {
+    span.nickname {
+      color: #ffbc6a;
+    }
   }
 
   span.message {
