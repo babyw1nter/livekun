@@ -1,7 +1,12 @@
 <template>
-  <ul ref="chatMessage" class="chat-message-list clearfix" style="padding: 0">
+  <ul
+    ref="ChatMessageListRef"
+    class="chat-message-list clearfix"
+    :class="{ 'smooth-scroll': !isFast }"
+    style="padding: 0"
+  >
     <ChatMessage
-      v-for="(item, index) in list"
+      v-for="(item, index) in chatMessageCache"
       :key="index"
       :avatar-url="item.avatarUrl"
       :nickname="item.nickname"
@@ -15,12 +20,12 @@
 import { defineComponent, ref, PropType, watch, nextTick } from 'vue'
 import ChatMessage from '@/components/AtomicComponents/ChatMessage.vue'
 
-interface IListItem {
+interface IChatMessageItem {
   type: number
   avatarUrl: string
-  nickname?: string
-  message?: string
-  uid?: number
+  nickname: string
+  message: string
+  uid: number
   [propName: string]: unknown
 }
 
@@ -31,22 +36,33 @@ export default defineComponent({
   },
   props: {
     list: {
-      type: Array as PropType<IListItem[]>,
-      required: true
+      type: Array as PropType<IChatMessageItem[]>
     }
   },
   setup(props) {
-    const chatMessage = ref<HTMLElement>()
+    const ChatMessageListRef = ref<HTMLElement>()
+    const chatMessageCache = ref<IChatMessageItem[]>([])
 
-    watch(props.list, () => {
+    watch(chatMessageCache.value, () => {
       nextTick(() => {
-        if (chatMessage.value) {
-          chatMessage.value.scrollTop = chatMessage.value.scrollHeight
+        if (ChatMessageListRef.value) {
+          ChatMessageListRef.value.scrollTop = ChatMessageListRef.value.scrollHeight
         }
       })
     })
 
-    return { chatMessage }
+    const isFast = ref<boolean>(false)
+    let interval = 0
+
+    const add = (chatMessageItem: IChatMessageItem) => {
+      const nowTimestamp = new Date().getTime()
+      isFast.value = nowTimestamp - interval < 250
+      console.log(nowTimestamp - interval, isFast.value)
+      interval = nowTimestamp
+      chatMessageCache.value.push(chatMessageItem)
+    }
+
+    return { chatMessageCache, ChatMessageListRef, isFast, add }
   }
 })
 </script>
@@ -54,8 +70,11 @@ export default defineComponent({
 <style lang="less">
 .chat-message-list {
   overflow-y: auto;
-  scroll-behavior: smooth;
   list-style: none;
+
+  &.smooth-scroll {
+    scroll-behavior: smooth;
+  }
 
   &::-webkit-scrollbar {
     width: 0 !important;
