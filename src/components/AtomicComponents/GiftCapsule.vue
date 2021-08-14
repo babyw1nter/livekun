@@ -1,8 +1,12 @@
 <template>
-  <div class="gift-capsule no-select" :class="type">
+  <li class="gift-capsule no-select" :class="type">
+    <span
+      class="gift-capsule-bg"
+      :style="{ width: `${percentage.toFixed(0)}%` }"
+    ></span>
     <a-avatar class="capsule-avatar" :src="avatarUrl" size="small"> </a-avatar>
     <span class="money">CNY￥{{ moneyText }}</span>
-  </div>
+  </li>
 </template>
 
 <script lang="ts">
@@ -22,15 +26,22 @@ export default defineComponent({
     money: {
       default: 0,
       type: Number
+    },
+    percentage: {
+      default: 100,
+      type: Number
     }
   },
   setup(props) {
     const cardType = ref<string>(props.type)
     const moneyText = computed(() => props.money.toFixed(2).toString())
 
+    const bgWidth = ref<number>(0)
+
     return {
       cardType,
-      moneyText
+      moneyText,
+      bgWidth
     }
   }
 })
@@ -38,12 +49,28 @@ export default defineComponent({
 
 <style lang="less">
 .gift-capsule {
+  position: relative;
+  display: block;
   height: 31px;
-  // width: 120px;
   padding: 4px;
   border-radius: 40px;
+  float: left;
+  margin-right: 10px;
+  overflow: hidden;
+  transition: all 0.1s;
+
+  .gift-capsule-bg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    transition: all 0.1s;
+    z-index: 0;
+    display: inline-block;
+  }
 
   span.money {
+    position: relative;
     margin-left: 4px;
     margin-bottom: 0;
     margin-right: 4px;
@@ -57,26 +84,42 @@ export default defineComponent({
     color: #fff;
     text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
     vertical-align: text-bottom;
+    z-index: 1;
   }
 
   &.level-0 {
-    background: #32e8b7;
+    background: #1ebea5;
+    .gift-capsule-bg {
+      background: #32e8b7;
+    }
   }
 
   &.level-1 {
-    background: #25d5fd;
+    background: #1db1db;
+    .gift-capsule-bg {
+      background: #25d5fd;
+    }
   }
 
   &.level-2 {
-    background: #f74170;
+    background: #d23968;
+    .gift-capsule-bg {
+      background: #f74170;
+    }
   }
 
   &.level-3 {
-    background: #9480b9;
+    background: #573594;
+    .gift-capsule-bg {
+      background: #9480b9;
+    }
   }
 
   &.level-4 {
-    background: #ffbc6a;
+    background: #ff9800;
+    .gift-capsule-bg {
+      background: #ffbc6a;
+    }
   }
 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);

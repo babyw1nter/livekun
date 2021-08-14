@@ -1,5 +1,5 @@
 <template>
-  <div class="gift-card no-select" :class="type">
+  <li class="gift-card no-select" :class="type">
     <div class="card-body">
       <a-avatar class="card-avatar" :src="avatarUrl"> </a-avatar>
       <div class="p-wrap">
@@ -10,7 +10,7 @@
     <div class="card-footer">
       <p>{{ message }}</p>
     </div>
-  </div>
+  </li>
 </template>
 
 <script lang="ts">
@@ -59,10 +59,12 @@ export default defineComponent({
 <style lang="less" scoped>
 .gift-card {
   position: relative;
-  max-width: 300px;
+  min-width: 200px;
   height: 100px;
   border-radius: 4px;
   overflow: hidden;
+  display: block;
+  margin-bottom: 10px;
 
   .card-avatar {
     position: absolute;
@@ -76,10 +78,8 @@ export default defineComponent({
     width: 100%;
     p {
       margin-bottom: 0;
-      font-family: 'Arial Black', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-        Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+      font-family: 'Arial Black', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+        'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
       font-weight: bold;
       font-size: 1rem;
       line-height: 1rem;
@@ -150,7 +150,7 @@ export default defineComponent({
     }
   }
 
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
 }
 </style>
