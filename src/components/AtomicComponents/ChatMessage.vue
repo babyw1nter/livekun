@@ -1,13 +1,13 @@
 <template>
   <li class="chat-message" :class="type">
     <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="24"> </a-avatar>
-    <span class="nickname">{{ nickname }}</span>
-    <span class="message">{{ message }}</span>
+    <span class="nickname h-font" :style="{ color: customStyle.nicknameColor }">{{ nickname }}</span>
+    <span class="message h-font" :style="{ color: customStyle.messageColor }">{{ message }}</span>
   </li>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'ChatMessage',
@@ -27,6 +27,15 @@ export default defineComponent({
     message: {
       default: '',
       type: String
+    },
+    customStyle: {
+      default: () => {
+        return {
+          nicknameColor: '#ccc',
+          messageColor: '#fff'
+        }
+      },
+      type: Object as PropType<{ nicknameColor?: string; messageColor?: string }>
     }
   },
   setup(props) {
@@ -46,10 +55,6 @@ export default defineComponent({
 
   span.nickname,
   span.message {
-    font-family: 'Arial Black', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-      'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    font-weight: bold;
-    text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
     font-size: 1rem;
   }
 

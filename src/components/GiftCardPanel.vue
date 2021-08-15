@@ -1,5 +1,5 @@
 <template>
-  <ul class="gift-card-panel clearfix" style="padding: 0">
+  <ul class="gift-card-panel clearfix">
     <GiftCard
       v-for="(item, index) in list"
       :key="index"
@@ -53,6 +53,7 @@ export default defineComponent({
   overflow-y: auto;
   scroll-behavior: smooth;
   list-style: none;
+  padding: 10px;
 
   &::-webkit-scrollbar {
     width: 0 !important;

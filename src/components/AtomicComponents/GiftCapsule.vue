@@ -1,11 +1,8 @@
 <template>
   <li class="gift-capsule no-select" :class="type">
-    <span
-      class="gift-capsule-bg"
-      :style="{ width: `${percentage.toFixed(0)}%` }"
-    ></span>
+    <span class="gift-capsule-bg" :style="{ width: `${percentage.toFixed(0)}%` }"></span>
     <a-avatar class="capsule-avatar" :src="avatarUrl" size="small"> </a-avatar>
-    <span class="money">CNY￥{{ moneyText }}</span>
+    <span class="money h-font">CNY￥{{ moneyText }}</span>
   </li>
 </template>
 
@@ -74,15 +71,8 @@ export default defineComponent({
     margin-left: 4px;
     margin-bottom: 0;
     margin-right: 4px;
-    font-family: 'Arial Black', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-      'Noto Color Emoji';
-    font-weight: bold;
-    font-size: 1rem;
     line-height: 1rem;
     color: #fff;
-    text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
     vertical-align: text-bottom;
     z-index: 1;
   }

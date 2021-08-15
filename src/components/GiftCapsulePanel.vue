@@ -1,5 +1,5 @@
 <template>
-  <ul class="gift-capsule-panel clearfix" style="padding: 0">
+  <ul class="gift-capsule-panel clearfix">
     <GiftCapsule
       v-for="item in listItem"
       :key="item.uid"
@@ -155,7 +155,8 @@ export default defineComponent({
 
 <style lang="less">
 .gift-capsule-panel {
-  min-height: 40px;
+  min-height: 51px;
+  padding: 10px;
   list-style: none;
   overflow-x: hidden;
 

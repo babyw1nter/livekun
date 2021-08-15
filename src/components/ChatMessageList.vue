@@ -1,16 +1,12 @@
 <template>
-  <ul
-    ref="ChatMessageListRef"
-    class="chat-message-list clearfix"
-    :class="{ 'smooth-scroll': !isFast }"
-    style="padding: 0"
-  >
+  <ul ref="ChatMessageListRef" class="chat-message-list clearfix" :class="{ 'smooth-scroll': !isFast }">
     <ChatMessage
       v-for="(item, index) in chatMessageCache"
       :key="index"
       :avatar-url="item.avatarUrl"
       :nickname="item.nickname"
       :message="item.message"
+      :custom-style="item.customStyle"
     >
     </ChatMessage>
   </ul>
@@ -26,6 +22,10 @@ interface IChatMessageItem {
   nickname: string
   message: string
   uid: number
+  customStyle?: {
+    nicknameColor?: string
+    messageColor?: string
+  }
   [propName: string]: unknown
 }
 
@@ -37,6 +37,10 @@ export default defineComponent({
   props: {
     list: {
       type: Array as PropType<IChatMessageItem[]>
+    },
+    smoothScrollInterval: {
+      type: Number,
+      default: 250
     }
   },
   setup(props) {
@@ -56,9 +60,9 @@ export default defineComponent({
 
     const add = (chatMessageItem: IChatMessageItem) => {
       const nowTimestamp = new Date().getTime()
-      isFast.value = nowTimestamp - interval < 250
-      console.log(nowTimestamp - interval, isFast.value)
+      isFast.value = nowTimestamp - interval < props.smoothScrollInterval
       interval = nowTimestamp
+
       chatMessageCache.value.push(chatMessageItem)
     }
 
@@ -71,6 +75,8 @@ export default defineComponent({
 .chat-message-list {
   overflow-y: auto;
   list-style: none;
+  padding-left: 10px;
+  padding-right: 10px;
 
   &.smooth-scroll {
     scroll-behavior: smooth;

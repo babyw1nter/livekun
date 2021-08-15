@@ -2,19 +2,20 @@
   <div class="danmaku">
     <GiftCapsulePanel ref="GiftCapsulePanelRef" :maximum="5" style="margin-bottom: 1rem;"></GiftCapsulePanel>
 
-    <div class="toolbar clearfix" style="margin-bottom: 1rem;">
-      <a-button type="primary" @click="addGiftCapsule">addGiftCapsule</a-button>
-      <a-button type="primary" @click="addChatMessage" style="margin-left: 8px;">addChatMessage</a-button>
-    </div>
-
     <ChatMessageList ref="ChatMessageListRef" style="width: 300px; height: 502px;"> </ChatMessageList>
 
-    <GiftCardPanel ref="GiftCardPanelRef" :list="giftCardList" style="width: 300px; height: 330px;"> </GiftCardPanel>
+    <GiftCardPanel ref="GiftCardPanelRef" :list="giftCardList" style="width: 300px; height: 340px;"> </GiftCardPanel>
+
+    <div class="toolbar clearfix">
+      <a-button type="primary" @click="addGiftCapsule">addGiftCapsule</a-button>
+      <a-button type="primary" @click="addChatMessage" style="margin-left: 8px;">addChatMessage</a-button>
+      <a-button type="primary" style="margin-left: 8px;">addGiftCard</a-button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
 import ChatMessageList from '@/components/ChatMessageList.vue'
 import GiftCardPanel from '@/components/GiftCardPanel.vue'
@@ -93,6 +94,9 @@ const chatMessageListArray = [
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     message: '。。。滚！！~',
     uid: 66690,
+    customStyle: {
+      nicknameColor: 'rgb(255 132 132)'
+    },
     type: 1
   },
   {
@@ -100,6 +104,9 @@ const chatMessageListArray = [
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     message: '😡😡😡',
     uid: 66690,
+    customStyle: {
+      nicknameColor: 'rgb(255 132 132)'
+    },
     type: 1
   },
   {
@@ -211,10 +218,8 @@ export default defineComponent({
 .danmaku {
   .toolbar {
     position: absolute;
-    top: 4rem;
+    top: 5rem;
     right: 1rem;
   }
-
-  padding: 10px;
 }
 </style>

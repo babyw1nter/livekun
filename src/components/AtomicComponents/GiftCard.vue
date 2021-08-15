@@ -3,12 +3,12 @@
     <div class="card-body">
       <a-avatar class="card-avatar" :src="avatarUrl"> </a-avatar>
       <div class="p-wrap">
-        <p style="margin-bottom: 1px;">{{ nickname }}</p>
-        <p>{{ profile || `CNY￥${moneyText}` }}</p>
+        <p class="nickname h-font" style="margin-bottom: 1px;">{{ nickname }}</p>
+        <p class="money h-font">{{ profile || `CNY￥${moneyText}` }}</p>
       </div>
     </div>
     <div class="card-footer">
-      <p>{{ message }}</p>
+      <p class="message h-font">{{ message }}</p>
     </div>
   </li>
 </template>
@@ -78,13 +78,8 @@ export default defineComponent({
     width: 100%;
     p {
       margin-bottom: 0;
-      font-family: 'Arial Black', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-        'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-      font-weight: bold;
-      font-size: 1rem;
       line-height: 1rem;
       color: #fff;
-      text-shadow: #000 1px 0 0, #000 0 1px 0, #000 -1px 0 0, #000 0 -1px 0;
     }
   }
   .card-body {
@@ -150,7 +145,6 @@ export default defineComponent({
     }
   }
 
-  // margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
 }
 </style>
