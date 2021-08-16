@@ -9,7 +9,7 @@
     <div class="toolbar clearfix">
       <a-button type="primary" @click="addGiftCapsule">addGiftCapsule</a-button>
       <a-button type="primary" @click="addChatMessage" style="margin-left: 8px;">addChatMessage</a-button>
-      <a-button type="primary" style="margin-left: 8px;">addGiftCard</a-button>
+      <a-button type="primary" @click="addGiftCard" style="margin-left: 8px;">addGiftCard</a-button>
     </div>
   </div>
 </template>
