@@ -40,7 +40,7 @@ export default defineComponent({
   },
   setup(props) {
     const messageX = computed(() =>
-      props.message.replaceAll(/(\[emts\]).*?(\[\/emts\])/g, '[表情]').replaceAll(/(\[img\]).*?(\[\/img\])/g, '[图片]')
+      props.message.replace(/(\[emts\]).*?(\[\/emts\])/g, '[表情]').replace(/(\[img\]).*?(\[\/img\])/g, '[图片]')
     )
     return { messageX }
   }
