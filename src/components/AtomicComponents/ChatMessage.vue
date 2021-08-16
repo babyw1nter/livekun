@@ -2,12 +2,12 @@
   <li class="chat-message" :class="type">
     <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="24"> </a-avatar>
     <span class="nickname h-font" :style="{ color: customStyle.nicknameColor }">{{ nickname }}</span>
-    <span class="message h-font" :style="{ color: customStyle.messageColor }">{{ message }}</span>
+    <span class="message h-font" :style="{ color: customStyle.messageColor }">{{ messageX }}</span>
   </li>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 
 export default defineComponent({
   name: 'ChatMessage',
@@ -39,7 +39,10 @@ export default defineComponent({
     }
   },
   setup(props) {
-    return {}
+    const messageX = computed(() =>
+      props.message.replaceAll(/(\[emts\]).*?(\[\/emts\])/g, '[表情]').replaceAll(/(\[img\]).*?(\[\/img\])/g, '[图片]')
+    )
+    return { messageX }
   }
 })
 </script>

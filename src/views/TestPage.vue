@@ -1,8 +1,8 @@
 <template>
-  <div class="danmaku">
+  <div class="test-page">
     <GiftCapsulePanel ref="GiftCapsulePanelRef" :maximum="5" style="margin-bottom: 1rem;"></GiftCapsulePanel>
 
-    <ChatMessageList ref="ChatMessageListRef" style="width: 300px; height: 502px;"> </ChatMessageList>
+    <ChatMessageList ref="ChatMessageListRef" style="width: 300px; height: 372px;"> </ChatMessageList>
 
     <GiftCardPanel ref="GiftCardPanelRef" :list="giftCardList" style="width: 300px; height: 340px;"> </GiftCardPanel>
 
@@ -138,24 +138,21 @@ const giftCardListArray = [
     avatarUrl: 'https://img2.baidu.com/it/u=222120700,1745793916&fm=26&fmt=auto&gp=0.jpg',
     money: 30,
     message: '赠送了奶罩 × 1',
-    uid: 91330,
-    type: 'level-0'
+    uid: 91330
   },
   {
     nickname: 'CC奶灵',
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     money: 69,
     message: '赠送了火箭 × 1',
-    uid: 66690,
-    type: 'level-1'
+    uid: 66690
   },
   {
     nickname: '91王先生',
     avatarUrl: 'https://img0.baidu.com/it/u=1536857165,2921056634&fm=26&fmt=auto&gp=0.jpg',
     money: 666,
     message: '赠送了圣旨降临 × 1',
-    uid: 3312,
-    type: 'level-2'
+    uid: 3312
   },
   {
     nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
@@ -176,6 +173,16 @@ const giftCardListArray = [
   }
 ]
 
+// const chatMessageSocket = new WebSocket('ws://localhost:39073/', 'chat-message')
+// chatMessageSocket.addEventListener('open', ev => {
+//   console.log('chatMessageSocket 连接成功!')
+// })
+
+// const giftCapsuleSocket = new WebSocket('ws://localhost:39073/', 'gift-Capsule')
+// giftCapsuleSocket.addEventListener('open', ev => {
+//   console.log('giftCapsuleSocket 连接成功!')
+// })
+
 export default defineComponent({
   components: { GiftCardPanel, GiftCapsulePanel, ChatMessageList },
   setup() {
@@ -194,12 +201,54 @@ export default defineComponent({
     }
 
     const addChatMessage = () => {
-      ChatMessageListRef.value?.add(chatMessageListArray[randomNum(0, 7)])
+      ChatMessageListRef.value?.add(chatMessageListArray[randomNum(0, chatMessageListArray.length - 1)])
     }
 
     const addGiftCard = () => {
-      // GiftCardPanelRef.value?.add()
+      GiftCardPanelRef.value?.add(giftCardListArray[randomNum(0, giftCardListArray.length - 1)])
     }
+
+    // chatMessageSocket.addEventListener('message', ev => {
+    //   interface ISocketChatMsg {
+    //     avatarUrl: string
+    //     nickname: string
+    //     message: string
+    //     uid: number
+    //   }
+
+    //   const socketChatMsg: ISocketChatMsg = JSON.parse(ev.data)
+
+    //   console.info('[chat-message]', ev.data)
+
+    //   ChatMessageListRef.value?.add({
+    //     ...socketChatMsg,
+    //     type: 0
+    //   })
+    // })
+
+    // giftCapsuleSocket.addEventListener('message', ev => {
+    //   interface ISocketGiftCapsule {
+    //     avatarUrl: string
+    //     nickname: string
+    //     uid: number
+    //     money: number
+    //     giftName: string
+    //     giftCount: number
+    //   }
+
+    //   const socketGiftCapsule: ISocketGiftCapsule = JSON.parse(ev.data)
+
+    //   console.info('[gift-capsule]', ev.data)
+
+    //   GiftCapsulePanelRef.value?.add({
+    //     ...socketGiftCapsule,
+    //     duration: 1
+    //   })
+    //   GiftCardPanelRef.value?.add({
+    //     ...socketGiftCapsule,
+    //     message: `赠送了${socketGiftCapsule.giftName} × ${socketGiftCapsule.giftCount}`
+    //   })
+    // })
 
     return {
       giftCardList,
@@ -215,7 +264,7 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-.danmaku {
+.test-page {
   .toolbar {
     position: absolute;
     top: 5rem;

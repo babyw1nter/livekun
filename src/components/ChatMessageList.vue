@@ -38,6 +38,10 @@ export default defineComponent({
     list: {
       type: Array as PropType<IChatMessageItem[]>
     },
+    maximum: {
+      type: Number,
+      default: 150
+    },
     smoothScrollInterval: {
       type: Number,
       default: 250
@@ -48,6 +52,10 @@ export default defineComponent({
     const chatMessageCache = ref<IChatMessageItem[]>([])
 
     watch(chatMessageCache.value, () => {
+      if (chatMessageCache.value.length >= props.maximum) {
+        chatMessageCache.value.splice(0, chatMessageCache.value.length - 50)
+      }
+
       nextTick(() => {
         if (ChatMessageListRef.value) {
           ChatMessageListRef.value.scrollTop = ChatMessageListRef.value.scrollHeight

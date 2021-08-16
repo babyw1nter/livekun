@@ -2,6 +2,22 @@
   <router-view />
 </template>
 
+<script lang="ts">
+import { defineComponent, ref, watch, onBeforeMount } from 'vue'
+import { key } from '@/store'
+import { useStore } from 'vuex'
+
+export default defineComponent({
+  setup() {
+    const store = useStore(key)
+    onBeforeMount(() => {
+      store.dispatch('getRemoteConfig')
+      store.dispatch('getRemoteStatus')
+    })
+  }
+})
+</script>
+
 <style lang="less">
 #app {
   width: 100%;

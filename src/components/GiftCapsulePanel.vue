@@ -88,7 +88,7 @@ export default defineComponent({
 
       const timer = {
         uid: item.uid,
-        timer: setInterval(() => {
+        timer: window.setInterval(() => {
           const index = listItem.value.findIndex(i => i.uid === item.uid)
           if (index > -1) {
             if (listItem.value[index].timing <= 0) {
@@ -135,13 +135,10 @@ export default defineComponent({
 
     const getLevel = (money: number) => {
       if (money > props.level[0] - 1 && money < props.level[1]) {
-        // 0~99
         return 0
       } else if (money > props.level[1] - 1 && money < props.level[2]) {
-        // 100~499
         return 1
       } else if (money > props.level[2] - 1) {
-        // 500+
         return 2
       } else {
         return 0
