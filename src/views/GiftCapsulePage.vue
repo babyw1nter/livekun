@@ -23,7 +23,7 @@ export default defineComponent({
     const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
     const giftCapsulePanelSocket = ref<WebSocket>()
 
-    onMounted(() => {
+    const createSocket = () => {
       giftCapsulePanelSocket.value = new WebSocket('ws://localhost:39073/', 'gift-capsule')
 
       giftCapsulePanelSocket.value?.addEventListener('open', () => {
@@ -54,6 +54,10 @@ export default defineComponent({
           duration: 1
         })
       })
+    }
+
+    onMounted(() => {
+      createSocket()
     })
 
     return { store, GiftCapsulePanelRef }

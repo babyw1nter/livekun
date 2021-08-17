@@ -17,7 +17,7 @@ import { defineComponent, ref, PropType, watch, nextTick } from 'vue'
 import ChatMessage from '@/components/AtomicComponents/ChatMessage.vue'
 
 interface IChatMessageItem {
-  type: number
+  type?: number
   avatarUrl: string
   nickname: string
   message: string

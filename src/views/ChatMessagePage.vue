@@ -17,8 +17,7 @@ export default defineComponent({
     const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
     const chatMessageSocket = ref<WebSocket>()
 
-    onMounted(() => {
-      console.log(store.state.config)
+    const createSocket = () => {
       chatMessageSocket.value = new WebSocket('ws://localhost:39073/', 'chat-message')
 
       chatMessageSocket.value?.addEventListener('open', () => {
@@ -43,10 +42,13 @@ export default defineComponent({
         console.info('[chat-message]', socketChatMsg)
 
         ChatMessageListRef.value?.add({
-          ...socketChatMsg,
-          type: 0
+          ...socketChatMsg
         })
       })
+    }
+
+    onMounted(() => {
+      createSocket()
     })
 
     return { store, ChatMessageListRef }

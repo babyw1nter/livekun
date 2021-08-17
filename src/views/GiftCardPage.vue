@@ -21,7 +21,7 @@ export default defineComponent({
     const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
     const GiftCardPanelSocket = ref<WebSocket>()
 
-    onMounted(() => {
+    const createSocket = () => {
       GiftCardPanelSocket.value = new WebSocket('ws://localhost:39073/', 'gift-card')
 
       GiftCardPanelSocket.value?.addEventListener('open', () => {
@@ -43,7 +43,7 @@ export default defineComponent({
           giftCount: number
         }
 
-        const socketGiftCard: ISocketGiftCard = JSON.parse(ev.data)
+        const socketGiftCard = JSON.parse(ev.data) as ISocketGiftCard
 
         console.info('[gift-card]', socketGiftCard)
 
@@ -52,6 +52,10 @@ export default defineComponent({
           message: `赠送了${socketGiftCard.giftName} × ${socketGiftCard.giftCount}`
         })
       })
+    }
+
+    onMounted(() => {
+      createSocket()
     })
 
     return { store, GiftCardPanelRef }
