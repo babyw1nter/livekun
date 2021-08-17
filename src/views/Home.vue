@@ -71,12 +71,13 @@ export default defineComponent({
             if (res.data.code !== 10000) {
               message.warn(`${res.data.code}: ${res.data.msg}`)
             }
+            store.dispatch('getRemoteStatus')
           })
-          .catch(reason => {
+          .catch((reason: Error) => {
             console.log(reason)
+            message.error(reason.toString())
           })
           .finally(() => {
-            store.dispatch('getRemoteStatus')
             isLoading.value = false
           })
       } else {
@@ -88,10 +89,10 @@ export default defineComponent({
       axios
         .post(host + '/leave')
         .then(res => {
-          //
+          message.success('重置成功！')
         })
-        .catch(reason => {
-          //
+        .catch((reason: Error) => {
+          message.error(reason.toString())
         })
         .finally(() => {
           store.commit('resetStatus')
