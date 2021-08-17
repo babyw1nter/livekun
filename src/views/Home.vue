@@ -4,10 +4,10 @@
       <template #icon><smile-outlined /></template>
     </a-alert>
     <a-alert
-      :message="store.state.status.isJoinRoom ? '已连接' : '尚未进入直播间'"
+      :message="store.state.status.isJoinRoom ? `已连接 ${store.state.status.roomInfo.liveId}` : '未连接'"
       :description="
         store.state.status.isJoinRoom
-          ? `已进入直播间 ${store.state.status.roomInfo.liveId}`
+          ? `已进入直播间「${store.state.status.roomInfo.title}」`
           : '请进入一个直播间以使用所有功能。'
       "
       :type="store.state.status.isJoinRoom ? 'success' : 'info'"
@@ -17,7 +17,7 @@
     <div class="join-input-wrap" style="margin-top: 1rem">
       <a-space :size="10">
         <a-input v-model:value="liveIdInputValue" placeholder="请输入直播间ID" :disabled="isLoading" allowClear />
-        <a-button @click="joinRoom" type="primary" :disabled="isLoading">进房</a-button>
+        <a-button @click="joinRoom" type="primary" :loading="isLoading">进入</a-button>
         <a-button @click="reset" danger>重置</a-button>
       </a-space>
     </div>
