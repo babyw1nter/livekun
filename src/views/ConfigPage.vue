@@ -39,7 +39,13 @@
       </a-tab-pane>
       <a-tab-pane :key="3" tab="聊天消息">
         <div class="options-panel">
-          <p>聊天框文字大小。</p>
+          <!-- <p>普通用户昵称颜色</p>
+          <p>主播昵称颜色</p>
+          <p>月费守护用户昵称颜色</p>
+          <p>年费守护用户昵称颜色</p>
+          <p>贵族用户昵称颜色</p>
+          <a-divider /> -->
+          <p>聊天消息的文字大小。</p>
           <a-slider
             :min="12"
             :max="32"
