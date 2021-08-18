@@ -1,6 +1,11 @@
 <template>
   <div class="test-page">
-    <GiftCapsulePanel ref="GiftCapsulePanelRef" :maximum="5" style="margin-bottom: 1rem;"></GiftCapsulePanel>
+    <GiftCapsulePanel
+      ref="GiftCapsulePanelRef"
+      :maximum="5"
+      style="margin-bottom: 1rem;"
+      :duration="store.state.config.giftCapsule.duration"
+    ></GiftCapsulePanel>
 
     <ChatMessageList ref="ChatMessageListRef" :font-size="chatMessageListFontSize" style="width: 400px; height: 400px;">
     </ChatMessageList>
@@ -23,6 +28,8 @@ import { defineComponent, onMounted, ref } from 'vue'
 import GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
 import ChatMessageList from '@/components/ChatMessageList.vue'
 import GiftCardPanel from '@/components/GiftCardPanel.vue'
+import { useStore } from 'vuex'
+import { key } from '@/store'
 
 const randomNum = (minNum: number, maxNum: number) => {
   return parseInt((Math.random() * (maxNum - minNum + 1) + minNum).toString(), 10)
@@ -177,26 +184,17 @@ const giftCardListArray = [
   }
 ]
 
-// const chatMessageSocket = new WebSocket('ws://localhost:39073/', 'chat-message')
-// chatMessageSocket.addEventListener('open', ev => {
-//   console.log('chatMessageSocket 连接成功!')
-// })
-
-// const giftCapsuleSocket = new WebSocket('ws://localhost:39073/', 'gift-Capsule')
-// giftCapsuleSocket.addEventListener('open', ev => {
-//   console.log('giftCapsuleSocket 连接成功!')
-// })
-
 export default defineComponent({
   components: { GiftCardPanel, GiftCapsulePanel, ChatMessageList },
   setup() {
+    const store = useStore(key)
     const giftCardList = ref(giftCardListArray)
 
     const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
     const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
     const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
 
-    const chatMessageListFontSize = ref(16)
+    const chatMessageListFontSize = ref(18)
 
     const addGiftCapsule = () => {
       GiftCapsulePanelRef.value?.add({
@@ -214,49 +212,8 @@ export default defineComponent({
       GiftCardPanelRef.value?.add(giftCardListArray[randomNum(0, giftCardListArray.length - 1)])
     }
 
-    // chatMessageSocket.addEventListener('message', ev => {
-    //   interface ISocketChatMsg {
-    //     avatarUrl: string
-    //     nickname: string
-    //     message: string
-    //     uid: number
-    //   }
-
-    //   const socketChatMsg: ISocketChatMsg = JSON.parse(ev.data)
-
-    //   console.info('[chat-message]', ev.data)
-
-    //   ChatMessageListRef.value?.add({
-    //     ...socketChatMsg,
-    //     type: 0
-    //   })
-    // })
-
-    // giftCapsuleSocket.addEventListener('message', ev => {
-    //   interface ISocketGiftCapsule {
-    //     avatarUrl: string
-    //     nickname: string
-    //     uid: number
-    //     money: number
-    //     giftName: string
-    //     giftCount: number
-    //   }
-
-    //   const socketGiftCapsule: ISocketGiftCapsule = JSON.parse(ev.data)
-
-    //   console.info('[gift-capsule]', ev.data)
-
-    //   GiftCapsulePanelRef.value?.add({
-    //     ...socketGiftCapsule,
-    //     duration: 1
-    //   })
-    //   GiftCardPanelRef.value?.add({
-    //     ...socketGiftCapsule,
-    //     message: `赠送了${socketGiftCapsule.giftName} × ${socketGiftCapsule.giftCount}`
-    //   })
-    // })
-
     return {
+      store,
       giftCardList,
       GiftCapsulePanelRef,
       ChatMessageListRef,
