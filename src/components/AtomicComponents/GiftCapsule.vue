@@ -1,7 +1,7 @@
 <template>
   <li class="gift-capsule no-select" :class="type">
     <span class="gift-capsule-bg" :style="{ width: `${percentage.toFixed(0)}%` }"></span>
-    <a-avatar class="capsule-avatar" :src="avatarUrl" size="small"> </a-avatar>
+    <a-avatar class="capsule-avatar" :src="avatarUrl" :size="27"> </a-avatar>
     <span class="money h-font">CNY￥{{ moneyText }}</span>
   </li>
 </template>
@@ -48,7 +48,7 @@ export default defineComponent({
 .gift-capsule {
   position: relative;
   display: block;
-  height: 31px;
+  height: 35px;
   padding: 4px;
   border-radius: 40px;
   float: left;
@@ -71,9 +71,10 @@ export default defineComponent({
     margin-left: 4px;
     margin-bottom: 0;
     margin-right: 4px;
-    line-height: 1rem;
+    line-height: 27px;
+    font-size: 18px;
     color: #fff;
-    vertical-align: text-bottom;
+    vertical-align: middle;
     z-index: 1;
   }
 
