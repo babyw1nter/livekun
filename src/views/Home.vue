@@ -26,10 +26,13 @@
         <a-button @click="reset" danger :loading="isReseting">重置</a-button>
       </a-space>
     </div>
-    <a-typography-paragraph style="margin-top: 1rem">
+    <a-space :size="10" style="margin-top: 1rem">
       <a-typography-link href="./#/config" target="_blank">系统设置</a-typography-link>
-      <blockquote>调整系统设置后，必须要在OBS内将对应浏览器刷新或者直接重启整个OBS才可生效！</blockquote>
-      <a-typography-paragraph :copyable="{ text: host + '/#/gift-capsule' }">
+      <a-typography-link href="./#/test" target="_blank">测试页面</a-typography-link>
+    </a-space>
+    <a-typography-paragraph style="margin-top: 1rem">
+      <!-- <blockquote>© 2021 hhui64. Powered by CCLinkJS and Designed for NaiLing.</blockquote> -->
+      <!-- <a-typography-paragraph :copyable="{ text: host + '/#/gift-capsule' }">
         礼物胶囊：{{ host }}/#/gift-capsule
       </a-typography-paragraph>
       <a-typography-paragraph :copyable="{ text: host + '/#/chat-message' }">
@@ -37,8 +40,9 @@
       </a-typography-paragraph>
       <a-typography-paragraph :copyable="{ text: host + '/#/gift-card' }">
         礼物卡片：{{ host }}/#/gift-card
-      </a-typography-paragraph>
+      </a-typography-paragraph> -->
     </a-typography-paragraph>
+    <PageFooter></PageFooter>
   </div>
 </template>
 
@@ -48,13 +52,15 @@ import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
 import { SmileOutlined } from '@ant-design/icons-vue'
+import PageFooter from '@/components/CommonComponents/PageFooter.vue'
 import axios from 'axios'
 
 const host = 'http://localhost:39074'
 
 export default defineComponent({
   components: {
-    SmileOutlined
+    SmileOutlined,
+    PageFooter
   },
   setup() {
     const store = useStore(key)

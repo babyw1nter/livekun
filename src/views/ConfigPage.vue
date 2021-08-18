@@ -46,6 +46,7 @@
         </div>
       </a-tab-pane>
     </a-tabs>
+    <PageFooter></PageFooter>
     <div class="toolbar">
       <a-space :size="10">
         <a-button type="primary" @click="save">保存设置</a-button>
@@ -60,9 +61,11 @@ import { defineComponent, ref, watch, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
+import PageFooter from '@/components/CommonComponents/PageFooter.vue'
 
 export default defineComponent({
   name: 'Config',
+  components: { PageFooter },
   setup() {
     const activeKey = ref(1)
     const store = useStore(key)
