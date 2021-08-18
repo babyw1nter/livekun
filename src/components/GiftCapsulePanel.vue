@@ -71,6 +71,7 @@ export default defineComponent({
         return
       }
 
+      // 超过最大常驻礼物胶囊数量，删除末尾金额低的礼物胶囊
       if (listItem.value.length >= props.maximum) {
         const lastItem = listItem.value[listItem.value.length - 1]
         if (lastItem.money < item.money) {
