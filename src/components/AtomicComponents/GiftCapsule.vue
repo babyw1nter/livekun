@@ -1,6 +1,6 @@
 <template>
   <li class="gift-capsule no-select" :class="type">
-    <span class="gift-capsule-bg" :style="{ width: `${percentage.toFixed(0)}%` }"></span>
+    <span class="gift-capsule-bg" :style="{ width: `${percentage.toFixed(1)}%` }"></span>
     <a-avatar class="capsule-avatar" :src="avatarUrl" :size="27"> </a-avatar>
     <span class="money h-font">CNY￥{{ moneyText }}</span>
   </li>

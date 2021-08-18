@@ -61,7 +61,7 @@ export default defineComponent({
 
     const add = (item: IListItem) => {
       const index = listItem.value.findIndex(i => i.uid === item.uid)
-      item.duration = props.duration[getLevel(item.money)]
+      item.duration = props.duration[getLevel(item.money)] * 60 * 1000
 
       // 已存在则累计金额并刷新持续时间
       if (index > -1) {
@@ -104,8 +104,11 @@ export default defineComponent({
 
               return
             }
+
             listItem.value[index].timing -= 100
-            listItem.value[index].percentage = (listItem.value[index].timing / listItem.value[index].duration) * 100
+            listItem.value[index].percentage = Number(
+              ((listItem.value[index].timing / listItem.value[index].duration) * 100).toFixed(1)
+            )
           }
         }, 100)
       }
