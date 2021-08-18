@@ -1,5 +1,10 @@
 <template>
-  <ChatMessageList ref="ChatMessageListRef" style="width: 100%; height: 100%"> </ChatMessageList>
+  <ChatMessageList
+    ref="ChatMessageListRef"
+    :font-size="store.state.config.chatMessage.style.fontSize"
+    style="width: 100%; height: 100%"
+  >
+  </ChatMessageList>
 </template>
 
 <script lang="ts">

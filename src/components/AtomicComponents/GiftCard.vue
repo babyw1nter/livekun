@@ -146,5 +146,6 @@ export default defineComponent({
   }
 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  // box-shadow: 0 2px 4px rgb(0, 0, 0, 50%), 0 0 6px rgb(0, 0, 0, 50%);
 }
 </style>

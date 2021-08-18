@@ -1,8 +1,12 @@
 <template>
   <li class="chat-message" :class="type">
-    <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="24"> </a-avatar>
-    <span class="nickname h-font" :style="{ color: customStyle.nicknameColor }">{{ nickname }}</span>
-    <span class="message h-font" :style="{ color: customStyle.messageColor }">{{ messageX }}</span>
+    <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="fontSize + 8"> </a-avatar>
+    <span class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: fontSize + 'px' }">
+      {{ nickname }}
+    </span>
+    <span class="message h-font" :style="{ color: customStyle.messageColor, fontSize: fontSize + 'px' }">{{
+      messageX
+    }}</span>
   </li>
 </template>
 
@@ -31,11 +35,16 @@ export default defineComponent({
     customStyle: {
       default: () => {
         return {
-          nicknameColor: '#ccc',
-          messageColor: '#fff'
+          nicknameColor: '#ddf5a8',
+          messageColor: '#fff',
+          fontSize: 16
         }
       },
-      type: Object as PropType<{ nicknameColor?: string; messageColor?: string }>
+      type: Object as PropType<{ nicknameColor?: string; messageColor?: string; fontSize?: number }>
+    },
+    fontSize: {
+      type: Number,
+      default: 16
     }
   },
   setup(props) {
@@ -62,7 +71,7 @@ export default defineComponent({
   }
 
   span.nickname {
-    margin-left: 6px;
+    margin-left: 8px;
     margin-right: 6px;
     color: #ccc;
   }

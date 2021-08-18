@@ -39,9 +39,18 @@
       </a-tab-pane>
       <a-tab-pane :key="3" tab="聊天消息">
         <div class="options-panel">
+          <p>聊天框文字大小。</p>
+          <a-slider
+            :min="12"
+            :max="32"
+            v-model:value="store.state.config.chatMessage.style.fontSize"
+            style="width: 280px"
+            :marks="{ 12: '小', 32: '大' }"
+          />
+          <a-divider />
           <p>控制一些聊天消息的显示和隐藏。</p>
           <a-checkbox v-model:checked="store.state.config.chatMessage.show.join">进入直播间</a-checkbox>
-          <a-checkbox v-model:checked="store.state.config.chatMessage.show.follow">用户关注</a-checkbox>
+          <a-checkbox v-model:checked="store.state.config.chatMessage.show.follow" disabled>用户关注</a-checkbox>
           <a-checkbox v-model:checked="store.state.config.chatMessage.show.gift" disabled>赠送礼物</a-checkbox>
         </div>
       </a-tab-pane>

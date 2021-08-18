@@ -7,6 +7,7 @@
       :nickname="item.nickname"
       :message="item.message"
       :custom-style="item.customStyle"
+      :font-size="fontSize"
     >
     </ChatMessage>
   </ul>
@@ -25,6 +26,7 @@ interface IChatMessageItem {
   customStyle?: {
     nicknameColor?: string
     messageColor?: string
+    fontSize?: number
   }
   [propName: string]: unknown
 }
@@ -45,6 +47,10 @@ export default defineComponent({
     smoothScrollInterval: {
       type: Number,
       default: 250
+    },
+    fontSize: {
+      type: Number,
+      default: 16
     }
   },
   setup(props) {

@@ -2,14 +2,18 @@
   <div class="test-page">
     <GiftCapsulePanel ref="GiftCapsulePanelRef" :maximum="5" style="margin-bottom: 1rem;"></GiftCapsulePanel>
 
-    <ChatMessageList ref="ChatMessageListRef" style="width: 300px; height: 372px;"> </ChatMessageList>
+    <ChatMessageList ref="ChatMessageListRef" :font-size="chatMessageListFontSize" style="width: 400px; height: 400px;">
+    </ChatMessageList>
 
     <GiftCardPanel ref="GiftCardPanelRef" :list="giftCardList" style="width: 300px; height: 340px;"> </GiftCardPanel>
 
     <div class="toolbar clearfix">
-      <a-button type="primary" @click="addGiftCapsule">addGiftCapsule</a-button>
-      <a-button type="primary" @click="addChatMessage" style="margin-left: 8px;">addChatMessage</a-button>
-      <a-button type="primary" @click="addGiftCard" style="margin-left: 8px;">addGiftCard</a-button>
+      <a-space :size="10">
+        <a-button type="primary" @click="addGiftCapsule">addGiftCapsule</a-button>
+        <a-button type="primary" @click="addChatMessage">addChatMessage</a-button>
+        <a-button type="primary" @click="addGiftCard">addGiftCard</a-button>
+      </a-space>
+      <a-slider :min="12" :max="64" v-model:value="chatMessageListFontSize" />
     </div>
   </div>
 </template>
@@ -192,6 +196,8 @@ export default defineComponent({
     const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
     const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
 
+    const chatMessageListFontSize = ref(16)
+
     const addGiftCapsule = () => {
       GiftCapsulePanelRef.value?.add({
         ...giftCapsuleListArray[randomNum(0, 4)],
@@ -257,7 +263,8 @@ export default defineComponent({
       GiftCardPanelRef,
       addGiftCapsule,
       addChatMessage,
-      addGiftCard
+      addGiftCard,
+      chatMessageListFontSize
     }
   }
 })
