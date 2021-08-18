@@ -52,7 +52,7 @@ export default defineComponent({
     },
     duration: {
       type: Array as PropType<number[]>,
-      default: () => [60 * 1000, 300 * 1000, 600 * 1000]
+      default: () => [5, 15, 30]
     }
   },
   setup(props) {
@@ -66,8 +66,8 @@ export default defineComponent({
       // 已存在则累计金额并刷新持续时间
       if (index > -1) {
         listItem.value[index].money += item.money
-        listItem.value[index].duration = props.duration[getLevel(listItem.value[index].money)]
-        listItem.value[index].timing = props.duration[getLevel(listItem.value[index].money)]
+        listItem.value[index].duration = props.duration[getLevel(listItem.value[index].money)] * 60 * 1000
+        listItem.value[index].timing = props.duration[getLevel(listItem.value[index].money)] * 60 * 1000
         return
       }
 
@@ -83,7 +83,7 @@ export default defineComponent({
       listItem.value.push({
         ...item,
         percentage: 100.0,
-        timing: props.duration[getLevel(item.money)]
+        timing: props.duration[getLevel(item.money)] * 60 * 1000
       })
 
       const timer = {

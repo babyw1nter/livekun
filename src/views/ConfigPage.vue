@@ -10,11 +10,11 @@
             <a-input-number :min="0" v-model:value="store.state.config.giftCapsule.level[2]" />
           </a-space>
           <a-divider />
-          <p>礼物胶囊的持续时间。从左到右依次对应三个档位的金额。</p>
+          <p>礼物胶囊的持续时间（分钟）。从左到右依次对应三个档位的金额的礼物胶囊的持续时间。</p>
           <a-space :size="10">
-            <a-input-number :min="1000" :step="1000" v-model:value="store.state.config.giftCapsule.duration[0]" />
-            <a-input-number :min="1000" :step="1000" v-model:value="store.state.config.giftCapsule.duration[1]" />
-            <a-input-number :min="1000" :step="1000" v-model:value="store.state.config.giftCapsule.duration[2]" />
+            <a-input-number :min="0" v-model:value="store.state.config.giftCapsule.duration[0]" />
+            <a-input-number :min="0" v-model:value="store.state.config.giftCapsule.duration[1]" />
+            <a-input-number :min="0" v-model:value="store.state.config.giftCapsule.duration[2]" />
           </a-space>
           <a-divider />
           <p>礼物胶囊最低金额。低于此金额时不显示。</p>

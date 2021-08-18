@@ -44,7 +44,7 @@ export const defaultStatus: IStatus = {
 export const defaultConfig: IConfig = {
   giftCapsule: {
     level: [1, 200, 500],
-    duration: [60 * 1000, 300 * 1000, 600 * 1000],
+    duration: [5, 15, 30],
     maximum: 10,
     minMoney: 0.01
   },
