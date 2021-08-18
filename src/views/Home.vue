@@ -16,9 +16,14 @@
     />
     <div class="join-input-wrap" style="margin-top: 1rem">
       <a-space :size="10">
-        <a-input v-model:value="liveIdInputValue" placeholder="请输入直播间ID" :disabled="isLoading" allowClear />
-        <a-button @click="joinRoom" type="primary" :loading="isLoading">进入</a-button>
-        <a-button @click="reset" danger>重置</a-button>
+        <a-input
+          v-model:value="liveIdInputValue"
+          placeholder="请输入直播间ID"
+          :disabled="isLoading || isReseting"
+          allowClear
+        />
+        <a-button @click="joinRoom" type="primary" :loading="isLoading" :disabled="isReseting">进入</a-button>
+        <a-button @click="reset" danger :loading="isReseting">重置</a-button>
       </a-space>
     </div>
     <a-typography-paragraph style="margin-top: 1rem">
@@ -55,6 +60,7 @@ export default defineComponent({
     const store = useStore(key)
     const liveIdInputValue = ref(348449290)
     const isLoading = ref(false)
+    const isReseting = ref(false)
 
     const joinRoom = () => {
       if (liveIdInputValue.value) {
@@ -86,6 +92,7 @@ export default defineComponent({
     }
 
     const reset = () => {
+      isReseting.value = true
       axios
         .post(host + '/leave')
         .then(res => {
@@ -96,6 +103,7 @@ export default defineComponent({
         })
         .finally(() => {
           store.commit('resetStatus')
+          isReseting.value = false
         })
     }
 
@@ -104,6 +112,7 @@ export default defineComponent({
       liveIdInputValue,
       joinRoom,
       isLoading,
+      isReseting,
       reset,
       host
     }
