@@ -107,6 +107,7 @@ export default createStore<State>({
           const responseData = res.data as IResponse
           const remoteStatus = responseData.data as IStatus
           context.commit('updateStatus', remoteStatus)
+          console.log('请求远程状态成功', remoteStatus)
         })
         .catch((reason: Error) => {
           message.error('请求远程状态失败：' + reason.message)
@@ -120,6 +121,7 @@ export default createStore<State>({
           const responseData = res.data as IResponse
           const remoteConfig = responseData.data as IConfig
           context.commit('update', remoteConfig)
+          console.log('请求远程配置成功', remoteConfig)
         })
         .catch((reason: Error) => {
           message.error('请求远程配置失败：' + reason.message)
@@ -133,6 +135,7 @@ export default createStore<State>({
           const responseData = res.data as IResponse
           const remoteConfig = responseData.data as IConfig
           context.commit('update', remoteConfig)
+          console.log('保存远程配置成功', remoteConfig)
           message.success('配置已保存！')
         })
         .catch((reason: Error) => {
