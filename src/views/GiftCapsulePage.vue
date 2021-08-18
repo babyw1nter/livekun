@@ -21,21 +21,36 @@ export default defineComponent({
   setup() {
     const store = useStore(key)
     const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
-    const giftCapsulePanelSocket = ref<WebSocket>()
 
-    const createSocket = () => {
-      giftCapsulePanelSocket.value = new WebSocket('ws://localhost:39073/', 'gift-capsule')
+    const createSocket = (cb: (ev: MessageEvent) => void) => {
+      console.log('chatMessageSocket 正在创建连接...')
+      const websocket = new WebSocket('ws://localhost:39073/', 'gift-capsule')
 
-      giftCapsulePanelSocket.value?.addEventListener('open', () => {
+      websocket.addEventListener('open', () => {
         console.info('giftCapsulePanelSocket 连接成功!')
+        store.dispatch('getRemoteConfig')
       })
-      giftCapsulePanelSocket.value?.addEventListener('error', () => {
+      websocket.addEventListener('error', () => {
         console.error('giftCapsulePanelSocket 连接错误!')
       })
-      giftCapsulePanelSocket.value?.addEventListener('close', () => {
+      websocket.addEventListener('close', () => {
         console.info('giftCapsulePanelSocket 连接关闭!')
+        console.log('giftCapsulePanelSocket 将于 5 秒后尝试重新创建连接...')
+        if (websocket.readyState !== WebSocket.OPEN || websocket.readyState !== WebSocket.CONNECTING) {
+          window.setTimeout(() => createSocket(cb), 5000)
+        }
       })
-      giftCapsulePanelSocket.value?.addEventListener('message', ev => {
+      websocket.addEventListener('message', ev => cb(ev))
+    }
+
+    onMounted(() => {
+      createSocket(ev => {
+        interface IMessage<T> {
+          code: number
+          type: string
+          data: T
+        }
+
         interface ISocketGiftCapsule {
           avatarUrl: string
           nickname: string
@@ -45,19 +60,22 @@ export default defineComponent({
           giftCount: number
         }
 
-        const socketGiftCapsule: ISocketGiftCapsule = JSON.parse(ev.data)
+        const socketMessage = JSON.parse(ev.data) as IMessage<ISocketGiftCapsule>
 
-        console.info('[gift-capsule]', socketGiftCapsule)
+        console.info('[gift-capsule]', socketMessage)
 
-        GiftCapsulePanelRef.value?.add({
-          ...socketGiftCapsule,
-          duration: 1
-        })
+        switch (socketMessage.type) {
+          case 'update-config':
+            store.dispatch('getRemoteConfig')
+            break
+          case 'data':
+            GiftCapsulePanelRef.value?.add({
+              ...socketMessage.data,
+              duration: 1
+            })
+            break
+        }
       })
-    }
-
-    onMounted(() => {
-      createSocket()
     })
 
     return { store, GiftCapsulePanelRef }

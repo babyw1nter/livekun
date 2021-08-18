@@ -15,21 +15,36 @@ export default defineComponent({
   setup() {
     const store = useStore(key)
     const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
-    const chatMessageSocket = ref<WebSocket>()
 
-    const createSocket = () => {
-      chatMessageSocket.value = new WebSocket('ws://localhost:39073/', 'chat-message')
+    const createSocket = (cb: (ev: MessageEvent) => void) => {
+      console.log('chatMessageSocket 正在创建连接...')
+      const websocket = new WebSocket('ws://localhost:39073/', 'chat-message')
 
-      chatMessageSocket.value?.addEventListener('open', () => {
-        console.info('chatMessageSocket 连接成功!')
+      websocket.addEventListener('open', () => {
+        console.log('chatMessageSocket 连接成功!')
+        store.dispatch('getRemoteConfig')
       })
-      chatMessageSocket.value?.addEventListener('error', () => {
+      websocket.addEventListener('error', () => {
         console.error('chatMessageSocket 连接错误!')
       })
-      chatMessageSocket.value?.addEventListener('close', () => {
-        console.info('chatMessageSocket 连接关闭!')
+      websocket.addEventListener('close', () => {
+        console.warn('chatMessageSocket 连接关闭!')
+        console.log('chatMessageSocket 将于 5 秒后尝试重新创建连接...')
+        if (websocket.readyState !== WebSocket.OPEN || websocket.readyState !== WebSocket.CONNECTING) {
+          window.setTimeout(() => createSocket(cb), 5000)
+        }
       })
-      chatMessageSocket.value?.addEventListener('message', ev => {
+      websocket.addEventListener('message', ev => cb(ev))
+    }
+
+    onMounted(() => {
+      createSocket(ev => {
+        interface IMessage<T> {
+          code: number
+          type: string
+          data: T
+        }
+
         interface ISocketChatMsg {
           avatarUrl: string
           nickname: string
@@ -37,18 +52,21 @@ export default defineComponent({
           uid: number
         }
 
-        const socketChatMsg = JSON.parse(ev.data) as ISocketChatMsg
+        const socketMessage = JSON.parse(ev.data) as IMessage<ISocketChatMsg>
 
-        console.info('[chat-message]', socketChatMsg)
+        console.info('[chat-message]', socketMessage)
 
-        ChatMessageListRef.value?.add({
-          ...socketChatMsg
-        })
+        switch (socketMessage.type) {
+          case 'update-config':
+            store.dispatch('getRemoteConfig')
+            break
+          case 'data':
+            ChatMessageListRef.value?.add({
+              ...socketMessage.data
+            })
+            break
+        }
       })
-    }
-
-    onMounted(() => {
-      createSocket()
     })
 
     return { store, ChatMessageListRef }

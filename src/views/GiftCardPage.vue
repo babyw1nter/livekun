@@ -19,21 +19,35 @@ export default defineComponent({
   setup() {
     const store = useStore(key)
     const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
-    const GiftCardPanelSocket = ref<WebSocket>()
 
-    const createSocket = () => {
-      GiftCardPanelSocket.value = new WebSocket('ws://localhost:39073/', 'gift-card')
+    const createSocket = (cb: (ev: MessageEvent) => void) => {
+      const websocket = new WebSocket('ws://localhost:39073/', 'gift-card')
 
-      GiftCardPanelSocket.value?.addEventListener('open', () => {
+      websocket.addEventListener('open', () => {
         console.info('GiftCardPanelSocket 连接成功!')
+        store.dispatch('getRemoteConfig')
       })
-      GiftCardPanelSocket.value?.addEventListener('error', () => {
+      websocket.addEventListener('error', () => {
         console.error('GiftCardPanelSocket 连接错误!')
       })
-      GiftCardPanelSocket.value?.addEventListener('close', () => {
+      websocket.addEventListener('close', () => {
         console.info('GiftCardPanelSocket 连接关闭!')
+        console.log('giftCapsulePanelSocket 将于 5 秒后尝试重新创建连接...')
+        if (websocket.readyState !== WebSocket.OPEN || websocket.readyState !== WebSocket.CONNECTING) {
+          window.setTimeout(() => createSocket(cb), 5000)
+        }
       })
-      GiftCardPanelSocket.value?.addEventListener('message', ev => {
+      websocket.addEventListener('message', ev => cb(ev))
+    }
+
+    onMounted(() => {
+      createSocket(ev => {
+        interface IMessage<T> {
+          code: number
+          type: string
+          data: T
+        }
+
         interface ISocketGiftCard {
           avatarUrl: string
           nickname: string
@@ -41,21 +55,17 @@ export default defineComponent({
           money: number
           giftName: string
           giftCount: number
+          message: string
         }
 
-        const socketGiftCard = JSON.parse(ev.data) as ISocketGiftCard
+        const socketMessage = JSON.parse(ev.data) as IMessage<ISocketGiftCard>
 
-        console.info('[gift-card]', socketGiftCard)
+        console.info('[gift-card]', socketMessage)
 
         GiftCardPanelRef.value?.add({
-          ...socketGiftCard,
-          message: `赠送了${socketGiftCard.giftName} × ${socketGiftCard.giftCount}`
+          ...socketMessage.data
         })
       })
-    }
-
-    onMounted(() => {
-      createSocket()
     })
 
     return { store, GiftCardPanelRef }
