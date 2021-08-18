@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <a-alert message="谨以此作品献给我的好朋友——奶铃！" type="warning" showIcon>
+    <a-alert message="谨以此作品献给我的好朋友——奶玲！" type="warning" showIcon>
       <template #icon><smile-outlined /></template>
     </a-alert>
     <a-alert
