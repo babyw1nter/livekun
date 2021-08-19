@@ -86,10 +86,10 @@ export default defineComponent({
     height: 60px;
     .p-wrap {
       margin-top: 7px;
+      margin-left: 55px;
     }
     p {
       color: #fff !important;
-      margin-left: 50px;
       font-size: 18px;
     }
   }
