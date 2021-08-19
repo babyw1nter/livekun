@@ -49,7 +49,7 @@ const giftCapsuleListArray = [
     uid: 444
   },
   {
-    nickname: 'CC奶灵',
+    nickname: 'CC奶玲',
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     money: 69,
     uid: 6900
@@ -82,26 +82,26 @@ const chatMessageListArray = [
   {
     nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
     avatarUrl: 'https://img0.baidu.com/it/u=1355519613,4273607392&fm=26&fmt=auto&gp=0.jpg',
-    message: '人生的意义就是为了奶铃的白丝(╯‵□′)╯︵┻━┻',
+    message: '人生的意义就是为了奶玲的白丝(╯‵□′)╯︵┻━┻',
     uid: 3333,
     type: 3
   },
   {
     nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
     avatarUrl: 'https://img0.baidu.com/it/u=1355519613,4273607392&fm=26&fmt=auto&gp=0.jpg',
-    message: '😝如果没有奶铃的白丝，世界就失去了色彩😿😿😿😿？？！',
+    message: '😝如果没有奶玲的白丝，世界就失去了色彩😿😿😿😿？？！',
     uid: 3333,
     type: 3
   },
   {
     nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
     avatarUrl: 'https://img0.baidu.com/it/u=1355519613,4273607392&fm=26&fmt=auto&gp=0.jpg',
-    message: '所以我希望每天能看到奶铃穿白丝直播，这样我会非常满足！',
+    message: '所以我希望每天能看到奶玲穿白丝直播，这样我会非常满足！',
     uid: 3333,
     type: 3
   },
   {
-    nickname: 'CC奶灵',
+    nickname: 'CC奶玲',
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     message: '。。。滚！！~',
     uid: 66690,
@@ -111,7 +111,7 @@ const chatMessageListArray = [
     type: 1
   },
   {
-    nickname: 'CC奶灵',
+    nickname: 'CC奶玲',
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     message: '😡😡😡',
     uid: 66690,
@@ -123,7 +123,7 @@ const chatMessageListArray = [
   {
     nickname: '91王先生',
     avatarUrl: 'https://img0.baidu.com/it/u=1536857165,2921056634&fm=26&fmt=auto&gp=0.jpg',
-    message: '今晚奶铃在我怀里',
+    message: '今晚奶玲在我怀里',
     uid: 3312,
     type: 0
   },
@@ -137,7 +137,7 @@ const chatMessageListArray = [
   {
     nickname: 'Pornhub大波妹',
     avatarUrl: 'https://img2.baidu.com/it/u=222120700,1745793916&fm=26&fmt=auto&gp=0.jpg',
-    message: '我爱奶铃一生一世',
+    message: '我爱奶玲一生一世',
     uid: 91330,
     type: 0
   }
@@ -152,7 +152,7 @@ const giftCardListArray = [
     uid: 91330
   },
   {
-    nickname: 'CC奶灵',
+    nickname: 'CC奶玲',
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     money: 69,
     message: '赠送了火箭 × 1',
