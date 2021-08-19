@@ -3,6 +3,8 @@
     <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="fontSize + 8"> </a-avatar>
     <span class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: fontSize + 'px' }">
       {{ nickname }}
+      <CustomerServiceFilled style="margin-left: -2px" v-if="type === 'anchor'" />
+      <ToolFilled style="margin-left: -2px" v-if="type === 'admin'" />
     </span>
     <span class="message h-font" :style="{ color: customStyle.messageColor, fontSize: fontSize + 'px' }">{{
       messageX
@@ -12,13 +14,18 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
+import { ToolFilled, StarFilled, CustomerServiceFilled } from '@ant-design/icons-vue'
 
 export default defineComponent({
   name: 'ChatMessage',
+  components: {
+    ToolFilled,
+    CustomerServiceFilled
+  },
   props: {
     type: {
-      default: 'level-0',
-      type: String
+      default: 'normal',
+      type: String as PropType<'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string>
     },
     avatarUrl: {
       default: '',
@@ -35,8 +42,8 @@ export default defineComponent({
     customStyle: {
       default: () => {
         return {
-          nicknameColor: '#ddf5a8',
-          messageColor: '#fff',
+          nicknameColor: null,
+          messageColor: null,
           fontSize: 16
         }
       },
@@ -76,6 +83,28 @@ export default defineComponent({
     color: #ccc;
   }
 
+  span.message {
+    color: #fff;
+  }
+
+  &.normal {
+    span.nickname {
+      color: #ddf5a8;
+    }
+  }
+
+  &.admin {
+    span.nickname {
+      color: rgb(111, 208, 255);
+    }
+  }
+
+  &.anchor {
+    span.nickname {
+      color: #ff7575;
+    }
+  }
+
   &.guard-monthly {
     span.nickname {
       color: #9480b9;
@@ -86,10 +115,6 @@ export default defineComponent({
     span.nickname {
       color: #ffbc6a;
     }
-  }
-
-  span.message {
-    color: #fff;
   }
 }
 </style>

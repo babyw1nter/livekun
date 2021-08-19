@@ -76,70 +76,64 @@ const chatMessageListArray = [
       'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp3.itc.cn%2Fq_70%2Fimages03%2F20201204%2F94e9c0568b6b40d28b2111ea9b2f8062.jpeg&refer=http%3A%2F%2Fp3.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1631209669&t=b071b5f523fe602514c220bf892c65cd',
     message:
       '谁能告诉我现在是什么情况？谁能告诉我现在是什么情况？啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我是谁我在哪？',
-    uid: 6696,
-    type: 0
+    uid: 6696
   },
   {
     nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
     avatarUrl: 'https://img0.baidu.com/it/u=1355519613,4273607392&fm=26&fmt=auto&gp=0.jpg',
     message: '人生的意义就是为了奶玲的白丝(╯‵□′)╯︵┻━┻',
-    uid: 3333,
-    type: 3
+    uid: 3333
   },
   {
     nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
     avatarUrl: 'https://img0.baidu.com/it/u=1355519613,4273607392&fm=26&fmt=auto&gp=0.jpg',
     message: '😝如果没有奶玲的白丝，世界就失去了色彩😿😿😿😿？？！',
-    uid: 3333,
-    type: 3
+    uid: 3333
   },
   {
     nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
     avatarUrl: 'https://img0.baidu.com/it/u=1355519613,4273607392&fm=26&fmt=auto&gp=0.jpg',
     message: '所以我希望每天能看到奶玲穿白丝直播，这样我会非常满足！',
-    uid: 3333,
-    type: 3
+    uid: 3333
   },
   {
     nickname: 'CC奶玲',
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     message: '。。。滚！！~',
     uid: 66690,
-    customStyle: {
-      nicknameColor: 'rgb(255 132 132)'
-    },
-    type: 1
+    // customStyle: {
+    //   nicknameColor: 'rgb(255 132 132)'
+    // },
+    type: 'anchor'
   },
   {
     nickname: 'CC奶玲',
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     message: '😡😡😡',
     uid: 66690,
-    customStyle: {
-      nicknameColor: 'rgb(255 132 132)'
-    },
-    type: 1
+    // customStyle: {
+    //   nicknameColor: 'rgb(255 132 132)'
+    // },
+    type: 'anchor'
   },
   {
     nickname: '91王先生',
     avatarUrl: 'https://img0.baidu.com/it/u=1536857165,2921056634&fm=26&fmt=auto&gp=0.jpg',
     message: '今晚奶玲在我怀里',
     uid: 3312,
-    type: 0
+    type: 'admin'
   },
   {
     nickname: 'Pornhub大波妹',
     avatarUrl: 'https://img2.baidu.com/it/u=222120700,1745793916&fm=26&fmt=auto&gp=0.jpg',
     message: '哈哈',
-    uid: 91330,
-    type: 0
+    uid: 91330
   },
   {
     nickname: 'Pornhub大波妹',
     avatarUrl: 'https://img2.baidu.com/it/u=222120700,1745793916&fm=26&fmt=auto&gp=0.jpg',
     message: '我爱奶玲一生一世',
-    uid: 91330,
-    type: 0
+    uid: 91330
   }
 ]
 

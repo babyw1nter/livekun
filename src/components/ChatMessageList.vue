@@ -8,6 +8,7 @@
       :message="item.message"
       :custom-style="item.customStyle"
       :font-size="fontSize"
+      :type="item.type"
     >
     </ChatMessage>
   </ul>
@@ -18,7 +19,7 @@ import { defineComponent, ref, PropType, watch, nextTick } from 'vue'
 import ChatMessage from '@/components/AtomicComponents/ChatMessage.vue'
 
 interface IChatMessageItem {
-  type?: number
+  type?: 'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string
   avatarUrl: string
   nickname: string
   message: string

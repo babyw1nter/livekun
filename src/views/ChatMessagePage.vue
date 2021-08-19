@@ -55,6 +55,7 @@ export default defineComponent({
           nickname: string
           message: string
           uid: number
+          type: string
         }
 
         const socketMessage = JSON.parse(ev.data) as IMessage<ISocketChatMsg>
