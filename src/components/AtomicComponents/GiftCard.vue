@@ -1,7 +1,7 @@
 <template>
   <li class="gift-card no-select" :class="type">
     <div class="card-body">
-      <a-avatar class="card-avatar" :src="avatarUrl"> </a-avatar>
+      <a-avatar class="card-avatar" :src="avatarUrl" :size="38"> </a-avatar>
       <div class="p-wrap">
         <p class="nickname h-font" style="margin-bottom: 1px;">{{ nickname }}</p>
         <p class="money h-font">{{ profile || `CNY￥${moneyText}` }}</p>
@@ -68,8 +68,8 @@ export default defineComponent({
 
   .card-avatar {
     position: absolute;
-    top: 14px;
-    left: 14px;
+    top: 11px;
+    left: 10px;
   }
 
   .card-body,
@@ -78,30 +78,36 @@ export default defineComponent({
     width: 100%;
     p {
       margin-bottom: 0;
-      line-height: 1rem;
+      line-height: 18px;
       color: #fff;
     }
   }
   .card-body {
     height: 60px;
     .p-wrap {
-      margin-top: 10px;
+      margin-top: 7px;
     }
     p {
+      color: #fff !important;
       margin-left: 50px;
+      font-size: 18px;
     }
   }
   .card-footer {
     height: 40px;
-    p {
-      margin-top: 8px;
-      margin-left: 12px;
+    p.message {
+      font-size: 18px;
+      line-height: 31px;
+      margin-left: 8px;
     }
   }
 
   &.level-0 {
     .card-body {
       background: #1ebea5;
+      p.nickname {
+        color: #32e8b7;
+      }
     }
 
     .card-footer {
@@ -112,6 +118,9 @@ export default defineComponent({
   &.level-1 {
     .card-body {
       background: #1db1db;
+      p.nickname {
+        color: #25d5fd;
+      }
     }
     .card-footer {
       background: #25d5fd;
@@ -121,6 +130,9 @@ export default defineComponent({
   &.level-2 {
     .card-body {
       background: #d43667;
+      p.nickname {
+        color: #f74170;
+      }
     }
     .card-footer {
       background: #f74170;
@@ -130,6 +142,9 @@ export default defineComponent({
   &.guard-monthly {
     .card-body {
       background: #573594;
+      p.nickname {
+        color: #9480b9;
+      }
     }
     .card-footer {
       background: #9480b9;
@@ -139,6 +154,9 @@ export default defineComponent({
   &.guard-annual {
     .card-body {
       background: #ff9800;
+      p.nickname {
+        color: #ffbc6a;
+      }
     }
     .card-footer {
       background: #ffbc6a;
