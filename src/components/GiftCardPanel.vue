@@ -3,7 +3,7 @@
     <GiftCard
       v-for="(item, index) in giftCardCache"
       :key="index"
-      :type="item.type || `level-${getLevel(item.money)}`"
+      :type="item.type || `level-${getLevel(item.money, level)}`"
       :avatar-url="item.avatarUrl"
       :nickname="item.nickname"
       :money="item.money"
@@ -15,6 +15,7 @@
 <script lang="ts">
 import { defineComponent, PropType, watch, ref, nextTick } from 'vue'
 import GiftCard from '@/components/AtomicComponents/GiftCard.vue'
+import { getLevel } from '@/api/common'
 
 interface IGiftCardListItem {
   avatarUrl: string
@@ -63,21 +64,10 @@ export default defineComponent({
     })
 
     const add = (item: IGiftCardListItem) => {
+      if (!item.uid) return
+
       giftCardCache.value.push(item)
     }
-
-    const getLevel = (money: number) => {
-      if (money > props.level[0] - 1 && money < props.level[1]) {
-        return 0
-      } else if (money > props.level[1] - 1 && money < props.level[2]) {
-        return 1
-      } else if (money > props.level[2] - 1) {
-        return 2
-      } else {
-        return 0
-      }
-    }
-
     return { GiftCardPanelRef, giftCardCache, add, getLevel }
   }
 })

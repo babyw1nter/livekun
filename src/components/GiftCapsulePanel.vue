@@ -3,7 +3,7 @@
     <GiftCapsule
       v-for="item in giftCapsuleListItem"
       :key="item.uid"
-      :type="`level-${getLevel(item.money)}`"
+      :type="`level-${getLevel(item.money, level)}`"
       :avatar-url="item.avatarUrl"
       :money="item.money"
       :percentage="item.percentage"
@@ -15,6 +15,7 @@
 <script lang="ts">
 import { defineComponent, PropType, watch, ref, nextTick } from 'vue'
 import GiftCapsule from '@/components/AtomicComponents/GiftCapsule.vue'
+import { getLevel } from '@/api/common'
 
 interface IGiftCapsulegiftCapsuleListItem {
   avatarUrl: string
@@ -60,16 +61,18 @@ export default defineComponent({
     const timerCache: TimerCache[] = []
 
     const add = (item: IGiftCapsulegiftCapsuleListItem) => {
+      if (!item.uid) return
+
       const index = giftCapsuleListItem.value.findIndex(i => i.uid === item.uid)
-      item.duration = props.duration[getLevel(item.money)] * 60 * 1000
+      item.duration = props.duration[getLevel(item.money, props.level)] * 60 * 1000
 
       // 已存在则累计金额并刷新持续时间
       if (index > -1) {
         giftCapsuleListItem.value[index].money += item.money
         giftCapsuleListItem.value[index].duration =
-          props.duration[getLevel(giftCapsuleListItem.value[index].money)] * 60 * 1000
+          props.duration[getLevel(giftCapsuleListItem.value[index].money, props.level)] * 60 * 1000
         giftCapsuleListItem.value[index].timing =
-          props.duration[getLevel(giftCapsuleListItem.value[index].money)] * 60 * 1000
+          props.duration[getLevel(giftCapsuleListItem.value[index].money, props.level)] * 60 * 1000
         return
       }
 
@@ -86,7 +89,7 @@ export default defineComponent({
       giftCapsuleListItem.value.push({
         ...item,
         percentage: 100.0,
-        timing: props.duration[getLevel(item.money)] * 60 * 1000
+        timing: props.duration[getLevel(item.money, props.level)] * 60 * 1000
       })
 
       const timer = {
@@ -132,18 +135,6 @@ export default defineComponent({
     }
 
     watch(giftCapsuleListItem.value, () => giftCapsuleListItem.value.sort((a, b) => b.money - a.money), { deep: true })
-
-    const getLevel = (money: number) => {
-      if (money > props.level[0] - 1 && money < props.level[1]) {
-        return 0
-      } else if (money > props.level[1] - 1 && money < props.level[2]) {
-        return 1
-      } else if (money > props.level[2] - 1) {
-        return 2
-      } else {
-        return 0
-      }
-    }
 
     return { giftCapsuleListItem, getLevel, add, del }
   }
