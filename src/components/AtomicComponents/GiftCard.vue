@@ -1,7 +1,7 @@
 <template>
   <li class="gift-card no-select" :class="type">
     <div class="card-body">
-      <a-avatar class="card-avatar" :src="avatarUrl" :size="38"> </a-avatar>
+      <a-avatar class="card-avatar" :src="avatarUrl"> </a-avatar>
       <div class="p-wrap">
         <p class="nickname h-font" style="margin-bottom: 1px;">{{ nickname }}</p>
         <p class="money h-font">{{ profile || `CNY￥${moneyText}` }}</p>
@@ -68,8 +68,8 @@ export default defineComponent({
 
   .card-avatar {
     position: absolute;
-    top: 11px;
-    left: 10px;
+    top: 14px;
+    left: 14px;
   }
 
   .card-body,
@@ -78,25 +78,25 @@ export default defineComponent({
     width: 100%;
     p {
       margin-bottom: 0;
-      line-height: 18px;
+      line-height: 1rem;
       color: #fff;
     }
   }
   .card-body {
     height: 60px;
     .p-wrap {
-      margin-top: 7px;
+      margin-top: 10px;
       margin-left: 55px;
     }
     p {
       color: #fff !important;
-      font-size: 18px;
+      font-size: 1rem;
     }
   }
   .card-footer {
     height: 40px;
     p.message {
-      font-size: 18px;
+      font-size: 1rem;
       line-height: 31px;
       margin-left: 8px;
     }
