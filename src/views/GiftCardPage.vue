@@ -11,6 +11,7 @@ import { defineComponent, onBeforeMount, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import GiftCardPanel from '@/components/GiftCardPanel.vue'
+import { IMessage, ISocketCustomData } from '@/types/socket'
 
 export default defineComponent({
   components: {
@@ -42,16 +43,7 @@ export default defineComponent({
 
     onMounted(() => {
       createSocket(ev => {
-        interface IMessage<T> {
-          code: number
-          type: string
-          data: T
-        }
-
-        interface ISocketGiftCard {
-          avatarUrl: string
-          nickname: string
-          uid: number
+        interface ISocketGiftCard extends ISocketCustomData {
           money: number
           giftName: string
           giftCount: number

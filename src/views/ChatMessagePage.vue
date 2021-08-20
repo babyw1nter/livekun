@@ -12,6 +12,7 @@ import { defineComponent, onBeforeMount, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import ChatMessageList from '@/components/ChatMessageList.vue'
+import { IMessage, ISocketCustomData } from '@/types/socket'
 
 export default defineComponent({
   components: {
@@ -44,17 +45,8 @@ export default defineComponent({
 
     onMounted(() => {
       createSocket(ev => {
-        interface IMessage<T> {
-          code: number
-          type: string
-          data: T
-        }
-
-        interface ISocketChatMsg {
-          avatarUrl: string
-          nickname: string
+        interface ISocketChatMsg extends ISocketCustomData {
           message: string
-          uid: number
           type: string
         }
 

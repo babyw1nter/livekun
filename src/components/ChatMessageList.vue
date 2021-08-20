@@ -21,9 +21,9 @@ import ChatMessage from '@/components/AtomicComponents/ChatMessage.vue'
 interface IChatMessageItem {
   avatarUrl: string
   nickname: string
+  uid: number | string
   type?: 'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string
   message: string
-  uid: number
   customStyle?: {
     nicknameColor?: string
     messageColor?: string

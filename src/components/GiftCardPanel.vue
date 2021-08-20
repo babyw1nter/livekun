@@ -16,13 +16,15 @@
 import { defineComponent, PropType, watch, ref, nextTick } from 'vue'
 import GiftCard from '@/components/AtomicComponents/GiftCard.vue'
 
-interface IListItem {
-  type?: string
+interface IGiftCardListItem {
   avatarUrl: string
-  money: number
   nickname: string
+  uid: number | string
+  type?: string
+  money: number
   message?: string
-  uid: number
+  giftName?: string
+  giftCount?: number
   [propName: string]: unknown
 }
 
@@ -33,7 +35,7 @@ export default defineComponent({
   },
   props: {
     list: {
-      type: Array as PropType<IListItem[]>
+      type: Array as PropType<IGiftCardListItem[]>
     },
     level: {
       type: Array as PropType<number[]>,
@@ -45,7 +47,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const giftCardCache = ref<IListItem[]>([])
+    const giftCardCache = ref<IGiftCardListItem[]>([])
     const GiftCardPanelRef = ref<HTMLElement>()
 
     watch(giftCardCache.value, () => {
@@ -60,7 +62,7 @@ export default defineComponent({
       })
     })
 
-    const add = (item: IListItem) => {
+    const add = (item: IGiftCardListItem) => {
       giftCardCache.value.push(item)
     }
 
