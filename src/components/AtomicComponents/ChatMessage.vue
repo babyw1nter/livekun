@@ -3,8 +3,8 @@
     <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="fontSize + 8"> </a-avatar>
     <span class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: fontSize + 'px' }">
       {{ nickname }}
-      <CustomerServiceFilled style="margin-left: -2px" v-if="type === 'anchor'" />
-      <ToolFilled style="margin-left: -2px" v-if="type === 'admin'" />
+      <!-- <CustomerServiceFilled style="margin-left: -2px" v-if="type === 'anchor'" />
+      <ToolFilled style="margin-left: -2px" v-if="type === 'admin'" /> -->
     </span>
     <span class="message h-font" :style="{ color: customStyle.messageColor, fontSize: fontSize + 'px' }">{{
       messageX
@@ -19,8 +19,8 @@ import { ToolFilled, StarFilled, CustomerServiceFilled } from '@ant-design/icons
 export default defineComponent({
   name: 'ChatMessage',
   components: {
-    ToolFilled,
-    CustomerServiceFilled
+    // ToolFilled,
+    // CustomerServiceFilled
   },
   props: {
     type: {
