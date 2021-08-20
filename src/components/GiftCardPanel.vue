@@ -68,7 +68,16 @@ export default defineComponent({
 
       giftCardCache.value.push(item)
     }
-    return { GiftCardPanelRef, giftCardCache, add, getLevel }
+
+    const del = () => {
+      //
+    }
+
+    const clear = () => {
+      giftCardListItemCache.value.splice(0, giftCardListItemCache.value.length)
+    }
+
+    return { GiftCardPanelRef, giftCardListItemCache, add, del, clear, getLevel }
   }
 })
 </script>

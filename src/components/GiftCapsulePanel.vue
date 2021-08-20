@@ -152,7 +152,13 @@ export default defineComponent({
       deep: true
     })
 
-    return { giftCapsuleListItemCache, getLevel, add, del }
+    const clear = () => {
+      timerCache.forEach(item => window.clearInterval(item.timer))
+      timerCache.splice(0, timerCache.length)
+      giftCapsuleListItemCache.value.splice(0, giftCapsuleListItemCache.value.length)
+    }
+
+    return { giftCapsuleListItemCache, getLevel, add, del, clear }
   }
 })
 </script>

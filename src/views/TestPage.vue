@@ -13,11 +13,19 @@
     <GiftCardPanel ref="GiftCardPanelRef" :list="giftCardList" style="width: 300px; height: 340px;"> </GiftCardPanel>
 
     <div class="toolbar clearfix">
-      <a-space :size="10">
+      <a-space :size="10" style="">
         <a-button type="primary" @click="addGiftCapsule">addGiftCapsule</a-button>
         <a-button type="primary" @click="addChatMessage">addChatMessage</a-button>
         <a-button type="primary" @click="addGiftCard">addGiftCard</a-button>
       </a-space>
+      <a-divider />
+      <a-space :size="10">
+        <a-button type="primary" @click="clearGiftCapsule">clearGiftCapsule</a-button>
+        <a-button type="primary" @click="clearChatMessage">clearChatMessage</a-button>
+        <a-button type="primary" @click="clearGiftCard">clearGiftCard</a-button>
+      </a-space>
+      <a-divider />
+      <p>ChatMessageList Font Size: {{ chatMessageListFontSize }}px</p>
       <a-slider :min="12" :max="64" v-model:value="chatMessageListFontSize" />
     </div>
   </div>
@@ -52,10 +60,10 @@ const giftCapsuleListArray = [
     nickname: 'CC奶玲',
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     money: 69,
-    uid: 6900,
-    type: 'guard-annual',
-    message: '开通年费守护',
-    duration: 60000
+    uid: 6900
+    // type: 'guard-annual',
+    // message: '开通年费守护',
+    // duration: 60000
   },
   {
     nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
@@ -209,6 +217,12 @@ export default defineComponent({
       GiftCardPanelRef.value?.add(giftCardListArray[randomNum(0, giftCardListArray.length - 1)])
     }
 
+    const clearGiftCapsule = () => GiftCapsulePanelRef.value?.clear()
+
+    const clearChatMessage = () => ChatMessageListRef.value?.clear()
+
+    const clearGiftCard = () => GiftCardPanelRef.value?.clear()
+
     return {
       store,
       giftCardList,
@@ -218,6 +232,9 @@ export default defineComponent({
       addGiftCapsule,
       addChatMessage,
       addGiftCard,
+      clearGiftCapsule,
+      clearChatMessage,
+      clearGiftCard,
       chatMessageListFontSize
     }
   }

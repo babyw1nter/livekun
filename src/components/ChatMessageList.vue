@@ -81,7 +81,15 @@ export default defineComponent({
       chatMessageCache.value.push(chatMessageItem)
     }
 
-    return { chatMessageCache, ChatMessageListRef, isFast, add }
+    const del = () => {
+      //
+    }
+
+    const clear = () => {
+      chatMessageListItemCache.value.splice(0, chatMessageListItemCache.value.length)
+    }
+
+    return { ChatMessageListRef, chatMessageListItemCache, isTooQuickly, add, del, clear }
   }
 })
 </script>
