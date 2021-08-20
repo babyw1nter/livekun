@@ -54,9 +54,16 @@ export default defineComponent({
 
         console.info('[gift-card]', socketMessage)
 
-        GiftCardPanelRef.value?.add({
-          ...socketMessage.data
-        })
+        switch (socketMessage.type) {
+          case 'update-config':
+            store.dispatch('getRemoteConfig')
+            break
+          case 'data':
+            GiftCardPanelRef.value?.add({
+              ...socketMessage.data
+            })
+            break
+        }
       })
     })
 
