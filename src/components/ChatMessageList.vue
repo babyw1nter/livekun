@@ -19,9 +19,9 @@ import { defineComponent, ref, PropType, watch, nextTick } from 'vue'
 import ChatMessage from '@/components/AtomicComponents/ChatMessage.vue'
 
 interface IChatMessageItem {
-  type?: 'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string
   avatarUrl: string
   nickname: string
+  type?: 'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string
   message: string
   uid: number
   customStyle?: {
