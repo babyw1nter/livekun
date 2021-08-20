@@ -2,7 +2,7 @@
   <li class="gift-capsule no-select" :class="type">
     <span class="gift-capsule-bg" :style="{ width: `${percentage.toFixed(1)}%` }"></span>
     <a-avatar class="capsule-avatar" :src="avatarUrl" :size="27"> </a-avatar>
-    <span class="money h-font">CNY￥{{ moneyText }}</span>
+    <span class="money h-font">{{ message || 'CNY￥' + moneyText }}</span>
   </li>
 </template>
 
@@ -17,16 +17,20 @@ export default defineComponent({
       type: String
     },
     avatarUrl: {
-      default: '',
-      type: String
+      type: String,
+      default: ''
     },
     money: {
-      default: 0,
-      type: Number
+      type: Number,
+      default: 0
+    },
+    message: {
+      type: String,
+      default: ''
     },
     percentage: {
-      default: 100,
-      type: Number
+      type: Number,
+      default: 100
     }
   },
   setup(props) {
@@ -99,14 +103,14 @@ export default defineComponent({
     }
   }
 
-  &.level-3 {
+  &.guard-monthly {
     background: #573594;
     .gift-capsule-bg {
       background: #9480b9;
     }
   }
 
-  &.level-4 {
+  &.guard-annual {
     background: #ff9800;
     .gift-capsule-bg {
       background: #ffbc6a;

@@ -62,8 +62,7 @@ export default defineComponent({
             break
           case 'data':
             GiftCapsulePanelRef.value?.add({
-              ...socketMessage.data,
-              duration: 1
+              ...socketMessage.data
             })
             break
         }

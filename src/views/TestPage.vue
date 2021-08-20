@@ -52,7 +52,10 @@ const giftCapsuleListArray = [
     nickname: 'CC奶玲',
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     money: 69,
-    uid: 6900
+    uid: 6900,
+    type: 'guard-annual',
+    message: '开通年费守护',
+    duration: 60000
   },
   {
     nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
@@ -193,8 +196,8 @@ export default defineComponent({
     const addGiftCapsule = () => {
       GiftCapsulePanelRef.value?.add({
         ...giftCapsuleListArray[randomNum(0, 4)],
-        money: randomNum(1, 100),
-        duration: 10000
+        money: randomNum(1, 100)
+        // duration: 10000
       })
     }
 
