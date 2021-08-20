@@ -1,7 +1,7 @@
 <template>
-  <ul ref="ChatMessageListRef" class="chat-message-list clearfix" :class="{ 'smooth-scroll': !isFast }">
+  <ul ref="ChatMessageListRef" class="chat-message-list clearfix" :class="{ 'smooth-scroll': !isTooQuickly }">
     <ChatMessage
-      v-for="(item, index) in chatMessageCache"
+      v-for="(item, index) in chatMessageListItemCache"
       :key="index"
       :avatar-url="item.avatarUrl"
       :nickname="item.nickname"
@@ -18,7 +18,7 @@
 import { defineComponent, ref, PropType, watch, nextTick } from 'vue'
 import ChatMessage from '@/components/AtomicComponents/ChatMessage.vue'
 
-interface IChatMessageItem {
+interface IChatMessageListItem {
   avatarUrl: string
   nickname: string
   uid: number | string
@@ -39,7 +39,7 @@ export default defineComponent({
   },
   props: {
     list: {
-      type: Array as PropType<IChatMessageItem[]>
+      type: Array as PropType<IChatMessageListItem[]>
     },
     maximum: {
       type: Number,
@@ -56,11 +56,11 @@ export default defineComponent({
   },
   setup(props) {
     const ChatMessageListRef = ref<HTMLElement>()
-    const chatMessageCache = ref<IChatMessageItem[]>([])
+    const chatMessageListItemCache = ref<IChatMessageListItem[]>([])
 
-    watch(chatMessageCache.value, () => {
-      if (chatMessageCache.value.length >= props.maximum) {
-        chatMessageCache.value.splice(0, chatMessageCache.value.length - 50)
+    watch(chatMessageListItemCache.value, () => {
+      if (chatMessageListItemCache.value.length >= props.maximum) {
+        chatMessageListItemCache.value.splice(0, chatMessageListItemCache.value.length - 50)
       }
 
       nextTick(() => {
@@ -70,15 +70,15 @@ export default defineComponent({
       })
     })
 
-    const isFast = ref<boolean>(false)
+    const isTooQuickly = ref<boolean>(false)
     let interval = 0
 
-    const add = (chatMessageItem: IChatMessageItem) => {
+    const add = (chatMessageItem: IChatMessageListItem) => {
       const nowTimestamp = new Date().getTime()
-      isFast.value = nowTimestamp - interval < props.smoothScrollInterval
+      isTooQuickly.value = nowTimestamp - interval < props.smoothScrollInterval
       interval = nowTimestamp
 
-      chatMessageCache.value.push(chatMessageItem)
+      chatMessageListItemCache.value.push(chatMessageItem)
     }
 
     const del = () => {

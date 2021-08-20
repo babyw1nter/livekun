@@ -1,7 +1,7 @@
 <template>
   <ul class="gift-card-panel clearfix" ref="GiftCardPanelRef">
     <GiftCard
-      v-for="(item, index) in giftCardCache"
+      v-for="(item, index) in giftCardListItemCache"
       :key="index"
       :type="item.type || `level-${getLevel(item.money, level)}`"
       :avatar-url="item.avatarUrl"
@@ -48,12 +48,12 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const giftCardCache = ref<IGiftCardListItem[]>([])
+    const giftCardListItemCache = ref<IGiftCardListItem[]>([])
     const GiftCardPanelRef = ref<HTMLElement>()
 
-    watch(giftCardCache.value, () => {
-      if (giftCardCache.value.length >= props.maximum) {
-        giftCardCache.value.splice(0, giftCardCache.value.length - 50)
+    watch(giftCardListItemCache.value, () => {
+      if (giftCardListItemCache.value.length >= props.maximum) {
+        giftCardListItemCache.value.splice(0, giftCardListItemCache.value.length - 50)
       }
 
       nextTick(() => {
@@ -66,7 +66,7 @@ export default defineComponent({
     const add = (item: IGiftCardListItem) => {
       if (!item.uid) return
 
-      giftCardCache.value.push(item)
+      giftCardListItemCache.value.push(item)
     }
 
     const del = () => {

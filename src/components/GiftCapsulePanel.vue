@@ -91,15 +91,15 @@ export default defineComponent({
       }
 
       // 通过指令添加的礼物胶囊如果没有 duration 属性，则默认给予一个 duration 初始值
-      // 这个 duration 初始值是由即将添加的礼物胶囊自动计算得出的
-      const itemDuration = props.duration[getLevel(item.money, props.level)] * 60 * 1000
+      // 这个 duration 初始值是由即将添加的礼物胶囊自动计算金额等级得出的
+      const itemDefaultDuration = props.duration[getLevel(item.money, props.level)] * 60 * 1000
 
       // 添加礼物胶囊进缓存数组
       giftCapsuleListItemCache.value.push({
         ...item,
         _customDuration: item.duration || 0,
-        duration: item.duration || itemDuration,
-        timing: item.duration || itemDuration,
+        duration: item.duration || itemDefaultDuration,
+        timing: item.duration || itemDefaultDuration,
         percentage: 100.0
       })
 
