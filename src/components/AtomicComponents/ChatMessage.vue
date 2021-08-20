@@ -1,11 +1,9 @@
 <template>
   <li class="chat-message" :class="type">
     <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="fontSize + 8"></a-avatar>
-    <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 18}px` }">
+    <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 16}px` }">
       <span class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: fontSize + 'px' }">
         {{ nickname }}
-        <!-- <CustomerServiceFilled style="margin-left: -2px" v-if="type === 'anchor'" />
-      <ToolFilled style="margin-left: -2px" v-if="type === 'admin'" /> -->
       </span>
       <span class="message h-font" :style="{ color: customStyle.messageColor, fontSize: fontSize + 'px' }">
         {{ messageX }}
@@ -20,10 +18,6 @@ import { ToolFilled, StarFilled, CustomerServiceFilled } from '@ant-design/icons
 
 export default defineComponent({
   name: 'ChatMessage',
-  components: {
-    // ToolFilled,
-    // CustomerServiceFilled
-  },
   props: {
     type: {
       default: 'normal',
@@ -75,7 +69,6 @@ export default defineComponent({
     position: absolute;
     top: 2px;
     left: 0px;
-    // vertical-align: bottom;
   }
 
   .text-wrap {
@@ -88,12 +81,15 @@ export default defineComponent({
   }
 
   span.nickname {
-    // margin-left: 8px;
+    display: inline-block;
     margin-right: 6px;
     color: #ccc;
   }
 
   span.message {
+    word-break: normal;
+    word-wrap: break-word;
+    text-align: justify;
     color: #fff;
   }
 
