@@ -20,28 +20,28 @@ export default defineComponent({
   name: 'GiftCard',
   props: {
     type: {
-      default: 'level-0',
-      type: String
+      type: String,
+      default: 'level-0'
     },
     avatarUrl: {
-      default: '',
-      type: String
+      type: String,
+      default: ''
     },
     nickname: {
-      default: '',
-      type: String
+      type: String,
+      default: ''
     },
     money: {
-      default: 0,
-      type: Number
+      type: Number,
+      default: 0
     },
     profile: {
-      default: '',
-      type: String
+      type: String,
+      default: ''
     },
     message: {
-      default: '',
-      type: String
+      type: String,
+      default: ''
     }
   },
   setup(props) {
