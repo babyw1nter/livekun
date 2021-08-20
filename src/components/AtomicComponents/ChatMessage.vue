@@ -1,14 +1,16 @@
 <template>
   <li class="chat-message" :class="type">
-    <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="fontSize + 8"> </a-avatar>
-    <span class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: fontSize + 'px' }">
-      {{ nickname }}
-      <!-- <CustomerServiceFilled style="margin-left: -2px" v-if="type === 'anchor'" />
+    <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="fontSize + 8"></a-avatar>
+    <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 18}px` }">
+      <span class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: fontSize + 'px' }">
+        {{ nickname }}
+        <!-- <CustomerServiceFilled style="margin-left: -2px" v-if="type === 'anchor'" />
       <ToolFilled style="margin-left: -2px" v-if="type === 'admin'" /> -->
-    </span>
-    <span class="message h-font" :style="{ color: customStyle.messageColor, fontSize: fontSize + 'px' }">{{
-      messageX
-    }}</span>
+      </span>
+      <span class="message h-font" :style="{ color: customStyle.messageColor, fontSize: fontSize + 'px' }">
+        {{ messageX }}
+      </span>
+    </div>
   </li>
 </template>
 
@@ -67,9 +69,17 @@ export default defineComponent({
 .chat-message {
   display: block;
   margin-bottom: 4px;
+  position: relative;
 
   span.chat-message-avatar {
-    vertical-align: bottom;
+    position: absolute;
+    top: 2px;
+    left: 0px;
+    // vertical-align: bottom;
+  }
+
+  .text-wrap {
+    padding-left: 30px;
   }
 
   span.nickname,
@@ -78,7 +88,7 @@ export default defineComponent({
   }
 
   span.nickname {
-    margin-left: 8px;
+    // margin-left: 8px;
     margin-right: 6px;
     color: #ccc;
   }
