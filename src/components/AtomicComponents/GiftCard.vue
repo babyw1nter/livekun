@@ -14,6 +14,7 @@
 </template>
 
 <script lang="ts">
+import { moneyFormat } from '@/api/common'
 import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
@@ -46,7 +47,7 @@ export default defineComponent({
   },
   setup(props) {
     const cardType = ref<string>(props.type)
-    const moneyText = computed(() => props.money.toFixed(2).toString())
+    const moneyText = computed(() => moneyFormat(Number(props.money.toFixed(2)), 2, '.', ','))
 
     return {
       cardType,
