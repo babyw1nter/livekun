@@ -8,11 +8,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import ChatMessageList from '@/components/ChatMessageList.vue'
 import { IMessage, ISocketCustomData } from '@/types/socket'
+import { createSocket } from '@/api/socket'
 
 export default defineComponent({
   components: {
@@ -22,29 +23,8 @@ export default defineComponent({
     const store = useStore(key)
     const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
-    const createSocket = (cb: (ev: MessageEvent) => void) => {
-      console.log('chatMessageSocket 正在创建连接...')
-      const websocket = new WebSocket('ws://localhost:39073/', 'chat-message')
-
-      websocket.addEventListener('open', () => {
-        console.log('chatMessageSocket 连接成功!')
-        store.dispatch('getRemoteConfig')
-      })
-      websocket.addEventListener('error', () => {
-        console.error('chatMessageSocket 连接错误!')
-      })
-      websocket.addEventListener('close', () => {
-        console.warn('chatMessageSocket 连接关闭!')
-        console.log('chatMessageSocket 将于 5 秒后尝试重新创建连接...')
-        if (websocket.readyState !== WebSocket.OPEN || websocket.readyState !== WebSocket.CONNECTING) {
-          window.setTimeout(() => createSocket(cb), 5000)
-        }
-      })
-      websocket.addEventListener('message', ev => cb(ev))
-    }
-
     onMounted(() => {
-      createSocket(ev => {
+      createSocket((ev, websocket) => {
         interface ISocketChatMsg extends ISocketCustomData {
           message: string
           type: string
@@ -52,7 +32,7 @@ export default defineComponent({
 
         const socketMessage = JSON.parse(ev.data) as IMessage<ISocketChatMsg>
 
-        console.info('[chat-message]', socketMessage)
+        console.info(`[${websocket.protocol}]`, '接收消息', socketMessage)
 
         switch (socketMessage.type) {
           case 'update-config':
@@ -67,7 +47,7 @@ export default defineComponent({
             })
             break
         }
-      })
+      }, 'chat-message')
     })
 
     return { store, ChatMessageListRef }
