@@ -125,9 +125,7 @@ import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
 import PageFooter from '@/components/CommonComponents/PageFooter.vue'
-import axios from 'axios'
-
-const host = 'http://localhost:39074'
+import http from '@/api/http'
 
 export default defineComponent({
   name: 'Config',
@@ -145,8 +143,8 @@ export default defineComponent({
     }
 
     const sendMockGiftCapsule = () => {
-      axios
-        .post(host + '/control', { method: 'sendMockDataToGiftCapsule' })
+      http
+        .post('/control', { method: 'sendMockDataToGiftCapsule' })
         .then(res => {
           //
         })
@@ -156,8 +154,8 @@ export default defineComponent({
     }
 
     const sendMockChatMessage = () => {
-      axios
-        .post(host + '/control', { method: 'sendMockDataToChatMessage' })
+      http
+        .post('/control', { method: 'sendMockDataToChatMessage' })
         .then(res => {
           //
         })
@@ -167,8 +165,8 @@ export default defineComponent({
     }
 
     const sendMockGiftCard = () => {
-      axios
-        .post(host + '/control', { method: 'sendMockDataToGiftCard' })
+      http
+        .post('/control', { method: 'sendMockDataToGiftCard' })
         .then(res => {
           //
         })
@@ -178,8 +176,8 @@ export default defineComponent({
     }
 
     const clearGiftCapsule = () => {
-      axios
-        .post(host + '/control', { method: 'clearGiftCapsule' })
+      http
+        .post('/control', { method: 'clearGiftCapsule' })
         .then(res => {
           //
         })
@@ -189,8 +187,8 @@ export default defineComponent({
     }
 
     const clearChatMessage = () => {
-      axios
-        .post(host + '/control', { method: 'clearChatMessage' })
+      http
+        .post('/control', { method: 'clearChatMessage' })
         .then(res => {
           //
         })
@@ -200,8 +198,8 @@ export default defineComponent({
     }
 
     const clearGiftCard = () => {
-      axios
-        .post(host + '/control', { method: 'clearGiftCard' })
+      http
+        .post('/control', { method: 'clearGiftCard' })
         .then(res => {
           //
         })

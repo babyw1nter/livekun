@@ -1,9 +1,7 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
-import axios from 'axios'
 import { message } from 'ant-design-vue'
-
-const host = 'http://localhost:39074'
+import http from '@/api/http'
 
 export interface IConfig {
   giftCapsule: {
@@ -119,8 +117,8 @@ export default createStore<State>({
   actions: {
     getRemoteStatus(context) {
       console.log('请求远程状态...')
-      axios
-        .get(host + '/get-status')
+      http
+        .get('/get-status')
         .then(res => {
           const responseData = res.data as IResponse
           const remoteStatus = responseData.data as IStatus
@@ -133,8 +131,8 @@ export default createStore<State>({
     },
     getRemoteConfig(context) {
       console.log('请求远程配置...')
-      axios
-        .get(host + '/get-config')
+      http
+        .get('/get-config')
         .then(res => {
           const responseData = res.data as IResponse
           const remoteConfig = responseData.data as IConfig
@@ -147,8 +145,8 @@ export default createStore<State>({
     },
     saveRemoteConfig(context) {
       console.log('保存远程配置...')
-      axios
-        .post(host + '/update-config', context.state.config)
+      http
+        .post('/update-config', context.state.config)
         .then(res => {
           const responseData = res.data as IResponse
           const remoteConfig = responseData.data as IConfig

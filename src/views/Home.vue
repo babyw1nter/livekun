@@ -41,9 +41,7 @@ import { key } from '@/store'
 import { message } from 'ant-design-vue'
 import { SmileOutlined } from '@ant-design/icons-vue'
 import PageFooter from '@/components/CommonComponents/PageFooter.vue'
-import axios from 'axios'
-
-const host = 'http://localhost:39074'
+import http from '@/api/http'
 
 export default defineComponent({
   components: {
@@ -59,8 +57,8 @@ export default defineComponent({
     const joinRoom = () => {
       if (liveIdInputValue.value) {
         isLoading.value = true
-        axios
-          .post(host + '/join', {
+        http
+          .post('/join', {
             liveId: liveIdInputValue.value
           })
           .then(res => {
@@ -87,8 +85,8 @@ export default defineComponent({
 
     const reset = () => {
       isReseting.value = true
-      axios
-        .post(host + '/leave')
+      http
+        .post('/leave')
         .then(res => {
           message.success('重置成功！')
         })
@@ -107,8 +105,7 @@ export default defineComponent({
       joinRoom,
       isLoading,
       isReseting,
-      reset,
-      host
+      reset
     }
   }
 })
