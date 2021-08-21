@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
@@ -53,6 +53,11 @@ export default defineComponent({
     const liveIdInputValue = ref(348449290)
     const isLoading = ref(false)
     const isReseting = ref(false)
+
+    onBeforeMount(() => {
+      store.dispatch('getRemoteConfig')
+      store.dispatch('getRemoteStatus')
+    })
 
     const joinRoom = () => {
       if (liveIdInputValue.value) {

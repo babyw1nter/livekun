@@ -11,6 +11,7 @@ export const createSocket = (
   websocket.addEventListener('open', () => {
     console.log(`[${protocols}]`, '连接成功!')
     store.dispatch('getRemoteConfig')
+    store.dispatch('getRemoteStatus')
   })
   websocket.addEventListener('error', () => {
     console.error(`[${protocols}]`, '连接错误!')

@@ -3,17 +3,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, onBeforeMount } from 'vue'
-import { key } from '@/store'
-import { useStore } from 'vuex'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup() {
-    const store = useStore(key)
-    onBeforeMount(() => {
-      store.dispatch('getRemoteConfig')
-      store.dispatch('getRemoteStatus')
-    })
+    return {}
   }
 })
 </script>

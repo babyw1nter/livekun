@@ -102,16 +102,20 @@ export default createStore<State>({
   },
   mutations: {
     update(state, newValue: IConfig) {
+      console.log('更新 vuex 配置', newValue)
       state.config = newValue
     },
     reset(state) {
+      console.log('重置 vuex 配置')
       state.config = defaultConfig
     },
     updateStatus(state, newValue: IStatus) {
+      console.log('更新 vuex 状态', newValue)
       state.status = newValue
     },
     resetStatus(state) {
       state.status = defaultStatus
+      console.log('重置 vuex 状态')
     }
   },
   actions: {

@@ -134,6 +134,11 @@ export default defineComponent({
     const activeKey = ref(1)
     const store = useStore(key)
 
+    onBeforeMount(() => {
+      store.dispatch('getRemoteConfig')
+      store.dispatch('getRemoteStatus')
+    })
+
     const save = () => {
       store.dispatch('saveRemoteConfig')
     }
