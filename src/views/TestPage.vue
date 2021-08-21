@@ -38,10 +38,7 @@ import ChatMessageList from '@/components/ChatMessageList.vue'
 import GiftCardPanel from '@/components/GiftCardPanel.vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
-
-const randomNum = (minNum: number, maxNum: number) => {
-  return parseInt((Math.random() * (maxNum - minNum + 1) + minNum).toString(), 10)
-}
+import { randomNum } from '@/api/common'
 
 const giftCapsuleListArray = [
   {
