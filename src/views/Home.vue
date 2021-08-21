@@ -30,18 +30,6 @@
       <a-typography-link href="./#/config" target="_blank">系统设置</a-typography-link>
       <a-typography-link href="./#/test" target="_blank">测试页面</a-typography-link>
     </a-space>
-    <a-typography-paragraph style="margin-top: 1rem">
-      <!-- <blockquote>© 2021 hhui64. Powered by CCLinkJS and Designed for NaiLing.</blockquote> -->
-      <!-- <a-typography-paragraph :copyable="{ text: host + '/#/gift-capsule' }">
-        礼物胶囊：{{ host }}/#/gift-capsule
-      </a-typography-paragraph>
-      <a-typography-paragraph :copyable="{ text: host + '/#/chat-message' }">
-        聊天面板：{{ host }}/#/chat-message
-      </a-typography-paragraph>
-      <a-typography-paragraph :copyable="{ text: host + '/#/gift-card' }">
-        礼物卡片：{{ host }}/#/gift-card
-      </a-typography-paragraph> -->
-    </a-typography-paragraph>
     <PageFooter></PageFooter>
   </div>
 </template>
