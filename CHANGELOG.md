@@ -1,3 +1,19 @@
+# [0.1.0-alpha.1](https://github.com/hhui64/livekun-demo/compare/v0.1.0-alpha.0...v0.1.0-alpha.1) (2021-08-21)
+
+
+### Features
+
+* 支持发送模拟数据到礼物组件 ([1b053a1](https://github.com/hhui64/livekun-demo/commit/1b053a17c10377f45905d7b8f6ce7f0534dcd938))
+* **api/common:** 添加一些常用方法 ([d2230aa](https://github.com/hhui64/livekun-demo/commit/d2230aad9e6437bde0e065c29d40dbe4f08a5373))
+* **GiftCard:** 新增礼物卡片留言互动功能 ([9c02668](https://github.com/hhui64/livekun-demo/commit/9c026687bd5bd1e947e095b3c9753fdf6a36e9ea))
+
+
+### Performance Improvements
+
+* 优化原子组件的金额文本格式 ([6cbc98c](https://github.com/hhui64/livekun-demo/commit/6cbc98ca3e9a476943acdf6cf53e2e625e615ad5))
+
+
+
 # [0.1.0-alpha.0](https://github.com/hhui64/livekun-demo/compare/19544a02deb33d0a4b616bb1b91fa8f9e630220e...v0.1.0-alpha.0) (2021-08-20)
 
 
