@@ -60,6 +60,9 @@ export default defineComponent({
           case 'update-config':
             store.dispatch('getRemoteConfig')
             break
+          case 'clear':
+            GiftCapsulePanelRef.value?.clear()
+            break
           case 'data':
             GiftCapsulePanelRef.value?.add({
               ...socketMessage.data

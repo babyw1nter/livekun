@@ -58,6 +58,9 @@ export default defineComponent({
           case 'update-config':
             store.dispatch('getRemoteConfig')
             break
+          case 'clear':
+            GiftCardPanelRef.value?.clear()
+            break
           case 'data':
             GiftCardPanelRef.value?.add({
               ...socketMessage.data

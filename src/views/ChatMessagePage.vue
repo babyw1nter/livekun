@@ -58,6 +58,9 @@ export default defineComponent({
           case 'update-config':
             store.dispatch('getRemoteConfig')
             break
+          case 'clear':
+            ChatMessageListRef.value?.clear()
+            break
           case 'data':
             ChatMessageListRef.value?.add({
               ...socketMessage.data

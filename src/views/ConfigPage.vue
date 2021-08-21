@@ -3,6 +3,12 @@
     <a-tabs tab-position="top" v-model:activeKey="activeKey">
       <a-tab-pane :key="1" tab="礼物胶囊">
         <div class="options-panel">
+          <p>控制中心</p>
+          <a-space :size="10">
+            <a-button type="primary" @click="sendMockGiftCapsule">发送模拟数据</a-button>
+            <a-button danger @click="clearGiftCapsule">清空礼物胶囊</a-button>
+          </a-space>
+          <a-divider />
           <p>礼物胶囊的颜色风格会随着金额档位自动改变。从左到右依次对应三个档位的金额。</p>
           <a-space :size="10">
             <a-input-number :min="0" v-model:value="store.state.config.giftCapsule.level[0]" />
@@ -26,6 +32,12 @@
       </a-tab-pane>
       <a-tab-pane :key="2" tab="礼物卡片">
         <div class="options-panel">
+          <p>控制中心</p>
+          <a-space :size="10">
+            <a-button type="primary" @click="sendMockGiftCard">发送模拟数据</a-button>
+            <a-button danger @click="clearGiftCard">清空礼物卡片</a-button>
+          </a-space>
+          <a-divider />
           <p>礼物卡片的颜色风格会随着金额档位自动改变。从左到右依次对应三个档位的金额。</p>
           <a-space :size="10">
             <a-input-number :min="0" v-model:value="store.state.config.giftCard.level[0]" />
@@ -45,6 +57,12 @@
           <p>年费守护用户昵称颜色</p>
           <p>贵族用户昵称颜色</p>
           <a-divider /> -->
+          <p>控制中心</p>
+          <a-space :size="10">
+            <a-button type="primary" @click="sendMockChatMessage">发送模拟数据</a-button>
+            <a-button danger @click="clearChatMessage">清空聊天消息</a-button>
+          </a-space>
+          <a-divider />
           <p>聊天消息的文字大小。</p>
           <a-slider
             :min="12"
@@ -77,6 +95,9 @@ import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
 import PageFooter from '@/components/CommonComponents/PageFooter.vue'
+import axios from 'axios'
+
+const host = 'http://localhost:39074'
 
 export default defineComponent({
   name: 'Config',
@@ -93,11 +114,83 @@ export default defineComponent({
       store.commit('reset')
     }
 
+    const sendMockGiftCapsule = () => {
+      axios
+        .post(host + '/control', { method: 'sendMockDataToGiftCapsule' })
+        .then(res => {
+          //
+        })
+        .catch((reason: Error) => {
+          message.error(reason.toString())
+        })
+    }
+
+    const sendMockChatMessage = () => {
+      axios
+        .post(host + '/control', { method: 'sendMockDataToChatMessage' })
+        .then(res => {
+          //
+        })
+        .catch((reason: Error) => {
+          message.error(reason.toString())
+        })
+    }
+
+    const sendMockGiftCard = () => {
+      axios
+        .post(host + '/control', { method: 'sendMockDataToGiftCard' })
+        .then(res => {
+          //
+        })
+        .catch((reason: Error) => {
+          message.error(reason.toString())
+        })
+    }
+
+    const clearGiftCapsule = () => {
+      axios
+        .post(host + '/control', { method: 'clearGiftCapsule' })
+        .then(res => {
+          //
+        })
+        .catch((reason: Error) => {
+          message.error(reason.toString())
+        })
+    }
+
+    const clearChatMessage = () => {
+      axios
+        .post(host + '/control', { method: 'clearChatMessage' })
+        .then(res => {
+          //
+        })
+        .catch((reason: Error) => {
+          message.error(reason.toString())
+        })
+    }
+
+    const clearGiftCard = () => {
+      axios
+        .post(host + '/control', { method: 'clearGiftCard' })
+        .then(res => {
+          //
+        })
+        .catch((reason: Error) => {
+          message.error(reason.toString())
+        })
+    }
+
     return {
       activeKey,
       store,
       save,
-      reset
+      reset,
+      sendMockGiftCapsule,
+      sendMockChatMessage,
+      sendMockGiftCard,
+      clearGiftCapsule,
+      clearChatMessage,
+      clearGiftCard
     }
   }
 })
