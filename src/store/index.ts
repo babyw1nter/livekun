@@ -25,6 +25,12 @@ export interface IConfig {
   giftCard: {
     level: Array<number>
     minMoney: number
+    comment: {
+      use: boolean
+      prefix: string
+      giftMinMoney: number
+      giftWhitelist: string
+    }
   }
 }
 
@@ -46,7 +52,7 @@ export const defaultStatus: IStatus = {
 
 export const defaultConfig: IConfig = {
   giftCapsule: {
-    level: [1, 200, 500],
+    level: [0, 200, 500],
     duration: [5, 15, 30],
     maximum: 10,
     minMoney: 0.01
@@ -62,8 +68,14 @@ export const defaultConfig: IConfig = {
     }
   },
   giftCard: {
-    level: [1, 200, 500],
-    minMoney: 0.01
+    level: [0, 200, 500],
+    minMoney: 0.01,
+    comment: {
+      use: false,
+      prefix: '留言：',
+      giftMinMoney: 0.01,
+      giftWhitelist: ''
+    }
   }
 }
 

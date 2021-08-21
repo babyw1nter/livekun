@@ -47,6 +47,36 @@
           <a-divider />
           <p>礼物卡片最低金额。低于此金额时不显示。</p>
           <a-input-number :min="0" v-model:value="store.state.config.giftCard.minMoney" />
+          <a-divider />
+          <p>礼物卡片留言功能。</p>
+          <a-switch
+            checked-children="开"
+            un-checked-children="关"
+            v-model:checked="store.state.config.giftCard.comment.use"
+          />
+          <p style="margin-top: 1rem;">
+            判断留言的前缀格式。当用户在送出礼物前发出“{{
+              store.state.config.giftCard.comment.prefix
+            }}这是一条礼物留言。”时，在送出礼物后就会将此消息作为该礼物卡片的留言。
+          </p>
+          <a-input
+            v-model:value="store.state.config.giftCard.comment.prefix"
+            :disabled="!store.state.config.giftCard.comment.use"
+            style="width: 90px;"
+          />
+          <p style="margin-top: 1rem;">留言礼物金额。礼物价值大于此金额才可以留言。</p>
+          <a-input-number
+            :min="0"
+            v-model:value="store.state.config.giftCard.comment.giftMinMoney"
+            :disabled="!store.state.config.giftCard.comment.use"
+          />
+          <p style="margin-top: 1rem;">留言礼物类型。指定礼物类型才可以留言，一行一个，留空表示不做限制。</p>
+          <a-textarea
+            v-model:value="store.state.config.giftCard.comment.giftWhitelist"
+            :disabled="!store.state.config.giftCard.comment.use"
+            :rows="4"
+            style="width: 300px;"
+          />
         </div>
       </a-tab-pane>
       <a-tab-pane :key="3" tab="聊天消息">

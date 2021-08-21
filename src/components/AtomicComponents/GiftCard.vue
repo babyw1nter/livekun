@@ -99,7 +99,12 @@ export default defineComponent({
     p.message {
       font-size: 1rem;
       line-height: 31px;
-      margin-left: 8px;
+      padding-left: 8px;
+      padding-right: 8px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      word-break: break-all;
     }
   }
 
