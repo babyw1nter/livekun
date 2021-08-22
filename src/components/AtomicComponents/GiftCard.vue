@@ -8,7 +8,10 @@
       </div>
     </div>
     <div class="card-footer">
-      <p class="message h-font">{{ message }}</p>
+      <a-carousel :dots="false" :autoplay="comment !== ''" dot-position="right">
+        <p class="message h-font">{{ message }}</p>
+        <p class="message h-font" v-if="comment !== ''">{{ comment }}</p>
+      </a-carousel>
     </div>
   </li>
 </template>
@@ -43,6 +46,10 @@ export default defineComponent({
     message: {
       type: String,
       default: ''
+    },
+    comment: {
+      type: String,
+      default: ''
     }
   },
   setup(props) {
@@ -75,7 +82,6 @@ export default defineComponent({
 
   .card-body,
   .card-footer {
-    padding: 4px;
     width: 100%;
     p {
       margin-bottom: 0;
@@ -84,6 +90,7 @@ export default defineComponent({
     }
   }
   .card-body {
+    padding: 4px;
     height: 60px;
     .p-wrap {
       margin-top: 10px;
@@ -98,9 +105,9 @@ export default defineComponent({
     height: 40px;
     p.message {
       font-size: 1rem;
-      line-height: 31px;
-      padding-left: 8px;
-      padding-right: 8px;
+      line-height: 37px;
+      padding-left: 14px;
+      padding-right: 14px;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;

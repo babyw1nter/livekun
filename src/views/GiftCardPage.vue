@@ -29,6 +29,7 @@ export default defineComponent({
           giftName: string
           giftCount: number
           message: string
+          comment: string
         }
 
         const socketMessage = JSON.parse(ev.data) as IMessage<ISocketGiftCard>

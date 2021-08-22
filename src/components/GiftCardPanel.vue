@@ -8,6 +8,7 @@
       :nickname="item.nickname"
       :money="item.money"
       :message="item.message"
+      :comment="item.comment"
     ></GiftCard>
   </ul>
 </template>
@@ -24,6 +25,7 @@ interface IGiftCardListItem {
   type?: string
   money: number
   message?: string
+  comment?: string
   giftName?: string
   giftCount?: number
   [propName: string]: unknown
