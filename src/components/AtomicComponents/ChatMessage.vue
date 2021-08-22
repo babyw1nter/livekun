@@ -6,15 +6,14 @@
         {{ nickname }}
       </span>
       <span class="message h-font" :style="{ color: customStyle.messageColor, fontSize: fontSize + 'px' }">
-        {{ messageX }}
+        {{ message }}
       </span>
     </div>
   </li>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
-import { ToolFilled, StarFilled, CustomerServiceFilled } from '@ant-design/icons-vue'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'ChatMessage',
@@ -50,11 +49,8 @@ export default defineComponent({
       default: 16
     }
   },
-  setup(props) {
-    const messageX = computed(() =>
-      props.message.replace(/(\[emts\]).*?(\[\/emts\])/g, '[表情]').replace(/(\[img\]).*?(\[\/img\])/g, '[图片]')
-    )
-    return { messageX }
+  setup() {
+    return {}
   }
 })
 </script>
@@ -67,7 +63,7 @@ export default defineComponent({
 
   span.chat-message-avatar {
     position: absolute;
-    top: 2px;
+    top: 1px;
     left: 0px;
   }
 
