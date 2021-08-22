@@ -1,3 +1,32 @@
+# [0.1.0-alpha.3](https://github.com/hhui64/livekun-demo/compare/v0.1.0-alpha.2...v0.1.0-alpha.3) (2021-08-22)
+
+
+### Bug Fixes
+
+* **api/http:** 修复生产环境下 WS URL 错误的问题 ([dac1da4](https://github.com/hhui64/livekun-demo/commit/dac1da45a6d99de538f86e908b793974742dfc8e))
+
+
+
+# [0.1.0-alpha.2](https://github.com/hhui64/livekun-demo/compare/v0.1.0-alpha.1...v0.1.0-alpha.2) (2021-08-22)
+
+
+### Features
+
+* **api/http:** 新增 http 模块 ([ccbc2eb](https://github.com/hhui64/livekun-demo/commit/ccbc2eb9a31dff5c2febd41df6a37e4c403ca34e))
+* **api/socket:** 新增 socket 模块 ([1a3a8dd](https://github.com/hhui64/livekun-demo/commit/1a3a8dd6dcf100712d3b2632fa19651559c4d2d4))
+* **GiftCard*:** 新增礼物卡片组件留言滚动显示 ([0a3ade7](https://github.com/hhui64/livekun-demo/commit/0a3ade740b698431a4c6ac205aae119d24cfdc69))
+
+
+### Performance Improvements
+
+* 优化 http 请求的调用方式 ([cb35e04](https://github.com/hhui64/livekun-demo/commit/cb35e040639fd395417c707a2f4ab62667b02b8e))
+* 优化 socket 的创建与调用方式 ([91130ee](https://github.com/hhui64/livekun-demo/commit/91130eec8ca20de6a91c1833f520a4c789494176))
+* 优化配置和状态更新逻辑策略 ([3b4145e](https://github.com/hhui64/livekun-demo/commit/3b4145ea88c7fcab8b1668fb09604a69c1779a8b))
+* **ChatMessage:** 优化组件样式 ([726fd38](https://github.com/hhui64/livekun-demo/commit/726fd381fce4fd2ca62e89438b5354b8aa38905d))
+* **PageFooter:** 优化页脚组件样式 ([4e2f763](https://github.com/hhui64/livekun-demo/commit/4e2f763b80a3a9042ea04d8267ee88634e2e55cb))
+
+
+
 # [0.1.0-alpha.1](https://github.com/hhui64/livekun-demo/compare/v0.1.0-alpha.0...v0.1.0-alpha.1) (2021-08-21)
 
 
