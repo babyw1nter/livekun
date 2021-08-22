@@ -3,7 +3,7 @@ import axios from 'axios'
 const devURL = 'localhost:39074'
 
 const baseURL = process.env.NODE_ENV === 'development' ? `http://${devURL}` : window.location.origin
-const baseWsURL = process.env.NODE_ENV === 'development' ? `ws://${devURL}` : window.location.host
+const baseWsURL = process.env.NODE_ENV === 'development' ? `ws://${devURL}` : `ws://${window.location.host}`
 
 const http = axios.create({
   baseURL,
