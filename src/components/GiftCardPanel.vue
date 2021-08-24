@@ -7,6 +7,9 @@
       :avatar-url="item.avatarUrl"
       :nickname="item.nickname"
       :money="item.money"
+      :gift-name="item.giftName"
+      :gift-count="item.giftCount"
+      :gift-image="item.giftImage"
       :message="item.message"
       :comment="item.comment"
     ></GiftCard>
@@ -28,6 +31,7 @@ interface IGiftCardListItem {
   comment?: string
   giftName?: string
   giftCount?: number
+  giftImage?: string
   [propName: string]: unknown
 }
 

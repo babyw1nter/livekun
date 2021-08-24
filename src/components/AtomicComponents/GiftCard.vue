@@ -8,6 +8,7 @@
       </div>
     </div>
     <div class="card-footer">
+      <!-- <a-image v-if="giftImage !== ''" :width="24" :src="giftImage" /> -->
       <a-carousel :dots="false" :autoplay="comment !== ''" dot-position="right">
         <p class="message h-font">{{ message }}</p>
         <p class="message h-font" v-if="comment !== ''">{{ comment }}</p>
@@ -38,6 +39,18 @@ export default defineComponent({
     money: {
       type: Number,
       default: 0
+    },
+    giftName: {
+      type: String,
+      default: ''
+    },
+    giftCount: {
+      type: Number,
+      default: 0
+    },
+    giftImage: {
+      type: String,
+      default: ''
     },
     profile: {
       type: String,
