@@ -1,4 +1,4 @@
-# livekun-demo
+# livekun-web
 
 ## Project setup
 ```
