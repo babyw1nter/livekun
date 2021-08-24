@@ -10,7 +10,7 @@ const randomNum = (minNum: number, maxNum: number): number => {
   return parseInt((Math.random() * (maxNum - minNum + 1) + minNum).toString(), 10)
 }
 
-const moneyFormat = (number: number, decimals: number, decPoint: string, thousandsSep: string): string => {
+const moneyFormat = (number: number, decimals: number, decPoint?: string, thousandsSep?: string): string => {
   number = Number((number + '').replace(/[^0-9+-Ee.]/g, ''))
   const n = !isFinite(+number) ? 0 : +number
   const prec = !isFinite(+decimals) ? 0 : Math.abs(decimals)

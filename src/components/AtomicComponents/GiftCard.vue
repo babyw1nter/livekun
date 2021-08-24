@@ -67,7 +67,7 @@ export default defineComponent({
   },
   setup(props) {
     const cardType = ref<string>(props.type)
-    const moneyText = computed(() => moneyFormat(Number(props.money.toFixed(2)), 2, '.', ','))
+    const moneyText = computed(() => moneyFormat(Number(props.money.toFixed(2)), 2))
 
     return {
       cardType,
