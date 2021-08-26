@@ -3,11 +3,13 @@
     <a-tabs tab-position="top" v-model:activeKey="activeKey">
       <a-tab-pane :key="1" tab="礼物胶囊">
         <div class="options-panel">
-          <p>控制中心</p>
-          <a-space :size="10">
+          <a-space :size="10" style="margin-bottom: 1rem;">
             <a-button type="primary" @click="sendMockGiftCapsule">发送模拟数据</a-button>
             <a-button danger @click="clearGiftCapsule">清空礼物胶囊</a-button>
           </a-space>
+          <a-typography-paragraph :copyable="{ text: giftCapsuleUrl }">
+            OBS浏览器链接：{{ giftCapsuleUrl }}
+          </a-typography-paragraph>
           <a-divider />
           <p>礼物胶囊的颜色风格会随着金额档位自动改变。从左到右依次对应三个档位的金额。</p>
           <a-space :size="10">
@@ -32,11 +34,13 @@
       </a-tab-pane>
       <a-tab-pane :key="2" tab="礼物卡片">
         <div class="options-panel">
-          <p>控制中心</p>
-          <a-space :size="10">
+          <a-space :size="10" style="margin-bottom: 1rem;">
             <a-button type="primary" @click="sendMockGiftCard">发送模拟数据</a-button>
             <a-button danger @click="clearGiftCard">清空礼物卡片</a-button>
           </a-space>
+          <a-typography-paragraph :copyable="{ text: giftCardUrl }">
+            OBS浏览器链接：{{ giftCardUrl }}
+          </a-typography-paragraph>
           <a-divider />
           <p>礼物卡片的颜色风格会随着金额档位自动改变。从左到右依次对应三个档位的金额。</p>
           <a-space :size="10">
@@ -81,17 +85,13 @@
       </a-tab-pane>
       <a-tab-pane :key="3" tab="聊天消息">
         <div class="options-panel">
-          <!-- <p>普通用户昵称颜色</p>
-          <p>主播昵称颜色</p>
-          <p>月费守护用户昵称颜色</p>
-          <p>年费守护用户昵称颜色</p>
-          <p>贵族用户昵称颜色</p>
-          <a-divider /> -->
-          <p>控制中心</p>
-          <a-space :size="10">
+          <a-space :size="10" style="margin-bottom: 1rem;">
             <a-button type="primary" @click="sendMockChatMessage">发送模拟数据</a-button>
             <a-button danger @click="clearChatMessage">清空聊天消息</a-button>
           </a-space>
+          <a-typography-paragraph :copyable="{ text: chatMessageUrl }">
+            OBS浏览器链接：{{ chatMessageUrl }}
+          </a-typography-paragraph>
           <a-divider />
           <p>聊天消息的文字大小。</p>
           <a-slider
@@ -109,7 +109,6 @@
         </div>
       </a-tab-pane>
     </a-tabs>
-    <PageFooter></PageFooter>
     <div class="toolbar">
       <a-space :size="10">
         <a-button type="primary" @click="save">保存设置</a-button>
@@ -120,19 +119,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, onBeforeMount } from 'vue'
+import { defineComponent, ref, watch, onBeforeMount, onMounted, computed } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
-import PageFooter from '@/components/CommonComponents/PageFooter.vue'
 import http from '@/api/http'
 
 export default defineComponent({
   name: 'Config',
-  components: { PageFooter },
   setup() {
     const activeKey = ref(1)
     const store = useStore(key)
+
+    const giftCapsuleUrl = computed(() => `${window.location.origin}/#/gift-capsule?uuid=${store.state.auth.uuid}`)
+    const chatMessageUrl = computed(() => `${window.location.origin}/#/chat-message?uuid=${store.state.auth.uuid}`)
+    const giftCardUrl = computed(() => `${window.location.origin}/#/gift-card?uuid=${store.state.auth.uuid}`)
 
     onBeforeMount(() => store.dispatch('getRemoteConfig'))
 
@@ -216,7 +217,10 @@ export default defineComponent({
       sendMockGiftCard,
       clearGiftCapsule,
       clearChatMessage,
-      clearGiftCard
+      clearGiftCard,
+      giftCapsuleUrl,
+      chatMessageUrl,
+      giftCardUrl
     }
   }
 })
@@ -235,7 +239,7 @@ export default defineComponent({
   }
 
   .options-panel {
-    padding: 1rem;
+    padding: 1rem 0;
   }
 }
 </style>
