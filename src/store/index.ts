@@ -1,6 +1,7 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
 import { message } from 'ant-design-vue'
+import router from '@/router'
 import http from '@/api/http'
 
 export interface IConfig {
@@ -79,12 +80,17 @@ export const defaultConfig: IConfig = {
 
 interface IResponse {
   code: number
+  message: string
   data: unknown
 }
 
 interface State {
   config: IConfig
   status: IStatus
+  auth: {
+    isLoggedIn: boolean
+    uuid: string
+  }
 }
 
 export const key: InjectionKey<Store<State>> = Symbol(0)
@@ -98,68 +104,110 @@ export default createStore<State>({
         liveId: '',
         title: ''
       }
+    },
+    auth: {
+      isLoggedIn: false,
+      uuid: ''
     }
   },
   mutations: {
     update(state, newValue: IConfig) {
-      console.log('更新 vuex 配置', newValue)
       state.config = newValue
+      // console.log('更新 vuex 配置', newValue)
     },
     reset(state) {
-      console.log('重置 vuex 配置')
       state.config = defaultConfig
+      // console.log('重置 vuex 配置')
     },
     updateStatus(state, newValue: IStatus) {
-      console.log('更新 vuex 状态', newValue)
       state.status = newValue
+      // console.log('更新 vuex 状态', newValue)
     },
     resetStatus(state) {
       state.status = defaultStatus
-      console.log('重置 vuex 状态')
+      // console.log('重置 vuex 状态')
+    },
+    setLoginStatus(state, newValue: boolean) {
+      state.auth.isLoggedIn = newValue
+    },
+    setUUID(state, newValue: string) {
+      state.auth.uuid = newValue
     }
   },
   actions: {
     getRemoteStatus(context) {
+      if (!context.state.auth.isLoggedIn) {
+        console.warn('[status]', '用户未登录，不获取远程状态！')
+        return
+      }
+
       console.log('请求远程状态...')
       http
-        .get('/get-status')
+        .get('/api/get-status')
         .then(res => {
           const responseData = res.data as IResponse
-          const remoteStatus = responseData.data as IStatus
-          context.commit('updateStatus', remoteStatus)
-          console.log('请求远程状态成功', remoteStatus)
+          if (responseData.code === 200) {
+            const remoteStatus = responseData.data as IStatus
+            context.commit('updateStatus', remoteStatus)
+            console.log('请求远程状态成功', remoteStatus)
+          } else {
+            // message.error('请求远程状态失败：' + responseData.code + ' ' + responseData.message)
+            console.error('请求远程状态失败：' + responseData.code + ' ' + responseData.message)
+          }
         })
         .catch((reason: Error) => {
-          message.error('请求远程状态失败：' + reason.message)
+          // message.error('请求远程状态失败：' + reason.message)
+          console.error('请求远程状态失败：' + reason.message)
         })
     },
     getRemoteConfig(context) {
       console.log('请求远程配置...')
       http
-        .get('/get-config')
+        .get('/user/get-config', {
+          params: {
+            uuid: router.currentRoute.value.query.uuid
+          }
+        })
         .then(res => {
           const responseData = res.data as IResponse
-          const remoteConfig = responseData.data as IConfig
-          context.commit('update', remoteConfig)
-          console.log('请求远程配置成功', remoteConfig)
+          if (responseData.code === 200) {
+            const remoteConfig = responseData.data as IConfig
+            context.commit('update', remoteConfig)
+            console.log('请求远程配置成功', remoteConfig)
+          } else {
+            // message.error('请求远程配置失败：' + responseData.code + ' ' + responseData.message)
+            console.error('请求远程配置失败：' + responseData.code + ' ' + responseData.message)
+          }
         })
         .catch((reason: Error) => {
-          message.error('请求远程配置失败：' + reason.message)
+          // message.error('请求远程配置失败：' + reason.message)
+          console.error('请求远程配置失败：' + reason.message)
         })
     },
     saveRemoteConfig(context) {
+      // if (!context.state.auth.isLoggedIn) {
+      //   console.warn('[config]', '用户未登录，不获保存远程配置！')
+      //   return
+      // }
+
       console.log('保存远程配置...')
       http
-        .post('/update-config', context.state.config)
+        .post('/user/update-config', context.state.config)
         .then(res => {
           const responseData = res.data as IResponse
-          const remoteConfig = responseData.data as IConfig
-          context.commit('update', remoteConfig)
-          console.log('保存远程配置成功', remoteConfig)
-          message.success('配置已保存！')
+          if (responseData.code === 200) {
+            const remoteConfig = responseData.data as IConfig
+            context.commit('update', remoteConfig)
+            console.log('保存远程配置成功', remoteConfig)
+            message.success('配置已保存！')
+          } else {
+            // message.error('保存远程配置失败：' + responseData.code + ' ' + responseData.message)
+            console.error('保存远程配置失败：' + responseData.code + ' ' + responseData.message)
+          }
         })
         .catch((reason: Error) => {
-          message.error('保存远程配置失败：' + reason.message)
+          // message.error('保存远程配置失败：' + reason.message)
+          console.error('保存远程配置失败：' + reason.message)
         })
     }
   },
