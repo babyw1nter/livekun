@@ -26,6 +26,7 @@ export default defineComponent({
     onMounted(() => {
       createSocket((ev, websocket) => {
         interface ISocketChatMsg extends ISocketCustomData {
+          method?: string
           message: string
           type: string
         }
@@ -34,12 +35,23 @@ export default defineComponent({
 
         console.info(`[${websocket.protocol}]`, '接收消息', socketMessage)
 
+        const method = (m: string) => {
+          switch (m) {
+            case 'clear':
+              ChatMessageListRef.value?.clear()
+              break
+            case 'refresh':
+              // 刷新页面
+              break
+            case 'get-config':
+              store.dispatch('getRemoteConfig')
+              break
+          }
+        }
+
         switch (socketMessage.type) {
-          case 'update-config':
-            store.dispatch('getRemoteConfig')
-            break
-          case 'clear':
-            ChatMessageListRef.value?.clear()
+          case 'method':
+            method(socketMessage.data.method || '')
             break
           case 'data':
             ChatMessageListRef.value?.add({

@@ -22,6 +22,7 @@ export default defineComponent({
     onMounted(() => {
       createSocket((ev, websocket) => {
         interface ISocketGiftCard extends ISocketCustomData {
+          method?: string
           money: number
           giftName: string
           giftCount: number
@@ -34,12 +35,23 @@ export default defineComponent({
 
         console.info(`[${websocket.protocol}]`, '接收消息', socketMessage)
 
+        const method = (m: string) => {
+          switch (m) {
+            case 'clear':
+              GiftCardPanelRef.value?.clear()
+              break
+            case 'refresh':
+              // 刷新页面
+              break
+            case 'get-config':
+              store.dispatch('getRemoteConfig')
+              break
+          }
+        }
+
         switch (socketMessage.type) {
-          case 'update-config':
-            store.dispatch('getRemoteConfig')
-            break
-          case 'clear':
-            GiftCardPanelRef.value?.clear()
+          case 'method':
+            method(socketMessage.data.method || '')
             break
           case 'data':
             GiftCardPanelRef.value?.add({
