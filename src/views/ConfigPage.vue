@@ -134,22 +134,15 @@ export default defineComponent({
     const activeKey = ref(1)
     const store = useStore(key)
 
-    onBeforeMount(() => {
-      store.dispatch('getRemoteConfig')
-      store.dispatch('getRemoteStatus')
-    })
+    onBeforeMount(() => store.dispatch('getRemoteConfig'))
 
-    const save = () => {
-      store.dispatch('saveRemoteConfig')
-    }
+    const save = () => store.dispatch('saveRemoteConfig')
 
-    const reset = () => {
-      store.commit('reset')
-    }
+    const reset = () => store.commit('reset')
 
     const sendMockGiftCapsule = () => {
       http
-        .post('/control', { method: 'sendMockDataToGiftCapsule' })
+        .post('/api/control', { method: 'sendMockDataToGiftCapsule' })
         .then(res => {
           //
         })
@@ -160,7 +153,7 @@ export default defineComponent({
 
     const sendMockChatMessage = () => {
       http
-        .post('/control', { method: 'sendMockDataToChatMessage' })
+        .post('/api/control', { method: 'sendMockDataToChatMessage' })
         .then(res => {
           //
         })
@@ -171,7 +164,7 @@ export default defineComponent({
 
     const sendMockGiftCard = () => {
       http
-        .post('/control', { method: 'sendMockDataToGiftCard' })
+        .post('/api/control', { method: 'sendMockDataToGiftCard' })
         .then(res => {
           //
         })
@@ -182,7 +175,7 @@ export default defineComponent({
 
     const clearGiftCapsule = () => {
       http
-        .post('/control', { method: 'clearGiftCapsule' })
+        .post('/api/control', { method: 'clearGiftCapsule' })
         .then(res => {
           //
         })
@@ -193,7 +186,7 @@ export default defineComponent({
 
     const clearChatMessage = () => {
       http
-        .post('/control', { method: 'clearChatMessage' })
+        .post('/api/control', { method: 'clearChatMessage' })
         .then(res => {
           //
         })
@@ -204,7 +197,7 @@ export default defineComponent({
 
     const clearGiftCard = () => {
       http
-        .post('/control', { method: 'clearGiftCard' })
+        .post('/api/control', { method: 'clearGiftCard' })
         .then(res => {
           //
         })
