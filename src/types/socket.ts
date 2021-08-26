@@ -4,6 +4,10 @@ interface IMessage<T> {
   data: T
 }
 
+interface ISocketMethodData {
+  method: string
+}
+
 interface ISocketCustomData {
   avatarUrl: string
   nickname: string
@@ -11,4 +15,4 @@ interface ISocketCustomData {
   userInfo?: unknown
 }
 
-export { IMessage, ISocketCustomData }
+export { IMessage, ISocketMethodData, ISocketCustomData }
