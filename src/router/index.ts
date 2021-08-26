@@ -7,6 +7,8 @@ import ChatMessagePage from '../views/ChatMessagePage.vue'
 import GiftCapsulePage from '../views/GiftCapsulePage.vue'
 import GiftCardPage from '../views/GiftCardPage.vue'
 import Login from '../views/User/Login.vue'
+import ConnectPage from '../views/ConnectPage.vue'
+import AccountPage from '../views/AccountPage.vue'
 import http from '@/api/http'
 
 const routes: Array<RouteRecordRaw> = [
@@ -14,13 +16,36 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: { requiresAuth: true }
-  },
-  {
-    path: '/config',
-    name: 'Config',
-    component: ConfigPage,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: '',
+        name: 'Connect',
+        component: ConnectPage,
+        meta: {
+          menuItemKey: '/',
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'config',
+        name: 'Config',
+        component: ConfigPage,
+        meta: {
+          menuItemKey: 'config',
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'account',
+        name: 'Account',
+        component: AccountPage,
+        meta: {
+          menuItemKey: 'account',
+          requiresAuth: true
+        }
+      }
+    ]
   },
   {
     path: '/test',
@@ -73,6 +98,7 @@ router.beforeEach((to, from) => {
             localStorage.setItem('UUID', res.data.data.uuid)
 
             console.log('[auth] 自动登陆成功！')
+            store.dispatch('getRemoteStatus')
           } else {
             store.commit('setLoginStatus', false)
             store.commit('setUUID', '')
