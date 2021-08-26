@@ -1,3 +1,30 @@
+# [1.0.0-alpha.0](https://github.com/hhui64/livekun-web/compare/v0.1.0-alpha.3...v1.0.0-alpha.0) (2021-08-26)
+
+
+### Features
+
+* **api/socket:** 新增根据 UUID 创建指定协议的 WS 实例 ([c19f2af](https://github.com/hhui64/livekun-web/commit/c19f2af675bd68f4b1cd611d3fcb6270795229c1))
+* **api/user:** 新增用户类 api 接口模块 ([66fdafc](https://github.com/hhui64/livekun-web/commit/66fdafc22a8df8f202c604ef76f227fae45832b3))
+* **App:** 新增全局配置 ([7dfd5c2](https://github.com/hhui64/livekun-web/commit/7dfd5c2ad77bdd036c0b79e953e94c15d1fa4cab))
+* **router:** 新增多个页面 ([9936064](https://github.com/hhui64/livekun-web/commit/9936064657cf74506638d93824d9d998572ee0b5))
+* **router:** 新增路由自动鉴权 ([fadee91](https://github.com/hhui64/livekun-web/commit/fadee91a88e6f3eb7602d24d2fcd059fdcc39692))
+* **store:** 新增用户登录状态管理 ([4504a35](https://github.com/hhui64/livekun-web/commit/4504a351bdcaf0fdfb190b90f63cc894c5fcbdd0))
+* **views/AccountPage:** 新增账号管理页面 ([7e2e9bf](https://github.com/hhui64/livekun-web/commit/7e2e9bf8aa1756e4162e5d850f66f83a101d974e))
+* **views/ConnectPage:** 新增连接管理页面 ([bb92cd3](https://github.com/hhui64/livekun-web/commit/bb92cd39ea7f7c717153cef9e517f3e0f7def870))
+* **views/User/Login:** 新增用户登录页面 ([28a5fec](https://github.com/hhui64/livekun-web/commit/28a5fec897ef585575faae8195c716988eabdb6c))
+
+
+### Performance Improvements
+
+* 完善类型声明 ([614df35](https://github.com/hhui64/livekun-web/commit/614df35c7402ce1b7687218f5a96201022e3afa0))
+* **api/http:** 服务端返回 530 时自动跳转至登录页面 ([950f073](https://github.com/hhui64/livekun-web/commit/950f0738a352556b6e076f0956bbf763d1456ea6))
+* **api/socket:** 优化 WS 连接重连逻辑 ([37b6169](https://github.com/hhui64/livekun-web/commit/37b61696a528e16d7d3497a0f9d4e314172ec8c8))
+* **GiftCard*:** 优化礼物卡片的 props 定义 ([10d9be6](https://github.com/hhui64/livekun-web/commit/10d9be680223ff38b774da15a132848edcb2eb68))
+* **views/*:** 优化组件控制逻辑 ([2065049](https://github.com/hhui64/livekun-web/commit/20650493d2f00d212abfce2dead079aeff6e731c))
+* **views/ConfigPage:** 优化配置页面 ([88598da](https://github.com/hhui64/livekun-web/commit/88598dad9f75664901f121dcdce5ba26d718e3b5))
+
+
+
 # [0.1.0-alpha.3](https://github.com/hhui64/livekun-web/compare/v0.1.0-alpha.2...v0.1.0-alpha.3) (2021-08-22)
 
 
