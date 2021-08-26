@@ -5,7 +5,6 @@ import store, { key } from './store'
 import antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import '@/assets/custom.less'
-import WebSocket from 'websocket'
 
 const app = createApp(App)
 
