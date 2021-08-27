@@ -11,7 +11,7 @@
             OBS浏览器链接：{{ giftCapsuleUrl }}
           </a-typography-paragraph>
           <a-divider />
-          <p>礼物胶囊的颜色风格会随着金额档位自动改变。从左到右依次对应三个档位的金额。</p>
+          <p>礼物胶囊的颜色风格会随着金额档位自动改变。从左到右依次对应三个档位的金额（元）。</p>
           <a-space :size="10">
             <a-input-number :min="0" v-model:value="store.state.config.giftCapsule.level[0]" />
             <a-input-number :min="0" v-model:value="store.state.config.giftCapsule.level[1]" />
@@ -25,7 +25,7 @@
             <a-input-number :min="0" v-model:value="store.state.config.giftCapsule.duration[2]" />
           </a-space>
           <a-divider />
-          <p>礼物胶囊最低金额。低于此金额时不显示。</p>
+          <p>礼物胶囊最低金额（元）。低于此金额时不显示。</p>
           <a-input-number :min="0" v-model:value="store.state.config.giftCapsule.minMoney" />
           <a-divider />
           <p>礼物胶囊最多显示多少个。当达到数量上限时，将会移除金额较低的礼物胶囊，即使它没有到期。</p>
@@ -42,14 +42,14 @@
             OBS浏览器链接：{{ giftCardUrl }}
           </a-typography-paragraph>
           <a-divider />
-          <p>礼物卡片的颜色风格会随着金额档位自动改变。从左到右依次对应三个档位的金额。</p>
+          <p>礼物卡片的颜色风格会随着金额档位自动改变。从左到右依次对应三个档位的金额（元）。</p>
           <a-space :size="10">
             <a-input-number :min="0" v-model:value="store.state.config.giftCard.level[0]" />
             <a-input-number :min="0" v-model:value="store.state.config.giftCard.level[1]" />
             <a-input-number :min="0" v-model:value="store.state.config.giftCard.level[2]" />
           </a-space>
           <a-divider />
-          <p>礼物卡片最低金额。低于此金额时不显示。</p>
+          <p>礼物卡片最低金额（元）。低于此金额时不显示。</p>
           <a-input-number :min="0" v-model:value="store.state.config.giftCard.minMoney" />
           <a-divider />
           <p>礼物卡片留言功能。</p>
@@ -68,7 +68,7 @@
             :disabled="!store.state.config.giftCard.comment.use"
             style="width: 90px;"
           />
-          <p style="margin-top: 1rem;">留言礼物金额。礼物价值大于此金额才可以留言。</p>
+          <p style="margin-top: 1rem;">留言礼物金额（元）。礼物价值大于此金额才可以留言。</p>
           <a-input-number
             :min="0"
             v-model:value="store.state.config.giftCard.comment.giftMinMoney"
