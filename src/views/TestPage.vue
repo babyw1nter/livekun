@@ -1,13 +1,12 @@
 <template>
   <div class="test-page">
-    <GiftCapsulePanel
-      ref="GiftCapsulePanelRef"
-      :maximum="5"
-      style="margin-bottom: 1rem;"
-      :duration="store.state.config.giftCapsule.duration"
-    ></GiftCapsulePanel>
+    <GiftCapsulePanel ref="GiftCapsulePanelRef" :maximum="5" style="margin-bottom: 1rem;"></GiftCapsulePanel>
 
-    <ChatMessageList ref="ChatMessageListRef" :font-size="chatMessageListFontSize" style="width: 400px; height: 400px;">
+    <ChatMessageList
+      ref="ChatMessageListRef"
+      :font-size="chatMessageListFontSize"
+      style="margin-bottom: 1rem; width: 400px; height: 400px;"
+    >
     </ChatMessageList>
 
     <GiftCardPanel ref="GiftCardPanelRef" :list="giftCardList" style="width: 300px; height: 340px;"> </GiftCardPanel>
@@ -58,9 +57,6 @@ const giftCapsuleListArray = [
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     money: 69,
     uid: 6900
-    // type: 'guard-annual',
-    // message: '开通年费守护',
-    // duration: 60000
   },
   {
     nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
@@ -109,9 +105,6 @@ const chatMessageListArray = [
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     message: '。。。滚！！~',
     uid: 66690,
-    // customStyle: {
-    //   nicknameColor: 'rgb(255 132 132)'
-    // },
     type: 'anchor'
   },
   {
@@ -119,9 +112,6 @@ const chatMessageListArray = [
     avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
     message: '😡😡😡',
     uid: 66690,
-    // customStyle: {
-    //   nicknameColor: 'rgb(255 132 132)'
-    // },
     type: 'anchor'
   },
   {

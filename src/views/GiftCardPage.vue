@@ -1,6 +1,5 @@
 <template>
-  <GiftCardPanel ref="GiftCardPanelRef" :level="store.state.config.giftCard.level" style="width: 100%; height: 100%">
-  </GiftCardPanel>
+  <GiftCardPanel ref="GiftCardPanelRef" :level="store.state.config.giftCard.level" />
 </template>
 
 <script lang="ts">

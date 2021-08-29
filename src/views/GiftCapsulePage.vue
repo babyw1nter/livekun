@@ -4,8 +4,7 @@
     :maximum="store.state.config.giftCapsule.maximum"
     :level="store.state.config.giftCapsule.level"
     :duration="store.state.config.giftCapsule.duration"
-    style="margin-bottom: 1rem;"
-  ></GiftCapsulePanel>
+  />
 </template>
 
 <script lang="ts">

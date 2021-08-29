@@ -100,6 +100,8 @@ export default defineComponent({
   list-style: none;
   padding-left: 10px;
   padding-right: 10px;
+  width: 100%;
+  height: 100%;
 
   &.smooth-scroll {
     scroll-behavior: smooth;

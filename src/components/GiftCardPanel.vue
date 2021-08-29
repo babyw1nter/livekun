@@ -97,6 +97,8 @@ export default defineComponent({
   scroll-behavior: smooth;
   list-style: none;
   padding: 10px;
+  width: 100%;
+  height: 100%;
 
   &::-webkit-scrollbar {
     width: 0 !important;

@@ -167,8 +167,9 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .gift-capsule-panel {
-  min-height: 55px;
   padding: 10px;
+  width: 100%;
+  min-height: 55px;
   list-style: none;
   overflow-x: hidden;
 
