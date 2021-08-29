@@ -91,14 +91,15 @@ router.beforeEach((to, from) => {
         .post('/user/autologin', {})
         .then(res => {
           if (res.data.code === 200) {
+            const responseData = res.data
             store.commit('setLoginStatus', true)
-            store.commit('setUUID', res.data.data.uuid)
+            store.commit('setUUID', responseData.data.uuid)
 
             localStorage.setItem('isLoggedIn', '1')
-            localStorage.setItem('UUID', res.data.data.uuid)
+            localStorage.setItem('UUID', responseData.data.uuid)
 
-            console.log('[auth] 自动登陆成功！')
             store.dispatch('getRemoteStatus')
+            console.log('[auth] 自动登陆成功！')
           } else {
             store.commit('setLoginStatus', false)
             store.commit('setUUID', '')
@@ -113,9 +114,10 @@ router.beforeEach((to, from) => {
           }
         })
         .catch(reason => {
-          router.push({
-            path: '/user/login'
-          })
+          console.error(reason)
+          // router.push({
+          //   path: '/user/login'
+          // })
         })
     } else {
       console.log('[auth] 尚未登录！')
