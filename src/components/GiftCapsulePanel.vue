@@ -163,7 +163,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .gift-capsule-panel {
   min-height: 55px;
   padding: 10px;

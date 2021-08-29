@@ -88,7 +88,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .gift-card-panel {
   overflow-y: auto;
   scroll-behavior: smooth;

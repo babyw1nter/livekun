@@ -94,7 +94,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .chat-message-list {
   overflow-y: auto;
   list-style: none;
