@@ -1,3 +1,18 @@
+# [1.0.0-alpha.1](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2021-08-29)
+
+
+### Features
+
+* 新增进入离开时的过渡动画 ([bd3d1c0](https://github.com/hhui64/livekun-web/commit/bd3d1c0e6c96a338223eb89a6d755d654619fde0))
+
+
+### Performance Improvements
+
+* 优化样式添加 scoped 属性 ([f8e9e13](https://github.com/hhui64/livekun-web/commit/f8e9e133f92b6acfe19354ff778872ced4852258))
+* **views/ConfigPage:** 优化配置项说明文本 ([b00eebc](https://github.com/hhui64/livekun-web/commit/b00eebc5c5eaa73924db55e83268d508c32cb804))
+
+
+
 # [1.0.0-alpha.0](https://github.com/hhui64/livekun-web/compare/v0.1.0-alpha.3...v1.0.0-alpha.0) (2021-08-26)
 
 
