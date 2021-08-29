@@ -1,15 +1,17 @@
 <template>
   <ul class="gift-capsule-panel clearfix">
-    <GiftCapsule
-      v-for="item in giftCapsuleListItemCache"
-      :key="item.uid"
-      :type="item.type || `level-${getLevel(item.money, level)}`"
-      :avatar-url="item.avatarUrl"
-      :money="item.money"
-      :message="item.message"
-      :percentage="item.percentage"
-    >
-    </GiftCapsule>
+    <TransitionGroup name="fade">
+      <GiftCapsule
+        v-for="item in giftCapsuleListItemCache"
+        :key="item.uid"
+        :type="item.type || `level-${getLevel(item.money, level)}`"
+        :avatar-url="item.avatarUrl"
+        :money="item.money"
+        :message="item.message"
+        :percentage="item.percentage"
+      >
+      </GiftCapsule>
+    </TransitionGroup>
   </ul>
 </template>
 
@@ -173,5 +175,15 @@ export default defineComponent({
   &::-webkit-scrollbar {
     width: 0 !important;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

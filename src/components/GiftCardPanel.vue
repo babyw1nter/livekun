@@ -1,18 +1,21 @@
 <template>
   <ul class="gift-card-panel clearfix" ref="GiftCardPanelRef">
-    <GiftCard
-      v-for="(item, index) in giftCardListItemCache"
-      :key="index"
-      :type="item.type || `level-${getLevel(item.money, level)}`"
-      :avatar-url="item.avatarUrl"
-      :nickname="item.nickname"
-      :money="item.money"
-      :gift-name="item.giftName"
-      :gift-count="item.giftCount"
-      :gift-image="item.giftImage"
-      :message="item.message"
-      :comment="item.comment"
-    ></GiftCard>
+    <TransitionGroup name="fade">
+      <GiftCard
+        v-for="(item, index) in giftCardListItemCache"
+        :key="index"
+        :type="item.type || `level-${getLevel(item.money, level)}`"
+        :avatar-url="item.avatarUrl"
+        :nickname="item.nickname"
+        :money="item.money"
+        :gift-name="item.giftName"
+        :gift-count="item.giftCount"
+        :gift-image="item.giftImage"
+        :message="item.message"
+        :comment="item.comment"
+      >
+      </GiftCard>
+    </TransitionGroup>
   </ul>
 </template>
 
@@ -98,5 +101,15 @@ export default defineComponent({
   &::-webkit-scrollbar {
     width: 0 !important;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
