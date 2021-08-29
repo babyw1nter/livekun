@@ -1,15 +1,16 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import store from '@/store'
-import Home from '../views/Home.vue'
-import TestPage from '../views/TestPage.vue'
-import ConfigPage from '../views/ConfigPage.vue'
-import ChatMessagePage from '../views/ChatMessagePage.vue'
-import GiftCapsulePage from '../views/GiftCapsulePage.vue'
-import GiftCardPage from '../views/GiftCardPage.vue'
-import Login from '../views/User/Login.vue'
-import ConnectPage from '../views/ConnectPage.vue'
-import AccountPage from '../views/AccountPage.vue'
 import http from '@/api/http'
+
+const Home = () => import(/* webpackChunkName: "group-home" */ '../views/Home.vue')
+const ConnectPage = () => import(/* webpackChunkName: "group-home" */ '../views/ConnectPage.vue')
+const ConfigPage = () => import(/* webpackChunkName: "group-home" */ '../views/ConfigPage.vue')
+const AccountPage = () => import(/* webpackChunkName: "group-home" */ '../views/AccountPage.vue')
+const LoginPage = () => import(/* webpackChunkName: "group-user" */ '../views/User/Login.vue')
+const TestPage = () => import(/* webpackChunkName: "group-test" */ '../views/TestPage.vue')
+const GiftCapsulePage = () => import(/* webpackChunkName: "group-gift-capsule" */ '../views/GiftCapsulePage.vue')
+const ChatMessagePage = () => import(/* webpackChunkName: "group-chat-message" */ '../views/ChatMessagePage.vue')
+const GiftCardPage = () => import(/* webpackChunkName: "group-gift-card" */ '../views/GiftCardPage.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -74,7 +75,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/user/login',
     name: 'Login',
-    component: Login,
+    component: LoginPage,
     meta: { requiresAuth: false }
   }
 ]
