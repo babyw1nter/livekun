@@ -24,14 +24,14 @@ export default defineComponent({
     const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
     onMounted(() => {
-      createSocket((ev, websocket) => {
+      createSocket((ev, websocket, decodeData) => {
         interface ISocketChatMsg extends ISocketCustomData {
           method?: string
           message: string
           type: string
         }
 
-        const socketMessage = JSON.parse(ev.data) as IMessage<ISocketChatMsg>
+        const socketMessage = decodeData as IMessage<ISocketChatMsg>
 
         console.info(`[${websocket.protocol}]`, '接收消息', socketMessage)
 

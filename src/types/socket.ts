@@ -2,6 +2,7 @@ interface IMessage<T> {
   code: number
   type: string
   data: T
+  timestamp: number
 }
 
 interface ISocketMethodData {

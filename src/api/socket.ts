@@ -1,9 +1,18 @@
 import store from '@/store'
 import router from '@/router'
 import { baseWsURL } from './http'
+import { IMessage } from '@/types/socket'
 
-export const createSocket = (
-  onMessageCallback: (ev: MessageEvent, websocket: WebSocket) => void,
+const decode = (data: ArrayBuffer): string => {
+  return new TextDecoder().decode(data)
+}
+
+const encode = (data: string): ArrayBuffer => {
+  return new TextEncoder().encode(data)
+}
+
+const createSocket = (
+  onMessageCallback: (ev: MessageEvent, websocket: WebSocket, decodeData?: IMessage<unknown>) => void,
   protocols: 'gift-capsule' | 'chat-message' | 'gift-card' | string
 ): WebSocket | null => {
   const uuid = router.currentRoute.value.query.uuid || ''
@@ -15,6 +24,7 @@ export const createSocket = (
 
   console.log(`[${protocols}]`, '正在创建 WS 连接...')
   const websocket = new WebSocket(baseWsURL, protocols + '-' + uuid)
+  websocket.binaryType = 'arraybuffer'
 
   websocket.addEventListener('open', () => {
     console.log(`[${protocols}]`, '连接成功！')
@@ -37,7 +47,16 @@ export const createSocket = (
       window.setTimeout(() => createSocket(onMessageCallback, protocols), 5000)
     }
   })
-  websocket.addEventListener('message', ev => onMessageCallback(ev, websocket))
+  websocket.addEventListener('message', ev => {
+    try {
+      const decodeData = JSON.parse(decode(ev.data)) as IMessage<unknown>
+      onMessageCallback(ev, websocket, decodeData)
+    } catch (err) {
+      console.error(err)
+    }
+  })
 
   return websocket
 }
+
+export { createSocket, encode, decode }

@@ -20,7 +20,7 @@ export default defineComponent({
     const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
 
     onMounted(() => {
-      createSocket((ev, websocket) => {
+      createSocket((ev, websocket, decodeData) => {
         interface ISocketGiftCard extends ISocketCustomData {
           method?: string
           money: number
@@ -31,7 +31,7 @@ export default defineComponent({
           comment: string
         }
 
-        const socketMessage = JSON.parse(ev.data) as IMessage<ISocketGiftCard>
+        const socketMessage = decodeData as IMessage<ISocketGiftCard>
 
         console.info(`[${websocket.protocol}]`, '接收消息', socketMessage)
 
