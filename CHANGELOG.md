@@ -1,3 +1,21 @@
+# [1.0.0-alpha.2](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2021-08-29)
+
+
+### Features
+
+* 新增组件错误时的反馈样式 ([863ac47](https://github.com/hhui64/livekun-web/commit/863ac47ac7ef86c3b98c79e7926226e8ea9da8db))
+* **api/socket:** 新增支持 ArrayBuffer 传输 WS 数据 ([2097901](https://github.com/hhui64/livekun-web/commit/2097901e4f15a0df5f726216327681a4fa4817c7))
+
+
+### Performance Improvements
+
+* 使用 Day.js 替换 Moment.js 以减少打包的文件体积 ([09fe6df](https://github.com/hhui64/livekun-web/commit/09fe6df667f35dc49b549f05c37e2969e13c87bb))
+* 优化路由懒加载以提升首屏加载速度 ([0afa15b](https://github.com/hhui64/livekun-web/commit/0afa15bc1c8101b49f564aed0fb382dbfe27c665))
+* 优化组件按需引用以减少打包的文件体积 ([bf59e89](https://github.com/hhui64/livekun-web/commit/bf59e89e74101e8c4242c279585e61e2cee5b501))
+* 优化组件样式 ([d643593](https://github.com/hhui64/livekun-web/commit/d643593b93b9c67a545e1d10612b5cb565c42b5f))
+
+
+
 # [1.0.0-alpha.1](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2021-08-29)
 
 
