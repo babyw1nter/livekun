@@ -111,11 +111,11 @@ export default createStore<State>({
     }
   },
   mutations: {
-    update(state, newValue: IConfig) {
+    updateConfig(state, newValue: IConfig) {
       state.config = newValue
       // console.log('更新 vuex 配置', newValue)
     },
-    reset(state) {
+    resetConfig(state) {
       state.config = defaultConfig
       // console.log('重置 vuex 配置')
     },
@@ -172,7 +172,7 @@ export default createStore<State>({
           const responseData = res.data as IResponse
           if (responseData.code === 200) {
             const remoteConfig = responseData.data as IConfig
-            context.commit('update', remoteConfig)
+            context.commit('updateConfig', remoteConfig)
             console.log('请求远程配置成功', remoteConfig)
           } else {
             // message.error('请求远程配置失败：' + responseData.code + ' ' + responseData.message)
@@ -185,11 +185,6 @@ export default createStore<State>({
         })
     },
     saveRemoteConfig(context) {
-      // if (!context.state.auth.isLoggedIn) {
-      //   console.warn('[config]', '用户未登录，不获保存远程配置！')
-      //   return
-      // }
-
       console.log('保存远程配置...')
       http
         .post('/user/update-config', context.state.config)
@@ -197,7 +192,7 @@ export default createStore<State>({
           const responseData = res.data as IResponse
           if (responseData.code === 200) {
             const remoteConfig = responseData.data as IConfig
-            context.commit('update', remoteConfig)
+            context.commit('updateConfig', remoteConfig)
             console.log('保存远程配置成功', remoteConfig)
             message.success('配置已保存！')
           } else {
