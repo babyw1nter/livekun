@@ -91,24 +91,28 @@ router.beforeEach((to, from) => {
       http
         .post('/user/autologin', {})
         .then(res => {
-          if (res.data.code === 200) {
-            const responseData = res.data
+          const responseData = res.data
+
+          if (responseData.code === 200) {
             store.commit('setLoginStatus', true)
-            store.commit('setUUID', responseData.data.uuid)
-
+            store.commit('setUUID', responseData.data.user.uuid)
             localStorage.setItem('isLoggedIn', '1')
-            localStorage.setItem('UUID', responseData.data.uuid)
+            localStorage.setItem('UUID', responseData.data.user.uuid)
 
-            store.dispatch('getRemoteStatus')
-            console.log('[auth] 自动登陆成功！')
+            store.commit('updateStatus', responseData.data.status)
+            store.commit('updateConfig', responseData.data.config)
+
+            console.log('[auth] 自动登陆成功！', responseData)
           } else {
             store.commit('setLoginStatus', false)
             store.commit('setUUID', '')
-
             localStorage.removeItem('isLoggedIn')
             localStorage.removeItem('UUID')
 
-            console.log('[auth] 自动登陆失败，已重置登录状态！')
+            store.commit('resetStatus')
+            store.commit('resetConfig')
+
+            console.warn('[auth] 自动登陆失败，已重置登录状态！', responseData)
             router.push({
               path: '/user/login'
             })

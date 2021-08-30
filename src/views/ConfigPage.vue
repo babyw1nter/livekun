@@ -119,7 +119,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, onBeforeMount, onMounted, computed } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
@@ -135,11 +135,9 @@ export default defineComponent({
     const chatMessageUrl = computed(() => `${window.location.origin}/#/chat-message?uuid=${store.state.auth.uuid}`)
     const giftCardUrl = computed(() => `${window.location.origin}/#/gift-card?uuid=${store.state.auth.uuid}`)
 
-    onBeforeMount(() => store.dispatch('getRemoteConfig'))
-
     const save = () => store.dispatch('saveRemoteConfig')
 
-    const reset = () => store.commit('reset')
+    const reset = () => store.commit('resetConfig')
 
     const sendMockGiftCapsule = () => {
       http

@@ -52,15 +52,17 @@ export default defineComponent({
             liveId: liveIdInputValue.value
           })
           .then(res => {
-            console.log(res.data)
+            const responseData = res.data
 
-            if (res.data.code === 200) {
+            if (responseData.code === 200) {
               message.success('进入直播间成功！')
-            } else if (res.data.code === 10001) {
+            } else if (responseData.code === 10001) {
               message.error('进入直播间失败！')
+            } else {
+              //
             }
 
-            store.dispatch('getRemoteStatus')
+            store.commit('updateStatus', responseData.data.status)
           })
           .catch((reason: Error) => {
             console.log(reason)
