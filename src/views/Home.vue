@@ -13,13 +13,31 @@
               </template>
               连接控制
             </a-menu-item>
-            <a-menu-item key="config">
+            <a-sub-menu key="/config">
               <template #icon>
                 <SettingOutlined />
               </template>
-              系统设置
-            </a-menu-item>
-            <a-menu-item key="account">
+              <template #title>系统设置</template>
+              <a-menu-item key="/config/gift-capsule">
+                <template #icon>
+                  <GiftOutlined />
+                </template>
+                礼物胶囊
+              </a-menu-item>
+              <a-menu-item key="/config/gift-card">
+                <template #icon>
+                  <CreditCardOutlined />
+                </template>
+                礼物卡片
+              </a-menu-item>
+              <a-menu-item key="/config/chat-message">
+                <template #icon>
+                  <MessageOutlined />
+                </template>
+                聊天消息
+              </a-menu-item>
+            </a-sub-menu>
+            <a-menu-item key="/account">
               <template #icon>
                 <UserOutlined />
               </template>
@@ -43,7 +61,15 @@ import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
-import { SmileOutlined, UserOutlined, ApiOutlined, SettingOutlined } from '@ant-design/icons-vue'
+import {
+  SmileOutlined,
+  UserOutlined,
+  ApiOutlined,
+  SettingOutlined,
+  GiftOutlined,
+  CreditCardOutlined,
+  MessageOutlined
+} from '@ant-design/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
 import http from '@/api/http'
 
@@ -52,7 +78,10 @@ export default defineComponent({
     SmileOutlined,
     UserOutlined,
     ApiOutlined,
-    SettingOutlined
+    SettingOutlined,
+    GiftOutlined,
+    CreditCardOutlined,
+    MessageOutlined
   },
   setup() {
     const store = useStore(key)
