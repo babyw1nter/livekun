@@ -96,31 +96,7 @@ import {
 } from '@ant-design/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
 import { randomNum } from '@/api/common'
-
-const broadcastArray = [
-  '“隐约雷鸣，阴霾天空，但盼风雨来，能留你在此。”——《万叶集 雷神短歌》',
-  '“隐约雷鸣，阴霾天空，即使天无雨，我亦留此地。”——《万叶集 雷神短歌》',
-  // '“你的爱会将我灌醉，我没有所谓，太过清醒怎么，陶醉。”——比莉《DEAR JOHN》',
-  // '“你的爱，像是杯太浓的咖啡，让我失眠彻夜，好爱这种感觉。”——比莉《DEAR JOHN》',
-  // '“印象中的爱情好像，顶不住那时间，所以你弃权。”——周杰伦《半岛铁盒》',
-  '“铜镜映无邪，扎马尾，你若撒野，今生我把酒奉陪。”——周杰伦《发如雪》',
-  '“我寻你千百度，又一岁荣枯，你不在灯火阑珊处。”——许嵩《千百度》',
-  '论奶玲的白丝能有多嫩？我只能说，太嫩了。',
-  '赚了500，你以为我要给你450，我留50？我会跟朋友借20，凑520给你。',
-  'java.lang.NullPointerException',
-  '没有对象怎么办？答：new 一个呗，要几个有几个！',
-  '我和你荡秋千，荡到那天外天。',
-  '再看我就把你吃掉！',
-  '别看了，奶玲，你再看就没时间开播了。',
-  '一天到晚整这些花里胡哨的，有用吗？',
-  '扎不多的勒。',
-  '炒饭要用隔夜饭来炒啊，炒王！',
-  '你以为你匿系呢度，就搵你唔到咩？冇用嘅，好似你啲甘出色嘅男人。',
-  '无论系边度，就好似漆黑中的萤火虫呢样，甘鲜明，甘出众。',
-  '你忧郁嘅眼神，唏嘘的须根，神乎其技嘅刀法，同埋果杯 Drymartine，都彻底将你出卖佐。',
-  '不过，你虽然系甘出色，始终，行有行规，无论点，你都要找埋琴晚果条过夜数。',
-  '我仲蛊我哋嘅交往系建筑在感情之上，蛊唔到，原来都系一盘生意。'
-]
+import http from '@/api/http'
 
 export default defineComponent({
   components: {
@@ -139,13 +115,31 @@ export default defineComponent({
 
     const selectedKeys = computed(() => [route.meta.menuItemKey])
 
+    const broadcasts = ref([''])
     const broadcast = ref('')
 
-    onBeforeMount(() => updateBroadcast())
+    onBeforeMount(() => {
+      http
+        .get('/api/get-broadcasts')
+        .then(res => {
+          const responseData = res.data
+          if (responseData.code === 200) {
+            const _broadcasts = responseData.data.broadcasts as Array<string>
+            broadcasts.value = _broadcasts
+            updateBroadcast()
+          }
+        })
+        .catch(reason => {
+          console.error(reason)
+        })
+    })
+
     watch(route, () => updateBroadcast())
 
     const updateBroadcast = () => {
-      broadcast.value = broadcastArray[randomNum(0, broadcastArray.length - 1)]
+      if (broadcasts.value.length > 0) {
+        broadcast.value = broadcasts.value[randomNum(0, broadcasts.value.length - 1)]
+      }
     }
 
     const menuClicked = (e: { key: string }) => {
