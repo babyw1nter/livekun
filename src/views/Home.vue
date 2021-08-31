@@ -60,6 +60,13 @@
         <a-layout-content style="min-height: 555px;">
           <div class="right-title no-select">
             <span>{{ route.meta.title }}</span>
+            <!-- <a-page-header
+              class="h-page-header"
+              :title="route.meta.title"
+              sub-title="This is a subtitle"
+              :back-icon="false"
+              @back="() => router.back()"
+            /> -->
           </div>
           <div class="right-main">
             <router-view></router-view>
@@ -115,6 +122,7 @@ export default defineComponent({
     return {
       store,
       route,
+      router,
       selectedKeys,
       menuClicked
     }
@@ -149,6 +157,11 @@ export default defineComponent({
       height: 52px;
       border-bottom: 1px solid #f0f0f0;
       overflow: hidden;
+
+      .h-page-header {
+        margin: 6px 0;
+        padding: 0;
+      }
 
       span {
         padding-left: 12px;

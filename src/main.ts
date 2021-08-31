@@ -5,6 +5,7 @@ import store, { key } from './store'
 import {
   ConfigProvider,
   Layout,
+  PageHeader,
   Button,
   Input,
   InputNumber,
@@ -35,6 +36,7 @@ app
   .use(router)
   .use(ConfigProvider)
   .use(Layout)
+  .use(PageHeader)
   .use(Button)
   .use(Menu)
   .use(Input)
