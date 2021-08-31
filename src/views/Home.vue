@@ -13,7 +13,7 @@
             </span>
           </div>
           <a-menu
-            class="home-menu"
+            class="home-menu no-select"
             mode="inline"
             :selectedKeys="selectedKeys"
             @click="menuClicked"
@@ -58,7 +58,7 @@
           </a-menu>
         </a-layout-sider>
         <a-layout-content style="min-height: 555px;">
-          <div class="right-title">
+          <div class="right-title no-select">
             <span>{{ route.meta.title }}</span>
           </div>
           <div class="right-main">
@@ -132,27 +132,26 @@ export default defineComponent({
     width: 888px;
 
     .logo {
-      margin-bottom: 0px;
+      margin-bottom: 8px;
       text-align: center;
       font-weight: 800;
-      height: 49px;
+      height: 51px;
       border-bottom: 1px solid #f0f0f0;
 
       .logo-text {
         font-size: 1.5em;
-        line-height: 49px;
+        line-height: 51px;
       }
     }
 
     .right-title {
-      // margin-bottom: 4px;
-      padding: 0 24px;
-      height: 49px;
+      padding: 0 1rem;
+      height: 51px;
       border-bottom: 1px solid #f0f0f0;
 
       span {
         padding-left: 8px;
-        line-height: 49px;
+        line-height: 51px;
         border-left: 4px solid #1890ff;
         color: rgba(0, 0, 0, 0.85);
         font-weight: bold;
@@ -161,7 +160,7 @@ export default defineComponent({
     }
 
     .right-main {
-      padding: 24px;
+      padding: 1rem;
     }
   }
 
