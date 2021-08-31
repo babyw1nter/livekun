@@ -132,26 +132,27 @@ export default defineComponent({
     width: 888px;
 
     .logo {
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       text-align: center;
       font-weight: 800;
-      height: 51px;
+      height: 52px;
       border-bottom: 1px solid #f0f0f0;
 
       .logo-text {
         font-size: 1.5em;
-        line-height: 51px;
+        line-height: 52px;
       }
     }
 
     .right-title {
       padding: 0 1rem;
-      height: 51px;
+      height: 52px;
       border-bottom: 1px solid #f0f0f0;
+      overflow: hidden;
 
       span {
-        padding-left: 8px;
-        line-height: 51px;
+        padding-left: 12px;
+        line-height: 52px;
         border-left: 4px solid #1890ff;
         color: rgba(0, 0, 0, 0.85);
         font-weight: bold;
@@ -160,7 +161,7 @@ export default defineComponent({
     }
 
     .right-main {
-      padding: 1rem;
+      padding: 1rem 1rem 24px 1rem;
     }
   }
 
