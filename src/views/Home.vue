@@ -67,7 +67,10 @@
               :back-icon="false"
               @back="() => router.back()"
             /> -->
-            <a-typography-text type="secondary" class="broadcast">{{ broadcast }}</a-typography-text>
+            <a-tooltip>
+              <template #title>看什么看？又不给我看白丝，还不快点开播，把你鼠标挪开！</template>
+              <a-typography-text type="secondary" class="broadcast">{{ broadcast }}</a-typography-text>
+            </a-tooltip>
           </div>
           <div class="right-main">
             <router-view></router-view>
@@ -206,6 +209,7 @@ export default defineComponent({
       span.broadcast {
         float: right;
         line-height: 52px;
+        transition: all 0.5s;
       }
     }
 

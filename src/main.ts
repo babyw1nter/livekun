@@ -20,7 +20,8 @@ import {
   Alert,
   Typography,
   Avatar,
-  Image
+  Image,
+  Tooltip
 } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import dayjs from 'dayjs'
@@ -52,4 +53,5 @@ app
   .use(Typography)
   .use(Avatar)
   .use(Image)
+  .use(Tooltip)
   .mount('#app')
