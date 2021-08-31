@@ -4,9 +4,21 @@
       <a-alert message="谨以此作品献给我的好朋友——奶玲！" type="warning" showIcon style="margin: 1rem 0;">
         <template #icon><smile-outlined /></template>
       </a-alert>
-      <a-layout style="padding: 24px 0; background: #fff">
+      <a-layout style="background: #fff; border-radius: 2px; overflow: hidden;">
         <a-layout-sider width="200" style="border-right: 1px solid #f0f0f0; background: #fff;">
-          <a-menu mode="inline" :selectedKeys="selectedKeys" @click="menuClicked" style="border-right: none;">
+          <div class="logo no-select">
+            <span class="logo-text">
+              <span style="color: #0084ff;">LIVE</span>
+              <span>KUN</span>
+            </span>
+          </div>
+          <a-menu
+            class="home-menu"
+            mode="inline"
+            :selectedKeys="selectedKeys"
+            @click="menuClicked"
+            style="border-right: none;"
+          >
             <a-menu-item key="/">
               <template #icon>
                 <ApiOutlined />
@@ -45,8 +57,13 @@
             </a-menu-item>
           </a-menu>
         </a-layout-sider>
-        <a-layout-content :style="{ padding: '0 24px', minHeight: '280px' }">
-          <router-view></router-view>
+        <a-layout-content style="min-height: 555px;">
+          <div class="right-title">
+            <span>{{ route.meta.title }}</span>
+          </div>
+          <div class="right-main">
+            <router-view></router-view>
+          </div>
         </a-layout-content>
       </a-layout>
     </a-layout-content>
@@ -99,6 +116,7 @@ export default defineComponent({
 
     return {
       store,
+      route,
       selectedKeys,
       menuClicked
     }
@@ -112,7 +130,41 @@ export default defineComponent({
 
   .main {
     margin: 0 auto;
+    padding: 0;
     width: 888px;
+
+    .logo {
+      margin-bottom: 0px;
+      text-align: center;
+      font-weight: 800;
+      height: 49px;
+      border-bottom: 1px solid #f0f0f0;
+
+      .logo-text {
+        font-size: 1.5em;
+        line-height: 49px;
+      }
+    }
+
+    .right-title {
+      // margin-bottom: 4px;
+      padding: 0 24px;
+      height: 49px;
+      border-bottom: 1px solid #f0f0f0;
+
+      span {
+        padding-left: 8px;
+        line-height: 49px;
+        border-left: 4px solid #1890ff;
+        color: rgba(0, 0, 0, 0.85);
+        font-weight: bold;
+        font-size: 1rem;
+      }
+    }
+
+    .right-main {
+      padding: 24px;
+    }
   }
 
   .footer {
