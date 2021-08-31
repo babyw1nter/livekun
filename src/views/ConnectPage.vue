@@ -56,13 +56,12 @@ export default defineComponent({
 
             if (responseData.code === 200) {
               message.success('进入直播间成功！')
+              store.commit('updateStatus', responseData.data.status)
             } else if (responseData.code === 10001) {
               message.error('进入直播间失败！')
             } else {
-              //
+              message.error('服务器错误！')
             }
-
-            store.commit('updateStatus', responseData.data.status)
           })
           .catch((reason: Error) => {
             console.log(reason)
