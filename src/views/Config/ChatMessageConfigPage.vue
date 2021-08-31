@@ -16,7 +16,7 @@
     />
     <a-divider />
     <p>控制一些聊天消息的显示和隐藏。</p>
-    <a-checkbox v-model:checked="store.state.config.chatMessage.show.join">进入直播间</a-checkbox>
+    <a-checkbox v-model:checked="store.state.config.chatMessage.show.join" disabled>进入直播间</a-checkbox>
     <a-checkbox v-model:checked="store.state.config.chatMessage.show.follow" disabled>用户关注</a-checkbox>
     <a-checkbox v-model:checked="store.state.config.chatMessage.show.gift" disabled>赠送礼物</a-checkbox>
     <a-divider />
