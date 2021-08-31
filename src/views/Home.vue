@@ -77,7 +77,6 @@
 import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
-import { message } from 'ant-design-vue'
 import {
   SmileOutlined,
   UserOutlined,
@@ -88,7 +87,6 @@ import {
   MessageOutlined
 } from '@ant-design/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
-import http from '@/api/http'
 
 export default defineComponent({
   components: {
