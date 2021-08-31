@@ -4,7 +4,7 @@
       <a-button @click="sendMock">发送模拟数据</a-button>
       <a-button @click="clear">清空礼物胶囊</a-button>
     </a-space>
-    <a-space direction="vertical" :size="24">
+    <a-space direction="vertical" :size="24" style="width: 100%;">
       <a-typography-link :href="url" :copyable="{ text: url }" target="_blank">
         OBS 浏览器链接
       </a-typography-link>
