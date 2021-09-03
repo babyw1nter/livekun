@@ -21,7 +21,8 @@ import {
   Typography,
   Avatar,
   Image,
-  Tooltip
+  Tooltip,
+  Carousel
 } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import dayjs from 'dayjs'
@@ -54,4 +55,5 @@ app
   .use(Avatar)
   .use(Image)
   .use(Tooltip)
+  .use(Carousel)
   .mount('#app')
