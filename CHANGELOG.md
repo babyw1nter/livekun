@@ -1,3 +1,35 @@
+# [1.0.0-alpha.3](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2021-09-03)
+
+
+### Bug Fixes
+
+* 修复当礼物价值低于第一档金额时风格样式异常的问题 ([1aedf7b](https://github.com/hhui64/livekun-web/commit/1aedf7bb92cb4be0f80f1e3f9f50346e33208aed))
+* 修复礼物卡片留言功能失效的问题 ([7dcca24](https://github.com/hhui64/livekun-web/commit/7dcca247cd7f710aa2032980ea22da561220b7bd))
+* **views/ConnectPage:** 修复进入房间失败时依然改变全局 status 的问题 ([de5d1ca](https://github.com/hhui64/livekun-web/commit/de5d1cae1f561c320435aeeb04d2deff1b6e0bb4))
+
+
+### Features
+
+* 新增设置页面对应组件的样式预览 ([d60beff](https://github.com/hhui64/livekun-web/commit/d60beffe1cdd2d91802fdff8c410093b3eb096ba))
+* **views/Home:** 公告信息添加文字提示 ([c71f126](https://github.com/hhui64/livekun-web/commit/c71f126ac0421e75276156f925c29b884065c62c))
+* **views/Home:** 新增从服务端获取公告的功能 ([18318e4](https://github.com/hhui64/livekun-web/commit/18318e457fc61971eb6b5d2c6fd9badf2fc4551c))
+* **views/Home:** 新增页头组件 ([6f46b54](https://github.com/hhui64/livekun-web/commit/6f46b5415d624912a64976bd426db837433f40f4))
+* **views/Home:** 新增主页右上角的小彩蛋文本 ([41f814d](https://github.com/hhui64/livekun-web/commit/41f814db983758ced56fd8f1253248f7e3204faa))
+
+
+### Performance Improvements
+
+* 优化 html lang 标识符 ([94e6c5f](https://github.com/hhui64/livekun-web/commit/94e6c5f411803152ca180cd5a3556db368fe73aa))
+* 优化接口数据合并以减少请求数量 ([4f93b54](https://github.com/hhui64/livekun-web/commit/4f93b54ef72b951802f39b5de29403d2a7c16150))
+* 优化页面样式 ([c0c3e98](https://github.com/hhui64/livekun-web/commit/c0c3e98944249891c1f9f48cd8733b4208fbdffb))
+* **GiftCapsulePanel:** 优化礼物胶囊添加逻辑 ([303ca17](https://github.com/hhui64/livekun-web/commit/303ca17a8f2ba6e0d5472b7ea3413d0c8d3aa2c5))
+* **GiftCardConfigPage:** 优化配置项说明文案 ([e0fe390](https://github.com/hhui64/livekun-web/commit/e0fe390a2ff74495f827966ddf0cc11ea72a39d8))
+* **views/*:** 优化页面样式 ([c5db17f](https://github.com/hhui64/livekun-web/commit/c5db17f0e5bee6d3f945a59242f0dbbf5681f898))
+* **views/Home:** 优化布局样式 ([aa3641f](https://github.com/hhui64/livekun-web/commit/aa3641f6cec267dc236b388bebfca9c2fcd0d769))
+* **views/Home:** 优化主页样式 ([a67587d](https://github.com/hhui64/livekun-web/commit/a67587d14c8509d14c758a233d5873e54086d4f8))
+
+
+
 # [1.0.0-alpha.2](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2021-08-29)
 
 
