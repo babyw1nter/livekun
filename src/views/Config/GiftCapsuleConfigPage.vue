@@ -1,14 +1,28 @@
 <template>
   <div class="config-gift-capsule options-panel">
-    <a-space :size="10" style="margin-bottom: 1rem;">
-      <a-button @click="sendMock">发送模拟数据</a-button>
-      <a-button @click="clear">清空礼物胶囊</a-button>
+    <div class="preview-wrapper">
+      <GiftCapsulePanel
+        ref="GiftCapsulePanelRef"
+        class="preview-gift-capsule-panel"
+        :maximum="3"
+        :level="store.state.config.giftCapsule.level"
+        :duration="store.state.config.giftCapsule.duration"
+      />
+      <a-checkbox v-model:checked="autoPreview" v-on:change="autoPreviewChange" style="margin: 1rem; float: right;"
+        >自动预览
+      </a-checkbox>
+    </div>
+    <a-space :size="10">
+      <a-button @click="sendMock">发送 OBS 模拟数据</a-button>
+      <a-button @click="clear">清空 OBS 礼物胶囊</a-button>
     </a-space>
-    <a-space direction="vertical" :size="24" style="width: 100%;">
-      <a-typography-link :href="url" :copyable="{ text: url }" target="_blank">
-        OBS 浏览器链接
-      </a-typography-link>
+    <a-typography-link :href="url" :copyable="{ text: url }" target="_blank" style="float: right; line-height: 32px;">
+      OBS 浏览器链接
+    </a-typography-link>
 
+    <a-divider />
+
+    <a-space direction="vertical" :size="24" style="width: 100%;">
       <a-space direction="vertical">
         <a-typography-text>礼物胶囊金额档位（元）</a-typography-text>
         <a-typography-text type="secondary">
@@ -58,15 +72,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, nextTick, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
+import GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
 import http from '@/api/http'
+import { getRandomGiftCapsule } from '@/api/mock'
 
 export default defineComponent({
+  components: {
+    GiftCapsulePanel
+  },
   setup() {
     const store = useStore(key)
+    const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
+
+    const autoPreviewTimer = ref(0)
+    const autoPreview = ref(true)
+    const autoPreviewChange = () => {
+      GiftCapsulePanelRef.value?.add({
+        ...getRandomGiftCapsule()
+      })
+      if (autoPreview.value) {
+        autoPreviewTimer.value = window.setInterval(() => {
+          GiftCapsulePanelRef.value?.add({
+            ...getRandomGiftCapsule()
+          })
+        }, 5000)
+      } else {
+        window.clearInterval(autoPreviewTimer.value)
+      }
+    }
+
+    onMounted(() => autoPreviewChange())
 
     const url = computed(() => `${window.location.origin}/#/gift-capsule?uuid=${store.state.auth.uuid}`)
 
@@ -98,6 +137,9 @@ export default defineComponent({
 
     return {
       store,
+      GiftCapsulePanelRef,
+      autoPreview,
+      autoPreviewChange,
       url,
       sendMock,
       clear,
@@ -110,6 +152,11 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .config-gift-capsule {
-  //
+  .preview-gift-capsule-panel {
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    left: 20px;
+  }
 }
 </style>

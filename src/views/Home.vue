@@ -60,13 +60,6 @@
         <a-layout-content style="min-height: 555px;">
           <div class="right-title no-select">
             <span class="page-header">{{ route.meta.title }}</span>
-            <!-- <a-page-header
-              class="h-page-header"
-              :title="route.meta.title"
-              sub-title="This is a subtitle"
-              :back-icon="false"
-              @back="() => router.back()"
-            /> -->
             <a-tooltip>
               <template #title>看什么看？又不给我看白丝，还不快点开播，把你鼠标挪开！</template>
               <a-typography-text type="secondary" class="broadcast">{{ broadcast }}</a-typography-text>
@@ -100,6 +93,7 @@ import {
 import { useRoute, useRouter } from 'vue-router'
 import { randomNum } from '@/api/common'
 import http from '@/api/http'
+import { getMockData } from '@/api/mock'
 
 export default defineComponent({
   components: {
@@ -122,6 +116,7 @@ export default defineComponent({
     const broadcast = ref('')
 
     onBeforeMount(() => {
+      getMockData()
       http
         .get('/api/get-broadcasts')
         .then(res => {

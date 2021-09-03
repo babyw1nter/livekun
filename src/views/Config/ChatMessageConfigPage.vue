@@ -1,15 +1,26 @@
 <template>
   <div class="config-chat-message options-panel">
-    <a-space :size="10" style="margin-bottom: 1rem;">
-      <a-button @click="sendMock">发送模拟数据</a-button>
-      <a-button @click="clear">清空聊天消息</a-button>
+    <div class="preview-wrapper">
+      <ChatMessageList
+        ref="ChatMessageListRef"
+        class="preview-chat-message-list"
+        :font-size="store.state.config.chatMessage.style.fontSize"
+      />
+      <a-checkbox v-model:checked="autoPreview" v-on:change="autoPreviewChange" style="margin: 1rem; float: right;"
+        >自动预览
+      </a-checkbox>
+    </div>
+    <a-space :size="10">
+      <a-button @click="sendMock">发送 OBS 模拟数据</a-button>
+      <a-button @click="clear">清空 OBS 聊天消息</a-button>
     </a-space>
+    <a-typography-link :href="url" :copyable="{ text: url }" target="_blank" style="float: right; line-height: 32px;">
+      OBS 浏览器链接
+    </a-typography-link>
+
+    <a-divider />
 
     <a-space direction="vertical" :size="24" style="width: 100%;">
-      <a-typography-link :href="url" :copyable="{ text: url }" target="_blank">
-        OBS 浏览器链接
-      </a-typography-link>
-
       <a-space direction="vertical">
         <a-typography-text>文字大小</a-typography-text>
         <a-typography-text type="secondary">
@@ -45,15 +56,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
+import ChatMessageList from '@/components/ChatMessageList.vue'
 import http from '@/api/http'
+import { getRandomChatMessage } from '@/api/mock'
 
 export default defineComponent({
+  components: {
+    ChatMessageList
+  },
   setup() {
     const store = useStore(key)
+    const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
+
+    const autoPreviewTimer = ref(0)
+    const autoPreview = ref(true)
+    const autoPreviewChange = () => {
+      ChatMessageListRef.value?.add({
+        ...getRandomChatMessage()
+      })
+      if (autoPreview.value) {
+        autoPreviewTimer.value = window.setInterval(() => {
+          ChatMessageListRef.value?.add({
+            ...getRandomChatMessage()
+          })
+        }, 1000)
+      } else {
+        window.clearInterval(autoPreviewTimer.value)
+      }
+    }
+
+    onMounted(() => autoPreviewChange())
 
     const url = computed(() => `${window.location.origin}/#/chat-message?uuid=${store.state.auth.uuid}`)
 
@@ -85,6 +121,9 @@ export default defineComponent({
 
     return {
       store,
+      ChatMessageListRef,
+      autoPreview,
+      autoPreviewChange,
       url,
       sendMock,
       clear,
@@ -97,6 +136,12 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .config-chat-message {
-  // padding: 1rem 0;
+  .preview-chat-message-list {
+    position: absolute;
+    width: 380px;
+    height: 400px;
+    top: 50px;
+    left: 20px;
+  }
 }
 </style>
