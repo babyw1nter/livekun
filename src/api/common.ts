@@ -35,4 +35,9 @@ const moneyFormat = (number: number, decimals: number, decPoint?: string, thousa
   return s.join(dec)
 }
 
-export { getLevel, randomNum, moneyFormat }
+const sleep = (ms: number): Promise<number> =>
+  new Promise(resolve => {
+    setTimeout(resolve, ms)
+  })
+
+export { getLevel, randomNum, moneyFormat, sleep }

@@ -18,7 +18,7 @@
 <script lang="ts">
 import { defineComponent, PropType, watch, ref, nextTick } from 'vue'
 import GiftCapsule from '@/components/AtomicComponents/GiftCapsule.vue'
-import { getLevel } from '@/api/common'
+import { getLevel, sleep } from '@/api/common'
 
 interface IGiftCapsulegiftCapsuleListItem {
   avatarUrl: string
@@ -66,7 +66,7 @@ export default defineComponent({
     const giftCapsuleListItemCache = ref<IGiftCapsulegiftCapsuleListItemCache[]>([])
     const timerCache: TimerCache[] = []
 
-    const add = (item: IGiftCapsulegiftCapsuleListItem) => {
+    const add = async (item: IGiftCapsulegiftCapsuleListItem) => {
       if (!item.uid) return
 
       // 查找列表成员，如果已存在则累计金额并刷新持续时间
@@ -81,20 +81,21 @@ export default defineComponent({
         return
       }
 
+      // 通过指令添加的礼物胶囊如果没有 duration 属性，则默认给予一个 duration 初始值
+      // 这个 duration 初始值是由即将添加的礼物胶囊自动计算金额等级得出的
+      const itemDefaultDuration = props.duration[getLevel(item.money, props.level)] * 60 * 1000
+
       // 超过最大常驻礼物胶囊数量，且末尾的礼物胶囊的金额低于即将添加的礼物胶囊的金额，则删除末尾的礼物胶囊
       // 反之则不作任何操作
       if (giftCapsuleListItemCache.value.length >= props.maximum) {
         const lastItem = giftCapsuleListItemCache.value[giftCapsuleListItemCache.value.length - 1]
         if (lastItem.money < item.money) {
           del(lastItem.uid)
+          await sleep(501)
         } else {
           return
         }
       }
-
-      // 通过指令添加的礼物胶囊如果没有 duration 属性，则默认给予一个 duration 初始值
-      // 这个 duration 初始值是由即将添加的礼物胶囊自动计算金额等级得出的
-      const itemDefaultDuration = props.duration[getLevel(item.money, props.level)] * 60 * 1000
 
       // 添加礼物胶囊进缓存数组
       giftCapsuleListItemCache.value.push({
