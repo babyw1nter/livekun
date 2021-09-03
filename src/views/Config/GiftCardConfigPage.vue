@@ -55,9 +55,9 @@
       </a-space>
 
       <a-space direction="vertical" v-if="store.state.config.giftCard.comment.use">
-        <a-typography-text>留言礼物金额（元）</a-typography-text>
+        <a-typography-text>指定留言礼物金额（元）</a-typography-text>
         <a-typography-text type="secondary">
-          当礼物价值大于此金额时才能留言
+          当礼物价值大于或等于此金额时才可以留言
         </a-typography-text>
         <a-input-number
           :min="0"
@@ -67,7 +67,7 @@
       </a-space>
 
       <a-space direction="vertical" v-if="store.state.config.giftCard.comment.use">
-        <a-typography-text>留言礼物列表</a-typography-text>
+        <a-typography-text>指定留言礼物列表</a-typography-text>
         <a-typography-text type="secondary">
           在此列表内的礼物才可以留言，一行一个，留空表示不做限制
         </a-typography-text>
