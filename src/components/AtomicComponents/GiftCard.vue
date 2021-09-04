@@ -8,9 +8,20 @@
       </div>
     </div>
     <div class="card-footer">
-      <!-- <a-image v-if="giftImage !== ''" :width="24" :src="giftImage" /> -->
       <a-carousel :dots="false" :autoplay="comment !== ''" dot-position="right">
-        <p class="message h-font">{{ message }}</p>
+        <p class="message h-font" style="position: relative;">
+          <a-image
+            v-if="giftImage !== ''"
+            class="gift-image"
+            :width="23"
+            :src="giftImage"
+            :fallback="giftIcon"
+            :preview="false"
+            placeholder
+            style="position: absolute; top: -18px;"
+          />
+          <span :style="{ paddingLeft: giftImage !== '' ? '8px' : '0' }">{{ message }}</span>
+        </p>
         <p class="message h-font" v-if="comment !== ''">{{ comment }}</p>
       </a-carousel>
     </div>
@@ -49,6 +60,10 @@ export default defineComponent({
       default: 0
     },
     giftImage: {
+      type: String,
+      default: ''
+    },
+    giftIcon: {
       type: String,
       default: ''
     },

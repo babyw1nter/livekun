@@ -11,6 +11,7 @@
         :gift-name="item.giftName"
         :gift-count="item.giftCount"
         :gift-image="item.giftImage"
+        :gift-icon="item.giftIcon"
         :message="item.message"
         :comment="item.comment"
       >
@@ -35,6 +36,7 @@ interface IGiftCardListItem {
   giftName?: string
   giftCount?: number
   giftImage?: string
+  giftIcon?: string
   [propName: string]: unknown
 }
 
