@@ -64,7 +64,6 @@ export default defineComponent({
   span.chat-message-avatar {
     position: absolute;
     top: 1px;
-    left: 0px;
   }
 
   .text-wrap {
