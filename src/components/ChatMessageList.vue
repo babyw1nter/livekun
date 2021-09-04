@@ -74,6 +74,8 @@ export default defineComponent({
     let interval = 0
 
     const add = (chatMessageItem: IChatMessageListItem) => {
+      if (!chatMessageItem.nickname || !chatMessageItem.message) return
+
       const nowTimestamp = new Date().getTime()
       isTooQuickly.value = nowTimestamp - interval < props.smoothScrollInterval
       interval = nowTimestamp
