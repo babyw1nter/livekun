@@ -190,7 +190,7 @@ export default defineComponent({
     width: 300px;
     height: 340px;
     top: 90px;
-    left: 50px;
+    left: 20px;
   }
 }
 </style>

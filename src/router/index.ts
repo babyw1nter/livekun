@@ -2,17 +2,19 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import store from '@/store'
 import http from '@/api/http'
 
-const Home = () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
-const ConnectPage = () => import(/* webpackChunkName: "home" */ '../views/ConnectPage.vue')
-const GiftCapsuleConfigPage = () => import(/* webpackChunkName: "home" */ '../views/Config/GiftCapsuleConfigPage.vue')
-const GiftCardConfigPage = () => import(/* webpackChunkName: "home" */ '../views/Config/GiftCardConfigPage.vue')
-const ChatMessageConfigPage = () => import(/* webpackChunkName: "home" */ '../views/Config/ChatMessageConfigPage.vue')
-const AccountPage = () => import(/* webpackChunkName: "home" */ '../views/AccountPage.vue')
+const Home = () => import(/* webpackChunkName: "home" */ '../views/Home/Home.vue')
+const ConnectPage = () => import(/* webpackChunkName: "home" */ '../views/Home/ConnectPage.vue')
+const GiftCapsuleConfigPage = () =>
+  import(/* webpackChunkName: "home" */ '../views/Home/Config/GiftCapsuleConfigPage.vue')
+const GiftCardConfigPage = () => import(/* webpackChunkName: "home" */ '../views/Home/Config/GiftCardConfigPage.vue')
+const ChatMessageConfigPage = () =>
+  import(/* webpackChunkName: "home" */ '../views/Home/Config/ChatMessageConfigPage.vue')
+const AccountPage = () => import(/* webpackChunkName: "home" */ '../views/Home/AccountPage.vue')
 const LoginPage = () => import(/* webpackChunkName: "user" */ '../views/User/Login.vue')
 const TestPage = () => import(/* webpackChunkName: "test" */ '../views/TestPage.vue')
-const GiftCapsulePage = () => import(/* webpackChunkName: "gift-capsule" */ '../views/GiftCapsulePage.vue')
-const ChatMessagePage = () => import(/* webpackChunkName: "chat-message" */ '../views/ChatMessagePage.vue')
-const GiftCardPage = () => import(/* webpackChunkName: "gift-card" */ '../views/GiftCardPage.vue')
+const GiftCapsulePage = () => import(/* webpackChunkName: "gift-capsule" */ '../views/Plugins/GiftCapsulePage.vue')
+const ChatMessagePage = () => import(/* webpackChunkName: "chat-message" */ '../views/Plugins/ChatMessagePage.vue')
+const GiftCardPage = () => import(/* webpackChunkName: "gift-card" */ '../views/Plugins/GiftCardPage.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -86,13 +88,31 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: false }
   },
   {
+    path: '/plugins/chat-message',
+    name: 'ChatMessage',
+    component: ChatMessagePage,
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/gift-capsule',
     name: 'GiftCapsule',
     component: GiftCapsulePage,
     meta: { requiresAuth: false }
   },
   {
+    path: '/plugins/gift-capsule',
+    name: 'GiftCapsule',
+    component: GiftCapsulePage,
+    meta: { requiresAuth: false }
+  },
+  {
     path: '/gift-card',
+    name: 'GiftCard',
+    component: GiftCardPage,
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/plugins/gift-card',
     name: 'GiftCard',
     component: GiftCardPage,
     meta: { requiresAuth: false }
