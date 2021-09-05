@@ -137,7 +137,7 @@ export default defineComponent({
 
     onMounted(() => autoPreviewChange())
 
-    const url = computed(() => `${window.location.origin}/#/gift-card?uuid=${store.state.auth.uuid}`)
+    const url = computed(() => `${window.location.origin}/#/plugins/gift-card?uuid=${store.state.auth.uuid}`)
 
     const sendMock = () => {
       http

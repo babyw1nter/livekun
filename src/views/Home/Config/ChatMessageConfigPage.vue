@@ -91,7 +91,7 @@ export default defineComponent({
 
     onMounted(() => autoPreviewChange())
 
-    const url = computed(() => `${window.location.origin}/#/chat-message?uuid=${store.state.auth.uuid}`)
+    const url = computed(() => `${window.location.origin}/#/plugins/chat-message?uuid=${store.state.auth.uuid}`)
 
     const sendMock = () => {
       http

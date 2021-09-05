@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, nextTick, onMounted } from 'vue'
+import { defineComponent, ref, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
@@ -107,7 +107,7 @@ export default defineComponent({
 
     onMounted(() => autoPreviewChange())
 
-    const url = computed(() => `${window.location.origin}/#/gift-capsule?uuid=${store.state.auth.uuid}`)
+    const url = computed(() => `${window.location.origin}/#/plugins/gift-capsule?uuid=${store.state.auth.uuid}`)
 
     const sendMock = () => {
       http
