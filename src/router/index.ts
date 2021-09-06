@@ -83,9 +83,9 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/chat-message',
-    name: 'ChatMessage',
-    component: ChatMessagePage,
-    meta: { requiresAuth: false }
+    redirect: {
+      name: 'ChatMessage'
+    }
   },
   {
     path: '/plugins/chat-message',
@@ -95,9 +95,9 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/gift-capsule',
-    name: 'GiftCapsule',
-    component: GiftCapsulePage,
-    meta: { requiresAuth: false }
+    redirect: {
+      name: 'GiftCapsule'
+    }
   },
   {
     path: '/plugins/gift-capsule',
@@ -107,9 +107,9 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/gift-card',
-    name: 'GiftCard',
-    component: GiftCardPage,
-    meta: { requiresAuth: false }
+    redirect: {
+      name: 'GiftCard'
+    }
   },
   {
     path: '/plugins/gift-card',
