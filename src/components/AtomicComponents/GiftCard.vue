@@ -93,6 +93,8 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+@fontSize: 17px;
+
 .gift-card {
   position: relative;
   min-width: 200px;
@@ -113,7 +115,7 @@ export default defineComponent({
     width: 100%;
     p {
       margin-bottom: 0;
-      line-height: 1rem;
+      line-height: @fontSize;
       color: #fff;
     }
   }
@@ -121,18 +123,18 @@ export default defineComponent({
     padding: 4px;
     height: 60px;
     .p-wrap {
-      margin-top: 10px;
+      margin-top: 8px;
       margin-left: 55px;
     }
     p {
       color: #fff !important;
-      font-size: 1rem;
+      font-size: @fontSize;
     }
   }
   .card-footer {
     height: 40px;
     p.message {
-      font-size: 1rem;
+      font-size: @fontSize;
       line-height: 37px;
       padding-left: 14px;
       padding-right: 14px;

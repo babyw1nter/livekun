@@ -27,11 +27,11 @@
           控制聊天消息的文字大小
         </a-typography-text>
         <a-slider
-          :min="12"
+          :min="17"
           :max="32"
           v-model:value="store.state.config.chatMessage.style.fontSize"
           style="width: 280px; margin-bottom: 3rem;"
-          :marks="{ 12: '小', 32: '大' }"
+          :marks="{ 17: '小', 32: '大' }"
         />
       </a-space>
 
