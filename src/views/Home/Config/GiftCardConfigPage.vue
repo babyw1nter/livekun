@@ -187,7 +187,7 @@ export default defineComponent({
 .config-gift-card {
   .preview-gift-card-panel {
     position: absolute;
-    width: 300px;
+    width: 350px;
     height: 340px;
     top: 90px;
     left: 20px;
