@@ -1,3 +1,25 @@
+# [1.0.0-alpha.4](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2021-09-11)
+
+
+### Bug Fixes
+
+* 修复在 Windows 下因字号小于 16px 导致的渲染发虚的问题 ([adf18ed](https://github.com/hhui64/livekun-web/commit/adf18ede9705822c6364a0a28a8f671082baff0a))
+* **router:** 修复原插件 url 404 的问题 ([63cc85e](https://github.com/hhui64/livekun-web/commit/63cc85e7cf6742ca9de84e49f2a9a9a30bc920da))
+
+
+### Features
+
+* **GiftCard:** 新增礼物图标显示 ([d42ca01](https://github.com/hhui64/livekun-web/commit/d42ca01fa4a28e750332f10ec75fc1bae82b6b46))
+
+
+### Performance Improvements
+
+* 优化预览组件的宽度 ([dcc5a9b](https://github.com/hhui64/livekun-web/commit/dcc5a9b83e6d6b48ee0fa3c8c264db8f422550b3))
+* 优化组件 url ([3ad4d36](https://github.com/hhui64/livekun-web/commit/3ad4d36da07e779f7f433ab45779fa5cf3937c0b))
+* **ChatMessageList:** 优化聊天消息添加逻辑 ([f12d9b9](https://github.com/hhui64/livekun-web/commit/f12d9b92453b9878a269ee14e650c80ad1faaa52))
+
+
+
 # [1.0.0-alpha.3](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2021-09-03)
 
 
