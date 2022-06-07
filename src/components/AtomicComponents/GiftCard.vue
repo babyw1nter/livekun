@@ -4,7 +4,7 @@
       <a-avatar class="card-avatar" :src="avatarUrl"> </a-avatar>
       <div class="p-wrap">
         <p class="nickname h-font" style="margin-bottom: 1px;">{{ nickname }}</p>
-        <p class="money h-font">{{ profile || `CNY￥${moneyText}` }}</p>
+        <p class="money h-font">{{ profile || `CN￥${moneyText}` }}</p>
       </div>
     </div>
     <div class="card-footer">
@@ -98,7 +98,7 @@ export default defineComponent({
 .gift-card {
   position: relative;
   min-width: 200px;
-  height: 100px;
+  height: 81px;
   border-radius: 4px;
   overflow: hidden;
   display: block;
@@ -106,7 +106,7 @@ export default defineComponent({
 
   .card-avatar {
     position: absolute;
-    top: 14px;
+    top: 8px;
     left: 14px;
   }
 
@@ -121,9 +121,9 @@ export default defineComponent({
   }
   .card-body {
     padding: 4px;
-    height: 60px;
+    height: 48px;
     .p-wrap {
-      margin-top: 8px;
+      margin-top: 2px;
       margin-left: 55px;
     }
     p {
@@ -132,10 +132,10 @@ export default defineComponent({
     }
   }
   .card-footer {
-    height: 40px;
+    height: 33px;
     p.message {
       font-size: @fontSize;
-      line-height: 37px;
+      line-height: 30px;
       padding-left: 14px;
       padding-right: 14px;
       white-space: nowrap;

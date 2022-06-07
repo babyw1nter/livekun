@@ -1,5 +1,9 @@
 <template>
-  <ChatMessageList ref="ChatMessageListRef" :font-size="store.state.config.chatMessage.style.fontSize" />
+  <ChatMessageList
+    ref="ChatMessageListRef"
+    :font-size="store.state.config.chatMessage.style.fontSize"
+    :level="store.state.config.giftCard.level"
+  />
 </template>
 
 <script lang="ts">
@@ -23,6 +27,7 @@ export default defineComponent({
         interface ISocketChatMsg extends ISocketCustomData {
           method?: string
           message: string
+          messageType: string
           type: string
         }
 

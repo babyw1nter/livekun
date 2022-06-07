@@ -12,6 +12,7 @@ interface IChatMessageMockData {
   nickname: string
   avatarUrl: string
   message: string
+  messageType: string
   uid: number
 }
 
@@ -22,6 +23,7 @@ interface IGiftCardMockData {
   giftName: string
   giftCount: number
   message: string
+  messageType: string
   comment: string
   uid: number
 }
@@ -33,14 +35,14 @@ let giftCardMockData: Array<IGiftCardMockData> = []
 const getMockData = (): void => {
   http
     .get('/api/get-mockdata')
-    .then(res => {
+    .then((res) => {
       const reponseData = res.data
 
       giftCapsuleMockData = reponseData.data.giftCapsuleMockData
       chatMessageMockData = reponseData.data.chatMessageMockData
       giftCardMockData = reponseData.data.giftCardMockData
     })
-    .catch(reason => {
+    .catch((reason) => {
       console.error('获取 mock 数据失败！')
     })
 }
@@ -53,7 +55,7 @@ const getRandomGiftCapsule = () => {
 }
 
 const getRandomChatMessage = () => {
-  return chatMessageMockData[randomNum(0, chatMessageMockData.length - 1)]
+  return randomNum(0, 5) ? chatMessageMockData[randomNum(0, chatMessageMockData.length - 1)] : getRandomGiftCard()
 }
 
 const getRandomGiftCard = () => {

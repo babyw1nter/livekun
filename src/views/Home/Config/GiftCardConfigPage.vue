@@ -188,8 +188,8 @@ export default defineComponent({
   .preview-gift-card-panel {
     position: absolute;
     width: 350px;
-    height: 340px;
-    top: 90px;
+    height: 376px;
+    top: 70px;
     left: 20px;
   }
 }

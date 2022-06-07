@@ -1,29 +1,54 @@
 <template>
   <ul ref="ChatMessageListRef" class="chat-message-list clearfix" :class="{ 'smooth-scroll': !isTooQuickly }">
-    <ChatMessage
-      v-for="(item, index) in chatMessageListItemCache"
-      :key="index"
-      :avatar-url="item.avatarUrl"
-      :nickname="item.nickname"
-      :message="item.message"
-      :custom-style="item.customStyle"
-      :font-size="fontSize"
-      :type="item.type"
-    >
-    </ChatMessage>
+    <template v-for="(item, index) in chatMessageListItemCache" :key="index">
+      <ChatMessage
+        v-if="item.messageType === 'chat'"
+        :avatar-url="item.avatarUrl"
+        :nickname="item.nickname"
+        :message="item.message"
+        :custom-style="item.customStyle"
+        :font-size="fontSize"
+        :type="item.type"
+      >
+      </ChatMessage>
+      <GiftCard
+        v-if="item.messageType === 'gift'"
+        :type="item.type || `level-${getLevel(item?.money || 0, level)}`"
+        :avatar-url="item.avatarUrl"
+        :nickname="item.nickname"
+        :money="item.money"
+        :gift-name="item.giftName"
+        :gift-count="item.giftCount"
+        :gift-image="item.giftImage"
+        :gift-icon="item.giftIcon"
+        :message="item.message"
+        :comment="item.comment"
+        class="chat-list-gift"
+      >
+      </GiftCard>
+    </template>
   </ul>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, PropType, watch, nextTick } from 'vue'
 import ChatMessage from '@/components/AtomicComponents/ChatMessage.vue'
+import GiftCard from '@/components/AtomicComponents/GiftCard.vue'
+import { getLevel } from '@/api/common'
 
 interface IChatMessageListItem {
   avatarUrl: string
   nickname: string
   uid: number | string
-  type?: 'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string
   message: string
+  messageType: 'chat' | 'gift' | string
+  type?: 'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string
+  money?: number
+  giftName?: string
+  giftCount?: number
+  giftImage?: string
+  giftIcon?: string
+  comment?: string
   customStyle?: {
     nicknameColor?: string
     messageColor?: string
@@ -35,11 +60,16 @@ interface IChatMessageListItem {
 export default defineComponent({
   name: 'ChatMessageList',
   components: {
-    ChatMessage
+    ChatMessage,
+    GiftCard
   },
   props: {
     list: {
       type: Array as PropType<IChatMessageListItem[]>
+    },
+    level: {
+      type: Array as PropType<number[]>,
+      default: () => [1, 200, 500]
     },
     maximum: {
       type: Number,
@@ -91,7 +121,7 @@ export default defineComponent({
       chatMessageListItemCache.value.splice(0, chatMessageListItemCache.value.length)
     }
 
-    return { ChatMessageListRef, chatMessageListItemCache, isTooQuickly, add, del, clear }
+    return { ChatMessageListRef, chatMessageListItemCache, isTooQuickly, add, del, clear, getLevel }
   }
 })
 </script>
@@ -111,6 +141,11 @@ export default defineComponent({
 
   &::-webkit-scrollbar {
     width: 0 !important;
+  }
+
+  .chat-list-gift {
+    margin-top: 10px;
+    // margin-left: 1rem;
   }
 }
 </style>

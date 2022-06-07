@@ -138,7 +138,7 @@ export default defineComponent({
 .config-chat-message {
   .preview-chat-message-list {
     position: absolute;
-    width: 380px;
+    width: 400px;
     height: 400px;
     top: 50px;
     left: 20px;
