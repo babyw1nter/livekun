@@ -27,6 +27,9 @@
       "scripthost"
     ]
   },
+  "vueCompilerOptions": {
+    "experimentalSuppressUnknownJsxPropertyErrors": true
+  },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
