@@ -8,7 +8,7 @@ module.exports = {
   productionSourceMap: !isProduction,
   lintOnSave: false,
   chainWebpack: config => {
-    isProduction && config.plugin('webpack-bundle-analyzer').use(webpackBundleAnalyzer.BundleAnalyzerPlugin)
+    // isProduction && config.plugin('webpack-bundle-analyzer').use(webpackBundleAnalyzer.BundleAnalyzerPlugin)
     config.plugin('antd-dayjs-webpack-plugin').use(new AntdDayjsWebpackPlugin())
   }
 }
