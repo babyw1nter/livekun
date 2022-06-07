@@ -1,3 +1,18 @@
+# [1.0.0-alpha.5](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2022-06-07)
+
+
+### Features
+
+* 新的消息列表样式 ([d182e3a](https://github.com/hhui64/livekun-web/commit/d182e3a97de30583940d4d755473740606336545))
+* 新增消息列表支持显示礼物消息 ([71d9119](https://github.com/hhui64/livekun-web/commit/71d91193793d9a9976691e336a57a96915c3e88e))
+
+
+### Performance Improvements
+
+* 优化部分样式 ([12929b8](https://github.com/hhui64/livekun-web/commit/12929b8c46b8f5a3268742a2e1de2948bf7aa63a))
+
+
+
 # [1.0.0-alpha.4](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2021-09-11)
 
 
