@@ -109,7 +109,7 @@ export default defineComponent({
 
   &.guard-monthly {
     p.nickname {
-      color: #9480b9;
+      color: #b186ff;
     }
   }
 
