@@ -8,7 +8,7 @@
           : '请进入一个直播间以使用所有功能。'
       "
       :type="store.state.status.isJoinRoom ? 'success' : 'info'"
-      style="margin-bottom: 1rem;"
+      style="margin-bottom: 1rem"
       show-icon
     />
     <div class="join-input-wrap" style="margin-top: 1rem">
@@ -51,7 +51,7 @@ export default defineComponent({
           .post('/api/join', {
             liveId: liveIdInputValue.value
           })
-          .then(res => {
+          .then((res) => {
             const responseData = res.data
 
             if (responseData.code === 200) {
@@ -78,7 +78,7 @@ export default defineComponent({
       isReseting.value = true
       http
         .post('/api/reset')
-        .then(res => {
+        .then((res) => {
           if (res.data.code === 200) {
             message.success('重置成功！')
           } else {
@@ -98,3 +98,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="less">
+.h-carousel {
+  height: 160px;
+}
+</style>

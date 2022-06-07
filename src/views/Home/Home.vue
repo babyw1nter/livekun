@@ -1,14 +1,14 @@
 <template>
   <a-layout class="home">
     <a-layout-content class="main">
-      <a-alert message="谨以此作品献给我的好朋友——奶玲！" type="warning" showIcon style="margin: 1rem 0;">
+      <a-alert message="谨以此作品献给我的好朋友——奶玲！" type="warning" showIcon style="margin: 1rem 0">
         <template #icon><smile-outlined /></template>
       </a-alert>
-      <a-layout style="background: #fff; border-radius: 2px; overflow: hidden;">
-        <a-layout-sider width="200" style="border-right: 1px solid #f0f0f0; background: #fff;">
+      <a-layout style="background: #fff; border-radius: 2px; overflow: hidden">
+        <a-layout-sider width="200" style="border-right: 1px solid #f0f0f0; background: #fff">
           <div class="logo no-select">
             <span class="logo-text">
-              <span style="color: #0084ff;">LIVE</span>
+              <span style="color: #0084ff">LIVE</span>
               <span>KUN</span>
             </span>
           </div>
@@ -17,7 +17,7 @@
             mode="inline"
             :selectedKeys="selectedKeys"
             @click="menuClicked"
-            style="border-right: none;"
+            style="border-right: none"
           >
             <a-menu-item key="/">
               <template #icon>
@@ -57,7 +57,7 @@
             </a-menu-item>
           </a-menu>
         </a-layout-sider>
-        <a-layout-content style="min-height: 555px;">
+        <a-layout-content style="min-height: 555px">
           <div class="right-title no-select">
             <span class="page-header">{{ route.meta.title }}</span>
             <a-tooltip>
@@ -71,9 +71,7 @@
         </a-layout-content>
       </a-layout>
     </a-layout-content>
-    <a-layout-footer class="footer">
-      © 2021 hhui64. Powered By CCLinkJS.
-    </a-layout-footer>
+    <a-layout-footer class="footer"> © 2022 hhui64. 桂ICP备15007582号 </a-layout-footer>
   </a-layout>
 </template>
 
@@ -121,7 +119,7 @@ export default defineComponent({
       // 获取公告数据
       http
         .get('/api/get-broadcasts')
-        .then(res => {
+        .then((res) => {
           const responseData = res.data
           if (responseData.code === 200) {
             const _broadcasts = responseData.data.broadcasts as Array<string>
@@ -129,7 +127,7 @@ export default defineComponent({
             updateBroadcast()
           }
         })
-        .catch(reason => {
+        .catch((reason) => {
           console.error(reason)
         })
     })
