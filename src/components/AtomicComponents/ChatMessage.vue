@@ -1,13 +1,13 @@
 <template>
   <li class="chat-message" :class="type">
-    <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="fontSize + 8"></a-avatar>
-    <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 16}px` }">
-      <span class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: fontSize + 'px' }">
-        {{ nickname }}
-      </span>
-      <span class="message h-font" :style="{ color: customStyle.messageColor, fontSize: fontSize + 'px' }">
+    <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="fontSize + 21"></a-avatar>
+    <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 28}px`, lineHeight: `${fontSize + 2}px` }">
+      <p class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: `${fontSize - 2}px` }">
+        {{ nickname }}:
+      </p>
+      <p class="message h-font" :style="{ color: customStyle.messageColor, fontSize: `${fontSize}px` }">
         {{ message }}
-      </span>
+      </p>
     </div>
   </li>
 </template>
@@ -58,7 +58,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .chat-message {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   position: relative;
 
   span.chat-message-avatar {
@@ -70,50 +70,51 @@ export default defineComponent({
     padding-left: 30px;
   }
 
-  span.nickname,
-  span.message {
+  p.nickname,
+  p.message {
     font-size: 1rem;
   }
 
-  span.nickname {
+  p.nickname {
     display: inline-block;
-    margin-right: 6px;
     color: #ccc;
+    margin: 0;
   }
 
-  span.message {
+  p.message {
     word-break: normal;
     word-wrap: break-word;
     text-align: justify;
     color: #fff;
+    margin: 0;
   }
 
   &.normal {
-    span.nickname {
-      color: #ddf5a8;
+    p.nickname {
+      color: #fbf6bd;
     }
   }
 
   &.admin {
-    span.nickname {
-      color: rgb(111, 208, 255);
+    p.nickname {
+      color: #96b6ff;
     }
   }
 
   &.anchor {
-    span.nickname {
-      color: #ff7575;
+    p.nickname {
+      color: #ff8b8b;
     }
   }
 
   &.guard-monthly {
-    span.nickname {
+    p.nickname {
       color: #9480b9;
     }
   }
 
   &.guard-annual {
-    span.nickname {
+    p.nickname {
       color: #ffbc6a;
     }
   }
