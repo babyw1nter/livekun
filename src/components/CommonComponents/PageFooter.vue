@@ -1,8 +1,7 @@
 <template>
   <footer>
-    <a-divider />
     <p class="copyright">
-      © 2021 hhui64. Powered by CCLinkJS and Designed for NaiLing.
+      © 2022 hhui64. 桂ICP备15007582号
     </p>
   </footer>
 </template>
