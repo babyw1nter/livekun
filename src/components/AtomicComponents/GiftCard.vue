@@ -11,16 +11,16 @@
       <a-carousel :dots="false" :autoplay="comment !== ''" dot-position="right">
         <p class="message h-font" style="position: relative;">
           <a-image
-            v-if="giftImage !== ''"
+            v-if="giftImageExt !== ''"
             class="gift-image"
             :width="23"
-            :src="giftImage"
+            :src="giftImageExt"
             :fallback="giftIcon"
             :preview="false"
             placeholder
             style="position: absolute; top: -18px;"
           />
-          <span :style="{ paddingLeft: giftImage !== '' ? '8px' : '0' }">{{ message }}</span>
+          <span :style="{ paddingLeft: giftImageExt !== '' ? '8px' : '0' }">{{ message }}</span>
         </p>
         <p class="message h-font" v-if="comment !== ''">{{ comment }}</p>
       </a-carousel>
@@ -83,10 +83,16 @@ export default defineComponent({
   setup(props) {
     const cardType = ref<string>(props.type)
     const moneyText = computed(() => moneyFormat(Number(props.money.toFixed(2)), 2))
+    const giftImageExt = computed(() => {
+      if (cardType.value === 'guard-monthly') return 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/1_32.png'
+      if (cardType.value === 'guard-annual') return 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/2_32.png'
+      return props.giftImage
+    })
 
     return {
       cardType,
-      moneyText
+      moneyText,
+      giftImageExt
     }
   }
 })
@@ -98,7 +104,7 @@ export default defineComponent({
 .gift-card {
   position: relative;
   min-width: 200px;
-  height: 81px;
+  height: 79px;
   border-radius: 4px;
   overflow: hidden;
   display: block;
@@ -121,7 +127,7 @@ export default defineComponent({
   }
   .card-body {
     padding: 4px;
-    height: 48px;
+    height: 47px;
     .p-wrap {
       margin-top: 2px;
       margin-left: 55px;
@@ -132,7 +138,7 @@ export default defineComponent({
     }
   }
   .card-footer {
-    height: 33px;
+    height: 32px;
     p.message {
       font-size: @fontSize;
       line-height: 30px;
