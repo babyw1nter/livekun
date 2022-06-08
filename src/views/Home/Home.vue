@@ -1,7 +1,7 @@
 <template>
   <a-layout class="home">
     <a-layout-content class="main">
-      <a-alert message="谨以此作品献给我的好朋友——奶玲！" type="warning" showIcon style="margin: 1rem 0">
+      <a-alert :message="banner" type="warning" showIcon style="margin: 1rem 0">
         <template #icon><smile-outlined /></template>
       </a-alert>
       <a-layout style="background: #fff; border-radius: 2px; overflow: hidden">
@@ -61,7 +61,7 @@
           <div class="right-title no-select">
             <span class="page-header">{{ route.meta.title }}</span>
             <a-tooltip>
-              <template #title>看什么看？又不给我看白丝，还不快点开播，把你鼠标挪开！</template>
+              <template #title>{{ broadcastsToptips }}</template>
               <a-typography-text type="secondary" class="broadcast">{{ broadcast }}</a-typography-text>
             </a-tooltip>
           </div>
@@ -110,6 +110,8 @@ export default defineComponent({
 
     const selectedKeys = computed(() => [route.meta.menuItemKey])
 
+    const banner = ref('')
+    const broadcastsToptips = ref('')
     const broadcasts = ref([''])
     const broadcast = ref('')
 
@@ -122,8 +124,9 @@ export default defineComponent({
         .then((res) => {
           const responseData = res.data
           if (responseData.code === 200) {
-            const _broadcasts = responseData.data.broadcasts as Array<string>
-            broadcasts.value = _broadcasts
+            banner.value = responseData.data.banner as string
+            broadcastsToptips.value = responseData.data.broadcastsToptips as string
+            broadcasts.value = responseData.data.broadcasts as Array<string>
             updateBroadcast()
           }
         })
@@ -152,6 +155,8 @@ export default defineComponent({
       route,
       router,
       selectedKeys,
+      banner,
+      broadcastsToptips,
       broadcast,
       menuClicked
     }
