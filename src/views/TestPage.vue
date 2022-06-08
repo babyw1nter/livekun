@@ -10,7 +10,7 @@
     >
     </ChatMessageList>
 
-    <GiftCardPanel ref="GiftCardPanelRef" :list="giftCardList" style="width: 300px; height: 340px"> </GiftCardPanel>
+    <GiftCardPanel ref="GiftCardPanelRef" style="width: 300px; height: 340px"> </GiftCardPanel>
 
     <div class="toolbar clearfix">
       <a-space :size="10" style="">
@@ -38,164 +38,12 @@ import ChatMessageList from '@/components/ChatMessageList.vue'
 import GiftCardPanel from '@/components/GiftCardPanel.vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
-import { randomNum } from '@/api/common'
-
-const giftCapsuleListArray = [
-  {
-    nickname: '91王先生',
-    avatarUrl: 'https://img0.baidu.com/it/u=1536857165,2921056634&fm=26&fmt=auto&gp=0.jpg',
-    money: 666,
-    uid: 3312
-  },
-  {
-    nickname: 'Pornhub大波妹',
-    avatarUrl: 'https://img2.baidu.com/it/u=222120700,1745793916&fm=26&fmt=auto&gp=0.jpg',
-    money: 99,
-    uid: 444
-  },
-  {
-    nickname: 'CC奶玲',
-    avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
-    money: 69,
-    uid: 6900
-  },
-  {
-    nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
-    avatarUrl: 'https://img0.baidu.com/it/u=1355519613,4273607392&fm=26&fmt=auto&gp=0.jpg',
-    money: 1,
-    uid: 3333
-  },
-  {
-    nickname: '^_^什么情况？',
-    avatarUrl:
-      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp3.itc.cn%2Fq_70%2Fimages03%2F20201204%2F94e9c0568b6b40d28b2111ea9b2f8062.jpeg&refer=http%3A%2F%2Fp3.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1631209669&t=b071b5f523fe602514c220bf892c65cd',
-    money: 1,
-    uid: 6696
-  }
-]
-
-const chatMessageListArray = [
-  {
-    nickname: '^_^什么情况？',
-    avatarUrl:
-      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp3.itc.cn%2Fq_70%2Fimages03%2F20201204%2F94e9c0568b6b40d28b2111ea9b2f8062.jpeg&refer=http%3A%2F%2Fp3.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1631209669&t=b071b5f523fe602514c220bf892c65cd',
-    message:
-      '谁能告诉我现在是什么情况？谁能告诉我现在是什么情况？啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊我是谁我在哪？',
-    uid: 6696,
-    messageType: 'chat'
-  },
-  {
-    nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
-    avatarUrl: 'https://img0.baidu.com/it/u=1355519613,4273607392&fm=26&fmt=auto&gp=0.jpg',
-    message: '人生的意义就是为了奶玲的白丝(╯‵□′)╯︵┻━┻',
-    uid: 3333,
-    messageType: 'chat'
-  },
-  {
-    nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
-    avatarUrl: 'https://img0.baidu.com/it/u=1355519613,4273607392&fm=26&fmt=auto&gp=0.jpg',
-    message: '😝如果没有奶玲的白丝，世界就失去了色彩😿😿😿😿？？！',
-    uid: 3333,
-    messageType: 'chat'
-  },
-  {
-    nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
-    avatarUrl: 'https://img0.baidu.com/it/u=1355519613,4273607392&fm=26&fmt=auto&gp=0.jpg',
-    message: '所以我希望每天能看到奶玲穿白丝直播，这样我会非常满足！',
-    uid: 3333,
-    messageType: 'chat'
-  },
-  {
-    nickname: 'CC奶玲',
-    avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
-    message: '。。。滚！！~',
-    uid: 66690,
-    type: 'anchor',
-    messageType: 'chat'
-  },
-  {
-    nickname: 'CC奶玲',
-    avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
-    message: '😡😡😡',
-    uid: 66690,
-    type: 'anchor',
-    messageType: 'chat'
-  },
-  {
-    nickname: '91王先生',
-    avatarUrl: 'https://img0.baidu.com/it/u=1536857165,2921056634&fm=26&fmt=auto&gp=0.jpg',
-    message: '今晚奶玲在我怀里',
-    uid: 3312,
-    type: 'admin',
-    messageType: 'chat'
-  },
-  {
-    nickname: 'Pornhub大波妹',
-    avatarUrl: 'https://img2.baidu.com/it/u=222120700,1745793916&fm=26&fmt=auto&gp=0.jpg',
-    message: '哈哈',
-    uid: 91330,
-    messageType: 'chat'
-  },
-  {
-    nickname: 'Pornhub大波妹',
-    avatarUrl: 'https://img2.baidu.com/it/u=222120700,1745793916&fm=26&fmt=auto&gp=0.jpg',
-    message: '我爱奶玲一生一世',
-    uid: 91330,
-    messageType: 'chat'
-  }
-]
-
-const giftCardListArray = [
-  {
-    nickname: 'Pornhub大波妹',
-    avatarUrl: 'https://img2.baidu.com/it/u=222120700,1745793916&fm=26&fmt=auto&gp=0.jpg',
-    money: 30,
-    message: '赠送了奶罩 × 1',
-    uid: 91330,
-    messageType: 'gift'
-  },
-  {
-    nickname: 'CC奶玲',
-    avatarUrl: 'https://z3.ax1x.com/2021/08/11/ftOL4K.png',
-    money: 69,
-    message: '赠送了火箭 × 1',
-    uid: 66690,
-    messageType: 'gift'
-  },
-  {
-    nickname: '91王先生',
-    avatarUrl: 'https://img0.baidu.com/it/u=1536857165,2921056634&fm=26&fmt=auto&gp=0.jpg',
-    money: 666,
-    message: '赠送了圣旨降临 × 1',
-    uid: 3312,
-    messageType: 'gift'
-  },
-  {
-    nickname: '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄',
-    avatarUrl: 'https://img0.baidu.com/it/u=1355519613,4273607392&fm=26&fmt=auto&gp=0.jpg',
-    money: 99,
-    message: '开通了月费守护',
-    uid: 3333,
-    type: 'guard-monthly',
-    messageType: 'gift'
-  },
-  {
-    nickname: '^_^什么情况？',
-    avatarUrl:
-      'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp3.itc.cn%2Fq_70%2Fimages03%2F20201204%2F94e9c0568b6b40d28b2111ea9b2f8062.jpeg&refer=http%3A%2F%2Fp3.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1631209669&t=b071b5f523fe602514c220bf892c65cd',
-    money: 588,
-    message: '开通了年费守护',
-    uid: 11001,
-    type: 'guard-annual',
-    messageType: 'gift'
-  }
-]
+import { getRandomChatMessage, getRandomGiftCapsule, getRandomGiftCard } from '@/api/mock'
 
 export default defineComponent({
   components: { GiftCardPanel, GiftCapsulePanel, ChatMessageList },
   setup() {
     const store = useStore(key)
-    const giftCardList = ref(giftCardListArray)
 
     const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
     const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
@@ -205,18 +53,20 @@ export default defineComponent({
 
     const addGiftCapsule = () => {
       GiftCapsulePanelRef.value?.add({
-        ...giftCapsuleListArray[randomNum(0, 4)],
-        money: randomNum(1, 100)
-        // duration: 10000
-      })
+            ...getRandomGiftCapsule()
+          })
     }
 
     const addChatMessage = () => {
-      ChatMessageListRef.value?.add(chatMessageListArray[randomNum(0, chatMessageListArray.length - 1)])
+      ChatMessageListRef.value?.add({
+            ...getRandomChatMessage()
+          })
     }
 
     const addGiftCard = () => {
-      GiftCardPanelRef.value?.add(giftCardListArray[randomNum(0, giftCardListArray.length - 1)])
+      GiftCardPanelRef.value?.add({
+            ...getRandomGiftCard()
+          })
     }
 
     const clearGiftCapsule = () => GiftCapsulePanelRef.value?.clear()
@@ -227,7 +77,6 @@ export default defineComponent({
 
     return {
       store,
-      giftCardList,
       GiftCapsulePanelRef,
       ChatMessageListRef,
       GiftCardPanelRef,
