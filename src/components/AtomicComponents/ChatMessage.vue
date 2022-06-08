@@ -3,6 +3,14 @@
     <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="fontSize + 21"></a-avatar>
     <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 28}px`, lineHeight: `${fontSize + 2}px` }">
       <p class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: `${fontSize - 2}px` }">
+        <img
+          v-for="(badge, index) in badgeArray"
+          :key="index"
+          class="badge-icon"
+          :src="badge.icon"
+          width="18"
+          height="18"
+        />
         {{ nickname }}:
       </p>
       <p class="message h-font" :style="{ color: customStyle.messageColor, fontSize: `${fontSize}px` }">
@@ -13,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref, computed } from 'vue'
 
 export default defineComponent({
   name: 'ChatMessage',
@@ -39,18 +47,42 @@ export default defineComponent({
         return {
           nicknameColor: null,
           messageColor: null,
-          fontSize: 16
+          fontSize: 17
         }
       },
       type: Object as PropType<{ nicknameColor?: string; messageColor?: string; fontSize?: number }>
     },
     fontSize: {
       type: Number,
-      default: 16
+      default: 17
     }
   },
-  setup() {
-    return {}
+  setup(props) {
+    interface Badge {
+      id: string
+      icon: string
+      w?: number
+      h?: number
+    }
+
+    const badgeArray = ref<Badge[]>([])
+
+    if (props.type === 'guard-monthly') {
+      badgeArray.value.push({
+        id: 'guard-monthly',
+        icon: 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/1_18.png'
+      })
+    }
+    if (props.type === 'guard-annual') {
+      badgeArray.value.push({
+        id: 'guard-annual',
+        icon: 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/2_18.png'
+      })
+    }
+
+    return {
+      badgeArray
+    }
   }
 })
 </script>
@@ -79,6 +111,9 @@ export default defineComponent({
     display: inline-block;
     color: #ccc;
     margin: 0;
+    .badge-icon {
+      margin-top: -3px;
+    }
   }
 
   p.message {
