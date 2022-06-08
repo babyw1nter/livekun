@@ -1,3 +1,26 @@
+# [1.0.0-alpha.6](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2022-06-08)
+
+
+### Bug Fixes
+
+* 修复登录页 footer 版权文字有误的问题 ([34cc9d1](https://github.com/hhui64/livekun-web/commit/34cc9d18db533f4ba1e4c17488837ec366b347ba))
+
+
+### Features
+
+* 新增支持多徽章图标显示 ([e19dd31](https://github.com/hhui64/livekun-web/commit/e19dd317f7673c461908fd0c17e7abf5fc9726b1))
+* 新增支持显示守护图标 ([f21244c](https://github.com/hhui64/livekun-web/commit/f21244c4303365ecccb71dca74901f95ce7d8ca3))
+* 页面文案通过接口获取 ([f6fd5ab](https://github.com/hhui64/livekun-web/commit/f6fd5ab7168df1e416b45a3827875700613fb91d))
+
+
+### Performance Improvements
+
+* 优化礼物卡片预览样式 ([5335e69](https://github.com/hhui64/livekun-web/commit/5335e69b5ebeefc888466c969ba0d0cff35fee30))
+* 优化守护昵称颜色 ([1c8b890](https://github.com/hhui64/livekun-web/commit/1c8b890f35333729e28b80a1b8f960e8287baf6a))
+* 优化页脚版权信息 ([cd20636](https://github.com/hhui64/livekun-web/commit/cd20636e430308806a60c01250048becfdf171e6))
+
+
+
 # [1.0.0-alpha.5](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2022-06-07)
 
 
