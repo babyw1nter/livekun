@@ -2,7 +2,7 @@
   <li class="chat-message" :class="type">
     <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="fontSize + 21"></a-avatar>
     <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 28}px`, lineHeight: `${fontSize + 2}px` }">
-      <p class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: `${fontSize - 2}px` }">
+      <p class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: `${fontSize}px` }">
         <img
           v-for="(badge, index) in badgeArray"
           :key="index"
