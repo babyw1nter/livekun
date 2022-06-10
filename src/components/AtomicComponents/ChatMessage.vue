@@ -1,6 +1,6 @@
 <template>
   <li class="chat-message" :class="type">
-    <a-avatar class="chat-message-avatar" :src="avatarUrl" :size="fontSize + 21"></a-avatar>
+    <a-avatar class="chat-message-avatar no-select" :src="avatarUrl" :size="fontSize + 21"></a-avatar>
     <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 28}px`, lineHeight: `${fontSize + 2}px` }">
       <p class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: `${fontSize}px` }">
         <img
@@ -8,8 +8,9 @@
           :key="index"
           class="badge-icon"
           :src="badge.icon"
-          width="18"
-          height="18"
+          :width="badge.w"
+          :height="badge.h"
+          title="一些小的业务图标"
         />
         {{ nickname }}:
       </p>
@@ -67,16 +68,25 @@ export default defineComponent({
 
     const badgeArray = ref<Badge[]>([])
 
-    if (props.type === 'guard-monthly') {
+    // badgeArray.value.push({
+    //   id: 'diamond',
+    //   icon: 'https://cc.fp.ps.netease.com/file/627dc9169de9f6046a4c5e3eNp41j6jw04',
+    //   h: 17
+    // })
+
+    if (props.guard === 1 && !props.badgeInfo.level) {
       badgeArray.value.push({
         id: 'guard-monthly',
-        icon: 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/1_18.png'
+        icon: 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/1_18.png',
+        w: 18
       })
     }
-    if (props.type === 'guard-annual') {
+
+    if (props.guard === 2 && !props.badgeInfo.level) {
       badgeArray.value.push({
         id: 'guard-annual',
-        icon: 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/2_18.png'
+        icon: 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/2_18.png',
+        w: 18
       })
     }
 
@@ -92,10 +102,13 @@ export default defineComponent({
   display: block;
   margin-bottom: 8px;
   position: relative;
+  &:first-child {
+    margin-top: 4px;
+  }
 
   span.chat-message-avatar {
     position: absolute;
-    top: 1px;
+    top: 0;
   }
 
   .text-wrap {
@@ -111,8 +124,13 @@ export default defineComponent({
     display: inline-block;
     color: #ccc;
     margin: 0;
+
     .badge-icon {
       margin-top: -3px;
+      margin-right: 2px;
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 
@@ -132,13 +150,13 @@ export default defineComponent({
 
   &.admin {
     p.nickname {
-      color: #96b6ff;
+      color: #65c4ff;
     }
   }
 
   &.anchor {
     p.nickname {
-      color: #ff8b8b;
+      color: #f96767;
     }
   }
 
