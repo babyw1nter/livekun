@@ -12,6 +12,16 @@
 
     <GiftCardPanel ref="GiftCardPanelRef" style="width: 300px; height: 340px"> </GiftCardPanel>
 
+    <div class="badge-test" style="margin: 1rem; padding: 1rem; line-height: 19px">
+      <p style="margin-bottom: 1rem">
+        <h-badge text="主播" color="#ff4545"></h-badge>
+        <h-badge text="房管" color="#17A6FF"></h-badge>
+        <h-badge text="月守牌" :level="40" :guard="1"></h-badge>
+        <h-badge text="年守牌" :level="69" :guard="2"></h-badge>
+      </p>
+      <h-badge v-for="(item, index) in 10" :key="index" text="粉丝牌" :level="item * 10"></h-badge>
+    </div>
+
     <div class="toolbar clearfix">
       <a-space :size="10" style="">
         <a-button type="primary" @click="addGiftCapsule">addGiftCapsule</a-button>
@@ -36,12 +46,13 @@ import { defineComponent, onMounted, ref } from 'vue'
 import GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
 import ChatMessageList from '@/components/ChatMessageList.vue'
 import GiftCardPanel from '@/components/GiftCardPanel.vue'
+import HBadge from '@/components/AtomicComponents/HBadge.vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { getRandomChatMessage, getRandomGiftCapsule, getRandomGiftCard } from '@/api/mock'
 
 export default defineComponent({
-  components: { GiftCardPanel, GiftCapsulePanel, ChatMessageList },
+  components: { GiftCardPanel, GiftCapsulePanel, ChatMessageList, HBadge },
   setup() {
     const store = useStore(key)
 
@@ -53,20 +64,20 @@ export default defineComponent({
 
     const addGiftCapsule = () => {
       GiftCapsulePanelRef.value?.add({
-            ...getRandomGiftCapsule()
-          })
+        ...getRandomGiftCapsule()
+      })
     }
 
     const addChatMessage = () => {
       ChatMessageListRef.value?.add({
-            ...getRandomChatMessage()
-          })
+        ...getRandomChatMessage()
+      })
     }
 
     const addGiftCard = () => {
       GiftCardPanelRef.value?.add({
-            ...getRandomGiftCard()
-          })
+        ...getRandomGiftCard()
+      })
     }
 
     const clearGiftCapsule = () => GiftCapsulePanelRef.value?.clear()
