@@ -3,6 +3,15 @@
     <a-avatar class="chat-message-avatar no-select" :src="avatarUrl" :size="fontSize + 21"></a-avatar>
     <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 28}px`, lineHeight: `${fontSize + 2}px` }">
       <p class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: `${fontSize}px` }">
+        <h-badge v-if="type === 'anchor'" text="主播" color="#ff4545"></h-badge>
+        <h-badge v-if="admin" text="房管" color="#17A6FF"></h-badge>
+        <h-badge
+          v-if="badgeInfo.level > 0 && badgeInfo.level <= 100"
+          :text="badgeInfo.badgename"
+          :level="badgeInfo.level"
+          :guard="guard"
+        ></h-badge>
+
         <img
           v-for="(badge, index) in badgeArray"
           :key="index"
@@ -23,8 +32,12 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
+import HBadge from '@/components/AtomicComponents/HBadge.vue'
 
 export default defineComponent({
+  components: {
+    HBadge
+  },
   name: 'ChatMessage',
   props: {
     type: {
@@ -42,6 +55,34 @@ export default defineComponent({
     message: {
       default: '',
       type: String
+    },
+    /**
+     * 是否为房管
+     */
+    admin: {
+      default: false,
+      type: Boolean
+    },
+    /**
+     * 守护等级 1月费守护 2年费守护
+     */
+    guard: {
+      default: Number as PropType<0 | 1 | 2>,
+      type: Number
+    },
+    /**
+     * 是否为钻粉
+     */
+    diamond: {
+      default: false,
+      type: Boolean
+    },
+    /**
+     * 粉丝牌等级
+     */
+    badgeInfo: {
+      default: 0,
+      type: Object as PropType<{ badgename: string; level: number }>
     },
     customStyle: {
       default: () => {

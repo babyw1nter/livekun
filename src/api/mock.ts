@@ -9,11 +9,17 @@ interface IGiftCapsuleMockData {
 }
 
 interface IChatMessageMockData {
-  nickname: string
+  uid: number
   avatarUrl: string
+  nickname: string
   message: string
   messageType: string
-  uid: number
+  admin: boolean
+  guard: number
+  badgeInfo: {
+    badgename: string
+    level: number
+  }
 }
 
 interface IGiftCardMockData {

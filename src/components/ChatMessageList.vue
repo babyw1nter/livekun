@@ -6,6 +6,9 @@
         :avatar-url="item.avatarUrl"
         :nickname="item.nickname"
         :message="item.message"
+        :admin="item.admin"
+        :guard="item.guard"
+        :badgeInfo="item.badgeInfo"
         :custom-style="item.customStyle"
         :font-size="fontSize"
         :type="item.type"
@@ -43,6 +46,12 @@ interface IChatMessageListItem {
   message: string
   messageType: 'chat' | 'gift' | string
   type?: 'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string
+  admin?: boolean
+  guard?: number
+  badgeInfo?: {
+    badgename: string
+    level: number
+  }
   money?: number
   giftName?: string
   giftCount?: number
