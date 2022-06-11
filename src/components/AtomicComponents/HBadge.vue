@@ -107,6 +107,7 @@ export default defineComponent({
   position: relative;
   display: inline-block;
   margin-right: 4px;
+  line-height: 19px;
   &:last-child {
     margin-right: 0;
   }
