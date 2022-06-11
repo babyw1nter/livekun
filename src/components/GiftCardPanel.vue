@@ -51,7 +51,7 @@ export default defineComponent({
     },
     level: {
       type: Array as PropType<number[]>,
-      default: () => [1, 200, 500]
+      default: () => [0, 49, 99]
     },
     maximum: {
       type: Number,

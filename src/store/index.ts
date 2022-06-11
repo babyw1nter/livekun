@@ -20,6 +20,7 @@ export interface IConfig {
       follow: boolean
       gift: boolean
     }
+    blacklist: Array<string>
   }
   giftCard: {
     level: Array<number>
@@ -51,7 +52,7 @@ export const defaultStatus: IStatus = {
 
 export const defaultConfig: IConfig = {
   giftCapsule: {
-    level: [0, 200, 500],
+    level: [0, 99, 199],
     duration: [5, 15, 30],
     maximum: 10,
     minMoney: 0.01
@@ -64,10 +65,11 @@ export const defaultConfig: IConfig = {
       join: false,
       follow: false,
       gift: false
-    }
+    },
+    blacklist: []
   },
   giftCard: {
-    level: [0, 200, 500],
+    level: [0, 49, 99],
     minMoney: 0.01,
     comment: {
       use: false,
