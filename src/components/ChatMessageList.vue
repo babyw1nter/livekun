@@ -16,7 +16,7 @@
       </ChatMessage>
       <GiftCard
         v-if="item.messageType === 'gift'"
-        :type="item.type || `level-${getLevel(item?.money || 0, level)}`"
+        :type="item.type || `level-${getLevel(item?.money || 0, store.state.config.giftCard.level)}`"
         :avatar-url="item.avatarUrl"
         :nickname="item.nickname"
         :money="item.money"
@@ -35,6 +35,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, PropType, watch, nextTick } from 'vue'
+import { useStore } from 'vuex'
+import { key } from '@/store'
 import ChatMessage from '@/components/AtomicComponents/ChatMessage.vue'
 import GiftCard from '@/components/AtomicComponents/GiftCard.vue'
 import { getLevel } from '@/api/common'
@@ -76,10 +78,6 @@ export default defineComponent({
     list: {
       type: Array as PropType<IChatMessageListItem[]>
     },
-    level: {
-      type: Array as PropType<number[]>,
-      default: () => [1, 200, 500]
-    },
     maximum: {
       type: Number,
       default: 150
@@ -94,6 +92,8 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const store = useStore(key)
+
     const ChatMessageListRef = ref<HTMLElement>()
     const chatMessageListItemCache = ref<IChatMessageListItem[]>([])
 
@@ -130,7 +130,16 @@ export default defineComponent({
       chatMessageListItemCache.value.splice(0, chatMessageListItemCache.value.length)
     }
 
-    return { ChatMessageListRef, chatMessageListItemCache, isTooQuickly, add, del, clear, getLevel }
+    return {
+      store,
+      ChatMessageListRef,
+      chatMessageListItemCache,
+      isTooQuickly,
+      add,
+      del,
+      clear,
+      getLevel
+    }
   }
 })
 </script>
