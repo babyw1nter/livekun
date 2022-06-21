@@ -3,9 +3,10 @@ import { message } from 'ant-design-vue'
 import axios from 'axios'
 
 const devURL = 'localhost:39074'
+const prodURL = 'livekun-webapi.anankun.icu:4433'
 
-const baseURL = process.env.NODE_ENV === 'development' ? `http://${devURL}` : window.location.origin
-const baseWsURL = process.env.NODE_ENV === 'development' ? `ws://${devURL}` : `ws://${window.location.host}`
+const baseURL = process.env.NODE_ENV === 'development' ? `http://${devURL}` : `https://${prodURL}`
+const baseWsURL = process.env.NODE_ENV === 'development' ? `ws://${devURL}` : `wss://${prodURL}`
 
 axios.defaults.withCredentials = true
 
