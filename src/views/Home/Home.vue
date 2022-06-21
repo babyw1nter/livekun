@@ -71,7 +71,7 @@
         </a-layout-content>
       </a-layout>
     </a-layout-content>
-    <a-layout-footer class="footer"> © 2022 hhui64. 桂ICP备15007582号 </a-layout-footer>
+    <a-layout-footer class="footer"> © 2022 hhui64. 桂ICP备15007582号-4 </a-layout-footer>
   </a-layout>
 </template>
 
