@@ -136,7 +136,6 @@ export default defineComponent({
     }
 
     &.guard {
-      background-color: rgb(51, 162, 46);
       margin-left: 16px;
       padding-left: 12px;
     }
