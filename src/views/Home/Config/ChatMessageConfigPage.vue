@@ -55,8 +55,48 @@
           <a-checkbox v-model:checked="store.state.config.chatMessage.show.gift" disabled>赠送礼物</a-checkbox>
         </a-space>
       </a-space>
+
+      <a-space direction="vertical">
+        <a-typography-text>黑名单用户设置</a-typography-text>
+        <a-typography-text type="secondary"> 过滤指定用户的聊天消息 </a-typography-text>
+        <a-space :size="10" style="margin-top: 1rem">
+          <a-button type="primary" @click="showBlacklistModel" ghost>编辑黑名单</a-button>
+          <span>黑名单用户数: {{ store.state.config.chatMessage.blacklist.length }}</span>
+        </a-space>
+      </a-space>
     </a-space>
+
     <a-divider />
+
+    <a-modal v-model:visible="showBlacklistModelStatus" title="编辑黑名单" @ok="showBlacklistModel">
+      <template #footer>
+        <a-button key="submit" type="primary" @click="showBlacklistModel">完成</a-button>
+      </template>
+
+      <a-alert message="添加或移除用户后别忘了保存设置哦~" type="info" show-icon />
+
+      <a-space :size="10" style="margin-top: 20px">
+        <a-input v-model:value="blacklistUserCCID" placeholder="请输入用户CCID" />
+        <a-input v-model:value="blacklistUserNote" placeholder="备注信息..." />
+        <a-button type="primary" @click="addBlacklistUser" ghost>添加用户</a-button>
+      </a-space>
+
+      <a-table
+        style="margin-top: 10px"
+        size="middle"
+        :columns="blacklistColumns"
+        :data-source="store.state.config.chatMessage.blacklist"
+        :pagination="{ hideOnSinglePage: true }"
+        :locale="{ emptyText: '暂时还没有用户捏~' }"
+      >
+        <template #bodyCell="{ column, record }">
+          <template v-if="column.key === 'operation'">
+            <a-button danger size="small" @click="delBlacklistUser(record.ccid)">移除</a-button>
+          </template>
+        </template>
+      </a-table>
+    </a-modal>
+
     <a-space :size="10">
       <a-button type="primary" @click="save">保存设置</a-button>
       <a-button danger @click="reset">恢复默认</a-button>
@@ -95,6 +135,51 @@ export default defineComponent({
         }, 1000)
       } else {
         window.clearInterval(autoPreviewTimer.value)
+      }
+    }
+
+    const blacklistColumns = [
+      { title: 'CCID', dataIndex: 'ccid' },
+      { title: '备注信息', dataIndex: 'note' },
+      {
+        title: '操作',
+        key: 'operation',
+        fixed: 'right',
+        width: 100
+      }
+    ]
+
+    const blacklistUserCCID = ref(''),
+      blacklistUserNote = ref('')
+    const showBlacklistModelStatus = ref(false)
+    const showBlacklistModel = () => {
+      showBlacklistModelStatus.value = !showBlacklistModelStatus.value
+    }
+    const blacklistModelhandleOk = () => {
+      //
+    }
+    const addBlacklistUser = () => {
+      const index = store.state.config.chatMessage.blacklist.findIndex((i) => i.ccid === blacklistUserCCID.value)
+      if (blacklistUserCCID.value) {
+        if (index < 0) {
+          store.state.config.chatMessage.blacklist.push({
+            ccid: blacklistUserCCID.value.trim(),
+            note: blacklistUserNote.value
+          })
+          blacklistUserCCID.value = ''
+          blacklistUserNote.value = ''
+          message.success('添加成功')
+        } else {
+          message.error('用户已存在')
+        }
+      } else {
+        message.error('请输入用户CCID')
+      }
+    }
+    const delBlacklistUser = (ccid: number | string) => {
+      const index = store.state.config.chatMessage.blacklist.findIndex((i) => i.ccid === ccid)
+      if (index > -1) {
+        store.state.config.chatMessage.blacklist.splice(index, 1)
       }
     }
 
@@ -137,7 +222,15 @@ export default defineComponent({
       sendMock,
       clear,
       save,
-      reset
+      reset,
+      showBlacklistModelStatus,
+      showBlacklistModel,
+      blacklistModelhandleOk,
+      blacklistColumns,
+      addBlacklistUser,
+      blacklistUserCCID,
+      blacklistUserNote,
+      delBlacklistUser
     }
   }
 })

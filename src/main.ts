@@ -23,7 +23,9 @@ import {
   Image,
   Tooltip,
   Carousel,
-  Tag
+  Tag,
+  Modal,
+  Table
 } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import dayjs from 'dayjs'
@@ -58,4 +60,6 @@ app
   .use(Tooltip)
   .use(Carousel)
   .use(Tag)
+  .use(Modal)
+  .use(Table)
   .mount('#app')
