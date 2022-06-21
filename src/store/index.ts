@@ -4,7 +4,7 @@ import { message } from 'ant-design-vue'
 import router from '@/router'
 import http from '@/api/http'
 
-export interface IConfig {
+export interface IUserConfig {
   giftCapsule: {
     level: Array<number>
     duration: Array<number>
@@ -20,7 +20,10 @@ export interface IConfig {
       follow: boolean
       gift: boolean
     }
-    blacklist: Array<string>
+    blacklist: Array<{
+      ccid: number | string
+      note: string
+    }>
   }
   giftCard: {
     level: Array<number>
@@ -50,7 +53,7 @@ export const defaultStatus: IStatus = {
   }
 }
 
-export const defaultConfig: IConfig = {
+export const defaultUserConfig: IUserConfig = {
   giftCapsule: {
     level: [0, 99, 199],
     duration: [5, 15, 30],
@@ -87,7 +90,7 @@ interface IResponse {
 }
 
 interface State {
-  config: IConfig
+  config: IUserConfig
   status: IStatus
   auth: {
     isLoggedIn: boolean
@@ -99,7 +102,7 @@ export const key: InjectionKey<Store<State>> = Symbol(0)
 
 export default createStore<State>({
   state: {
-    config: defaultConfig,
+    config: defaultUserConfig,
     status: {
       isJoinRoom: false,
       roomInfo: {
@@ -113,12 +116,12 @@ export default createStore<State>({
     }
   },
   mutations: {
-    updateConfig(state, newValue: IConfig) {
+    updateConfig(state, newValue: IUserConfig) {
       state.config = newValue
       // console.log('更新 vuex 配置', newValue)
     },
     resetConfig(state) {
-      state.config = defaultConfig
+      state.config = defaultUserConfig
       // console.log('重置 vuex 配置')
     },
     updateStatus(state, newValue: IStatus) {
@@ -173,7 +176,7 @@ export default createStore<State>({
         .then(res => {
           const responseData = res.data as IResponse
           if (responseData.code === 200) {
-            const remoteConfig = responseData.data as IConfig
+            const remoteConfig = responseData.data as IUserConfig
             context.commit('updateConfig', remoteConfig)
             console.log('请求远程配置成功', remoteConfig)
           } else {
@@ -193,7 +196,7 @@ export default createStore<State>({
         .then(res => {
           const responseData = res.data as IResponse
           if (responseData.code === 200) {
-            const remoteConfig = responseData.data as IConfig
+            const remoteConfig = responseData.data as IUserConfig
             context.commit('updateConfig', remoteConfig)
             console.log('保存远程配置成功', remoteConfig)
             message.success('配置已保存！')
