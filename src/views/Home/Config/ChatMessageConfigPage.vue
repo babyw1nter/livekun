@@ -242,8 +242,13 @@ export default defineComponent({
     position: absolute;
     width: 400px;
     height: 400px;
-    top: 50px;
+    max-width: 600px;
+    max-height: 456px;
+    top: 20px;
     left: 20px;
+    border: 1px dashed #ccc;
+    resize: both;
+    overflow: hidden;
   }
 }
 </style>

@@ -162,7 +162,7 @@ export default defineComponent({
   }
 
   .chat-list-gift {
-    margin-top: 10px;
+    margin: 10px 2rem;
   }
 }
 </style>

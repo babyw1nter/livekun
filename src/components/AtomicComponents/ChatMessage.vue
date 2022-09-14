@@ -178,7 +178,7 @@ export default defineComponent({
   p.message {
     word-break: normal;
     word-wrap: break-word;
-    text-align: justify;
+    // text-align: justify;
     color: #fff;
     margin: 0;
   }
