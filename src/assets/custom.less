@@ -68,8 +68,14 @@ ul {
   margin-bottom: 24px;
   height: 500px;
   width: 100%;
-  background: #f0f2f5;
   border-radius: 2px;
+  background-color: #444;
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, #333), color-stop(0.25, transparent)),
+    -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #333), color-stop(0.25, transparent)),
+    -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.75, transparent), color-stop(0.75, #333)),
+    -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.75, transparent), color-stop(0.75, #333));
+  background-position: 0 0, 16px 0, 16px -16px, 0 16px;
+  background-size: 32px 32px;
 }
 
 .mb-0 {
