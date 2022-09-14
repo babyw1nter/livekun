@@ -4,7 +4,7 @@
       <a-avatar class="card-avatar" :src="avatarUrl"> </a-avatar>
       <div class="p-wrap">
         <p class="nickname h-font" style="margin-bottom: 1px;">{{ nickname }}</p>
-        <p class="money h-font">{{ profile || `CN￥${moneyText}` }}</p>
+        <p class="money h-font">{{ profile || `¥${moneyText}` }}</p>
       </div>
     </div>
     <div class="card-footer">
