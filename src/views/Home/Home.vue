@@ -208,7 +208,7 @@ export default defineComponent({
 
       span.broadcast {
         float: right;
-        line-height: 52px;
+        margin: 15px 0px;
         transition: all 0.5s;
       }
     }
