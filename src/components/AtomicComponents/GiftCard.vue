@@ -1,15 +1,15 @@
 <template>
   <li class="gift-card no-select" :class="type">
     <div class="card-body">
-      <a-avatar class="card-avatar" :src="avatarUrl"> </a-avatar>
+      <a-avatar class="card-avatar" :src="avatarUrl" :size="24"> </a-avatar>
       <div class="p-wrap">
-        <p class="nickname h-font" style="margin-bottom: 1px;">{{ nickname }}</p>
+        <p class="nickname h-font">{{ nickname }}</p>
         <p class="money h-font">{{ profile || `¥${moneyText}` }}</p>
       </div>
     </div>
-    <div class="card-footer">
+    <div class="card-footer" v-if="comment !== ''">
       <a-carousel :dots="false" :autoplay="comment !== ''" dot-position="right">
-        <p class="message h-font" style="position: relative;">
+        <!-- <p class="message h-font" style="position: relative;">
           <a-image
             v-if="giftImageExt !== ''"
             class="gift-image"
@@ -21,7 +21,7 @@
             style="position: absolute; top: -18px;"
           />
           <span :style="{ paddingLeft: giftImageExt !== '' ? '8px' : '0' }">{{ message }}</span>
-        </p>
+        </p> -->
         <p class="message h-font" v-if="comment !== ''">{{ comment }}</p>
       </a-carousel>
     </div>
@@ -99,12 +99,11 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-@fontSize: 17px;
+@fontSize: 18px;
 
 .gift-card {
   position: relative;
   min-width: 200px;
-  height: 79px;
   border-radius: 4px;
   overflow: hidden;
   display: block;
@@ -112,7 +111,7 @@ export default defineComponent({
 
   .card-avatar {
     position: absolute;
-    top: 8px;
+    top: 14px;
     left: 14px;
   }
 
@@ -126,11 +125,10 @@ export default defineComponent({
     }
   }
   .card-body {
-    padding: 4px;
-    height: 47px;
+    padding: 8px;
+    min-height: 48px;
     .p-wrap {
-      margin-top: 2px;
-      margin-left: 55px;
+      margin-left: 45px;
     }
     p {
       color: #fff !important;
