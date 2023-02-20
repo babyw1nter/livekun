@@ -1,8 +1,10 @@
 <template>
   <li class="chat-message" :class="type">
-    <a-avatar class="chat-message-avatar no-select" :src="avatarUrl" :size="fontSize + 21"></a-avatar>
-    <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 28}px`, lineHeight: `${fontSize + 2}px` }">
+    <a-avatar class="chat-message-avatar no-select" :src="avatarUrl" :size="fontSize + 6"></a-avatar>
+    <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 13}px`, lineHeight: `${fontSize + 2}px` }">
       <p class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: `${fontSize}px` }">
+        <!-- TODO: 身份标识这部分样式没设计好，暂时隐藏掉，想好再说 -->
+        <!-- 
         <h-badge v-if="type === 'anchor'" text="主播" color="#ff4545"></h-badge>
         <h-badge v-if="admin" text="房管" color="#17A6FF"></h-badge>
         <h-badge
@@ -21,11 +23,12 @@
           :height="badge.h"
           title="一些小的业务图标"
         />
+        -->
         {{ nickname }}:
       </p>
-      <p class="message h-font" :style="{ color: customStyle.messageColor, fontSize: `${fontSize}px` }">
+      <span class="message h-font" :style="{ color: customStyle.messageColor, fontSize: `${fontSize}px` }">
         {{ message }}
-      </p>
+      </span>
     </div>
   </li>
 </template>
@@ -141,7 +144,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .chat-message {
   display: block;
-  margin-bottom: 8px;
+  padding: 4px 0;
   position: relative;
   &:first-child {
     margin-top: 4px;
@@ -149,22 +152,23 @@ export default defineComponent({
 
   span.chat-message-avatar {
     position: absolute;
-    top: 0;
+    top: 4px;
   }
 
   .text-wrap {
     padding-left: 30px;
+    padding-top: 2px;
   }
 
   p.nickname,
-  p.message {
+  span.message {
     font-size: 1rem;
   }
 
   p.nickname {
     display: inline-block;
     color: #ccc;
-    margin: 0;
+    margin: 0 4px 0 0;
 
     .badge-icon {
       margin-top: -3px;
@@ -175,17 +179,17 @@ export default defineComponent({
     }
   }
 
-  p.message {
+  span.message {
     word-break: normal;
     word-wrap: break-word;
-    // text-align: justify;
     color: #fff;
     margin: 0;
+    display: inline;
   }
 
   &.normal {
     p.nickname {
-      color: #fbf6bd;
+      color: #cccccc;
     }
   }
 
