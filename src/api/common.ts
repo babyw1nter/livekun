@@ -1,3 +1,7 @@
+import { ref } from 'vue'
+
+const globalAppConfig = ref(appConfig)
+
 const getLevel = (money: number, moneyLevelArray: Array<number>): number => {
   for (let i = 0; i < moneyLevelArray.length; i++) {
     if (money >= moneyLevelArray[moneyLevelArray.length - 1]) return moneyLevelArray.length - 1
@@ -40,4 +44,4 @@ const sleep = (ms: number): Promise<number> =>
     setTimeout(resolve, ms)
   })
 
-export { getLevel, randomNum, moneyFormat, sleep }
+export { globalAppConfig, getLevel, randomNum, moneyFormat, sleep }
