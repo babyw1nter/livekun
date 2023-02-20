@@ -1,3 +1,40 @@
+# [1.0.0-alpha.7](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2023-02-20)
+
+
+### Features
+
+* 更新页脚备案号 ([c425f6e](https://github.com/hhui64/livekun-web/commit/c425f6ede1f16a224713f7b3d482190dddc38e9d))
+* 新的礼物价值展示 ([ab67755](https://github.com/hhui64/livekun-web/commit/ab677559559631d391b1a11a017ba915117fc2f2))
+* 新的字体样式 ([0346c3f](https://github.com/hhui64/livekun-web/commit/0346c3f1e168db402fd1d7b695fd5a1a76ccc97c))
+* 新增自定义黑名单功能 ([7ff5e99](https://github.com/hhui64/livekun-web/commit/7ff5e99762d331d28ec65afc793e5439d96d8b81))
+* 应用全局配置文件 ([14f7903](https://github.com/hhui64/livekun-web/commit/14f790384669ebde8b3301476eb2a21621cf4b20))
+* **api/http:** 生产环境使用 https 和 wss 协议 ([7882f8a](https://github.com/hhui64/livekun-web/commit/7882f8a056fd36a40843d7f25022beb9524f2aca))
+* **ChatMessage:** 新增支持粉丝牌显示 ([4f1c7f5](https://github.com/hhui64/livekun-web/commit/4f1c7f519e315863d2d32a72886b6d7689ead68c))
+* **ChatMessageConfigPage:** 新增部分配置字段 ([10d5417](https://github.com/hhui64/livekun-web/commit/10d5417a4eab73f3af5417a16e086195f8caa99a))
+* **HBadge:** 新增粉丝牌组件 ([9bcfea5](https://github.com/hhui64/livekun-web/commit/9bcfea5eabc024deae2ce2a12e408b3cfb2d8ef3))
+* **TestPage:** 新增粉丝牌组件的测试用例 ([e1145e3](https://github.com/hhui64/livekun-web/commit/e1145e309e8d4c732c4516490cb417d7374d26ec))
+
+
+### Performance Improvements
+
+* 不再显示汉字之间的空格 ([ad53ccd](https://github.com/hhui64/livekun-web/commit/ad53ccd789f0aa640f3913bbd8576f328bb34909))
+* 更新类名 ([172c224](https://github.com/hhui64/livekun-web/commit/172c224ba5c3d6303139e47f7ed88ccca4df8d3f))
+* 优化 `SC卡片` 的样式 ([b0b90f1](https://github.com/hhui64/livekun-web/commit/b0b90f1cc6c39ebddb95513297c8fb4a7da3dedb))
+* 优化部分组件的配置缺省值 ([9f60313](https://github.com/hhui64/livekun-web/commit/9f60313a25f94dc0ed9472c341598cadb625d1c1))
+* 优化导航项目显示名称 ([2bfa6d4](https://github.com/hhui64/livekun-web/commit/2bfa6d4b59c3878db7c2e064b64f6d8e29521347))
+* 优化昵称文字大小 ([0292494](https://github.com/hhui64/livekun-web/commit/029249418b5ca42a4ec63f8237386ac598057d63))
+* 优化设置页面样式 ([65e5ff1](https://github.com/hhui64/livekun-web/commit/65e5ff1a980750879bcc052d7ee842e6dd789d38))
+* 优化通用组件预览框背景样式 ([70538f0](https://github.com/hhui64/livekun-web/commit/70538f0cec3e6fc1aea2aa36dba63eca6c8ebe3b))
+* 优化消息组件样式、暂时取消身份标识展示 ([266faca](https://github.com/hhui64/livekun-web/commit/266faca06dfa17bcbeab1285dab99eb699d7438d))
+* 优化页脚版权样式 ([e78e1c5](https://github.com/hhui64/livekun-web/commit/e78e1c5fe25c48d5b93f8e6c3935d0973ff931c7))
+* 优化一些组件样式 ([09debf1](https://github.com/hhui64/livekun-web/commit/09debf11abcb46b0fc02b365b63aef50fba17c53))
+* **ChatMessage:** 优化组件样式 ([4020e23](https://github.com/hhui64/livekun-web/commit/4020e2314648363dd7674e67dc8a9eade9f0b692))
+* **ChatMessageList:** 优化从 store 获取组件的配置 ([6583f38](https://github.com/hhui64/livekun-web/commit/6583f38d6365b530e8348c89c954654cf726fdc7))
+* **HBadge:** 优化组件样式 ([e4fa835](https://github.com/hhui64/livekun-web/commit/e4fa83546a6144f9da23e7cbd100df481043ce24))
+* **views/Home:** 优化右上角 tips 样式 ([ed79d45](https://github.com/hhui64/livekun-web/commit/ed79d454ca07e5925ce733069c1a9fb25a1f426d))
+
+
+
 # [1.0.0-alpha.6](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2022-06-08)
 
 
