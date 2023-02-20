@@ -26,7 +26,7 @@
               <template #prefix> <LockOutlined style="color: #0084ff;" /> </template>
             </a-input-password>
           </a-form-item>
-          <a-form-item>
+          <a-form-item name="autologin">
             <a-checkbox v-model:checked="formState.autologin">自动登陆</a-checkbox>
             <a-typography-link style="float: right;">申请使用权限</a-typography-link>
           </a-form-item>
@@ -73,7 +73,7 @@ export default defineComponent({
     const router = useRouter()
 
     const loginFormRef = ref()
-    const formState: UnwrapRef<FormState> = reactive({
+    const formState = reactive<FormState>({
       username: '',
       password: '',
       autologin: true
@@ -115,7 +115,6 @@ export default defineComponent({
     const isLoading = ref<boolean>(false)
 
     const login = (username: string, password: string, autologin: boolean) => {
-      isLoading.value = true
       http
         .post('/user/login', {
           username,
