@@ -12,13 +12,8 @@
               <span>KUN</span>
             </span>
           </div>
-          <a-menu
-            class="home-menu no-select"
-            mode="inline"
-            :selectedKeys="selectedKeys"
-            @click="menuClicked"
-            style="border-right: none"
-          >
+          <a-menu class="home-menu no-select" mode="inline" :selectedKeys="selectedKeys" @click="menuClicked"
+            style="border-right: none">
             <a-menu-item key="/">
               <template #icon>
                 <ApiOutlined />
@@ -71,7 +66,11 @@
         </a-layout-content>
       </a-layout>
     </a-layout-content>
-    <a-layout-footer class="footer"> © 2022 hhui64. 桂ICP备15007582号-4 </a-layout-footer>
+    <a-layout-footer class="footer">
+      <a-typography-text type="secondary">
+        {{ globalAppConfig.copyright }} {{ globalAppConfig.icp.beian }} {{ globalAppConfig.gongan.beian }}
+      </a-typography-text>
+    </a-layout-footer>
   </a-layout>
 </template>
 
@@ -89,7 +88,7 @@ import {
   MessageOutlined
 } from '@ant-design/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
-import { randomNum } from '@/api/common'
+import { globalAppConfig, randomNum } from '@/api/common'
 import http from '@/api/http'
 import { getMockData } from '@/api/mock'
 
@@ -103,7 +102,7 @@ export default defineComponent({
     CreditCardOutlined,
     MessageOutlined
   },
-  setup() {
+  setup () {
     const store = useStore(key)
     const route = useRoute()
     const router = useRouter()
@@ -151,6 +150,7 @@ export default defineComponent({
     }
 
     return {
+      globalAppConfig,
       store,
       route,
       router,

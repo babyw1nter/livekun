@@ -38,7 +38,7 @@
         </a-form>
       </div>
       <div class="footer">
-        <p>© 2022 hhui64. 桂ICP备15007582号-4</p>
+        <p>{{ globalAppConfig.copyright }} {{ globalAppConfig.icp.beian }} {{ globalAppConfig.gongan.beian }}</p>
       </div>
     </div>
   </div>
@@ -51,6 +51,7 @@ import { key } from '@/store'
 import { message } from 'ant-design-vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import http from '@/api/http'
+import { globalAppConfig } from '@/api/common'
 import router from '@/router'
 import { useRoute, useRouter } from 'vue-router'
 import { RuleObject, ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
@@ -147,6 +148,7 @@ export default defineComponent({
     }
 
     return {
+      globalAppConfig,
       login,
       loginFormRef,
       formState,
@@ -154,7 +156,7 @@ export default defineComponent({
       checkPassword,
       rules,
       handleFinish,
-      isLoading
+      isLoading,
     }
   }
 })
