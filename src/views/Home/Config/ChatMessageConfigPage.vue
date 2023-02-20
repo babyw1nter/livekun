@@ -6,7 +6,7 @@
         class="preview-chat-message-list"
         :font-size="store.state.config.chatMessage.style.fontSize"
       />
-      <a-checkbox v-model:checked="autoPreview" v-on:change="autoPreviewChange" style="margin: 1rem; float: right"
+      <a-checkbox v-model:checked="autoPreview" v-on:change="autoPreviewChange" style="margin: 1rem; float: right; color: #fff;"
         >自动预览
       </a-checkbox>
     </div>
@@ -25,11 +25,11 @@
         <a-typography-text>文字大小</a-typography-text>
         <a-typography-text type="secondary"> 控制聊天消息的文字大小 </a-typography-text>
         <a-slider
-          :min="17"
+          :min="18"
           :max="32"
           v-model:value="store.state.config.chatMessage.style.fontSize"
           style="width: 280px; margin-bottom: 3rem"
-          :marks="{ 17: '小', 32: '大' }"
+          :marks="{ 18: '小', 32: '大' }"
         />
       </a-space>
 
@@ -37,10 +37,10 @@
         <a-typography-text><a-tag color="orange">开发中</a-tag>消息样式控制</a-typography-text>
         <a-typography-text type="secondary"> 自定义消息的样式 </a-typography-text>
         <a-space :size="10" style="margin-top: 1rem">
-          <a-checkbox :checked="true" disabled>粉丝牌</a-checkbox>
-          <a-checkbox :checked="true" disabled>守护图标</a-checkbox>
-          <a-checkbox :checked="true" disabled>房管图标</a-checkbox>
-          <a-checkbox :checked="true" disabled>主播图标</a-checkbox>
+          <a-checkbox :checked="false" disabled>粉丝牌</a-checkbox>
+          <a-checkbox :checked="false" disabled>守护图标</a-checkbox>
+          <a-checkbox :checked="false" disabled>房管图标</a-checkbox>
+          <a-checkbox :checked="false" disabled>主播图标</a-checkbox>
           <a-checkbox :checked="false" disabled>贵族图标</a-checkbox>
           <a-checkbox :checked="true" disabled>昵称特殊颜色</a-checkbox>
         </a-space>
@@ -241,7 +241,7 @@ export default defineComponent({
   .preview-chat-message-list {
     position: absolute;
     width: 400px;
-    height: 400px;
+    height: 456px;
     max-width: 600px;
     max-height: 456px;
     top: 20px;

@@ -7,7 +7,7 @@
         :list="giftCardList"
         :level="store.state.config.giftCard.level"
       />
-      <a-checkbox v-model:checked="autoPreview" v-on:change="autoPreviewChange" style="margin: 1rem; float: right;"
+      <a-checkbox v-model:checked="autoPreview" v-on:change="autoPreviewChange" style="margin: 1rem; float: right; color: #fff;"
         >自动预览
       </a-checkbox>
     </div>
