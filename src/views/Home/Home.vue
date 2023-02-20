@@ -24,24 +24,24 @@
               <template #icon>
                 <SettingOutlined />
               </template>
-              <template #title>系统设置</template>
-              <a-menu-item key="/config/gift-capsule">
-                <template #icon>
-                  <GiftOutlined />
-                </template>
-                礼物胶囊
-              </a-menu-item>
-              <a-menu-item key="/config/gift-card">
-                <template #icon>
-                  <CreditCardOutlined />
-                </template>
-                礼物卡片
-              </a-menu-item>
+              <template #title>插件设置</template>
               <a-menu-item key="/config/chat-message">
                 <template #icon>
                   <MessageOutlined />
                 </template>
                 聊天消息
+              </a-menu-item>
+              <a-menu-item key="/config/gift-capsule">
+                <template #icon>
+                  <GiftOutlined />
+                </template>
+                SC横栏
+              </a-menu-item>
+              <a-menu-item key="/config/gift-card">
+                <template #icon>
+                  <CreditCardOutlined />
+                </template>
+                SC卡片
               </a-menu-item>
             </a-sub-menu>
             <a-menu-item key="/account">

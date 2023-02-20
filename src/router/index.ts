@@ -34,11 +34,21 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: 'config/chat-message',
+        name: 'ChatMessageConfig',
+        component: ChatMessageConfigPage,
+        meta: {
+          title: '插件设置 - 聊天消息',
+          menuItemKey: '/config/chat-message',
+          requiresAuth: true
+        }
+      },
+      {
         path: 'config/gift-capsule',
         name: 'GiftCapsuleConfig',
         component: GiftCapsuleConfigPage,
         meta: {
-          title: '系统设置 - 礼物胶囊',
+          title: '插件设置 - SC横栏',
           menuItemKey: '/config/gift-capsule',
           requiresAuth: true
         }
@@ -48,18 +58,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'GiftCardConfig',
         component: GiftCardConfigPage,
         meta: {
-          title: '系统设置 - 礼物卡片',
+          title: '插件设置 - SC卡片',
           menuItemKey: '/config/gift-card',
-          requiresAuth: true
-        }
-      },
-      {
-        path: 'config/chat-message',
-        name: 'ChatMessageConfig',
-        component: ChatMessageConfigPage,
-        meta: {
-          title: '系统设置 - 聊天消息',
-          menuItemKey: '/config/chat-message',
           requiresAuth: true
         }
       },
