@@ -90,7 +90,6 @@ import {
 import { useRoute, useRouter } from 'vue-router'
 import { globalAppConfig, randomNum } from '@/api/common'
 import http from '@/api/http'
-import { getMockData } from '@/api/mock'
 
 export default defineComponent({
   components: {
@@ -115,8 +114,6 @@ export default defineComponent({
     const broadcast = ref('')
 
     onBeforeMount(() => {
-      // 获取模拟数据
-      getMockData()
       // 获取公告数据
       http
         .get('/api/get-broadcasts')

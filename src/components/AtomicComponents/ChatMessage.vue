@@ -2,9 +2,9 @@
   <li class="chat-message" :class="type">
     <a-avatar class="chat-message-avatar no-select" :src="avatarUrl" :size="fontSize + 6"></a-avatar>
     <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 13}px`, lineHeight: `${fontSize + 2}px` }">
-      <p class="nickname h-font" :style="{ color: customStyle.nicknameColor, fontSize: `${fontSize}px` }">
-        <!-- TODO: 身份标识这部分样式没设计好，暂时隐藏掉，想好再说 -->
-        <!-- 
+      <!-- TODO: 身份标识这部分样式没设计好，暂时隐藏掉，想好再说 -->
+      <!-- 
+      <p class="badge-wrap">
         <h-badge v-if="type === 'anchor'" text="主播" color="#ff4545"></h-badge>
         <h-badge v-if="admin" text="房管" color="#17A6FF"></h-badge>
         <h-badge
@@ -23,11 +23,13 @@
           :height="badge.h"
           title="一些小的业务图标"
         />
-        -->
-        {{ nickname }}:
       </p>
-      <span class="message h-font" :style="{ color: customStyle.messageColor, fontSize: `${fontSize}px` }">
-        {{ message }}
+      -->
+      <p class="nickname">
+        <h-font :color="customStyle.nicknameColor" :fontSize="fontSize" :text="`${nickname}:`"></h-font>
+      </p>
+      <span class="message">
+        <h-font :color="customStyle.messageColor" :fontSize="fontSize" :text="message"></h-font>
       </span>
     </div>
   </li>
@@ -35,10 +37,12 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
+import HFont from '@/components/AtomicComponents/HFont.vue'
 import HBadge from '@/components/AtomicComponents/HBadge.vue'
 
 export default defineComponent({
   components: {
+    HFont,
     HBadge
   },
   name: 'ChatMessage',
@@ -92,17 +96,17 @@ export default defineComponent({
         return {
           nicknameColor: null,
           messageColor: null,
-          fontSize: 17
+          fontSize: 18
         }
       },
       type: Object as PropType<{ nicknameColor?: string; messageColor?: string; fontSize?: number }>
     },
     fontSize: {
       type: Number,
-      default: 17
+      default: 18
     }
   },
-  setup(props) {
+  setup (props) {
     interface Badge {
       id: string
       icon: string
@@ -146,6 +150,7 @@ export default defineComponent({
   display: block;
   padding: 4px 0;
   position: relative;
+
   &:first-child {
     margin-top: 4px;
   }
@@ -160,12 +165,12 @@ export default defineComponent({
     padding-top: 2px;
   }
 
-  p.nickname,
-  span.message {
+  .nickname,
+  .message {
     font-size: 1rem;
   }
 
-  p.nickname {
+  .nickname {
     display: inline-block;
     color: #ccc;
     margin: 0 4px 0 0;
@@ -173,13 +178,14 @@ export default defineComponent({
     .badge-icon {
       margin-top: -3px;
       margin-right: 2px;
+
       &:last-child {
         margin-right: 0;
       }
     }
   }
 
-  span.message {
+  .message {
     word-break: normal;
     word-wrap: break-word;
     color: #fff;
@@ -188,31 +194,31 @@ export default defineComponent({
   }
 
   &.normal {
-    p.nickname {
+    .nickname {
       color: #cccccc;
     }
   }
 
   &.admin {
-    p.nickname {
+    .nickname {
       color: #65c4ff;
     }
   }
 
   &.anchor {
-    p.nickname {
+    .nickname {
       color: #f96767;
     }
   }
 
   &.guard-monthly {
-    p.nickname {
+    .nickname {
       color: #b186ff;
     }
   }
 
   &.guard-annual {
-    p.nickname {
+    .nickname {
       color: #ffbc6a;
     }
   }

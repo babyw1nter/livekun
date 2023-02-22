@@ -8,6 +8,11 @@
   src: url('./font/Imprima-Regular.ttf');
 }
 
+@font-face {
+  font-family: 'AppleColorEmoji';
+  src: url('./font/AppleColorEmoji.ttf');
+}
+
 body {
   background-color: transparent;
 }
@@ -30,19 +35,8 @@ ul {
 }
 
 .h-font {
-  &.nickname {
-    font-family: 'Changa One', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
-      '\5FAE \8F6F \96C5 \9ED1 ', SimHei, Arial, sans-serif;
-  }
-
-  &.message {
-    font-family: 'Imprima', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
-      '\5FAE \8F6F \96C5 \9ED1 ', SimHei, Arial, sans-serif;
-  }
-
-  &.money {
-    font-family: 'Imprima', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
-      '\5FAE \8F6F \96C5 \9ED1 ', SimHei, Arial, sans-serif;
+  .emoji {
+    text-shadow: none !important;
   }
 
   text-shadow: -2px -2px #000000, -2px -1px #000000, -2px 0px #000000, -2px 1px #000000, -2px 2px #000000,
@@ -50,6 +44,27 @@ ul {
     0px -1px #000000, 0px 0px #000000, 0px 1px #000000, 0px 2px #000000, 1px -2px #000000, 1px -1px #000000,
     1px 0px #000000, 1px 1px #000000, 1px 2px #000000, 2px -2px #000000, 2px -1px #000000, 2px 0px #000000,
     2px 1px #000000, 2px 2px #000000;
+}
+
+.nickname {
+  .h-font {
+    font-family: 'Changa One', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      '\5FAE \8F6F \96C5 \9ED1 ', SimHei, Arial, sans-serif;
+  }
+}
+
+.message {
+  .h-font {
+    font-family: 'Imprima', 'AppleColorEmoji', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+      'Microsoft YaHei', '\5FAE \8F6F \96C5 \9ED1 ', SimHei, Arial, sans-serif;
+  }
+}
+
+.money {
+  .h-font {
+    font-family: 'Imprima', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      '\5FAE \8F6F \96C5 \9ED1 ', SimHei, Arial, sans-serif;
+  }
 }
 
 .error-bg {

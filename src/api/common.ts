@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import emojiRegex from 'emoji-regex'
 
 const globalAppConfig = ref(appConfig)
 
@@ -21,7 +22,7 @@ const moneyFormat = (number: number, decimals: number, decPoint?: string, thousa
   const sep = typeof thousandsSep === 'undefined' ? ',' : thousandsSep
   const dec = typeof decPoint === 'undefined' ? '.' : decPoint
   let s: string | string[] = ''
-  const toFixedFix = function(n: number, prec: number) {
+  const toFixedFix = function (n: number, prec: number) {
     const k = Math.pow(10, prec)
     return '' + Math.ceil(n * k) / k
   }
@@ -39,9 +40,16 @@ const moneyFormat = (number: number, decimals: number, decPoint?: string, thousa
   return s.join(dec)
 }
 
+/**
+ * 给 emoji 添加单独的 span 标签，用以去除 text-shadow 属性
+ * @param str string
+ * @returns replaced str
+ */
+const replaceEmoji = (str: string) => str.replace(emojiRegex(), `<span class="emoji">$&</span>`)
+
 const sleep = (ms: number): Promise<number> =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     setTimeout(resolve, ms)
   })
 
-export { globalAppConfig, getLevel, randomNum, moneyFormat, sleep }
+export { globalAppConfig, getLevel, randomNum, moneyFormat, replaceEmoji, sleep }

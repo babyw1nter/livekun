@@ -3,8 +3,12 @@
     <div class="card-body">
       <a-avatar class="card-avatar" :src="avatarUrl" :size="24"> </a-avatar>
       <div class="p-wrap">
-        <p class="nickname h-font">{{ nickname }}</p>
-        <p class="money h-font">{{ profile || `¥${moneyText}` }}</p>
+        <p class="nickname">
+          <h-font :text="nickname"></h-font>
+        </p>
+        <p class="money">
+          <h-font :text="profile || `¥${moneyText}`"></h-font>
+        </p>
       </div>
     </div>
     <div class="card-footer" v-if="comment !== ''">
@@ -22,7 +26,9 @@
           />
           <span :style="{ paddingLeft: giftImageExt !== '' ? '8px' : '0' }">{{ message }}</span>
         </p> -->
-        <p class="message h-font" v-if="comment !== ''">{{ comment }}</p>
+        <p class="message" v-if="comment !== ''">
+          <h-font :text="comment"></h-font>
+        </p>
       </a-carousel>
     </div>
   </li>
@@ -31,8 +37,12 @@
 <script lang="ts">
 import { moneyFormat } from '@/api/common'
 import { computed, defineComponent, ref } from 'vue'
+import HFont from '@/components/AtomicComponents/HFont.vue'
 
 export default defineComponent({
+  components: {
+    HFont
+  },
   name: 'GiftCard',
   props: {
     type: {
@@ -80,7 +90,7 @@ export default defineComponent({
       default: ''
     }
   },
-  setup(props) {
+  setup (props) {
     const cardType = ref<string>(props.type)
     const moneyText = computed(() => moneyFormat(Number(props.money.toFixed(2)), 2))
     const giftImageExt = computed(() => {
@@ -111,32 +121,38 @@ export default defineComponent({
 
   .card-avatar {
     position: absolute;
-    top: 14px;
-    left: 14px;
+    top: 15px;
+    left: 15px;
   }
 
   .card-body,
   .card-footer {
     width: 100%;
+
     p {
       margin-bottom: 0;
       line-height: @fontSize;
       color: #fff;
     }
   }
+
   .card-body {
     padding: 8px;
     min-height: 48px;
+
     .p-wrap {
       margin-left: 45px;
     }
+
     p {
       color: #fff !important;
       font-size: @fontSize;
     }
   }
+
   .card-footer {
     height: 32px;
+
     p.message {
       font-size: @fontSize;
       line-height: 30px;
@@ -152,6 +168,7 @@ export default defineComponent({
   &.level-0 {
     .card-body {
       background: #1ebea5;
+
       p.nickname {
         color: #32e8b7;
       }
@@ -165,10 +182,12 @@ export default defineComponent({
   &.level-1 {
     .card-body {
       background: #1db1db;
+
       p.nickname {
         color: #25d5fd;
       }
     }
+
     .card-footer {
       background: #25d5fd;
     }
@@ -177,10 +196,12 @@ export default defineComponent({
   &.level-2 {
     .card-body {
       background: #d43667;
+
       p.nickname {
         color: #f74170;
       }
     }
+
     .card-footer {
       background: #f74170;
     }
@@ -189,10 +210,12 @@ export default defineComponent({
   &.guard-monthly {
     .card-body {
       background: #573594;
+
       p.nickname {
         color: #9480b9;
       }
     }
+
     .card-footer {
       background: #9480b9;
     }
@@ -201,15 +224,18 @@ export default defineComponent({
   &.guard-annual {
     .card-body {
       background: #ff9800;
+
       p.nickname {
         color: #ffbc6a;
       }
     }
+
     .card-footer {
       background: #ffbc6a;
     }
   }
 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12),
+  0 0 6px rgba(0, 0, 0, 0.04);
 }
 </style>

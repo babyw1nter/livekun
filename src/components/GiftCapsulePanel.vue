@@ -1,26 +1,33 @@
 <template>
   <ul class="gift-capsule-panel clearfix">
-    <TransitionGroup name="fade">
-      <GiftCapsule
-        v-for="item in giftCapsuleListItemCache"
-        :key="item.uid"
-        :type="item.type || `level-${getLevel(item.money, level)}`"
-        :avatar-url="item.avatarUrl"
-        :money="item.money"
-        :message="item.message"
-        :percentage="item.percentage"
-      >
-      </GiftCapsule>
+    <TransitionGroup name="list" tag="ul">
+      <li v-for="item in giftCapsuleListItemCache" :key="item.uid">
+        <a-dropdown>
+          <GiftCapsule :type="item.type || `level-${getLevel(item.money, level)}`" :avatar-url="item.avatarUrl"
+            :money="item.money" :message="item.message" :percentage="item.percentage">
+          </GiftCapsule>
+
+          <template #overlay>
+            <a-menu>
+              <a-menu-item>
+                <a href="javascript:;" @click="del(item.uid)">移除</a>
+              </a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
+
+      </li>
     </TransitionGroup>
   </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, watch, ref, nextTick } from 'vue'
+import { defineComponent, PropType, watch, ref, nextTick, reactive } from 'vue'
 import GiftCapsule from '@/components/AtomicComponents/GiftCapsule.vue'
 import { getLevel, sleep } from '@/api/common'
 
-interface IGiftCapsulegiftCapsuleListItem {
+
+interface IGiftCapsuleListItem {
   avatarUrl: string
   nickname?: string
   uid: number | string
@@ -31,7 +38,7 @@ interface IGiftCapsulegiftCapsuleListItem {
   [propName: string]: unknown
 }
 
-interface IGiftCapsulegiftCapsuleListItemCache extends IGiftCapsulegiftCapsuleListItem {
+interface IGiftCapsuleListItemCache extends IGiftCapsuleListItem {
   _customDuration: number
   duration: number
   timing: number
@@ -62,22 +69,22 @@ export default defineComponent({
       default: () => [5, 15, 30]
     }
   },
-  setup(props) {
-    const giftCapsuleListItemCache = ref<IGiftCapsulegiftCapsuleListItemCache[]>([])
+  setup (props) {
+    const giftCapsuleListItemCache = reactive<IGiftCapsuleListItemCache[]>([])
     const timerCache: TimerCache[] = []
 
-    const add = async (item: IGiftCapsulegiftCapsuleListItem) => {
+    const add = async (item: IGiftCapsuleListItem) => {
       if (!item.uid) return
 
       // 查找列表成员，如果已存在则累计金额并刷新持续时间
-      const index = giftCapsuleListItemCache.value.findIndex(i => i.uid === item.uid)
+      const index = giftCapsuleListItemCache.findIndex(i => i.uid === item.uid)
       if (index > -1) {
-        giftCapsuleListItemCache.value[index].money += item.money
+        giftCapsuleListItemCache[index].money += item.money
         const giftCapsuleListItemCacheDuration =
-          giftCapsuleListItemCache.value[index]._customDuration ||
-          props.duration[getLevel(giftCapsuleListItemCache.value[index].money, props.level)] * 60 * 1000
-        giftCapsuleListItemCache.value[index].duration = giftCapsuleListItemCacheDuration
-        giftCapsuleListItemCache.value[index].timing = giftCapsuleListItemCacheDuration
+          giftCapsuleListItemCache[index]._customDuration ||
+          props.duration[getLevel(giftCapsuleListItemCache[index].money, props.level)] * 60 * 1000
+        giftCapsuleListItemCache[index].duration = giftCapsuleListItemCacheDuration
+        giftCapsuleListItemCache[index].timing = giftCapsuleListItemCacheDuration
         return
       }
 
@@ -87,8 +94,8 @@ export default defineComponent({
 
       // 超过最大常驻礼物胶囊数量，且末尾的礼物胶囊的金额低于即将添加的礼物胶囊的金额，则删除末尾的礼物胶囊
       // 反之则不作任何操作
-      if (giftCapsuleListItemCache.value.length >= props.maximum) {
-        const lastItem = giftCapsuleListItemCache.value[giftCapsuleListItemCache.value.length - 1]
+      if (giftCapsuleListItemCache.length >= props.maximum) {
+        const lastItem = giftCapsuleListItemCache[giftCapsuleListItemCache.length - 1]
         if (lastItem.money < item.money) {
           del(lastItem.uid)
           await sleep(501)
@@ -98,7 +105,7 @@ export default defineComponent({
       }
 
       // 添加礼物胶囊进缓存数组
-      giftCapsuleListItemCache.value.push({
+      giftCapsuleListItemCache.push({
         ...item,
         _customDuration: item.duration || 0,
         duration: item.duration || itemDefaultDuration,
@@ -109,9 +116,9 @@ export default defineComponent({
       const timer = {
         uid: item.uid,
         timer: window.setInterval(() => {
-          const index = giftCapsuleListItemCache.value.findIndex(i => i.uid === item.uid)
+          const index = giftCapsuleListItemCache.findIndex(i => i.uid === item.uid)
           if (index > -1) {
-            if (giftCapsuleListItemCache.value[index].timing <= 0) {
+            if (giftCapsuleListItemCache[index].timing <= 0) {
               const timerCacheIndex = timerCache.findIndex(i => i.uid === item.uid)
               if (timerCache[timerCacheIndex]) {
                 clearInterval(timerCache[timerCacheIndex].timer)
@@ -119,16 +126,16 @@ export default defineComponent({
               }
 
               nextTick(() => {
-                giftCapsuleListItemCache.value.splice(index, 1)
+                giftCapsuleListItemCache.splice(index, 1)
               })
 
               return
             }
 
-            giftCapsuleListItemCache.value[index].timing -= 100
-            giftCapsuleListItemCache.value[index].percentage = Number(
+            giftCapsuleListItemCache[index].timing -= 100
+            giftCapsuleListItemCache[index].percentage = Number(
               (
-                (giftCapsuleListItemCache.value[index].timing / giftCapsuleListItemCache.value[index].duration) *
+                (giftCapsuleListItemCache[index].timing / giftCapsuleListItemCache[index].duration) *
                 100
               ).toFixed(1)
             )
@@ -140,10 +147,10 @@ export default defineComponent({
     }
 
     const del = (uid: number | string) => {
-      const index = giftCapsuleListItemCache.value.findIndex(i => i.uid === uid)
+      const index = giftCapsuleListItemCache.findIndex(i => i.uid === uid)
       const timerCacheIndex = timerCache.findIndex(i => i.uid === uid)
       if (index > -1) {
-        giftCapsuleListItemCache.value.splice(index, 1)
+        giftCapsuleListItemCache.splice(index, 1)
       }
       if (timerCacheIndex > -1) {
         clearInterval(timerCache[timerCacheIndex].timer)
@@ -151,14 +158,14 @@ export default defineComponent({
       }
     }
 
-    watch(giftCapsuleListItemCache.value, () => giftCapsuleListItemCache.value.sort((a, b) => b.money - a.money), {
+    watch(giftCapsuleListItemCache, () => giftCapsuleListItemCache.sort((a, b) => b.money - a.money), {
       deep: true
     })
 
     const clear = () => {
       timerCache.forEach(item => window.clearInterval(item.timer))
       timerCache.splice(0, timerCache.length)
-      giftCapsuleListItemCache.value.splice(0, giftCapsuleListItemCache.value.length)
+      giftCapsuleListItemCache.splice(0, giftCapsuleListItemCache.length)
     }
 
     return { giftCapsuleListItemCache, getLevel, add, del, clear }
@@ -174,18 +181,34 @@ export default defineComponent({
   list-style: none;
   overflow-x: hidden;
 
+  li {
+    float: left;
+  }
+
   &::-webkit-scrollbar {
     width: 0 !important;
   }
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.list-enter-from {
   opacity: 0;
+  transform: translateX(30px);
+  width: 0%;
+}
+
+.list-leave-to {
+  opacity: 0;
+  transform: scale(0.01);
+}
+
+.list-leave-active {
+  position: absolute;
+  width: 100%;
 }
 </style>
