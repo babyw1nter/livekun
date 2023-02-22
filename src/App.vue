@@ -5,11 +5,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onBeforeMount } from 'vue'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import { getMockData } from '@/api/mock'
 
 export default defineComponent({
-  setup() {
+  setup () {
+    onBeforeMount(() => {
+      getMockData()
+    })
+
     return {
       locale: zhCN
     }
