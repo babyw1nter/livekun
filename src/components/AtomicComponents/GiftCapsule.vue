@@ -1,16 +1,23 @@
 <template>
-  <li class="gift-capsule no-select" :class="type">
+  <div class="gift-capsule no-select" :class="type">
     <span class="gift-capsule-bg" :style="{ width: `${percentage.toFixed(1)}%` }"></span>
     <a-avatar class="capsule-avatar" :src="avatarUrl" :size="27"> </a-avatar>
-    <span class="money h-font">{{ message || '¥' + moneyText }}</span>
-  </li>
+    <span class="money">
+      <h-font :text="message || `¥${moneyText}`"></h-font>
+    </span>
+  </div>
 </template>
 
 <script lang="ts">
 import { moneyFormat } from '@/api/common'
-import { computed, defineComponent, ref } from 'vue'
+import { watch, computed, defineComponent, ref, reactive, onBeforeUpdate, onMounted } from 'vue'
+import HFont from '@/components/AtomicComponents/HFont.vue'
+import { gsap } from "gsap"
 
 export default defineComponent({
+  components: {
+    HFont
+  },
   name: 'GiftCapsule',
   props: {
     type: {
@@ -34,10 +41,16 @@ export default defineComponent({
       default: 100
     }
   },
-  setup(props) {
+  setup (props) {
     const cardType = ref<string>(props.type)
-    const moneyText = computed(() => moneyFormat(Number(props.money.toFixed(2)), 2, '.', ','))
+    const gsapMoney = reactive({
+      number: 0
+    })
 
+    watch(() => props.money, (newValue) => gsap.to(gsapMoney, { duration: 0.5, number: newValue }), { immediate: true })
+
+
+    const moneyText = computed(() => moneyFormat(Number(gsapMoney.number.toFixed(2)), 2, '.', ','))
     const bgWidth = ref<number>(0)
 
     return {
@@ -59,19 +72,19 @@ export default defineComponent({
   float: left;
   margin-right: 10px;
   overflow: hidden;
-  transition: all 0.1s;
+  transition: width 0.2s;
 
   .gift-capsule-bg {
     position: absolute;
     top: 0px;
     left: 0px;
     height: 100%;
-    transition: all 0.1s;
+    transition: background 0.2s;
     z-index: 0;
     display: inline-block;
   }
 
-  span.money {
+  .money {
     position: relative;
     margin-left: 4px;
     margin-bottom: 0;
@@ -85,6 +98,7 @@ export default defineComponent({
 
   &.level-0 {
     background: #1ebea5;
+
     .gift-capsule-bg {
       background: #32e8b7;
     }
@@ -92,6 +106,7 @@ export default defineComponent({
 
   &.level-1 {
     background: #1db1db;
+
     .gift-capsule-bg {
       background: #25d5fd;
     }
@@ -99,6 +114,7 @@ export default defineComponent({
 
   &.level-2 {
     background: #d23968;
+
     .gift-capsule-bg {
       background: #f74170;
     }
@@ -106,6 +122,7 @@ export default defineComponent({
 
   &.guard-monthly {
     background: #573594;
+
     .gift-capsule-bg {
       background: #9480b9;
     }
@@ -113,11 +130,13 @@ export default defineComponent({
 
   &.guard-annual {
     background: #ff9800;
+
     .gift-capsule-bg {
       background: #ffbc6a;
     }
   }
 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12),
+  0 0 6px rgba(0, 0, 0, 0.04);
 }
 </style>

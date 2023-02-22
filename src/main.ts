@@ -25,7 +25,8 @@ import {
   Carousel,
   Tag,
   Modal,
-  Table
+  Table,
+  Dropdown
 } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import dayjs from 'dayjs'
@@ -62,4 +63,5 @@ app
   .use(Tag)
   .use(Modal)
   .use(Table)
+  .use(Dropdown)
   .mount('#app')
