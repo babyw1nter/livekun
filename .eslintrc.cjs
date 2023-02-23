@@ -7,7 +7,7 @@ module.exports = {
   },
   extends: [
     'eslint-config-prettier',
-    'eslint:recommended',
+    // 'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:vue/vue3-essential',
     'plugin:vue/vue3-recommended',
@@ -37,6 +37,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'vue/no-unused-components': 'warn',
     'vue/attributes-order': 'off',
-    'vue/attribute-hyphenation': 'off'
+    'vue/attribute-hyphenation': 'off',
+    'vue/no-v-html': 'off'
   }
 }
