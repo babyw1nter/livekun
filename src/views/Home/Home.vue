@@ -12,7 +12,7 @@
               <span>KUN</span>
             </span>
           </div>
-          <a-menu class="home-menu no-select" mode="inline" v-model:selectedKeys="selectedKeys" @click="menuClicked"
+          <a-menu class="home-menu no-select" mode="inline" :selectedKeys="selectedKeys" @click="menuClicked"
             style="border-right: none">
             <a-menu-item key="/">
               <template #icon>
