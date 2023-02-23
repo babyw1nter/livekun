@@ -8,48 +8,38 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, onBeforeMount, watch, computed } from 'vue'
+<script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
 import { useRoute, useRouter } from 'vue-router'
 import http from '@/api/http'
 
-export default defineComponent({
-  setup() {
-    const store = useStore(key)
-    const route = useRoute()
-    const router = useRouter()
+const store = useStore(key)
+const route = useRoute()
+const router = useRouter()
 
-    const logout = () => {
-      http
-        .get('/user/logout')
-        .then(res => {
-          if (res.data.code === 200) {
-            message.success('退出登录成功！')
-            store.commit('setLoginStatus', false)
-            store.commit('setUUID', '')
+const logout = () => {
+  http
+    .get('/user/logout')
+    .then(res => {
+      if (res.data.code === 200) {
+        message.success('退出登录成功！')
+        store.commit('setLoginStatus', false)
+        store.commit('setUUID', '')
 
-            localStorage.removeItem('isLoggedIn')
-            localStorage.removeItem('UUID')
+        localStorage.removeItem('isLoggedIn')
+        localStorage.removeItem('UUID')
 
-            router.push({
-              path: '/user/login'
-            })
-          } else {
-            message.warn(res.data.message)
-          }
+        router.push({
+          path: '/user/login'
         })
-        .catch(() => {
-          message.error('退出登录失败，请稍后再试！')
-        })
-    }
-
-    return {
-      store,
-      logout
-    }
-  }
-})
+      } else {
+        message.warn(res.data.message)
+      }
+    })
+    .catch(() => {
+      message.error('退出登录失败，请稍后再试！')
+    })
+}
 </script>

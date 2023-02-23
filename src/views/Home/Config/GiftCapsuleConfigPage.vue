@@ -8,7 +8,7 @@
         :level="store.state.config.giftCapsule.level"
         :duration="store.state.config.giftCapsule.duration"
       />
-      <a-checkbox v-model:checked="autoPreview" v-on:change="autoPreviewChange" style="margin: 1rem; float: right; color: #fff;"
+      <a-checkbox v-model:checked="autoPreview" @change="autoPreviewChange" style="margin: 1rem; float: right; color: #fff;"
         >自动预览
       </a-checkbox>
     </div>
@@ -71,83 +71,63 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue'
+<script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
-import GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
+import type GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
 import http from '@/api/http'
 import { getRandomGiftCapsule } from '@/api/mock'
 
-export default defineComponent({
-  components: {
-    GiftCapsulePanel
-  },
-  setup() {
-    const store = useStore(key)
-    const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
+const store = useStore(key)
+const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
 
-    const autoPreviewTimer = ref(0)
-    const autoPreview = ref(true)
-    const autoPreviewChange = () => {
+const autoPreviewTimer = ref(0)
+const autoPreview = ref(true)
+const autoPreviewChange = () => {
+  GiftCapsulePanelRef.value?.add({
+    ...getRandomGiftCapsule()
+  })
+  if (autoPreview.value) {
+    autoPreviewTimer.value = window.setInterval(() => {
       GiftCapsulePanelRef.value?.add({
         ...getRandomGiftCapsule()
       })
-      if (autoPreview.value) {
-        autoPreviewTimer.value = window.setInterval(() => {
-          GiftCapsulePanelRef.value?.add({
-            ...getRandomGiftCapsule()
-          })
-        }, 5000)
-      } else {
-        window.clearInterval(autoPreviewTimer.value)
-      }
-    }
-
-    onMounted(() => autoPreviewChange())
-
-    const url = computed(() => `${window.location.origin}/#/plugins/gift-capsule?uuid=${store.state.auth.uuid}`)
-
-    const sendMock = () => {
-      http
-        .post('/api/control', { method: 'sendMockDataToGiftCapsule' })
-        .then(res => {
-          //
-        })
-        .catch((reason: Error) => {
-          message.error(reason.toString())
-        })
-    }
-
-    const clear = () => {
-      http
-        .post('/api/control', { method: 'clearGiftCapsule' })
-        .then(res => {
-          //
-        })
-        .catch((reason: Error) => {
-          message.error(reason.toString())
-        })
-    }
-
-    const save = () => store.dispatch('saveRemoteConfig')
-
-    const reset = () => null
-
-    return {
-      store,
-      GiftCapsulePanelRef,
-      autoPreview,
-      autoPreviewChange,
-      url,
-      sendMock,
-      clear,
-      save,
-      reset
-    }
+    }, 5000)
+  } else {
+    window.clearInterval(autoPreviewTimer.value)
   }
-})
+}
+
+onMounted(() => autoPreviewChange())
+
+const url = computed(() => `${window.location.origin}/#/plugins/gift-capsule?uuid=${store.state.auth.uuid}`)
+
+const sendMock = () => {
+  http
+    .post('/api/control', { method: 'sendMockDataToGiftCapsule' })
+    .then(res => {
+      //
+    })
+    .catch((reason: Error) => {
+      message.error(reason.toString())
+    })
+}
+
+const clear = () => {
+  http
+    .post('/api/control', { method: 'clearGiftCapsule' })
+    .then(res => {
+      //
+    })
+    .catch((reason: Error) => {
+      message.error(reason.toString())
+    })
+}
+
+const save = () => store.dispatch('saveRemoteConfig')
+
+const reset = () => null
 </script>
 
 <style lang="less" scoped>

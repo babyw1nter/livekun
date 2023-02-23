@@ -2,12 +2,8 @@
   <div class="test-page">
     <GiftCapsulePanel ref="GiftCapsulePanelRef" :maximum="5" style="margin-bottom: 1rem"></GiftCapsulePanel>
 
-    <ChatMessageList
-      ref="ChatMessageListRef"
-      :font-size="chatMessageListFontSize"
-      :level="store.state.config.giftCard.level"
-      style="margin-bottom: 1rem; width: 400px; height: 400px"
-    >
+    <ChatMessageList ref="ChatMessageListRef" :font-size="chatMessageListFontSize"
+      :level="store.state.config.giftCard.level" style="margin-bottom: 1rem; width: 400px; height: 400px">
     </ChatMessageList>
 
     <GiftCardPanel ref="GiftCardPanelRef" style="width: 300px; height: 340px"> </GiftCardPanel>
@@ -18,8 +14,14 @@
         <h-badge text="房管" color="#17A6FF"></h-badge>
         <h-badge text="月守牌" :level="40" :guard="1"></h-badge>
         <h-badge text="年守牌" :level="69" :guard="2"></h-badge>
+        <h-badge text="已过期" :level="88" expire></h-badge>
       </p>
-      <h-badge v-for="(item, index) in 10" :key="index" text="粉丝牌" :level="item * 10"></h-badge>
+      <p style="margin-bottom: 1rem">
+        <h-badge v-for="(item, index) in 10" :key="index" text="粉丝牌" :level="item * 10"></h-badge>
+      </p>
+      <p style="margin-bottom: 1rem">
+        <h-badge v-for="(item, index) in 10" :key="index" text="粉丝牌" :level="item * 10" light></h-badge>
+      </p>
     </div>
 
     <div class="toolbar clearfix">
@@ -41,66 +43,45 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
-import GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
-import ChatMessageList from '@/components/ChatMessageList.vue'
-import GiftCardPanel from '@/components/GiftCardPanel.vue'
-import HBadge from '@/components/AtomicComponents/HBadge.vue'
+<script lang="ts" setup>
+import type GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
+import type ChatMessageList from '@/components/ChatMessageList.vue'
+import type GiftCardPanel from '@/components/GiftCardPanel.vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { getRandomChatMessage, getRandomGiftCapsule, getRandomGiftCard } from '@/api/mock'
 
-export default defineComponent({
-  components: { GiftCardPanel, GiftCapsulePanel, ChatMessageList, HBadge },
-  setup() {
-    const store = useStore(key)
+const store = useStore(key)
 
-    const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
-    const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
-    const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
+const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
+const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
+const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
 
-    const chatMessageListFontSize = ref(18)
+const chatMessageListFontSize = ref(18)
 
-    const addGiftCapsule = () => {
-      GiftCapsulePanelRef.value?.add({
-        ...getRandomGiftCapsule()
-      })
-    }
+const addGiftCapsule = () => {
+  GiftCapsulePanelRef.value?.add({
+    ...getRandomGiftCapsule()
+  })
+}
 
-    const addChatMessage = () => {
-      ChatMessageListRef.value?.add({
-        ...getRandomChatMessage()
-      })
-    }
+const addChatMessage = () => {
+  ChatMessageListRef.value?.add({
+    ...getRandomChatMessage()
+  })
+}
 
-    const addGiftCard = () => {
-      GiftCardPanelRef.value?.add({
-        ...getRandomGiftCard()
-      })
-    }
+const addGiftCard = () => {
+  GiftCardPanelRef.value?.add({
+    ...getRandomGiftCard()
+  })
+}
 
-    const clearGiftCapsule = () => GiftCapsulePanelRef.value?.clear()
+const clearGiftCapsule = () => GiftCapsulePanelRef.value?.clear()
 
-    const clearChatMessage = () => ChatMessageListRef.value?.clear()
+const clearChatMessage = () => ChatMessageListRef.value?.clear()
 
-    const clearGiftCard = () => GiftCardPanelRef.value?.clear()
-
-    return {
-      store,
-      GiftCapsulePanelRef,
-      ChatMessageListRef,
-      GiftCardPanelRef,
-      addGiftCapsule,
-      addChatMessage,
-      addGiftCard,
-      clearGiftCapsule,
-      clearChatMessage,
-      clearGiftCard,
-      chatMessageListFontSize
-    }
-  }
-})
+const clearGiftCard = () => GiftCardPanelRef.value?.clear()
 </script>
 
 <style lang="less">

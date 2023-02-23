@@ -26,77 +26,70 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
 import { useRoute, useRouter } from 'vue-router'
 import http from '@/api/http'
 
-export default defineComponent({
-  setup() {
-    const store = useStore(key)
-    const route = useRoute()
-    const router = useRouter()
+const store = useStore(key)
+const route = useRoute()
+const router = useRouter()
 
-    const liveIdInputValue = ref<string>('')
-    const isLoading = ref(false)
-    const isReseting = ref(false)
+const liveIdInputValue = ref<string>('')
+const isLoading = ref(false)
+const isReseting = ref(false)
 
-    const joinRoom = () => {
-      if (liveIdInputValue.value !== '') {
-        isLoading.value = true
-        http
-          .post('/api/join', {
-            liveId: liveIdInputValue.value
-          })
-          .then((res) => {
-            const responseData = res.data
+const joinRoom = () => {
+  if (liveIdInputValue.value !== '') {
+    isLoading.value = true
+    http
+      .post('/api/join', {
+        liveId: liveIdInputValue.value
+      })
+      .then((res) => {
+        const responseData = res.data
 
-            if (responseData.code === 200) {
-              message.success('进入直播间成功！')
-              store.commit('updateStatus', responseData.data.status)
-            } else if (responseData.code === 10001) {
-              message.error('进入直播间失败！')
-            } else {
-              message.error('服务器错误！')
-            }
-          })
-          .catch((reason: Error) => {
-            console.log(reason)
-          })
-          .finally(() => {
-            isLoading.value = false
-          })
-      } else {
-        message.warn('请输入直播间ID！')
-      }
-    }
-
-    const reset = () => {
-      isReseting.value = true
-      http
-        .post('/api/reset')
-        .then((res) => {
-          if (res.data.code === 200) {
-            message.success('重置成功！')
-          } else {
-            message.warn(res.data.message)
-          }
-        })
-        .catch((reason: Error) => {
-          message.error(reason.toString())
-        })
-        .finally(() => {
-          store.commit('resetStatus')
-          isReseting.value = false
-        })
-    }
-
-    return { store, route, router, liveIdInputValue, isLoading, isReseting, joinRoom, reset }
+        if (responseData.code === 200) {
+          message.success('进入直播间成功！')
+          store.commit('updateStatus', responseData.data.status)
+        } else if (responseData.code === 10001) {
+          message.error('进入直播间失败！')
+        } else {
+          message.error('服务器错误！')
+        }
+      })
+      .catch((reason: Error) => {
+        console.log(reason)
+      })
+      .finally(() => {
+        isLoading.value = false
+      })
+  } else {
+    message.warn('请输入直播间ID！')
   }
-})
+}
+
+const reset = () => {
+  isReseting.value = true
+  http
+    .post('/api/reset')
+    .then((res) => {
+      if (res.data.code === 200) {
+        message.success('重置成功！')
+      } else {
+        message.warn(res.data.message)
+      }
+    })
+    .catch((reason: Error) => {
+      message.error(reason.toString())
+    })
+    .finally(() => {
+      store.commit('resetStatus')
+      isReseting.value = false
+    })
+}
 </script>
 
 <style lang="less">

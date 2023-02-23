@@ -1,7 +1,7 @@
 <template>
   <a-layout class="home">
     <a-layout-content class="main">
-      <a-alert :message="banner" type="warning" showIcon style="margin: 1rem 0">
+      <a-alert :message="banner" type="warning" show-icon style="margin: 1rem 0">
         <template #icon><smile-outlined /></template>
       </a-alert>
       <a-layout style="background: #fff; border-radius: 2px; overflow: hidden">
@@ -74,91 +74,57 @@
   </a-layout>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, onBeforeMount, watch, computed } from 'vue'
+<script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
-import {
-  SmileOutlined,
-  UserOutlined,
-  ApiOutlined,
-  SettingOutlined,
-  GiftOutlined,
-  CreditCardOutlined,
-  MessageOutlined
-} from '@ant-design/icons-vue'
 import { useRoute, useRouter } from 'vue-router'
 import { globalAppConfig, randomNum } from '@/api/common'
 import http from '@/api/http'
+import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 
-export default defineComponent({
-  components: {
-    SmileOutlined,
-    UserOutlined,
-    ApiOutlined,
-    SettingOutlined,
-    GiftOutlined,
-    CreditCardOutlined,
-    MessageOutlined
-  },
-  setup () {
-    const store = useStore(key)
-    const route = useRoute()
-    const router = useRouter()
+const store = useStore(key)
+const route = useRoute()
+const router = useRouter()
 
-    const selectedKeys = computed(() => [route.meta.menuItemKey])
+const selectedKeys = computed(() => [route.meta.menuItemKey || ''])
 
-    const banner = ref('')
-    const broadcastsToptips = ref('')
-    const broadcasts = ref([''])
-    const broadcast = ref('')
+const banner = ref('')
+const broadcastsToptips = ref('')
+const broadcasts = ref([''])
+const broadcast = ref('')
 
-    onBeforeMount(() => {
-      // 获取公告数据
-      http
-        .get('/api/get-broadcasts')
-        .then((res) => {
-          const responseData = res.data
-          if (responseData.code === 200) {
-            banner.value = responseData.data.banner as string
-            broadcastsToptips.value = responseData.data.broadcastsToptips as string
-            broadcasts.value = responseData.data.broadcasts as Array<string>
-            updateBroadcast()
-          }
-        })
-        .catch((reason) => {
-          console.error(reason)
-        })
-    })
-
-    watch(route, () => updateBroadcast())
-
-    const updateBroadcast = () => {
-      if (broadcasts.value.length > 0) {
-        broadcast.value = broadcasts.value[randomNum(0, broadcasts.value.length - 1)]
+onBeforeMount(() => {
+  // 获取公告数据
+  http
+    .get('/api/get-broadcasts')
+    .then((res) => {
+      const responseData = res.data
+      if (responseData.code === 200) {
+        banner.value = responseData.data.banner as string
+        broadcastsToptips.value = responseData.data.broadcastsToptips as string
+        broadcasts.value = responseData.data.broadcasts as Array<string>
+        updateBroadcast()
       }
-    }
-
-    const menuClicked = (e: { key: string }) => {
-      const key = e.key
-      router.push({
-        path: key
-      })
-    }
-
-    return {
-      globalAppConfig,
-      store,
-      route,
-      router,
-      selectedKeys,
-      banner,
-      broadcastsToptips,
-      broadcast,
-      menuClicked
-    }
-  }
+    })
+    .catch((reason) => {
+      console.error(reason)
+    })
 })
+
+watch(route, () => updateBroadcast())
+
+const updateBroadcast = () => {
+  if (broadcasts.value.length > 0) {
+    broadcast.value = broadcasts.value[randomNum(0, broadcasts.value.length - 1)]
+  }
+}
+
+const menuClicked = (e: MenuInfo) => {
+  const key = e.key
+  router.push({
+    path: key.toString()
+  })
+}
 </script>
 
 <style lang="less" scoped>

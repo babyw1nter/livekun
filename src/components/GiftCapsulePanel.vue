@@ -15,17 +15,13 @@
             </a-menu>
           </template>
         </a-dropdown>
-
       </li>
     </TransitionGroup>
   </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, watch, ref, nextTick, reactive } from 'vue'
-import GiftCapsule from '@/components/AtomicComponents/GiftCapsule.vue'
+<script lang="ts" setup>
 import { getLevel, sleep } from '@/api/common'
-
 
 interface IGiftCapsuleListItem {
   avatarUrl: string
@@ -50,126 +46,124 @@ interface TimerCache {
   timer: number
 }
 
-export default defineComponent({
-  name: 'GiftCapsulePanel',
-  components: {
-    GiftCapsule
+const props = defineProps({
+  maximum: {
+    type: Number,
+    default: 5
   },
-  props: {
-    maximum: {
-      type: Number,
-      default: 5
-    },
-    level: {
-      type: Array as PropType<number[]>,
-      default: () => [0, 99, 199]
-    },
-    duration: {
-      type: Array as PropType<number[]>,
-      default: () => [5, 15, 30]
+  level: {
+    type: Array as PropType<number[]>,
+    default: () => [0, 99, 199]
+  },
+  duration: {
+    type: Array as PropType<number[]>,
+    default: () => [5, 15, 30]
+  }
+})
+
+const giftCapsuleListItemCache = reactive<IGiftCapsuleListItemCache[]>([])
+const timerCache: TimerCache[] = []
+
+// 监听缓存队列，以价格自动排序
+watch(giftCapsuleListItemCache, () => giftCapsuleListItemCache.sort((a, b) => b.money - a.money), {
+  deep: true
+})
+
+const add = async (item: IGiftCapsuleListItem) => {
+  if (!item.uid) return
+
+  // 查找列表成员，如果已存在则累计金额并刷新持续时间
+  const index = giftCapsuleListItemCache.findIndex(i => i.uid === item.uid)
+  if (index > -1) {
+    giftCapsuleListItemCache[index].money += item.money
+    const giftCapsuleListItemCacheDuration =
+      giftCapsuleListItemCache[index]._customDuration ||
+      props.duration[getLevel(giftCapsuleListItemCache[index].money, props.level)] * 60 * 1000
+    giftCapsuleListItemCache[index].duration = giftCapsuleListItemCacheDuration
+    giftCapsuleListItemCache[index].timing = giftCapsuleListItemCacheDuration
+    return
+  }
+
+  // 通过指令添加的礼物胶囊如果没有 duration 属性，则默认给予一个 duration 初始值
+  // 这个 duration 初始值是由即将添加的礼物胶囊自动计算金额等级得出的
+  const itemDefaultDuration = props.duration[getLevel(item.money, props.level)] * 60 * 1000
+
+  // 超过最大常驻礼物胶囊数量，且末尾的礼物胶囊的金额低于即将添加的礼物胶囊的金额，则删除末尾的礼物胶囊
+  // 反之则不作任何操作
+  if (giftCapsuleListItemCache.length >= props.maximum) {
+    const lastItem = giftCapsuleListItemCache[giftCapsuleListItemCache.length - 1]
+    if (lastItem.money < item.money) {
+      del(lastItem.uid)
+      await sleep(501)
+    } else {
+      return
     }
-  },
-  setup (props) {
-    const giftCapsuleListItemCache = reactive<IGiftCapsuleListItemCache[]>([])
-    const timerCache: TimerCache[] = []
+  }
 
-    const add = async (item: IGiftCapsuleListItem) => {
-      if (!item.uid) return
+  // 添加礼物胶囊进缓存数组
+  giftCapsuleListItemCache.push({
+    ...item,
+    _customDuration: item.duration || 0,
+    duration: item.duration || itemDefaultDuration,
+    timing: item.duration || itemDefaultDuration,
+    percentage: 100.0
+  })
 
-      // 查找列表成员，如果已存在则累计金额并刷新持续时间
+  const timer = {
+    uid: item.uid,
+    timer: window.setInterval(() => {
       const index = giftCapsuleListItemCache.findIndex(i => i.uid === item.uid)
       if (index > -1) {
-        giftCapsuleListItemCache[index].money += item.money
-        const giftCapsuleListItemCacheDuration =
-          giftCapsuleListItemCache[index]._customDuration ||
-          props.duration[getLevel(giftCapsuleListItemCache[index].money, props.level)] * 60 * 1000
-        giftCapsuleListItemCache[index].duration = giftCapsuleListItemCacheDuration
-        giftCapsuleListItemCache[index].timing = giftCapsuleListItemCacheDuration
-        return
-      }
+        if (giftCapsuleListItemCache[index].timing <= 0) {
+          const timerCacheIndex = timerCache.findIndex(i => i.uid === item.uid)
+          if (timerCache[timerCacheIndex]) {
+            clearInterval(timerCache[timerCacheIndex].timer)
+            timerCache.splice(timerCacheIndex, 1)
+          }
 
-      // 通过指令添加的礼物胶囊如果没有 duration 属性，则默认给予一个 duration 初始值
-      // 这个 duration 初始值是由即将添加的礼物胶囊自动计算金额等级得出的
-      const itemDefaultDuration = props.duration[getLevel(item.money, props.level)] * 60 * 1000
+          nextTick(() => {
+            giftCapsuleListItemCache.splice(index, 1)
+          })
 
-      // 超过最大常驻礼物胶囊数量，且末尾的礼物胶囊的金额低于即将添加的礼物胶囊的金额，则删除末尾的礼物胶囊
-      // 反之则不作任何操作
-      if (giftCapsuleListItemCache.length >= props.maximum) {
-        const lastItem = giftCapsuleListItemCache[giftCapsuleListItemCache.length - 1]
-        if (lastItem.money < item.money) {
-          del(lastItem.uid)
-          await sleep(501)
-        } else {
           return
         }
+
+        giftCapsuleListItemCache[index].timing -= 100
+        giftCapsuleListItemCache[index].percentage = Number(
+          (
+            (giftCapsuleListItemCache[index].timing / giftCapsuleListItemCache[index].duration) *
+            100
+          ).toFixed(1)
+        )
       }
-
-      // 添加礼物胶囊进缓存数组
-      giftCapsuleListItemCache.push({
-        ...item,
-        _customDuration: item.duration || 0,
-        duration: item.duration || itemDefaultDuration,
-        timing: item.duration || itemDefaultDuration,
-        percentage: 100.0
-      })
-
-      const timer = {
-        uid: item.uid,
-        timer: window.setInterval(() => {
-          const index = giftCapsuleListItemCache.findIndex(i => i.uid === item.uid)
-          if (index > -1) {
-            if (giftCapsuleListItemCache[index].timing <= 0) {
-              const timerCacheIndex = timerCache.findIndex(i => i.uid === item.uid)
-              if (timerCache[timerCacheIndex]) {
-                clearInterval(timerCache[timerCacheIndex].timer)
-                timerCache.splice(timerCacheIndex, 1)
-              }
-
-              nextTick(() => {
-                giftCapsuleListItemCache.splice(index, 1)
-              })
-
-              return
-            }
-
-            giftCapsuleListItemCache[index].timing -= 100
-            giftCapsuleListItemCache[index].percentage = Number(
-              (
-                (giftCapsuleListItemCache[index].timing / giftCapsuleListItemCache[index].duration) *
-                100
-              ).toFixed(1)
-            )
-          }
-        }, 100)
-      }
-
-      timerCache.push(timer)
-    }
-
-    const del = (uid: number | string) => {
-      const index = giftCapsuleListItemCache.findIndex(i => i.uid === uid)
-      const timerCacheIndex = timerCache.findIndex(i => i.uid === uid)
-      if (index > -1) {
-        giftCapsuleListItemCache.splice(index, 1)
-      }
-      if (timerCacheIndex > -1) {
-        clearInterval(timerCache[timerCacheIndex].timer)
-        timerCache.splice(timerCacheIndex, 1)
-      }
-    }
-
-    watch(giftCapsuleListItemCache, () => giftCapsuleListItemCache.sort((a, b) => b.money - a.money), {
-      deep: true
-    })
-
-    const clear = () => {
-      timerCache.forEach(item => window.clearInterval(item.timer))
-      timerCache.splice(0, timerCache.length)
-      giftCapsuleListItemCache.splice(0, giftCapsuleListItemCache.length)
-    }
-
-    return { giftCapsuleListItemCache, getLevel, add, del, clear }
+    }, 100)
   }
+
+  timerCache.push(timer)
+}
+
+const del = (uid: number | string) => {
+  const index = giftCapsuleListItemCache.findIndex(i => i.uid === uid)
+  const timerCacheIndex = timerCache.findIndex(i => i.uid === uid)
+  if (index > -1) {
+    giftCapsuleListItemCache.splice(index, 1)
+  }
+  if (timerCacheIndex > -1) {
+    clearInterval(timerCache[timerCacheIndex].timer)
+    timerCache.splice(timerCacheIndex, 1)
+  }
+}
+
+const clear = () => {
+  timerCache.forEach(item => window.clearInterval(item.timer))
+  timerCache.splice(0, timerCache.length)
+  giftCapsuleListItemCache.splice(0, giftCapsuleListItemCache.length)
+}
+
+defineExpose({
+  add,
+  del,
+  clear
 })
 </script>
 

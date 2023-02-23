@@ -4,22 +4,16 @@
   </a-config-provider>
 </template>
 
-<script lang="ts">
-import { defineComponent, onBeforeMount } from 'vue'
+<script lang="ts" setup>
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import { getMockData } from '@/api/mock'
 
-export default defineComponent({
-  setup () {
-    onBeforeMount(() => {
-      getMockData()
-    })
-
-    return {
-      locale: zhCN
-    }
-  }
+onBeforeMount(() => {
+  getMockData()
 })
+
+const locale = zhCN
+
 </script>
 
 <style lang="less">
