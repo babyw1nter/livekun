@@ -2,35 +2,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store, { key } from './store'
-import {
-  ConfigProvider,
-  Layout,
-  PageHeader,
-  Button,
-  Input,
-  InputNumber,
-  Switch,
-  Slider,
-  Checkbox,
-  Divider,
-  Space,
-  Menu,
-  Tabs,
-  Form,
-  Alert,
-  Typography,
-  Avatar,
-  Image,
-  Tooltip,
-  Carousel,
-  Tag,
-  Modal,
-  Table,
-  Dropdown
-} from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
+import 'ant-design-vue/es/message/style/css'
+import 'ant-design-vue/es/notification/style/css'
 import '@/assets/custom.less'
 
 const app = createApp(App)
@@ -38,31 +13,5 @@ const app = createApp(App)
 dayjs.locale('zh-cn')
 
 app.use(store, key).use(router)
-
-app
-  .use(ConfigProvider)
-  .use(Layout)
-  .use(PageHeader)
-  .use(Button)
-  .use(Menu)
-  .use(Input)
-  .use(InputNumber)
-  .use(Switch)
-  .use(Slider)
-  .use(Checkbox)
-  .use(Divider)
-  .use(Space)
-  .use(Tabs)
-  .use(Form)
-  .use(Alert)
-  .use(Typography)
-  .use(Avatar)
-  .use(Image)
-  .use(Tooltip)
-  .use(Carousel)
-  .use(Tag)
-  .use(Modal)
-  .use(Table)
-  .use(Dropdown)
 
 app.mount('#app')
