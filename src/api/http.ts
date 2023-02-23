@@ -2,7 +2,7 @@ import router from '@/router'
 import { message } from 'ant-design-vue'
 import axios from 'axios'
 
-const devURL = '10.0.0.230:39074'
+const devURL = '10.0.0.230:39075'
 const prodURL = 'livekun-webapi.anankun.icu:4433'
 
 const baseURL = process.env.NODE_ENV === 'development' ? `http://${devURL}` : `https://${prodURL}`
