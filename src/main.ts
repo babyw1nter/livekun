@@ -37,9 +37,9 @@ const app = createApp(App)
 
 dayjs.locale('zh-cn')
 
+app.use(store, key).use(router)
+
 app
-  .use(store, key)
-  .use(router)
   .use(ConfigProvider)
   .use(Layout)
   .use(PageHeader)
@@ -64,4 +64,5 @@ app
   .use(Modal)
   .use(Table)
   .use(Dropdown)
-  .mount('#app')
+
+app.mount('#app')
