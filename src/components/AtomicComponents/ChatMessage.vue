@@ -26,10 +26,10 @@
       </p>
       -->
       <p class="nickname">
-        <h-font :color="customStyle.nicknameColor" :fontSize="fontSize" :text="`${nickname}:`"></h-font>
+        <h-font :color="customStyle.nicknameColor" :font-size="fontSize" :text="`${nickname}:`"></h-font>
       </p>
       <span class="message">
-        <h-font :color="customStyle.messageColor" :fontSize="fontSize" :text="message"></h-font>
+        <h-font :color="customStyle.messageColor" :font-size="fontSize" :text="message"></h-font>
       </span>
     </div>
   </li>
@@ -88,7 +88,12 @@ export default defineComponent({
      * 粉丝牌等级
      */
     badgeInfo: {
-      default: 0,
+      default: () => {
+        return {
+          badgename: '粉丝牌',
+          level: 0
+        }
+      },
       type: Object as PropType<{ badgename: string; level: number }>
     },
     customStyle: {

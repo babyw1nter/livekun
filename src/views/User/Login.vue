@@ -54,7 +54,7 @@ import http from '@/api/http'
 import { globalAppConfig } from '@/api/common'
 import router from '@/router'
 import { useRoute, useRouter } from 'vue-router'
-import { RuleObject, ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
+import { Rule, RuleObject, ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
 
 interface FormState {
   username: string
@@ -99,7 +99,7 @@ export default defineComponent({
       login(values.username, values.password, values.autologin)
     }
 
-    const rules = {
+    const rules: Record<string, Rule[]> = {
       username: [{ required: true, validator: checkUsername, trigger: 'blur' }],
       password: [{ required: true, validator: checkPassword, trigger: 'blur' }]
     }

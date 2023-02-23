@@ -6,7 +6,7 @@
         class="preview-chat-message-list"
         :font-size="store.state.config.chatMessage.style.fontSize"
       />
-      <a-checkbox v-model:checked="autoPreview" v-on:change="autoPreviewChange" style="margin: 1rem; float: right; color: #fff;"
+      <a-checkbox v-model:checked="autoPreview" @change="autoPreviewChange" style="margin: 1rem; float: right; color: #fff;"
         >自动预览
       </a-checkbox>
     </div>
@@ -112,6 +112,7 @@ import { message } from 'ant-design-vue'
 import ChatMessageList from '@/components/ChatMessageList.vue'
 import http from '@/api/http'
 import { getRandomChatMessage } from '@/api/mock'
+import type  { ColumnsType } from 'ant-design-vue/es/table'
 
 export default defineComponent({
   components: {
@@ -138,14 +139,15 @@ export default defineComponent({
       }
     }
 
-    const blacklistColumns = [
+    const blacklistColumns: ColumnsType<{ title: string }> = [
       { title: 'CCID', dataIndex: 'ccid' },
       { title: '备注信息', dataIndex: 'note' },
       {
         title: '操作',
         key: 'operation',
         fixed: 'right',
-        width: 100
+        width: 100,
+        dataIndex: ''
       }
     ]
 

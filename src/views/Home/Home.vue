@@ -1,7 +1,7 @@
 <template>
   <a-layout class="home">
     <a-layout-content class="main">
-      <a-alert :message="banner" type="warning" showIcon style="margin: 1rem 0">
+      <a-alert :message="banner" type="warning" show-icon style="margin: 1rem 0">
         <template #icon><smile-outlined /></template>
       </a-alert>
       <a-layout style="background: #fff; border-radius: 2px; overflow: hidden">
@@ -12,7 +12,7 @@
               <span>KUN</span>
             </span>
           </div>
-          <a-menu class="home-menu no-select" mode="inline" :selectedKeys="selectedKeys" @click="menuClicked"
+          <a-menu class="home-menu no-select" mode="inline" v-model:selectedKeys="selectedKeys" @click="menuClicked"
             style="border-right: none">
             <a-menu-item key="/">
               <template #icon>
@@ -90,6 +90,7 @@ import {
 import { useRoute, useRouter } from 'vue-router'
 import { globalAppConfig, randomNum } from '@/api/common'
 import http from '@/api/http'
+import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 
 export default defineComponent({
   components: {
@@ -106,7 +107,7 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
 
-    const selectedKeys = computed(() => [route.meta.menuItemKey])
+    const selectedKeys = computed(() => [route.meta.menuItemKey || ''])
 
     const banner = ref('')
     const broadcastsToptips = ref('')
@@ -139,10 +140,10 @@ export default defineComponent({
       }
     }
 
-    const menuClicked = (e: { key: string }) => {
+    const menuClicked = (e: MenuInfo) => {
       const key = e.key
       router.push({
-        path: key
+        path: key.toString()
       })
     }
 
