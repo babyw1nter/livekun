@@ -167,8 +167,8 @@ export default defineComponent({
 
   .main {
     margin: 0 auto;
-    padding: 0;
-    width: 1024px;
+    padding: 0 1rem;
+    width: 100%;
 
     .logo {
       margin-bottom: 12px;
