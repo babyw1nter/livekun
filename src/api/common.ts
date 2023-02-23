@@ -1,7 +1,6 @@
-import { ref } from 'vue'
 import emojiRegex from 'emoji-regex'
 
-const globalAppConfig = ref(appConfig)
+const globalAppConfig = reactive(appConfig)
 
 const getLevel = (money: number, moneyLevelArray: Array<number>): number => {
   for (let i = 0; i < moneyLevelArray.length; i++) {
