@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
 import { replaceEmoji } from '@/api/common'
 
 const props = defineProps({
@@ -7,7 +6,10 @@ const props = defineProps({
     type: String,
     default: ''
   },
-  color: String,
+  color: {
+    type: String,
+    default: ''
+  },
   fontSize: {
     type: Number,
     default: 18

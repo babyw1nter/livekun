@@ -7,63 +7,53 @@
   />
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+<script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
-import GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
+import type GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
 import { IMessage, ISocketCustomData } from '@/types/socket'
 import { createSocket } from '@/api/socket'
 
-export default defineComponent({
-  components: {
-    GiftCapsulePanel
-  },
-  setup() {
-    const store = useStore(key)
-    const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
+const store = useStore(key)
+const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
 
-    onMounted(() => {
-      createSocket((ev, websocket, decodeData) => {
-        interface ISocketGiftCapsule extends ISocketCustomData {
-          method?: string
-          money: number
-          giftName: string
-          giftCount: number
-        }
+onMounted(() => {
+  createSocket((ev, websocket, decodeData) => {
+    interface ISocketGiftCapsule extends ISocketCustomData {
+      method?: string
+      money: number
+      giftName: string
+      giftCount: number
+    }
 
-        const socketMessage = decodeData as IMessage<ISocketGiftCapsule>
+    const socketMessage = decodeData as IMessage<ISocketGiftCapsule>
 
-        console.info(`[${websocket.protocol}]`, '接收消息', socketMessage)
+    console.info(`[${websocket.protocol}]`, '接收消息', socketMessage)
 
-        const method = (m: string) => {
-          switch (m) {
-            case 'clear':
-              GiftCapsulePanelRef.value?.clear()
-              break
-            case 'refresh':
-              // 刷新页面
-              break
-            case 'get-config':
-              store.dispatch('getRemoteConfig')
-              break
-          }
-        }
+    const method = (m: string) => {
+      switch (m) {
+        case 'clear':
+          GiftCapsulePanelRef.value?.clear()
+          break
+        case 'refresh':
+          // 刷新页面
+          break
+        case 'get-config':
+          store.dispatch('getRemoteConfig')
+          break
+      }
+    }
 
-        switch (socketMessage.type) {
-          case 'method':
-            method(socketMessage.data.method || '')
-            break
-          case 'data':
-            GiftCapsulePanelRef.value?.add({
-              ...socketMessage.data
-            })
-            break
-        }
-      }, 'gift-capsule')
-    })
-
-    return { store, GiftCapsulePanelRef }
-  }
+    switch (socketMessage.type) {
+      case 'method':
+        method(socketMessage.data.method || '')
+        break
+      case 'data':
+        GiftCapsulePanelRef.value?.add({
+          ...socketMessage.data
+        })
+        break
+    }
+  }, 'gift-capsule')
 })
 </script>

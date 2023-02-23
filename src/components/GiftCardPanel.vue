@@ -20,9 +20,7 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, watch, ref, nextTick } from 'vue'
-import GiftCard from '@/components/AtomicComponents/GiftCard.vue'
+<script lang="ts" setup>
 import { getLevel } from '@/api/common'
 
 interface IGiftCardListItem {
@@ -40,56 +38,54 @@ interface IGiftCardListItem {
   [propName: string]: unknown
 }
 
-export default defineComponent({
-  name: 'GiftCardPanel',
-  components: {
-    GiftCard
+const props = defineProps({
+  list: {
+    type: Array as PropType<IGiftCardListItem[]>,
+    default: () => []
   },
-  props: {
-    list: {
-      type: Array as PropType<IGiftCardListItem[]>
-    },
-    level: {
-      type: Array as PropType<number[]>,
-      default: () => [0, 49, 99]
-    },
-    maximum: {
-      type: Number,
-      default: 150
-    }
+  level: {
+    type: Array as PropType<number[]>,
+    default: () => [0, 49, 99]
   },
-  setup(props) {
-    const giftCardListItemCache = ref<IGiftCardListItem[]>([])
-    const GiftCardPanelRef = ref<HTMLElement>()
-
-    watch(giftCardListItemCache.value, () => {
-      if (giftCardListItemCache.value.length >= props.maximum) {
-        giftCardListItemCache.value.splice(0, giftCardListItemCache.value.length - 50)
-      }
-
-      nextTick(() => {
-        if (GiftCardPanelRef.value) {
-          GiftCardPanelRef.value.scrollTop = GiftCardPanelRef.value.scrollHeight
-        }
-      })
-    })
-
-    const add = (item: IGiftCardListItem) => {
-      if (!item.uid) return
-
-      giftCardListItemCache.value.push(item)
-    }
-
-    const del = () => {
-      //
-    }
-
-    const clear = () => {
-      giftCardListItemCache.value.splice(0, giftCardListItemCache.value.length)
-    }
-
-    return { GiftCardPanelRef, giftCardListItemCache, add, del, clear, getLevel }
+  maximum: {
+    type: Number,
+    default: 150
   }
+})
+
+const giftCardListItemCache = ref<IGiftCardListItem[]>([])
+const GiftCardPanelRef = ref<HTMLElement>()
+
+watch(giftCardListItemCache.value, () => {
+  if (giftCardListItemCache.value.length >= props.maximum) {
+    giftCardListItemCache.value.splice(0, giftCardListItemCache.value.length - 50)
+  }
+
+  nextTick(() => {
+    if (GiftCardPanelRef.value) {
+      GiftCardPanelRef.value.scrollTop = GiftCardPanelRef.value.scrollHeight
+    }
+  })
+})
+
+const add = (item: IGiftCardListItem) => {
+  if (!item.uid) return
+
+  giftCardListItemCache.value.push(item)
+}
+
+const del = () => {
+  //
+}
+
+const clear = () => {
+  giftCardListItemCache.value.splice(0, giftCardListItemCache.value.length)
+}
+
+defineExpose({
+  add,
+  del,
+  clear
 })
 </script>
 

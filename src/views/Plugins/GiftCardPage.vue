@@ -2,66 +2,56 @@
   <GiftCardPanel ref="GiftCardPanelRef" :level="store.state.config.giftCard.level" />
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+<script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
-import GiftCardPanel from '@/components/GiftCardPanel.vue'
+import type GiftCardPanel from '@/components/GiftCardPanel.vue'
 import { IMessage, ISocketCustomData } from '@/types/socket'
 import { createSocket } from '@/api/socket'
 
-export default defineComponent({
-  components: {
-    GiftCardPanel
-  },
-  setup() {
-    const store = useStore(key)
-    const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
+const store = useStore(key)
+const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
 
-    onMounted(() => {
-      createSocket((ev, websocket, decodeData) => {
-        interface ISocketGiftCard extends ISocketCustomData {
-          method?: string
-          money: number
-          giftName: string
-          giftCount: number
-          giftImage: string
-          message: string
-          comment: string
-        }
+onMounted(() => {
+  createSocket((ev, websocket, decodeData) => {
+    interface ISocketGiftCard extends ISocketCustomData {
+      method?: string
+      money: number
+      giftName: string
+      giftCount: number
+      giftImage: string
+      message: string
+      comment: string
+    }
 
-        const socketMessage = decodeData as IMessage<ISocketGiftCard>
+    const socketMessage = decodeData as IMessage<ISocketGiftCard>
 
-        console.info(`[${websocket.protocol}]`, '接收消息', socketMessage)
+    console.info(`[${websocket.protocol}]`, '接收消息', socketMessage)
 
-        const method = (m: string) => {
-          switch (m) {
-            case 'clear':
-              GiftCardPanelRef.value?.clear()
-              break
-            case 'refresh':
-              // 刷新页面
-              break
-            case 'get-config':
-              store.dispatch('getRemoteConfig')
-              break
-          }
-        }
+    const method = (m: string) => {
+      switch (m) {
+        case 'clear':
+          GiftCardPanelRef.value?.clear()
+          break
+        case 'refresh':
+          // 刷新页面
+          break
+        case 'get-config':
+          store.dispatch('getRemoteConfig')
+          break
+      }
+    }
 
-        switch (socketMessage.type) {
-          case 'method':
-            method(socketMessage.data.method || '')
-            break
-          case 'data':
-            GiftCardPanelRef.value?.add({
-              ...socketMessage.data
-            })
-            break
-        }
-      }, 'gift-card')
-    })
-
-    return { store, GiftCardPanelRef }
-  }
+    switch (socketMessage.type) {
+      case 'method':
+        method(socketMessage.data.method || '')
+        break
+      case 'data':
+        GiftCardPanelRef.value?.add({
+          ...socketMessage.data
+        })
+        break
+    }
+  }, 'gift-card')
 })
 </script>

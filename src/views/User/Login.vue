@@ -44,15 +44,12 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, onBeforeMount, reactive, UnwrapRef } from 'vue'
+<script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
-import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import http from '@/api/http'
 import { globalAppConfig } from '@/api/common'
-import router from '@/router'
 import { useRoute, useRouter } from 'vue-router'
 import { Rule, RuleObject, ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
 
@@ -62,103 +59,83 @@ interface FormState {
   autologin: boolean
 }
 
-export default defineComponent({
-  components: {
-    UserOutlined,
-    LockOutlined
-  },
-  setup() {
-    const store = useStore(key)
-    const route = useRoute()
-    const router = useRouter()
+const store = useStore(key)
+const route = useRoute()
+const router = useRouter()
 
-    const loginFormRef = ref()
-    const formState = reactive<FormState>({
-      username: '',
-      password: '',
-      autologin: true
+const loginFormRef = ref()
+const formState = reactive<FormState>({
+  username: '',
+  password: '',
+  autologin: true
+})
+
+const checkUsername = async (rule: RuleObject, value: string) => {
+  if (value === '') {
+    return Promise.reject(new Error('用户名不能为空'))
+  } else {
+    return Promise.resolve()
+  }
+}
+
+const checkPassword = async (rule: RuleObject, value: string) => {
+  if (value === '') {
+    return Promise.reject(new Error('密码不能为空！'))
+  } else {
+    return Promise.resolve()
+  }
+}
+
+const handleFinish = (values: FormState) => {
+  login(values.username, values.password, values.autologin)
+}
+
+const rules: Record<string, Rule[]> = {
+  username: [{ required: true, validator: checkUsername, trigger: 'blur' }],
+  password: [{ required: true, validator: checkPassword, trigger: 'blur' }]
+}
+
+onBeforeMount(() => {
+  if (store.state.auth.isLoggedIn && localStorage.getItem('isLoggedIn') === '1') {
+    router.push({
+      path: '/'
     })
+  }
+})
 
-    const checkUsername = async (rule: RuleObject, value: string) => {
-      if (value === '') {
-        return Promise.reject(new Error('用户名不能为空'))
-      } else {
-        return Promise.resolve()
-      }
-    }
+const isLoading = ref<boolean>(false)
 
-    const checkPassword = async (rule: RuleObject, value: string) => {
-      if (value === '') {
-        return Promise.reject(new Error('密码不能为空！'))
-      } else {
-        return Promise.resolve()
-      }
-    }
+const login = (username: string, password: string, autologin: boolean) => {
+  http
+    .post('/user/login', {
+      username,
+      password,
+      autologin
+    })
+    .then(res => {
+      if (res.data.code === 200) {
+        message.success('登录成功！')
 
-    const handleFinish = (values: FormState) => {
-      login(values.username, values.password, values.autologin)
-    }
+        store.commit('setLoginStatus', true)
+        store.commit('setUUID', res.data.data.uuid)
 
-    const rules: Record<string, Rule[]> = {
-      username: [{ required: true, validator: checkUsername, trigger: 'blur' }],
-      password: [{ required: true, validator: checkPassword, trigger: 'blur' }]
-    }
+        localStorage.setItem('isLoggedIn', '1')
+        localStorage.setItem('UUID', res.data.data.uuid)
 
-    onBeforeMount(() => {
-      if (store.state.auth.isLoggedIn && localStorage.getItem('isLoggedIn') === '1') {
         router.push({
           path: '/'
         })
+      } else {
+        message.warn(res.data.message)
       }
     })
-
-    const isLoading = ref<boolean>(false)
-
-    const login = (username: string, password: string, autologin: boolean) => {
-      http
-        .post('/user/login', {
-          username,
-          password,
-          autologin
-        })
-        .then(res => {
-          if (res.data.code === 200) {
-            message.success('登录成功！')
-
-            store.commit('setLoginStatus', true)
-            store.commit('setUUID', res.data.data.uuid)
-
-            localStorage.setItem('isLoggedIn', '1')
-            localStorage.setItem('UUID', res.data.data.uuid)
-
-            router.push({
-              path: '/'
-            })
-          } else {
-            message.warn(res.data.message)
-          }
-        })
-        .catch(reason => {
-          message.error(reason)
-        })
-        .finally(() => {
-          isLoading.value = false
-        })
-    }
-
-    return {
-      globalAppConfig,
-      login,
-      loginFormRef,
-      formState,
-      checkUsername,
-      checkPassword,
-      rules,
-      handleFinish,
-      isLoading,
-    }
-  }
-})
+    .catch(reason => {
+      message.error(reason)
+    })
+    .finally(() => {
+      isLoading.value = false
+    })
+}
 </script>
 
 <style lang="less" scoped>

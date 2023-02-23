@@ -8,58 +8,42 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { moneyFormat } from '@/api/common'
-import { watch, computed, defineComponent, ref, reactive, onBeforeUpdate, onMounted } from 'vue'
-import HFont from '@/components/AtomicComponents/HFont.vue'
 import { gsap } from "gsap"
 
-export default defineComponent({
-  components: {
-    HFont
+const props = defineProps({
+  type: {
+    default: 'level-0',
+    type: String
   },
-  name: 'GiftCapsule',
-  props: {
-    type: {
-      default: 'level-0',
-      type: String
-    },
-    avatarUrl: {
-      type: String,
-      default: ''
-    },
-    money: {
-      type: Number,
-      default: 0
-    },
-    message: {
-      type: String,
-      default: ''
-    },
-    percentage: {
-      type: Number,
-      default: 100
-    }
+  avatarUrl: {
+    type: String,
+    default: ''
   },
-  setup (props) {
-    const cardType = ref<string>(props.type)
-    const gsapMoney = reactive({
-      number: 0
-    })
-
-    watch(() => props.money, (newValue) => gsap.to(gsapMoney, { duration: 0.5, number: newValue }), { immediate: true })
-
-
-    const moneyText = computed(() => moneyFormat(Number(gsapMoney.number.toFixed(2)), 2, '.', ','))
-    const bgWidth = ref<number>(0)
-
-    return {
-      cardType,
-      moneyText,
-      bgWidth
-    }
+  money: {
+    type: Number,
+    default: 0
+  },
+  message: {
+    type: String,
+    default: ''
+  },
+  percentage: {
+    type: Number,
+    default: 100
   }
 })
+
+const cardType = ref<string>(props.type)
+const gsapMoney = reactive({
+  number: 0
+})
+
+watch(() => props.money, (newValue) => gsap.to(gsapMoney, { duration: 0.5, number: newValue }), { immediate: true })
+
+const moneyText = computed(() => moneyFormat(Number(gsapMoney.number.toFixed(2)), 2, '.', ','))
+const bgWidth = ref<number>(0)
 </script>
 
 <style lang="less" scoped>

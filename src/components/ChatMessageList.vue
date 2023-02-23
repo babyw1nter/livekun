@@ -1,5 +1,5 @@
 <template>
-  <ul ref="ChatMessageListRef" class="chat-message-list clearfix" :class="{ 'smooth-scroll': !isTooQuickly }">
+  <ul ref="dom" class="chat-message-list clearfix" :class="{ 'smooth-scroll': !isTooQuickly }">
     <template v-for="(item, index) in chatMessageListItemCache" :key="index">
       <ChatMessage
         v-if="item.messageType === 'chat'"
@@ -33,12 +33,9 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, PropType, watch, nextTick } from 'vue'
+<script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
-import ChatMessage from '@/components/AtomicComponents/ChatMessage.vue'
-import GiftCard from '@/components/AtomicComponents/GiftCard.vue'
 import { getLevel } from '@/api/common'
 
 interface IChatMessageListItem {
@@ -68,79 +65,67 @@ interface IChatMessageListItem {
   [propName: string]: unknown
 }
 
-export default defineComponent({
-  name: 'ChatMessageList',
-  components: {
-    ChatMessage,
-    GiftCard
+const props = defineProps({
+  list: {
+    type: Array as PropType<IChatMessageListItem[]>,
+    default: () => []
   },
-  props: {
-    list: {
-      type: Array as PropType<IChatMessageListItem[]>
-    },
-    maximum: {
-      type: Number,
-      default: 150
-    },
-    smoothScrollInterval: {
-      type: Number,
-      default: 250
-    },
-    fontSize: {
-      type: Number,
-      default: 16
-    }
+  maximum: {
+    type: Number,
+    default: 150
   },
-  setup(props) {
-    const store = useStore(key)
-
-    const ChatMessageListRef = ref<HTMLElement>()
-    const chatMessageListItemCache = ref<IChatMessageListItem[]>([])
-
-    watch(chatMessageListItemCache.value, () => {
-      if (chatMessageListItemCache.value.length >= props.maximum) {
-        chatMessageListItemCache.value.splice(0, chatMessageListItemCache.value.length - 50)
-      }
-
-      nextTick(() => {
-        if (ChatMessageListRef.value) {
-          ChatMessageListRef.value.scrollTop = ChatMessageListRef.value.scrollHeight
-        }
-      })
-    })
-
-    const isTooQuickly = ref<boolean>(false)
-    let interval = 0
-
-    const add = (chatMessageItem: IChatMessageListItem) => {
-      if (!chatMessageItem.nickname || !chatMessageItem.message) return
-
-      const nowTimestamp = new Date().getTime()
-      isTooQuickly.value = nowTimestamp - interval < props.smoothScrollInterval
-      interval = nowTimestamp
-
-      chatMessageListItemCache.value.push(chatMessageItem)
-    }
-
-    const del = () => {
-      //
-    }
-
-    const clear = () => {
-      chatMessageListItemCache.value.splice(0, chatMessageListItemCache.value.length)
-    }
-
-    return {
-      store,
-      ChatMessageListRef,
-      chatMessageListItemCache,
-      isTooQuickly,
-      add,
-      del,
-      clear,
-      getLevel
-    }
+  smoothScrollInterval: {
+    type: Number,
+    default: 250
+  },
+  fontSize: {
+    type: Number,
+    default: 16
   }
+})
+
+const store = useStore(key)
+
+const dom = ref<HTMLElement>()
+const chatMessageListItemCache = reactive<IChatMessageListItem[]>([])
+
+watch(chatMessageListItemCache, () => {
+  if (chatMessageListItemCache.length >= props.maximum) {
+    chatMessageListItemCache.splice(0, chatMessageListItemCache.length - 50)
+  }
+
+  nextTick(() => {
+    if (dom.value) {
+      dom.value.scrollTop = dom.value.scrollHeight
+    }
+  })
+})
+
+const isTooQuickly = ref<boolean>(false)
+let interval = 0
+
+const add = (chatMessageItem: IChatMessageListItem) => {
+  if (!chatMessageItem.nickname || !chatMessageItem.message) return
+
+  const nowTimestamp = new Date().getTime()
+  isTooQuickly.value = nowTimestamp - interval < props.smoothScrollInterval
+  interval = nowTimestamp
+
+  chatMessageListItemCache.push(chatMessageItem)
+}
+
+const del = () => {
+  //
+}
+
+const clear = () => {
+  chatMessageListItemCache.splice(0, chatMessageListItemCache.length)
+}
+
+defineExpose({
+  add,
+  del,
+  clear
 })
 </script>
 

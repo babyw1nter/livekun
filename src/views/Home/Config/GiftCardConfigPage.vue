@@ -7,7 +7,7 @@
         :list="giftCardList"
         :level="store.state.config.giftCard.level"
       />
-      <a-checkbox v-model:checked="autoPreview" v-on:change="autoPreviewChange" style="margin: 1rem; float: right; color: #fff;"
+      <a-checkbox v-model:checked="autoPreview" @change="autoPreviewChange" style="margin: 1rem; float: right; color: #fff;"
         >自动预览
       </a-checkbox>
     </div>
@@ -101,8 +101,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue'
+<script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
@@ -110,77 +109,57 @@ import http from '@/api/http'
 import GiftCardPanel from '@/components/GiftCardPanel.vue'
 import { getRandomGiftCard } from '@/api/mock'
 
-export default defineComponent({
-  components: {
-    GiftCardPanel
-  },
-  setup() {
-    const store = useStore(key)
-    const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
+const store = useStore(key)
+const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
 
-    const autoPreviewTimer = ref(0)
-    const autoPreview = ref(true)
-    const autoPreviewChange = () => {
+const autoPreviewTimer = ref(0)
+const autoPreview = ref(true)
+const autoPreviewChange = () => {
+  GiftCardPanelRef.value?.add({
+    ...getRandomGiftCard()
+  })
+  if (autoPreview.value) {
+    autoPreviewTimer.value = window.setInterval(() => {
       GiftCardPanelRef.value?.add({
         ...getRandomGiftCard()
       })
-      if (autoPreview.value) {
-        autoPreviewTimer.value = window.setInterval(() => {
-          GiftCardPanelRef.value?.add({
-            ...getRandomGiftCard()
-          })
-        }, 3000)
-      } else {
-        window.clearInterval(autoPreviewTimer.value)
-      }
-    }
-
-    onMounted(() => autoPreviewChange())
-
-    const url = computed(() => `${window.location.origin}/#/plugins/gift-card?uuid=${store.state.auth.uuid}`)
-
-    const sendMock = () => {
-      http
-        .post('/api/control', { method: 'sendMockDataToGiftCard' })
-        .then(res => {
-          //
-        })
-        .catch((reason: Error) => {
-          message.error(reason.toString())
-        })
-    }
-
-    const clear = () => {
-      http
-        .post('/api/control', { method: 'clearGiftCard' })
-        .then(res => {
-          //
-        })
-        .catch((reason: Error) => {
-          message.error(reason.toString())
-        })
-    }
-
-    const save = () => store.dispatch('saveRemoteConfig')
-
-    const reset = () => null
-
-    const giftCardList = ref([])
-
-    return {
-      store,
-      GiftCardPanelRef,
-      autoPreview,
-      autoPreviewChange,
-      url,
-      sendMock,
-      clear,
-      save,
-      reset,
-      giftCardList
-    }
+    }, 3000)
+  } else {
+    window.clearInterval(autoPreviewTimer.value)
   }
-})
+}
+
+onMounted(() => autoPreviewChange())
+
+const url = computed(() => `${window.location.origin}/#/plugins/gift-card?uuid=${store.state.auth.uuid}`)
+
+const sendMock = () => {
+  http
+    .post('/api/control', { method: 'sendMockDataToGiftCard' })
+    .then(res => {
+      //
+    })
+    .catch((reason: Error) => {
+      message.error(reason.toString())
+    })
+}
+
+const clear = () => {
+  http
+    .post('/api/control', { method: 'clearGiftCard' })
+    .then(res => {
+      //
+    })
+    .catch((reason: Error) => {
+      message.error(reason.toString())
+    })
+}
+
+const save = () => store.dispatch('saveRemoteConfig')
+
+const reset = () => null
+
+const giftCardList = ref([])
 </script>
 
 <style lang="less" scoped>

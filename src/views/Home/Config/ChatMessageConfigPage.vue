@@ -104,138 +104,109 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue'
+<script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
-import ChatMessageList from '@/components/ChatMessageList.vue'
+import type ChatMessageList from '@/components/ChatMessageList.vue'
 import http from '@/api/http'
 import { getRandomChatMessage } from '@/api/mock'
 import type  { ColumnsType } from 'ant-design-vue/es/table'
 
-export default defineComponent({
-  components: {
-    ChatMessageList
-  },
-  setup() {
-    const store = useStore(key)
-    const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
+const store = useStore(key)
+const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
-    const autoPreviewTimer = ref(0)
-    const autoPreview = ref(true)
-    const autoPreviewChange = () => {
+const autoPreviewTimer = ref(0)
+const autoPreview = ref(true)
+const autoPreviewChange = () => {
+  ChatMessageListRef.value?.add({
+    ...getRandomChatMessage()
+  })
+  if (autoPreview.value) {
+    autoPreviewTimer.value = window.setInterval(() => {
       ChatMessageListRef.value?.add({
         ...getRandomChatMessage()
       })
-      if (autoPreview.value) {
-        autoPreviewTimer.value = window.setInterval(() => {
-          ChatMessageListRef.value?.add({
-            ...getRandomChatMessage()
-          })
-        }, 1000)
-      } else {
-        window.clearInterval(autoPreviewTimer.value)
-      }
-    }
-
-    const blacklistColumns: ColumnsType<{ title: string }> = [
-      { title: 'CCID', dataIndex: 'ccid' },
-      { title: '备注信息', dataIndex: 'note' },
-      {
-        title: '操作',
-        key: 'operation',
-        fixed: 'right',
-        width: 100,
-        dataIndex: ''
-      }
-    ]
-
-    const blacklistUserCCID = ref(''),
-      blacklistUserNote = ref('')
-    const showBlacklistModelStatus = ref(false)
-    const showBlacklistModel = () => {
-      showBlacklistModelStatus.value = !showBlacklistModelStatus.value
-    }
-    const blacklistModelhandleOk = () => {
-      //
-    }
-    const addBlacklistUser = () => {
-      const index = store.state.config.chatMessage.blacklist.findIndex((i) => i.ccid === blacklistUserCCID.value)
-      if (blacklistUserCCID.value) {
-        if (index < 0) {
-          store.state.config.chatMessage.blacklist.push({
-            ccid: blacklistUserCCID.value.trim(),
-            note: blacklistUserNote.value
-          })
-          blacklistUserCCID.value = ''
-          blacklistUserNote.value = ''
-          message.success('添加成功')
-        } else {
-          message.error('用户已存在')
-        }
-      } else {
-        message.error('请输入用户CCID')
-      }
-    }
-    const delBlacklistUser = (ccid: number | string) => {
-      const index = store.state.config.chatMessage.blacklist.findIndex((i) => i.ccid === ccid)
-      if (index > -1) {
-        store.state.config.chatMessage.blacklist.splice(index, 1)
-      }
-    }
-
-    onMounted(() => autoPreviewChange())
-
-    const url = computed(() => `${window.location.origin}/#/plugins/chat-message?uuid=${store.state.auth.uuid}`)
-
-    const sendMock = () => {
-      http
-        .post('/api/control', { method: 'sendMockDataToChatMessage' })
-        .then((res) => {
-          //
-        })
-        .catch((reason: Error) => {
-          message.error(reason.toString())
-        })
-    }
-
-    const clear = () => {
-      http
-        .post('/api/control', { method: 'clearChatMessage' })
-        .then((res) => {
-          //
-        })
-        .catch((reason: Error) => {
-          message.error(reason.toString())
-        })
-    }
-
-    const save = () => store.dispatch('saveRemoteConfig')
-
-    const reset = () => null
-
-    return {
-      store,
-      ChatMessageListRef,
-      autoPreview,
-      autoPreviewChange,
-      url,
-      sendMock,
-      clear,
-      save,
-      reset,
-      showBlacklistModelStatus,
-      showBlacklistModel,
-      blacklistModelhandleOk,
-      blacklistColumns,
-      addBlacklistUser,
-      blacklistUserCCID,
-      blacklistUserNote,
-      delBlacklistUser
-    }
+    }, 1000)
+  } else {
+    window.clearInterval(autoPreviewTimer.value)
   }
-})
+}
+
+const blacklistColumns: ColumnsType<unknown> = [
+  { title: 'CCID', dataIndex: 'ccid' },
+  { title: '备注信息', dataIndex: 'note' },
+  {
+    title: '操作',
+    key: 'operation',
+    fixed: 'right',
+    width: 100,
+  }
+]
+
+const blacklistUserCCID = ref(''),
+  blacklistUserNote = ref('')
+const showBlacklistModelStatus = ref(false)
+const showBlacklistModel = () => {
+  showBlacklistModelStatus.value = !showBlacklistModelStatus.value
+}
+const blacklistModelhandleOk = () => {
+  //
+}
+const addBlacklistUser = () => {
+  const index = store.state.config.chatMessage.blacklist.findIndex((i) => i.ccid === blacklistUserCCID.value)
+  if (blacklistUserCCID.value) {
+    if (index < 0) {
+      store.state.config.chatMessage.blacklist.push({
+        ccid: blacklistUserCCID.value.trim(),
+        note: blacklistUserNote.value
+      })
+      blacklistUserCCID.value = ''
+      blacklistUserNote.value = ''
+      message.success('添加成功')
+    } else {
+      message.error('用户已存在')
+    }
+  } else {
+    message.error('请输入用户CCID')
+  }
+}
+const delBlacklistUser = (ccid: number | string) => {
+  const index = store.state.config.chatMessage.blacklist.findIndex((i) => i.ccid === ccid)
+  if (index > -1) {
+    store.state.config.chatMessage.blacklist.splice(index, 1)
+  }
+}
+
+onMounted(() => autoPreviewChange())
+
+const url = computed(() => `${window.location.origin}/#/plugins/chat-message?uuid=${store.state.auth.uuid}`)
+
+const sendMock = () => {
+  http
+    .post('/api/control', { method: 'sendMockDataToChatMessage' })
+    .then((res) => {
+      //
+    })
+    .catch((reason: Error) => {
+      message.error(reason.toString())
+    })
+}
+
+const clear = () => {
+  http
+    .post('/api/control', { method: 'clearChatMessage' })
+    .then((res) => {
+      //
+    })
+    .catch((reason: Error) => {
+      message.error(reason.toString())
+    })
+}
+
+const save = () => store.dispatch('saveRemoteConfig')
+
+const reset = () => null
 </script>
 
 <style lang="less" scoped>

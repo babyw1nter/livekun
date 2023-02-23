@@ -35,119 +35,104 @@
   </li>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
-import HFont from '@/components/AtomicComponents/HFont.vue'
-import HBadge from '@/components/AtomicComponents/HBadge.vue'
-
-export default defineComponent({
-  components: {
-    HFont,
-    HBadge
+<script lang="ts" setup>
+const props = defineProps({
+  type: {
+    default: 'normal',
+    type: String as PropType<'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string>
   },
-  name: 'ChatMessage',
-  props: {
-    type: {
-      default: 'normal',
-      type: String as PropType<'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string>
-    },
-    avatarUrl: {
-      default: '',
-      type: String
-    },
-    nickname: {
-      default: '',
-      type: String
-    },
-    message: {
-      default: '',
-      type: String
-    },
-    /**
-     * 是否为房管
-     */
-    admin: {
-      default: false,
-      type: Boolean
-    },
-    /**
-     * 守护等级 1月费守护 2年费守护
-     */
-    guard: {
-      default: Number as PropType<0 | 1 | 2>,
-      type: Number
-    },
-    /**
-     * 是否为钻粉
-     */
-    diamond: {
-      default: false,
-      type: Boolean
-    },
-    /**
-     * 粉丝牌等级
-     */
-    badgeInfo: {
-      default: () => {
-        return {
-          badgename: '粉丝牌',
-          level: 0
-        }
-      },
-      type: Object as PropType<{ badgename: string; level: number }>
-    },
-    customStyle: {
-      default: () => {
-        return {
-          nicknameColor: null,
-          messageColor: null,
-          fontSize: 18
-        }
-      },
-      type: Object as PropType<{ nicknameColor?: string; messageColor?: string; fontSize?: number }>
-    },
-    fontSize: {
-      type: Number,
-      default: 18
-    }
+  avatarUrl: {
+    default: '',
+    type: String
   },
-  setup (props) {
-    interface Badge {
-      id: string
-      icon: string
-      w?: number
-      h?: number
-    }
-
-    const badgeArray = ref<Badge[]>([])
-
-    // badgeArray.value.push({
-    //   id: 'diamond',
-    //   icon: 'https://cc.fp.ps.netease.com/file/627dc9169de9f6046a4c5e3eNp41j6jw04',
-    //   h: 17
-    // })
-
-    if (props.guard === 1 && !props.badgeInfo.level) {
-      badgeArray.value.push({
-        id: 'guard-monthly',
-        icon: 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/1_18.png',
-        w: 18
-      })
-    }
-
-    if (props.guard === 2 && !props.badgeInfo.level) {
-      badgeArray.value.push({
-        id: 'guard-annual',
-        icon: 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/2_18.png',
-        w: 18
-      })
-    }
-
-    return {
-      badgeArray
-    }
+  nickname: {
+    default: '',
+    type: String
+  },
+  message: {
+    default: '',
+    type: String
+  },
+  /**
+   * 是否为房管
+   */
+  admin: {
+    default: false,
+    type: Boolean
+  },
+  /**
+   * 守护等级 1月费守护 2年费守护
+   */
+  guard: {
+    default: Number as PropType<0 | 1 | 2>,
+    type: Number
+  },
+  /**
+   * 是否为钻粉
+   */
+  diamond: {
+    default: false,
+    type: Boolean
+  },
+  /**
+   * 粉丝牌等级
+   */
+  badgeInfo: {
+    default: () => {
+      return {
+        badgename: '粉丝牌',
+        level: 0
+      }
+    },
+    type: Object as PropType<{ badgename: string; level: number }>
+  },
+  customStyle: {
+    default: () => {
+      return {
+        nicknameColor: null,
+        messageColor: null,
+        fontSize: 18
+      }
+    },
+    type: Object as PropType<{ nicknameColor?: string; messageColor?: string; fontSize?: number }>
+  },
+  fontSize: {
+    type: Number,
+    default: 18
   }
 })
+
+interface Badge {
+  id: string
+  icon: string
+  w?: number
+  h?: number
+}
+
+const badgeArray = ref<Badge[]>([])
+
+// badgeArray.value.push({
+//   id: 'diamond',
+//   icon: 'https://cc.fp.ps.netease.com/file/627dc9169de9f6046a4c5e3eNp41j6jw04',
+//   h: 17
+// })
+
+if (props.guard === 1 && !props.badgeInfo.level) {
+  badgeArray.value.push({
+    id: 'guard-monthly',
+    icon: 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/1_18.png',
+    w: 18
+  })
+}
+
+if (props.guard === 2 && !props.badgeInfo.level) {
+  badgeArray.value.push({
+    id: 'guard-annual',
+    icon: 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/2_18.png',
+    w: 18
+  })
+}
+
 </script>
 
 <style lang="less" scoped>
