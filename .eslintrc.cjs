@@ -35,6 +35,8 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'warn',
     'vue/first-attribute-linebreak': 'off',
     'vue/multi-word-component-names': 'off',
-    'vue/no-unused-components': 'warn'
+    'vue/no-unused-components': 'warn',
+    'vue/attributes-order': 'off',
+    'vue/attribute-hyphenation': 'off'
   }
 }
