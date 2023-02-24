@@ -9,9 +9,6 @@
 </template>
 
 <script lang="ts" setup>
-import { moneyFormat } from '@/api/common'
-import { gsap } from "gsap"
-
 const props = defineProps({
   type: {
     default: 'level-0',
@@ -36,13 +33,8 @@ const props = defineProps({
 })
 
 const cardType = ref<string>(props.type)
-const gsapMoney = reactive({
-  number: 0
-})
 
-watch(() => props.money, (newValue) => gsap.to(gsapMoney, { duration: 0.5, number: newValue }), { immediate: true })
-
-const moneyText = computed(() => moneyFormat(Number(gsapMoney.number.toFixed(2)), 2, '.', ','))
+const moneyText = computed(() => (Math.round(props.money * 100) / 100).toString())
 const bgWidth = ref<number>(0)
 </script>
 
@@ -50,11 +42,12 @@ const bgWidth = ref<number>(0)
 .gift-capsule {
   position: relative;
   display: block;
+  width: 100%;
+  min-width: 35px;
   height: 35px;
   padding: 4px;
   border-radius: 40px;
   float: left;
-  margin-right: 10px;
   overflow: hidden;
   transition: width 0.2s;
 

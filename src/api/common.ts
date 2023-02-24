@@ -1,4 +1,5 @@
 import emojiRegex from 'emoji-regex'
+import { v4 as uuidv4 } from 'uuid'
 
 const globalAppConfig = reactive(appConfig)
 
@@ -46,9 +47,11 @@ const moneyFormat = (number: number, decimals: number, decPoint?: string, thousa
  */
 const replaceEmoji = (str: string) => str.replace(emojiRegex(), `<span class="emoji">$&</span>`)
 
+const getRandomUUID = () => uuidv4()
+
 const sleep = (ms: number): Promise<number> =>
   new Promise((resolve) => {
     setTimeout(resolve, ms)
   })
 
-export { globalAppConfig, getLevel, randomNum, moneyFormat, replaceEmoji, sleep }
+export { globalAppConfig, getLevel, randomNum, moneyFormat, replaceEmoji, getRandomUUID, sleep }

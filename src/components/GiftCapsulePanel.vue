@@ -1,29 +1,27 @@
 <template>
-  <ul class="gift-capsule-panel clearfix">
-    <TransitionGroup name="list" tag="ul">
-      <li v-for="item in giftCapsuleListItemCache" :key="item.uid">
-        <a-dropdown>
-          <GiftCapsule :type="item.type || `level-${getLevel(item.money, level)}`" :avatar-url="item.avatarUrl"
-            :money="item.money" :message="item.message" :percentage="item.percentage">
-          </GiftCapsule>
+  <TransitionGroup name="list" tag="ul" class="gift-capsule-panel clearfix">
+    <li v-for="ticket in ticketsList" :key="ticket.key">
+      <a-dropdown>
+        <GiftCapsule :type="ticket.type || `level-${getLevel(ticket.money, level)}`" :avatar-url="ticket.avatarUrl"
+          :money="ticket.money" :message="ticket.message" :percentage="ticket.percentage">
+        </GiftCapsule>
 
-          <template #overlay>
-            <a-menu>
-              <a-menu-item>
-                <a href="javascript:;" @click="del(item.uid)">移除</a>
-              </a-menu-item>
-            </a-menu>
-          </template>
-        </a-dropdown>
-      </li>
-    </TransitionGroup>
-  </ul>
+        <template #overlay>
+          <a-menu>
+            <a-menu-item>
+              <a href="javascript:;" @click="del(ticket.key)">移除</a>
+            </a-menu-item>
+          </a-menu>
+        </template>
+      </a-dropdown>
+    </li>
+  </TransitionGroup>
 </template>
 
 <script lang="ts" setup>
-import { getLevel, sleep } from '@/api/common'
+import { getLevel, getRandomUUID, sleep } from '@/api/common'
 
-interface IGiftCapsuleListItem {
+interface Ticket {
   avatarUrl: string
   nickname?: string
   uid: number | string
@@ -34,22 +32,23 @@ interface IGiftCapsuleListItem {
   [propName: string]: unknown
 }
 
-interface IGiftCapsuleListItemCache extends IGiftCapsuleListItem {
+interface TicketsList extends Ticket {
+  key: number | string
   _customDuration: number
   duration: number
   timing: number
   percentage: number
 }
 
-interface TimerCache {
-  uid: number | string
+interface Timer {
+  key: number | string
   timer: number
 }
 
 const props = defineProps({
   maximum: {
     type: Number,
-    default: 5
+    default: 100
   },
   level: {
     type: Array as PropType<number[]>,
@@ -61,77 +60,53 @@ const props = defineProps({
   }
 })
 
-const giftCapsuleListItemCache = reactive<IGiftCapsuleListItemCache[]>([])
-const timerCache: TimerCache[] = []
+const ticketsList = reactive<TicketsList[]>([])
+const timerCache: Timer[] = []
 
-// 监听缓存队列，以价格自动排序
-watch(giftCapsuleListItemCache, () => giftCapsuleListItemCache.sort((a, b) => b.money - a.money), {
-  deep: true
-})
+const add = async (ticket: Ticket) => {
+  const key = getRandomUUID()
 
-const add = async (item: IGiftCapsuleListItem) => {
-  if (!item.uid) return
+  // 当超过最大数量时，删除末尾的 ticket
+  if (ticketsList.length >= props.maximum) del(ticketsList[ticketsList.length - 1].key)
 
-  // 查找列表成员，如果已存在则累计金额并刷新持续时间
-  const index = giftCapsuleListItemCache.findIndex(i => i.uid === item.uid)
-  if (index > -1) {
-    giftCapsuleListItemCache[index].money += item.money
-    const giftCapsuleListItemCacheDuration =
-      giftCapsuleListItemCache[index]._customDuration ||
-      props.duration[getLevel(giftCapsuleListItemCache[index].money, props.level)] * 60 * 1000
-    giftCapsuleListItemCache[index].duration = giftCapsuleListItemCacheDuration
-    giftCapsuleListItemCache[index].timing = giftCapsuleListItemCacheDuration
-    return
-  }
+  // 通过指令添加的 ticket 如果没有 duration 属性，则默认给予一个 duration 初始值
+  // 这个 duration 初始值是由即将添加的 ticket 自动计算金额等级得出的
+  const ticketDefaultDuration = props.duration[getLevel(ticket.money, props.level)] * 60 * 1000
 
-  // 通过指令添加的礼物胶囊如果没有 duration 属性，则默认给予一个 duration 初始值
-  // 这个 duration 初始值是由即将添加的礼物胶囊自动计算金额等级得出的
-  const itemDefaultDuration = props.duration[getLevel(item.money, props.level)] * 60 * 1000
-
-  // 超过最大常驻礼物胶囊数量，且末尾的礼物胶囊的金额低于即将添加的礼物胶囊的金额，则删除末尾的礼物胶囊
-  // 反之则不作任何操作
-  if (giftCapsuleListItemCache.length >= props.maximum) {
-    const lastItem = giftCapsuleListItemCache[giftCapsuleListItemCache.length - 1]
-    if (lastItem.money < item.money) {
-      del(lastItem.uid)
-      await sleep(501)
-    } else {
-      return
-    }
-  }
-
-  // 添加礼物胶囊进缓存数组
-  giftCapsuleListItemCache.push({
-    ...item,
-    _customDuration: item.duration || 0,
-    duration: item.duration || itemDefaultDuration,
-    timing: item.duration || itemDefaultDuration,
+  // 添加 ticket 进缓存数组
+  ticketsList.unshift({
+    ...ticket,
+    key,
+    _customDuration: ticket.duration || 0,
+    duration: ticket.duration || ticketDefaultDuration,
+    timing: ticket.duration || ticketDefaultDuration,
     percentage: 100.0
   })
 
-  const timer = {
-    uid: item.uid,
+  const timer: Timer = {
+    key,
     timer: window.setInterval(() => {
-      const index = giftCapsuleListItemCache.findIndex(i => i.uid === item.uid)
+      const index = ticketsList.findIndex(i => i.key === key)
+
       if (index > -1) {
-        if (giftCapsuleListItemCache[index].timing <= 0) {
-          const timerCacheIndex = timerCache.findIndex(i => i.uid === item.uid)
+        if (ticketsList[index].timing <= 0) {
+          const timerCacheIndex = timerCache.findIndex(i => i.key === key)
           if (timerCache[timerCacheIndex]) {
             clearInterval(timerCache[timerCacheIndex].timer)
             timerCache.splice(timerCacheIndex, 1)
           }
 
           nextTick(() => {
-            giftCapsuleListItemCache.splice(index, 1)
+            ticketsList.splice(index, 1)
           })
 
           return
         }
 
-        giftCapsuleListItemCache[index].timing -= 100
-        giftCapsuleListItemCache[index].percentage = Number(
+        ticketsList[index].timing -= 100
+        ticketsList[index].percentage = Number(
           (
-            (giftCapsuleListItemCache[index].timing / giftCapsuleListItemCache[index].duration) *
+            (ticketsList[index].timing / ticketsList[index].duration) *
             100
           ).toFixed(1)
         )
@@ -142,11 +117,11 @@ const add = async (item: IGiftCapsuleListItem) => {
   timerCache.push(timer)
 }
 
-const del = (uid: number | string) => {
-  const index = giftCapsuleListItemCache.findIndex(i => i.uid === uid)
-  const timerCacheIndex = timerCache.findIndex(i => i.uid === uid)
+const del = (key: number | string) => {
+  const index = ticketsList.findIndex(i => i.key === key)
+  const timerCacheIndex = timerCache.findIndex(i => i.key === key)
   if (index > -1) {
-    giftCapsuleListItemCache.splice(index, 1)
+    ticketsList.splice(index, 1)
   }
   if (timerCacheIndex > -1) {
     clearInterval(timerCache[timerCacheIndex].timer)
@@ -155,9 +130,9 @@ const del = (uid: number | string) => {
 }
 
 const clear = () => {
-  timerCache.forEach(item => window.clearInterval(item.timer))
+  timerCache.forEach(ticket => window.clearInterval(ticket.timer))
   timerCache.splice(0, timerCache.length)
-  giftCapsuleListItemCache.splice(0, giftCapsuleListItemCache.length)
+  ticketsList.splice(0, ticketsList.length)
 }
 
 defineExpose({
@@ -171,12 +146,14 @@ defineExpose({
 .gift-capsule-panel {
   padding: 10px;
   width: 100%;
-  min-height: 55px;
+  height: 55px;
   list-style: none;
-  overflow-x: hidden;
+  overflow: hidden;
+  white-space: nowrap;
 
   li {
-    float: left;
+    margin-right: 10px;
+    display: inline-block;
   }
 
   &::-webkit-scrollbar {
@@ -187,22 +164,18 @@ defineExpose({
 .list-move,
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+  transition: all .3s cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .list-enter-from {
   opacity: 0;
-  transform: translateX(30px);
-  width: 0%;
 }
 
 .list-leave-to {
   opacity: 0;
-  transform: scale(0.01);
 }
 
 .list-leave-active {
   position: absolute;
-  width: 100%;
 }
 </style>

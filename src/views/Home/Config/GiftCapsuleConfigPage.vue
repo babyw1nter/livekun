@@ -4,7 +4,6 @@
       <GiftCapsulePanel
         ref="GiftCapsulePanelRef"
         class="preview-gift-capsule-panel"
-        :maximum="3"
         :level="store.state.config.giftCapsule.level"
         :duration="store.state.config.giftCapsule.duration"
       />
@@ -136,7 +135,6 @@ const reset = () => null
     position: absolute;
     width: 100%;
     top: 50px;
-    left: 20px;
   }
 }
 </style>
