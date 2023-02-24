@@ -56,7 +56,7 @@ const getMockData = (): void => {
 const getRandomGiftCapsule = () => {
   return {
     ...giftCapsuleMockData[randomNum(0, giftCapsuleMockData.length - 1)],
-    money: randomNum(1, 100)
+    money: randomNum(5, 2500)
   }
 }
 
