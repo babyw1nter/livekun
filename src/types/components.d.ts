@@ -53,7 +53,6 @@ declare module '@vue/runtime-core' {
     HFont: typeof import('./../components/AtomicComponents/HFont.vue')['default']
     LockOutlined: typeof import('@ant-design/icons-vue')['LockOutlined']
     MessageOutlined: typeof import('@ant-design/icons-vue')['MessageOutlined']
-    PageFooter: typeof import('./../components/CommonComponents/PageFooter.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SettingOutlined: typeof import('@ant-design/icons-vue')['SettingOutlined']
