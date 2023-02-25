@@ -1,17 +1,17 @@
-import { randomNum } from './common'
+import { getRandomUUID, randomNum } from './common'
 import http from './http'
 
-interface IGiftCapsuleMockData {
+interface IBasePluginData {
+  uid: number
   nickname: string
   avatarUrl: string
-  money: number
-  uid: number
 }
 
-interface IChatMessageMockData {
-  uid: number
-  avatarUrl: string
-  nickname: string
+interface IGiftCapsuleMockData extends IBasePluginData {
+  money: number
+}
+
+interface IChatMessageMockData extends IBasePluginData {
   message: string
   messageType: string
   admin: boolean
@@ -22,16 +22,13 @@ interface IChatMessageMockData {
   }
 }
 
-interface IGiftCardMockData {
-  nickname: string
-  avatarUrl: string
+interface IGiftCardMockData extends IBasePluginData {
   money: number
   giftName: string
   giftCount: number
   message: string
   messageType: string
   comment: string
-  uid: number
 }
 
 let giftCapsuleMockData: Array<IGiftCapsuleMockData> = []
@@ -55,17 +52,20 @@ const getMockData = (): void => {
 
 const getRandomGiftCapsule = () => {
   return {
+    key: getRandomUUID(),
     ...giftCapsuleMockData[randomNum(0, giftCapsuleMockData.length - 1)],
     money: randomNum(5, 2500)
   }
 }
 
 const getRandomChatMessage = () => {
-  return randomNum(0, 5) ? chatMessageMockData[randomNum(0, chatMessageMockData.length - 1)] : getRandomGiftCard()
+  return randomNum(0, 5)
+    ? { key: getRandomUUID(), ...chatMessageMockData[randomNum(0, chatMessageMockData.length - 1)] }
+    : getRandomGiftCard()
 }
 
 const getRandomGiftCard = () => {
-  return giftCardMockData[randomNum(0, giftCardMockData.length - 1)]
+  return { key: getRandomUUID(), ...giftCardMockData[randomNum(0, giftCardMockData.length - 1)] }
 }
 
 export { getMockData, getRandomGiftCapsule, getRandomChatMessage, getRandomGiftCard }

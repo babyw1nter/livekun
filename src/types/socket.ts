@@ -10,10 +10,11 @@ interface ISocketMethodData {
 }
 
 interface ISocketCustomData {
+  key: string
+  uid: number | string
   avatarUrl: string
   nickname: string
-  uid: number | string
   userInfo?: unknown
 }
 
-export { IMessage, ISocketMethodData, ISocketCustomData }
+export type { IMessage, ISocketMethodData, ISocketCustomData }

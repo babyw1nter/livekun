@@ -22,9 +22,10 @@
 import { getLevel, getRandomUUID, sleep } from '@/api/common'
 
 interface Ticket {
+  key: string
+  uid: number | string
   avatarUrl: string
   nickname?: string
-  uid: number | string
   money: number
   type?: string
   message?: string
@@ -33,7 +34,6 @@ interface Ticket {
 }
 
 interface TicketsList extends Ticket {
-  key: number | string
   _customDuration: number
   duration: number
   timing: number
@@ -41,7 +41,7 @@ interface TicketsList extends Ticket {
 }
 
 interface Timer {
-  key: number | string
+  key: string
   timer: number
 }
 
@@ -64,8 +64,6 @@ const ticketsList = reactive<TicketsList[]>([])
 const timerCache: Timer[] = []
 
 const add = async (ticket: Ticket) => {
-  const key = getRandomUUID()
-
   // 当超过最大数量时，删除末尾的 ticket
   if (ticketsList.length >= props.maximum) del(ticketsList[ticketsList.length - 1].key)
 
@@ -76,7 +74,6 @@ const add = async (ticket: Ticket) => {
   // 添加 ticket 进缓存数组
   ticketsList.unshift({
     ...ticket,
-    key,
     _customDuration: ticket.duration || 0,
     duration: ticket.duration || ticketDefaultDuration,
     timing: ticket.duration || ticketDefaultDuration,
@@ -84,13 +81,13 @@ const add = async (ticket: Ticket) => {
   })
 
   const timer: Timer = {
-    key,
+    key: ticket.key,
     timer: window.setInterval(() => {
-      const index = ticketsList.findIndex(i => i.key === key)
+      const index = ticketsList.findIndex(i => i.key === ticket.key)
 
       if (index > -1) {
         if (ticketsList[index].timing <= 0) {
-          const timerCacheIndex = timerCache.findIndex(i => i.key === key)
+          const timerCacheIndex = timerCache.findIndex(i => i.key === ticket.key)
           if (timerCache[timerCacheIndex]) {
             clearInterval(timerCache[timerCacheIndex].timer)
             timerCache.splice(timerCacheIndex, 1)
@@ -117,7 +114,7 @@ const add = async (ticket: Ticket) => {
   timerCache.push(timer)
 }
 
-const del = (key: number | string) => {
+const del = (key: string) => {
   const index = ticketsList.findIndex(i => i.key === key)
   const timerCacheIndex = timerCache.findIndex(i => i.key === key)
   if (index > -1) {

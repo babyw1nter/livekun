@@ -1,6 +1,6 @@
 <template>
   <ul ref="dom" class="chat-message-list clearfix" :class="{ 'smooth-scroll': !isTooQuickly }">
-    <template v-for="(item, index) in chatMessageListItemCache" :key="index">
+    <template v-for="item in chatMessageListItemCache" :key="item.key">
       <ChatMessage
         v-if="item.messageType === 'chat'"
         :avatar-url="item.avatarUrl"
@@ -14,21 +14,21 @@
         :type="item.type"
       >
       </ChatMessage>
-      <GiftCard
-        v-if="item.messageType === 'gift'"
-        :type="item.type || `level-${getLevel(item?.money || 0, store.state.config.giftCard.level)}`"
-        :avatar-url="item.avatarUrl"
-        :nickname="item.nickname"
-        :money="item.money"
-        :gift-name="item.giftName"
-        :gift-count="item.giftCount"
-        :gift-image="item.giftImage"
-        :gift-icon="item.giftIcon"
-        :message="item.message"
-        :comment="item.comment"
-        class="chat-list-gift"
-      >
-      </GiftCard>
+      <li class="chat-list-gift" v-if="item.messageType === 'gift'">
+        <GiftCard
+          :type="item.type || `level-${getLevel(item?.money || 0, store.state.config.giftCard.level)}`"
+          :avatar-url="item.avatarUrl"
+          :nickname="item.nickname"
+          :money="item.money"
+          :gift-name="item.giftName"
+          :gift-count="item.giftCount"
+          :gift-image="item.giftImage"
+          :gift-icon="item.giftIcon"
+          :message="item.message"
+          :comment="item.comment"
+        >
+        </GiftCard>
+      </li>
     </template>
   </ul>
 </template>
@@ -39,9 +39,10 @@ import { key } from '@/store'
 import { getLevel } from '@/api/common'
 
 interface IChatMessageListItem {
+  key: string
+  uid: number | string
   avatarUrl: string
   nickname: string
-  uid: number | string
   message: string
   messageType: 'chat' | 'gift' | string
   type?: 'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string
@@ -90,10 +91,6 @@ const dom = ref<HTMLElement>()
 const chatMessageListItemCache = reactive<IChatMessageListItem[]>([])
 
 watch(chatMessageListItemCache, () => {
-  if (chatMessageListItemCache.length >= props.maximum) {
-    chatMessageListItemCache.splice(0, chatMessageListItemCache.length - 50)
-  }
-
   nextTick(() => {
     if (dom.value) {
       dom.value.scrollTop = dom.value.scrollHeight
@@ -107,6 +104,10 @@ let interval = 0
 const add = (chatMessageItem: IChatMessageListItem) => {
   if (!chatMessageItem.nickname || !chatMessageItem.message) return
 
+  if (chatMessageListItemCache.length >= props.maximum) {
+    del(chatMessageListItemCache[0].key)
+  }
+
   const nowTimestamp = new Date().getTime()
   isTooQuickly.value = nowTimestamp - interval < props.smoothScrollInterval
   interval = nowTimestamp
@@ -114,8 +115,11 @@ const add = (chatMessageItem: IChatMessageListItem) => {
   chatMessageListItemCache.push(chatMessageItem)
 }
 
-const del = () => {
-  //
+const del = (key: string) => {
+  const index = chatMessageListItemCache.findIndex(i => i.key === key)
+    if (index > -1) {
+    chatMessageListItemCache.splice(index, 1)
+  }
 }
 
 const clear = () => {
