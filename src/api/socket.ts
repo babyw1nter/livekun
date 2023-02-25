@@ -1,7 +1,7 @@
 import store from '@/store'
 import router from '@/router'
 import { baseWsURL } from './http'
-import { IMessage } from '@/types/socket'
+import type { IMessage } from '@/types/socket'
 
 const decode = (data: ArrayBuffer): string => {
   return new TextDecoder().decode(data)

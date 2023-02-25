@@ -11,7 +11,7 @@
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import type GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
-import { IMessage, ISocketCustomData } from '@/types/socket'
+import type { IMessage, ISocketCustomData } from '@/types/socket'
 import { createSocket } from '@/api/socket'
 
 const store = useStore(key)
