@@ -1,5 +1,5 @@
 <template>
-  <li class="gift-card no-select" :class="type">
+  <div class="gift-card no-select" :class="type">
     <div class="card-body">
       <a-avatar class="card-avatar" :src="avatarUrl" :size="24"> </a-avatar>
       <div class="p-wrap">
@@ -12,26 +12,11 @@
       </div>
     </div>
     <div class="card-footer" v-if="comment !== ''">
-      <a-carousel :dots="false" :autoplay="comment !== ''" dot-position="right">
-        <!-- <p class="message h-font" style="position: relative;">
-          <a-image
-            v-if="giftImageExt !== ''"
-            class="gift-image"
-            :width="23"
-            :src="giftImageExt"
-            :fallback="giftIcon"
-            :preview="false"
-            placeholder
-            style="position: absolute; top: -18px;"
-          />
-          <span :style="{ paddingLeft: giftImageExt !== '' ? '8px' : '0' }">{{ message }}</span>
-        </p> -->
-        <p class="message" v-if="comment !== ''">
-          <h-font :text="comment"></h-font>
-        </p>
-      </a-carousel>
+      <p class="message">
+        <h-font :text="comment"></h-font>
+      </p>
     </div>
-  </li>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -86,11 +71,6 @@ const props = defineProps({
 
 const cardType = ref<string>(props.type)
 const moneyText = computed(() => moneyFormat(Number(props.money.toFixed(2)), 2))
-const giftImageExt = computed(() => {
-  if (cardType.value === 'guard-monthly') return 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/1_32.png'
-  if (cardType.value === 'guard-annual') return 'https://cc.res.netease.com/webcc/v2/static/images/room/guard/2_32.png'
-  return props.giftImage
-})
 </script>
 
 <style lang="less" scoped>
@@ -98,11 +78,8 @@ const giftImageExt = computed(() => {
 
 .gift-card {
   position: relative;
-  min-width: 200px;
   border-radius: 4px;
   overflow: hidden;
-  display: block;
-  margin-bottom: 10px;
 
   .card-avatar {
     position: absolute;
@@ -130,21 +107,14 @@ const giftImageExt = computed(() => {
     }
 
     p {
-      color: #fff !important;
       font-size: @fontSize;
     }
   }
 
   .card-footer {
-    height: 32px;
-
     p.message {
       font-size: @fontSize;
-      line-height: 30px;
-      padding-left: 14px;
-      padding-right: 14px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      padding: 8px 14px;
       overflow: hidden;
       word-break: break-all;
     }
@@ -152,39 +122,57 @@ const giftImageExt = computed(() => {
 
   &.level-0 {
     .card-body {
-      background: #1ebea5;
-
-      p.nickname {
-        color: #32e8b7;
-      }
+      background: #1565c0;
     }
 
     .card-footer {
-      background: #32e8b7;
+      display: none;
     }
   }
 
   &.level-1 {
     .card-body {
-      background: #1db1db;
-
-      p.nickname {
-        color: #25d5fd;
-      }
+      background: #00b8d4;
     }
 
     .card-footer {
-      background: #25d5fd;
+      background: #00e5ff;
     }
   }
 
   &.level-2 {
     .card-body {
-      background: #d43667;
+      background: #00bfa5;
+    }
 
-      p.nickname {
-        color: #f74170;
-      }
+    .card-footer {
+      background: #1de9b6;
+    }
+  }
+
+  &.level-3 {
+    .card-body {
+      background: #ffb300;
+    }
+
+    .card-footer {
+      background: #ffca28;
+    }
+  }
+
+  &.level-4 {
+    .card-body {
+      background: #e65100;
+    }
+
+    .card-footer {
+      background: #f57c00;
+    }
+  }
+
+  &.level-5 {
+    .card-body {
+      background: #d43667;
     }
 
     .card-footer {
@@ -192,13 +180,19 @@ const giftImageExt = computed(() => {
     }
   }
 
+  &.level-6 {
+    .card-body {
+      background: #ca000e;
+    }
+
+    .card-footer {
+      background: #e01f20;
+    }
+  }
+
   &.guard-monthly {
     .card-body {
       background: #573594;
-
-      p.nickname {
-        color: #9480b9;
-      }
     }
 
     .card-footer {
@@ -209,10 +203,6 @@ const giftImageExt = computed(() => {
   &.guard-annual {
     .card-body {
       background: #ff9800;
-
-      p.nickname {
-        color: #ffbc6a;
-      }
     }
 
     .card-footer {

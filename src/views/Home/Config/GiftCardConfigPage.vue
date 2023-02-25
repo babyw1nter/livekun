@@ -1,14 +1,10 @@
 <template>
   <div class="config-gift-card options-panel">
     <div class="preview-wrapper">
-      <GiftCardPanel
-        ref="GiftCardPanelRef"
-        class="preview-gift-card-panel"
-        :list="giftCardList"
-        :level="store.state.config.giftCard.level"
-      />
-      <a-checkbox v-model:checked="autoPreview" @change="autoPreviewChange" style="margin: 1rem; float: right; color: #fff;"
-        >自动预览
+      <GiftCardPanel ref="GiftCardPanelRef" class="preview-gift-card-panel" :list="giftCardList"
+        :level="store.state.config.giftCard.level" />
+      <a-checkbox v-model:checked="autoPreview" @change="autoPreviewChange"
+        style="margin: 1rem; float: right; color: #fff;">自动预览
       </a-checkbox>
     </div>
     <a-space :size="10">
@@ -25,12 +21,11 @@
       <a-space direction="vertical">
         <a-typography-text>礼物卡片金额档位（元）</a-typography-text>
         <a-typography-text type="secondary">
-          礼物卡片的颜色风格会随着金额档位自动改变，从左到右依次对应三个档位的金额
+          礼物卡片的颜色风格会随着金额档位自动改变，从左到右依次对应7个档位的金额
         </a-typography-text>
         <a-space :size="10">
-          <a-input-number :min="0" v-model:value="store.state.config.giftCard.level[0]" />
-          <a-input-number :min="0" v-model:value="store.state.config.giftCard.level[1]" />
-          <a-input-number :min="0" v-model:value="store.state.config.giftCard.level[2]" />
+          <a-input-number v-for="i in store.state.config.giftCard.level.length" :key="i" :min="0"
+            v-model:value="store.state.config.giftCard.level[i - 1]" disabled />
         </a-space>
       </a-space>
 
@@ -47,11 +42,8 @@
         <a-typography-text type="secondary">
           开启后，观众可以在礼物卡片上留言
         </a-typography-text>
-        <a-switch
-          checked-children="开"
-          un-checked-children="关"
-          v-model:checked="store.state.config.giftCard.comment.use"
-        />
+        <a-switch checked-children="开" un-checked-children="关"
+          v-model:checked="store.state.config.giftCard.comment.use" />
       </a-space>
 
       <a-space direction="vertical" v-if="store.state.config.giftCard.comment.use">
@@ -59,11 +51,8 @@
         <a-typography-text type="secondary">
           观众在送出礼物前发出以此前缀开头的消息，在送出礼物后就会将此消息作为该礼物卡片的留言
         </a-typography-text>
-        <a-input
-          v-model:value="store.state.config.giftCard.comment.prefix"
-          :disabled="!store.state.config.giftCard.comment.use"
-          style="width: 90px;"
-        />
+        <a-input v-model:value="store.state.config.giftCard.comment.prefix"
+          :disabled="!store.state.config.giftCard.comment.use" style="width: 90px;" />
       </a-space>
 
       <a-space direction="vertical" v-if="store.state.config.giftCard.comment.use">
@@ -71,11 +60,8 @@
         <a-typography-text type="secondary">
           当礼物价值大于或等于此金额时才可以留言
         </a-typography-text>
-        <a-input-number
-          :min="0"
-          v-model:value="store.state.config.giftCard.comment.giftMinMoney"
-          :disabled="!store.state.config.giftCard.comment.use"
-        />
+        <a-input-number :min="0" v-model:value="store.state.config.giftCard.comment.giftMinMoney"
+          :disabled="!store.state.config.giftCard.comment.use" />
       </a-space>
 
       <a-space direction="vertical" v-if="store.state.config.giftCard.comment.use">
@@ -83,12 +69,8 @@
         <a-typography-text type="secondary">
           在此列表内的礼物才可以留言，一行一个，留空表示不做限制
         </a-typography-text>
-        <a-textarea
-          v-model:value="store.state.config.giftCard.comment.giftWhitelist"
-          :disabled="!store.state.config.giftCard.comment.use"
-          :rows="4"
-          style="width: 300px;"
-        />
+        <a-textarea v-model:value="store.state.config.giftCard.comment.giftWhitelist"
+          :disabled="!store.state.config.giftCard.comment.use" :rows="4" style="width: 300px;" />
       </a-space>
     </a-space>
 

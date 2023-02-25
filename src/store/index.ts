@@ -72,12 +72,12 @@ export const defaultUserConfig: IUserConfig = {
     blacklist: []
   },
   giftCard: {
-    level: [0, 49, 99],
-    minMoney: 0.01,
+    level: [0, 9, 49, 99, 199, 249, 499],
+    minMoney: 5,
     comment: {
       use: false,
       prefix: '留言：',
-      giftMinMoney: 0.01,
+      giftMinMoney: 10,
       giftWhitelist: ''
     }
   }
