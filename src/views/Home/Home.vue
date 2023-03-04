@@ -36,6 +36,7 @@
                   <GiftOutlined />
                 </template>
                 SC Ticket
+                <a-tag color="green">新版</a-tag>
               </a-menu-item>
               <a-menu-item key="/config/gift-card">
                 <template #icon>
