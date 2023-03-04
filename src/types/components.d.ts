@@ -12,7 +12,6 @@ declare module '@vue/runtime-core' {
     AAlert: typeof import('ant-design-vue/es')['Alert']
     AAvatar: typeof import('ant-design-vue/es')['Avatar']
     AButton: typeof import('ant-design-vue/es')['Button']
-    ACarousel: typeof import('ant-design-vue/es')['Carousel']
     ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     ADivider: typeof import('ant-design-vue/es')['Divider']
