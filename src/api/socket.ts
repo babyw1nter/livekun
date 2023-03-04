@@ -1,7 +1,23 @@
 import store from '@/store'
 import router from '@/router'
 import { baseWsURL } from './http'
-import type { IMessage } from '@/types/socket'
+
+interface IMessage<T> {
+  type: string
+  data: T
+}
+
+interface ISocketMethodData {
+  method: string
+}
+
+interface ISocketCustomData {
+  key: string
+  uid: number | string
+  avatarUrl: string
+  nickname: string
+  userInfo?: unknown
+}
 
 const decode = (data: ArrayBuffer): IMessage<unknown> => {
   try {
@@ -77,3 +93,4 @@ const createSocket = (
 }
 
 export { createSocket, encode, decode }
+export type { IMessage, ISocketMethodData, ISocketCustomData }

@@ -6,7 +6,7 @@
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import type GiftCardPanel from '@/components/GiftCardPanel.vue'
-import type { IMessage, ISocketCustomData } from '@/types/socket'
+import type { IMessage, ISocketCustomData } from '@/api/socket'
 import { createSocket } from '@/api/socket'
 
 const store = useStore(key)
