@@ -120,7 +120,7 @@ const createSocket: CreateSocketCallbackFn = (
       return
     }
 
-    console.log('将于 5 秒后尝试重新创建连接...')
+    console.warn('将于 5 秒后尝试重新创建连接...')
 
     if (websocket.readyState !== WebSocket.OPEN || websocket.readyState !== WebSocket.CONNECTING) {
       window.setTimeout(
