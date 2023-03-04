@@ -1,17 +1,9 @@
 import store from '@/store'
 import router from '@/router'
 import { baseWsURL } from './http'
+import { PluginNames } from './plugins'
 
-interface IMessage<T> {
-  type: string
-  data: T
-}
-
-interface ISocketMethodData {
-  method: string
-}
-
-interface ISocketCustomData {
+interface IPluginCommonMessage {
   key: string
   uid: number | string
   avatarUrl: string
@@ -19,12 +11,52 @@ interface ISocketCustomData {
   userInfo?: unknown
 }
 
-const decode = (data: ArrayBuffer): IMessage<unknown> => {
+/**
+ * 插件动作 actions
+ *
+ * 用户在插件配置页面向 obs 插件操作的 action 常量值
+ */
+enum PluginActions {
+  /** 刷新页面 */
+  REFRESH_PAGE = 'refresh',
+  /** 刷新插件配置 */
+  REFRESH_CONFIG = 'get-config',
+  /** 清除插件内容 */
+  CLEAR = 'clear'
+}
+
+interface IBaseSocketMessageMap {
+  /** @tudo 登录 */
+  LOGIN: {
+    [key: string]: unknown
+  }
+  /** 插件握手协议 */
+  PLUGIN_CONNECT: {
+    uuid: string
+    pluginName: PluginNames
+  }
+  /** @see PluginActions */
+  PLUGIN_ACTION: {
+    action: PluginActions
+  }
+  /** 插件消息 */
+  PLUGIN_MESSAGE: IPluginCommonMessage
+  UNKNOWN: {
+    [key: string]: unknown
+  }
+}
+
+interface IBaseSocketMessage<K extends keyof IBaseSocketMessageMap> {
+  type: K | string
+  data: IBaseSocketMessageMap[K]
+}
+
+const decode = (data: ArrayBuffer): IBaseSocketMessage<'UNKNOWN'> => {
   try {
     return JSON.parse(new TextDecoder().decode(data))
   } catch (error) {
     return {
-      type: 'DECODE_ERROR',
+      type: 'UNKNOWN',
       data: {}
     }
   }
@@ -34,11 +66,30 @@ const encode = <T>(data: T): ArrayBuffer => {
   return new TextEncoder().encode(JSON.stringify(data))
 }
 
-const createSocket = (
-  onMessageCallback: (ev: MessageEvent, websocket: WebSocket, decodeData?: IMessage<unknown>) => void,
-  pluginName: 'gift-capsule' | 'chat-message' | 'gift-card' | string
-): WebSocket | null => {
-  const uuid = router.currentRoute.value.query.uuid || ''
+interface CreateSocketCallbackFn {
+  (
+    /** 绑定插件的名称 */
+    pluginName: PluginNames,
+    /** 插件 action 事件的回调函数 */
+    onPluginActionEventCallbackFn?: (action: PluginActions) => void,
+    /** 插件 message 事件的回调函数 */
+    onPluginMessageEventCallbackFn?: (message: IPluginCommonMessage) => void,
+    /** websocket message 事件的回调函数 */
+    onWebSocketMessageCallbackFn?: (
+      ev: MessageEvent,
+      websocket: WebSocket,
+      message?: IBaseSocketMessage<'UNKNOWN'>
+    ) => void
+  ): WebSocket | null
+}
+
+const createSocket: CreateSocketCallbackFn = (
+  pluginName,
+  onPluginActionEventCallbackFn,
+  onPluginMessageEventCallbackFn,
+  onWebSocketMessageCallbackFn
+) => {
+  const uuid = router.currentRoute.value.query.uuid?.toString() || ''
 
   if (!uuid) {
     console.warn('没有 UUID 参数，不连接 socket 服务器！')
@@ -46,22 +97,26 @@ const createSocket = (
   }
 
   console.log('正在创建 WS 连接...')
+
   const websocket = new WebSocket(baseWsURL, 'web')
   websocket.binaryType = 'arraybuffer'
+
+  const send = <K extends keyof IBaseSocketMessageMap>(data: IBaseSocketMessage<K>) => {
+    websocket.send(encode(data))
+  }
 
   websocket.addEventListener('open', () => {
     console.log('连接成功！')
 
     // 连接成功后，发送握手协议请求
-    websocket.send(
-      encode({
-        type: 'LOGIN',
-        data: {
-          pluginName: pluginName,
-          uuid: uuid
-        }
-      })
-    )
+    send({
+      type: 'PLUGIN_CONNECT',
+      data: {
+        pluginName: pluginName,
+        uuid: uuid
+      }
+    })
+
     store.dispatch('getRemoteConfig')
   })
   websocket.addEventListener('error', () => {
@@ -78,19 +133,42 @@ const createSocket = (
     console.log('将于 5 秒后尝试重新创建连接...')
 
     if (websocket.readyState !== WebSocket.OPEN || websocket.readyState !== WebSocket.CONNECTING) {
-      window.setTimeout(() => createSocket(onMessageCallback, pluginName), 1000)
+      window.setTimeout(
+        () =>
+          createSocket(
+            pluginName,
+            onPluginActionEventCallbackFn,
+            onPluginMessageEventCallbackFn,
+            onWebSocketMessageCallbackFn
+          ),
+        5000
+      )
     }
   })
   websocket.addEventListener('message', (ev) => {
-    const decodeData = decode(ev.data)
+    const message = decode(ev.data)
 
-    console.info('接收消息', decodeData)
+    console.info('接收消息', message)
 
-    onMessageCallback(ev, websocket, decodeData)
+    if (typeof onWebSocketMessageCallbackFn !== 'undefined') onWebSocketMessageCallbackFn(ev, websocket, message)
+
+    if (typeof onPluginActionEventCallbackFn !== 'undefined') {
+      if (message?.type === 'PLUGIN_ACTION') {
+        const msg = message as unknown as IBaseSocketMessage<'PLUGIN_ACTION'>
+        onPluginActionEventCallbackFn(msg.data.action)
+      }
+    }
+
+    if (typeof onPluginMessageEventCallbackFn !== 'undefined') {
+      if (message?.type === 'PLUGIN_MESSAGE') {
+        const msg = message as unknown as IBaseSocketMessage<'PLUGIN_MESSAGE'>
+        onPluginMessageEventCallbackFn(msg.data)
+      }
+    }
   })
 
   return websocket
 }
 
-export { createSocket, encode, decode }
-export type { IMessage, ISocketMethodData, ISocketCustomData }
+export { createSocket, encode, decode, PluginActions }
+export type { IBaseSocketMessage, IBaseSocketMessageMap, IPluginCommonMessage }

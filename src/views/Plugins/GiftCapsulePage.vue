@@ -1,59 +1,46 @@
 <template>
-  <GiftCapsulePanel
-    ref="GiftCapsulePanelRef"
-    :maximum="store.state.config.giftCapsule.maximum"
-    :level="store.state.config.giftCapsule.level"
-    :duration="store.state.config.giftCapsule.duration"
-  />
+  <GiftCapsulePanel ref="GiftCapsulePanelRef" :maximum="store.state.config.giftCapsule.maximum"
+    :level="store.state.config.giftCapsule.level" :duration="store.state.config.giftCapsule.duration" />
 </template>
 
 <script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import type GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
-import type { IMessage, ISocketCustomData } from '@/api/socket'
-import { createSocket } from '@/api/socket'
+import type { IPluginCommonMessage } from '@/api/socket'
+import { createSocket, PluginActions } from '@/api/socket'
+import { PluginNames } from '@/api/plugins'
+
+interface IPluginTicketData extends IPluginCommonMessage {
+  money: number
+  giftName: string
+  giftCount: number
+}
 
 const store = useStore(key)
 const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
 
+const pluginActionCallback = (action: PluginActions) => {
+  switch (action) {
+    case PluginActions.CLEAR:
+      GiftCapsulePanelRef.value?.clear()
+      break
+    case PluginActions.REFRESH_PAGE:
+      break
+    case PluginActions.REFRESH_CONFIG:
+      store.dispatch('getRemoteConfig')
+      break
+  }
+}
+
+const pluginMessageCallback = (message: IPluginCommonMessage) => {
+  const msgData = message as IPluginTicketData
+  GiftCapsulePanelRef.value?.add({
+    ...msgData
+  })
+}
+
 onMounted(() => {
-  createSocket((ev, websocket, decodeData) => {
-    interface ISocketGiftCapsule extends ISocketCustomData {
-      method?: string
-      money: number
-      giftName: string
-      giftCount: number
-    }
-
-    const socketMessage = decodeData as IMessage<ISocketGiftCapsule>
-
-    
-
-    const method = (m: string) => {
-      switch (m) {
-        case 'clear':
-          GiftCapsulePanelRef.value?.clear()
-          break
-        case 'refresh':
-          // 刷新页面
-          break
-        case 'get-config':
-          store.dispatch('getRemoteConfig')
-          break
-      }
-    }
-
-    switch (socketMessage.type) {
-      case 'method':
-        method(socketMessage.data.method || '')
-        break
-      case 'data':
-        GiftCapsulePanelRef.value?.add({
-          ...socketMessage.data
-        })
-        break
-    }
-  }, 'gift-capsule')
+  createSocket(PluginNames.PLUGIN_TICKET, pluginActionCallback, pluginMessageCallback)
 })
 </script>

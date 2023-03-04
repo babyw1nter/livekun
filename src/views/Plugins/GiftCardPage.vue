@@ -6,52 +6,44 @@
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import type GiftCardPanel from '@/components/GiftCardPanel.vue'
-import type { IMessage, ISocketCustomData } from '@/api/socket'
-import { createSocket } from '@/api/socket'
+import type { IPluginCommonMessage } from '@/api/socket'
+import { createSocket, PluginActions } from '@/api/socket'
+import { PluginNames } from '@/api/plugins'
+
+interface IPluginPaidData extends IPluginCommonMessage {
+  money: number
+  giftName: string
+  giftCount: number
+  giftImage: string
+  message: string
+  comment: string
+}
 
 const store = useStore(key)
 const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
 
+const pluginActionCallback = (action: PluginActions) => {
+  switch (action) {
+    case PluginActions.CLEAR:
+      GiftCardPanelRef.value?.clear()
+      break
+    case PluginActions.REFRESH_PAGE:
+      break
+    case PluginActions.REFRESH_CONFIG:
+      store.dispatch('getRemoteConfig')
+      break
+  }
+}
+
+const pluginMessageCallback = (message: IPluginCommonMessage) => {
+  const msgData = message as IPluginPaidData
+  GiftCardPanelRef.value?.add({
+    ...msgData
+  })
+}
+
+
 onMounted(() => {
-  createSocket((ev, websocket, decodeData) => {
-    interface ISocketGiftCard extends ISocketCustomData {
-      method?: string
-      money: number
-      giftName: string
-      giftCount: number
-      giftImage: string
-      message: string
-      comment: string
-    }
-
-    const socketMessage = decodeData as IMessage<ISocketGiftCard>
-
-    
-
-    const method = (m: string) => {
-      switch (m) {
-        case 'clear':
-          GiftCardPanelRef.value?.clear()
-          break
-        case 'refresh':
-          // 刷新页面
-          break
-        case 'get-config':
-          store.dispatch('getRemoteConfig')
-          break
-      }
-    }
-
-    switch (socketMessage.type) {
-      case 'method':
-        method(socketMessage.data.method || '')
-        break
-      case 'data':
-        GiftCardPanelRef.value?.add({
-          ...socketMessage.data
-        })
-        break
-    }
-  }, 'gift-card')
+  createSocket(PluginNames.PLUGIN_PAID, pluginActionCallback, pluginMessageCallback)
 })
 </script>
