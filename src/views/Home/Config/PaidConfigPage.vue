@@ -19,7 +19,7 @@
 
     <a-space direction="vertical" :size="24" style="width: 100%;">
       <a-space direction="vertical">
-        <a-typography-text>Paid 金额档位（元）</a-typography-text>
+        <a-typography-text><a-tag color="orange">开发中</a-tag>Paid 金额档位（元）</a-typography-text>
         <a-typography-text type="secondary">
           Paid 的颜色风格会随着金额档位自动改变，从左到右依次对应7个档位的金额
         </a-typography-text>

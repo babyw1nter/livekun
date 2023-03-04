@@ -11,8 +11,8 @@
       </a-checkbox>
     </div>
     <a-space :size="10">
-      <a-button @click="sendMock">发送 OBS 模拟数据</a-button>
-      <a-button @click="clear">清空 OBS 聊天消息</a-button>
+      <a-button @click="sendMock">发送模拟数据至插件</a-button>
+      <a-button @click="clear">清空插件数据</a-button>
     </a-space>
     <a-typography-link :href="url" :copyable="{ text: url }" target="_blank" style="float: right; line-height: 32px">
       OBS 浏览器链接
