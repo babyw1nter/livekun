@@ -1,7 +1,7 @@
 import store from '@/store'
 import router from '@/router'
 import { baseWsURL } from './http'
-import { PluginNames } from './plugins'
+import { PluginNames, PluginActions } from './plugins'
 
 interface IPluginCommonMessage {
   key: string
@@ -11,21 +11,11 @@ interface IPluginCommonMessage {
   userInfo?: unknown
 }
 
-/**
- * 插件动作 actions
- *
- * 用户在插件配置页面向 obs 插件操作的 action 常量值
- */
-enum PluginActions {
-  /** 刷新页面 */
-  REFRESH_PAGE = 'refresh',
-  /** 刷新插件配置 */
-  REFRESH_CONFIG = 'get-config',
-  /** 清除插件内容 */
-  CLEAR = 'clear'
-}
-
 interface IBaseSocketMessageMap {
+  /** socket 握手协议 */
+  CONNECT_RESPONSE: {
+    serverVersion: string
+  }
   /** @tudo 登录 */
   LOGIN: {
     [key: string]: unknown
@@ -170,5 +160,5 @@ const createSocket: CreateSocketCallbackFn = (
   return websocket
 }
 
-export { createSocket, encode, decode, PluginActions }
+export { createSocket, encode, decode }
 export type { IBaseSocketMessage, IBaseSocketMessageMap, IPluginCommonMessage }

@@ -8,8 +8,8 @@ import { useStore } from 'vuex'
 import { key } from '@/store'
 import type ChatMessageList from '@/components/ChatMessageList.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
-import { createSocket, PluginActions } from '@/api/socket'
-import { PluginNames } from '@/api/plugins'
+import { createSocket } from '@/api/socket'
+import { PluginNames, PluginActions } from '@/api/plugins'
 
 interface IPluginChatMessageData extends IPluginCommonMessage {
   message: string
