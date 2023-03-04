@@ -1,6 +1,6 @@
 <template>
   <ChatMessageList ref="ChatMessageListRef" :font-size="store.state.config.chatMessage.style.fontSize"
-    :level="store.state.config.giftCard.level" />
+    :level="store.state.config.paid.level" />
 </template>
 
 <script lang="ts" setup>

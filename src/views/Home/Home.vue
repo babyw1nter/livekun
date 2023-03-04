@@ -38,11 +38,12 @@
                 SC Ticket
                 <a-tag color="green">新版</a-tag>
               </a-menu-item>
-              <a-menu-item key="/config/gift-card">
+              <a-menu-item key="/config/paid">
                 <template #icon>
                   <CreditCardOutlined />
                 </template>
                 SC Paid
+                <a-tag color="green">新版</a-tag>
               </a-menu-item>
             </a-sub-menu>
             <a-menu-item key="/account">

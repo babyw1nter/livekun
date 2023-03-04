@@ -4,9 +4,8 @@ import http from '@/api/http'
 
 const Home = () => import(/* webpackChunkName: "home" */ '../views/Home/Home.vue')
 const ConnectPage = () => import(/* webpackChunkName: "home" */ '../views/Home/ConnectPage.vue')
-const TicketConfigPage = () =>
-  import(/* webpackChunkName: "home" */ '../views/Home/Config/TicketConfigPage.vue')
-const GiftCardConfigPage = () => import(/* webpackChunkName: "home" */ '../views/Home/Config/GiftCardConfigPage.vue')
+const TicketConfigPage = () => import(/* webpackChunkName: "home" */ '../views/Home/Config/TicketConfigPage.vue')
+const PaidConfigPage = () => import(/* webpackChunkName: "home" */ '../views/Home/Config/PaidConfigPage.vue')
 const ChatMessageConfigPage = () =>
   import(/* webpackChunkName: "home" */ '../views/Home/Config/ChatMessageConfigPage.vue')
 const AccountPage = () => import(/* webpackChunkName: "home" */ '../views/Home/AccountPage.vue')
@@ -14,7 +13,7 @@ const LoginPage = () => import(/* webpackChunkName: "user" */ '../views/User/Log
 const TestPage = () => import(/* webpackChunkName: "test" */ '../views/TestPage.vue')
 const TicketPage = () => import(/* webpackChunkName: "ticket" */ '../views/Plugins/TicketPage.vue')
 const ChatMessagePage = () => import(/* webpackChunkName: "chat-message" */ '../views/Plugins/ChatMessagePage.vue')
-const GiftCardPage = () => import(/* webpackChunkName: "gift-card" */ '../views/Plugins/GiftCardPage.vue')
+const PaidPage = () => import(/* webpackChunkName: "paid" */ '../views/Plugins/PaidPage.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -54,12 +53,12 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
-        path: 'config/gift-card',
-        name: 'GiftCardConfig',
-        component: GiftCardConfigPage,
+        path: 'config/paid',
+        name: 'PaidConfig',
+        component: PaidConfigPage,
         meta: {
-          title: '插件设置 - SC卡片',
-          menuItemKey: '/config/gift-card',
+          title: '插件设置 - SC Paid',
+          menuItemKey: '/config/paid',
           requiresAuth: true
         }
       },
@@ -106,15 +105,15 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: false }
   },
   {
-    path: '/gift-card',
+    path: '/paid',
     redirect: {
-      name: 'GiftCard'
+      name: 'Paid'
     }
   },
   {
-    path: '/plugins/gift-card',
-    name: 'GiftCard',
-    component: GiftCardPage,
+    path: '/plugins/paid',
+    name: 'Paid',
+    component: PaidPage,
     meta: { requiresAuth: false }
   },
   {
@@ -135,7 +134,7 @@ router.beforeEach((to, from) => {
     if (store.state.auth.isLoggedIn || localStorage.getItem('isLoggedIn') === '1') {
       http
         .post('/user/autologin', {})
-        .then(res => {
+        .then((res) => {
           const responseData = res.data
 
           if (responseData.code === 200) {
@@ -163,7 +162,7 @@ router.beforeEach((to, from) => {
             })
           }
         })
-        .catch(reason => {
+        .catch((reason) => {
           console.error(reason)
           // router.push({
           //   path: '/user/login'

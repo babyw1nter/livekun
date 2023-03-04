@@ -17,8 +17,8 @@
         </ChatMessage>
       </li>
       <li class="chat-list-gift" v-if="item.messageType === 'gift'">
-        <GiftCard
-          :type="item.type || `level-${getLevel(item?.money || 0, store.state.config.giftCard.level)}`"
+        <Paid
+          :type="item.type || `level-${getLevel(item?.money || 0, store.state.config.paid.level)}`"
           :avatar-url="item.avatarUrl"
           :nickname="item.nickname"
           :money="item.money"
@@ -29,7 +29,7 @@
           :message="item.message"
           :comment="item.comment"
         >
-        </GiftCard>
+        </Paid>
       </li>
     </template>
   </ul>

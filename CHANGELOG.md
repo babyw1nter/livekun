@@ -19,7 +19,7 @@
 
 * 不再显示汉字之间的空格 ([ad53ccd](https://github.com/hhui64/livekun-web/commit/ad53ccd789f0aa640f3913bbd8576f328bb34909))
 * 更新类名 ([172c224](https://github.com/hhui64/livekun-web/commit/172c224ba5c3d6303139e47f7ed88ccca4df8d3f))
-* 优化 `SC卡片` 的样式 ([b0b90f1](https://github.com/hhui64/livekun-web/commit/b0b90f1cc6c39ebddb95513297c8fb4a7da3dedb))
+* 优化 `Paid` 的样式 ([b0b90f1](https://github.com/hhui64/livekun-web/commit/b0b90f1cc6c39ebddb95513297c8fb4a7da3dedb))
 * 优化部分组件的配置缺省值 ([9f60313](https://github.com/hhui64/livekun-web/commit/9f60313a25f94dc0ed9472c341598cadb625d1c1))
 * 优化导航项目显示名称 ([2bfa6d4](https://github.com/hhui64/livekun-web/commit/2bfa6d4b59c3878db7c2e064b64f6d8e29521347))
 * 优化昵称文字大小 ([0292494](https://github.com/hhui64/livekun-web/commit/029249418b5ca42a4ec63f8237386ac598057d63))
@@ -52,7 +52,7 @@
 
 ### Performance Improvements
 
-* 优化礼物卡片预览样式 ([5335e69](https://github.com/hhui64/livekun-web/commit/5335e69b5ebeefc888466c969ba0d0cff35fee30))
+* 优化 Paid 预览样式 ([5335e69](https://github.com/hhui64/livekun-web/commit/5335e69b5ebeefc888466c969ba0d0cff35fee30))
 * 优化守护昵称颜色 ([1c8b890](https://github.com/hhui64/livekun-web/commit/1c8b890f35333729e28b80a1b8f960e8287baf6a))
 * 优化页脚版权信息 ([cd20636](https://github.com/hhui64/livekun-web/commit/cd20636e430308806a60c01250048becfdf171e6))
 
@@ -84,7 +84,7 @@
 
 ### Features
 
-* **GiftCard:** 新增礼物图标显示 ([d42ca01](https://github.com/hhui64/livekun-web/commit/d42ca01fa4a28e750332f10ec75fc1bae82b6b46))
+* **Paid:** 新增礼物图标显示 ([d42ca01](https://github.com/hhui64/livekun-web/commit/d42ca01fa4a28e750332f10ec75fc1bae82b6b46))
 
 
 ### Performance Improvements
@@ -101,7 +101,7 @@
 ### Bug Fixes
 
 * 修复当礼物价值低于第一档金额时风格样式异常的问题 ([1aedf7b](https://github.com/hhui64/livekun-web/commit/1aedf7bb92cb4be0f80f1e3f9f50346e33208aed))
-* 修复礼物卡片留言功能失效的问题 ([7dcca24](https://github.com/hhui64/livekun-web/commit/7dcca247cd7f710aa2032980ea22da561220b7bd))
+* 修复 Paid 留言功能失效的问题 ([7dcca24](https://github.com/hhui64/livekun-web/commit/7dcca247cd7f710aa2032980ea22da561220b7bd))
 * **views/ConnectPage:** 修复进入房间失败时依然改变全局 status 的问题 ([de5d1ca](https://github.com/hhui64/livekun-web/commit/de5d1cae1f561c320435aeeb04d2deff1b6e0bb4))
 
 
@@ -120,7 +120,7 @@
 * 优化接口数据合并以减少请求数量 ([4f93b54](https://github.com/hhui64/livekun-web/commit/4f93b54ef72b951802f39b5de29403d2a7c16150))
 * 优化页面样式 ([c0c3e98](https://github.com/hhui64/livekun-web/commit/c0c3e98944249891c1f9f48cd8733b4208fbdffb))
 * **TicketPanel:** 优化 Ticket 添加逻辑 ([303ca17](https://github.com/hhui64/livekun-web/commit/303ca17a8f2ba6e0d5472b7ea3413d0c8d3aa2c5))
-* **GiftCardConfigPage:** 优化配置项说明文案 ([e0fe390](https://github.com/hhui64/livekun-web/commit/e0fe390a2ff74495f827966ddf0cc11ea72a39d8))
+* **PaidConfigPage:** 优化配置项说明文案 ([e0fe390](https://github.com/hhui64/livekun-web/commit/e0fe390a2ff74495f827966ddf0cc11ea72a39d8))
 * **views/*:** 优化页面样式 ([c5db17f](https://github.com/hhui64/livekun-web/commit/c5db17f0e5bee6d3f945a59242f0dbbf5681f898))
 * **views/Home:** 优化布局样式 ([aa3641f](https://github.com/hhui64/livekun-web/commit/aa3641f6cec267dc236b388bebfca9c2fcd0d769))
 * **views/Home:** 优化主页样式 ([a67587d](https://github.com/hhui64/livekun-web/commit/a67587d14c8509d14c758a233d5873e54086d4f8))
@@ -181,7 +181,7 @@
 * 完善类型声明 ([614df35](https://github.com/hhui64/livekun-web/commit/614df35c7402ce1b7687218f5a96201022e3afa0))
 * **api/http:** 服务端返回 530 时自动跳转至登录页面 ([950f073](https://github.com/hhui64/livekun-web/commit/950f0738a352556b6e076f0956bbf763d1456ea6))
 * **api/socket:** 优化 WS 连接重连逻辑 ([37b6169](https://github.com/hhui64/livekun-web/commit/37b61696a528e16d7d3497a0f9d4e314172ec8c8))
-* **GiftCard*:** 优化礼物卡片的 props 定义 ([10d9be6](https://github.com/hhui64/livekun-web/commit/10d9be680223ff38b774da15a132848edcb2eb68))
+* **Paid*:** 优化 Paid 的 props 定义 ([10d9be6](https://github.com/hhui64/livekun-web/commit/10d9be680223ff38b774da15a132848edcb2eb68))
 * **views/*:** 优化组件控制逻辑 ([2065049](https://github.com/hhui64/livekun-web/commit/20650493d2f00d212abfce2dead079aeff6e731c))
 * **views/ConfigPage:** 优化配置页面 ([88598da](https://github.com/hhui64/livekun-web/commit/88598dad9f75664901f121dcdce5ba26d718e3b5))
 
@@ -203,7 +203,7 @@
 
 * **api/http:** 新增 http 模块 ([ccbc2eb](https://github.com/hhui64/livekun-web/commit/ccbc2eb9a31dff5c2febd41df6a37e4c403ca34e))
 * **api/socket:** 新增 socket 模块 ([1a3a8dd](https://github.com/hhui64/livekun-web/commit/1a3a8dd6dcf100712d3b2632fa19651559c4d2d4))
-* **GiftCard*:** 新增礼物卡片组件留言滚动显示 ([0a3ade7](https://github.com/hhui64/livekun-web/commit/0a3ade740b698431a4c6ac205aae119d24cfdc69))
+* **Paid*:** 新增 Paid 组件留言滚动显示 ([0a3ade7](https://github.com/hhui64/livekun-web/commit/0a3ade740b698431a4c6ac205aae119d24cfdc69))
 
 
 ### Performance Improvements
@@ -223,7 +223,7 @@
 
 * 支持发送模拟数据到礼物组件 ([1b053a1](https://github.com/hhui64/livekun-web/commit/1b053a17c10377f45905d7b8f6ce7f0534dcd938))
 * **api/common:** 添加一些常用方法 ([d2230aa](https://github.com/hhui64/livekun-web/commit/d2230aad9e6437bde0e065c29d40dbe4f08a5373))
-* **GiftCard:** 新增礼物卡片留言互动功能 ([9c02668](https://github.com/hhui64/livekun-web/commit/9c026687bd5bd1e947e095b3c9753fdf6a36e9ea))
+* **Paid:** 新增 Paid 留言互动功能 ([9c02668](https://github.com/hhui64/livekun-web/commit/9c026687bd5bd1e947e095b3c9753fdf6a36e9ea))
 
 
 ### Performance Improvements
@@ -246,17 +246,17 @@
 * adjust style ([27250a9](https://github.com/hhui64/livekun-web/commit/27250a91341da505d5cfbddd547bc823ee3d3f2d))
 * **ChatMessage:** 修复聊天消息原子组件标点符号无法自动换行的问题 ([b6d82e0](https://github.com/hhui64/livekun-web/commit/b6d82e05eadb50ff5823b18d8b0361c87566a469))
 * chrome < 85 unsupport replace function ([e756f1f](https://github.com/hhui64/livekun-web/commit/e756f1f5d0a4230c83a01bb98016a67375a78f61))
-* **GiftCardPage:** 修复礼物卡片组件未正确区分通信数据类型的问题 ([d3d753b](https://github.com/hhui64/livekun-web/commit/d3d753bbe5e2c0143bbe95004844754630f73d4e))
+* **PaidPage:** 修复 Paid 组件未正确区分通信数据类型的问题 ([d3d753b](https://github.com/hhui64/livekun-web/commit/d3d753bbe5e2c0143bbe95004844754630f73d4e))
 
 
 ### Features
 
 * 调整 UI 样式 ([0168a51](https://github.com/hhui64/livekun-web/commit/0168a511b4f5b8c89b6d05a0699af0be3ca0a0f2))
 * 调整 Ticket 尺寸样式 ([5b6c360](https://github.com/hhui64/livekun-web/commit/5b6c360c1e07b4f24dd234732f094eb6e50cb555))
-* 调整礼物卡片的样式 ([24d3ac1](https://github.com/hhui64/livekun-web/commit/24d3ac1f70a3c224b5b8cdacda7baaf664fc12ce))
+* 调整 Paid 的样式 ([24d3ac1](https://github.com/hhui64/livekun-web/commit/24d3ac1f70a3c224b5b8cdacda7baaf664fc12ce))
 * 调整样式 ([81374f7](https://github.com/hhui64/livekun-web/commit/81374f7cc9694ab6e99415d3682fcb9133aae70a))
 * 更多调试日志信息 ([3ebfcd5](https://github.com/hhui64/livekun-web/commit/3ebfcd5840cae8cfc8d96dab9e739507b3addca8))
-* 回滚礼物卡片的样式 ([1808bfc](https://github.com/hhui64/livekun-web/commit/1808bfcd156cb2cc74cb083234656d83fac9b674))
+* 回滚 Paid 的样式 ([1808bfc](https://github.com/hhui64/livekun-web/commit/1808bfcd156cb2cc74cb083234656d83fac9b674))
 * 聊天消息支持特定用户类型高亮用户名 ([021423c](https://github.com/hhui64/livekun-web/commit/021423cdec266fcdfe53ec7917d4f79536c3ba5e))
 * 实时重连及刷新配置信息 ([59b1351](https://github.com/hhui64/livekun-web/commit/59b135125288863b6cc6d3b52c2428c1fce0955f))
 * 添加所有组件的`clear`方法 ([f6a69cf](https://github.com/hhui64/livekun-web/commit/f6a69cfd2f91c41e80bb418bd2b1ffb323b3c489))

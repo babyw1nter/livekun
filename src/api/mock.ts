@@ -22,7 +22,7 @@ interface IChatMessageMockData extends IBasePluginData {
   }
 }
 
-interface IGiftCardMockData extends IBasePluginData {
+interface IPaidMockData extends IBasePluginData {
   money: number
   giftName: string
   giftCount: number
@@ -33,7 +33,7 @@ interface IGiftCardMockData extends IBasePluginData {
 
 let ticketMockData: Array<ITicketMockData> = []
 let chatMessageMockData: Array<IChatMessageMockData> = []
-let giftCardMockData: Array<IGiftCardMockData> = []
+let paidMockData: Array<IPaidMockData> = []
 
 const getMockData = (): void => {
   http
@@ -43,7 +43,7 @@ const getMockData = (): void => {
 
       ticketMockData = reponseData.data.ticketMockData
       chatMessageMockData = reponseData.data.chatMessageMockData
-      giftCardMockData = reponseData.data.giftCardMockData
+      paidMockData = reponseData.data.paidMockData
     })
     .catch((reason) => {
       console.error('获取 mock 数据失败！')
@@ -61,11 +61,11 @@ const getRandomTicket = () => {
 const getRandomChatMessage = () => {
   return randomNum(0, 5)
     ? { key: getRandomUUID(), ...chatMessageMockData[randomNum(0, chatMessageMockData.length - 1)] }
-    : getRandomGiftCard()
+    : getRandomPaid()
 }
 
-const getRandomGiftCard = () => {
-  return { key: getRandomUUID(), ...giftCardMockData[randomNum(0, giftCardMockData.length - 1)] }
+const getRandomPaid = () => {
+  return { key: getRandomUUID(), ...paidMockData[randomNum(0, paidMockData.length - 1)] }
 }
 
-export { getMockData, getRandomTicket, getRandomChatMessage, getRandomGiftCard }
+export { getMockData, getRandomTicket, getRandomChatMessage, getRandomPaid }

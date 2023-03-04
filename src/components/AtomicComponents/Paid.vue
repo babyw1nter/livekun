@@ -1,5 +1,5 @@
 <template>
-  <div class="gift-card no-select" :class="type">
+  <div class="paid no-select" :class="type">
     <div class="card-body">
       <a-avatar class="card-avatar" :src="avatarUrl" :size="24"> </a-avatar>
       <div class="p-wrap">
@@ -76,7 +76,7 @@ const moneyText = computed(() => moneyFormat(Number(props.money.toFixed(2)), 2))
 <style lang="less" scoped>
 @fontSize: 18px;
 
-.gift-card {
+.paid {
   position: relative;
   border-radius: 4px;
   overflow: hidden;

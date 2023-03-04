@@ -1,11 +1,11 @@
 <template>
-  <GiftCardPanel ref="GiftCardPanelRef" :level="store.state.config.giftCard.level" />
+  <PaidPanel ref="PaidPanelRef" :level="store.state.config.paid.level" />
 </template>
 
 <script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
-import type GiftCardPanel from '@/components/GiftCardPanel.vue'
+import type PaidPanel from '@/components/PaidPanel.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { createSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
@@ -20,12 +20,12 @@ interface IPluginPaidData extends IPluginCommonMessage {
 }
 
 const store = useStore(key)
-const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
+const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
 
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {
     case PluginActions.CLEAR:
-      GiftCardPanelRef.value?.clear()
+      PaidPanelRef.value?.clear()
       break
     case PluginActions.REFRESH_PAGE:
       break
@@ -37,7 +37,7 @@ const pluginActionCallback = (action: PluginActions) => {
 
 const pluginMessageCallback = (message: IPluginCommonMessage) => {
   const msgData = message as IPluginPaidData
-  GiftCardPanelRef.value?.add({
+  PaidPanelRef.value?.add({
     ...msgData
   })
 }

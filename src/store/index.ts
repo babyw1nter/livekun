@@ -25,7 +25,7 @@ export interface IUserConfig {
       note: string
     }>
   }
-  giftCard: {
+  paid: {
     level: Array<number>
     minMoney: number
     comment: {
@@ -71,7 +71,7 @@ export const defaultUserConfig: IUserConfig = {
     },
     blacklist: []
   },
-  giftCard: {
+  paid: {
     level: [0, 9, 49, 99, 199, 249, 499],
     minMoney: 5,
     comment: {

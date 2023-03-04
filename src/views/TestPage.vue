@@ -3,10 +3,10 @@
     <TicketPanel ref="TicketPanelRef" :maximum="5" style="margin-bottom: 1rem"></TicketPanel>
 
     <ChatMessageList ref="ChatMessageListRef" :font-size="chatMessageListFontSize"
-      :level="store.state.config.giftCard.level" style="margin-bottom: 1rem; width: 400px; height: 400px">
+      :level="store.state.config.paid.level" style="margin-bottom: 1rem; width: 400px; height: 400px">
     </ChatMessageList>
 
-    <GiftCardPanel ref="GiftCardPanelRef" style="width: 300px; height: 340px"> </GiftCardPanel>
+    <PaidPanel ref="PaidPanelRef" style="width: 300px; height: 340px"> </PaidPanel>
 
     <div class="badge-test" style="margin: 1rem; padding: 1rem; line-height: 19px">
       <p style="margin-bottom: 1rem">
@@ -28,13 +28,13 @@
       <a-space :size="10" style="">
         <a-button type="primary" @click="addTicket">addTicket</a-button>
         <a-button type="primary" @click="addChatMessage">addChatMessage</a-button>
-        <a-button type="primary" @click="addGiftCard">addGiftCard</a-button>
+        <a-button type="primary" @click="addPaid">addPaid</a-button>
       </a-space>
       <a-divider />
       <a-space :size="10">
         <a-button type="primary" @click="clearTicket">clearTicket</a-button>
         <a-button type="primary" @click="clearChatMessage">clearChatMessage</a-button>
-        <a-button type="primary" @click="clearGiftCard">clearGiftCard</a-button>
+        <a-button type="primary" @click="clearPaid">clearPaid</a-button>
       </a-space>
       <a-divider />
       <p>ChatMessageList Font Size: {{ chatMessageListFontSize }}px</p>
@@ -46,16 +46,16 @@
 <script lang="ts" setup>
 import type TicketPanel from '@/components/TicketPanel.vue'
 import type ChatMessageList from '@/components/ChatMessageList.vue'
-import type GiftCardPanel from '@/components/GiftCardPanel.vue'
+import type PaidPanel from '@/components/PaidPanel.vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
-import { getRandomChatMessage, getRandomTicket, getRandomGiftCard } from '@/api/mock'
+import { getRandomChatMessage, getRandomTicket, getRandomPaid } from '@/api/mock'
 
 const store = useStore(key)
 
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
-const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
+const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
 
 const chatMessageListFontSize = ref(18)
 
@@ -71,9 +71,9 @@ const addChatMessage = () => {
   })
 }
 
-const addGiftCard = () => {
-  GiftCardPanelRef.value?.add({
-    ...getRandomGiftCard()
+const addPaid = () => {
+  PaidPanelRef.value?.add({
+    ...getRandomPaid()
   })
 }
 
@@ -81,7 +81,7 @@ const clearTicket = () => TicketPanelRef.value?.clear()
 
 const clearChatMessage = () => ChatMessageListRef.value?.clear()
 
-const clearGiftCard = () => GiftCardPanelRef.value?.clear()
+const clearPaid = () => PaidPanelRef.value?.clear()
 </script>
 
 <style lang="less">

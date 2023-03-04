@@ -1,11 +1,11 @@
 <template>
-  <ul class="gift-card-panel clearfix" ref="GiftCardPanelRef">
+  <ul class="paid-panel clearfix" ref="PaidPanelRef">
     <TransitionGroup name="fade">
       <li v-for="paid in paidList" :key="paid.key">
-        <GiftCard :type="paid.type || `level-${getLevel(paid.money, level)}`" :avatar-url="paid.avatarUrl"
+        <Paid :type="paid.type || `level-${getLevel(paid.money, level)}`" :avatar-url="paid.avatarUrl"
           :nickname="paid.nickname" :money="paid.money" :gift-name="paid.giftName" :gift-count="paid.giftCount"
           :gift-image="paid.giftImage" :gift-icon="paid.giftIcon" :message="paid.message" :comment="paid.comment">
-        </GiftCard>
+        </Paid>
       </li>
     </TransitionGroup>
   </ul>
@@ -46,12 +46,12 @@ const props = defineProps({
 })
 
 const paidList = reactive<Paid[]>([])
-const GiftCardPanelRef = ref<HTMLElement>()
+const PaidPanelRef = ref<HTMLElement>()
 
 watch(paidList, () => {
   nextTick(() => {
-    if (GiftCardPanelRef.value) {
-      GiftCardPanelRef.value.scrollTop = GiftCardPanelRef.value.scrollHeight
+    if (PaidPanelRef.value) {
+      PaidPanelRef.value.scrollTop = PaidPanelRef.value.scrollHeight
     }
   })
 })
@@ -85,7 +85,7 @@ defineExpose({
 </script>
 
 <style lang="less" scoped>
-.gift-card-panel {
+.paid-panel {
   overflow-y: auto;
   scroll-behavior: smooth;
   list-style: none;
