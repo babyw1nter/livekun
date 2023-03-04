@@ -27,7 +27,7 @@ onMounted(() => {
 
     const socketMessage = decodeData as IMessage<ISocketChatMsg>
 
-    console.info(`[${websocket.protocol}]`, '接收消息', socketMessage)
+    
 
     const method = (m: string) => {
       switch (m) {
