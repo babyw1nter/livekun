@@ -30,7 +30,7 @@ const createSocket = (
   }
 
   console.log('正在创建 WS 连接...')
-  const websocket = new WebSocket(baseWsURL)
+  const websocket = new WebSocket(baseWsURL, 'web')
   websocket.binaryType = 'arraybuffer'
 
   websocket.addEventListener('open', () => {
