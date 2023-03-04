@@ -1,6 +1,6 @@
 <template>
   <div class="test-page">
-    <GiftCapsulePanel ref="GiftCapsulePanelRef" :maximum="5" style="margin-bottom: 1rem"></GiftCapsulePanel>
+    <TicketPanel ref="TicketPanelRef" :maximum="5" style="margin-bottom: 1rem"></TicketPanel>
 
     <ChatMessageList ref="ChatMessageListRef" :font-size="chatMessageListFontSize"
       :level="store.state.config.giftCard.level" style="margin-bottom: 1rem; width: 400px; height: 400px">
@@ -26,13 +26,13 @@
 
     <div class="toolbar clearfix">
       <a-space :size="10" style="">
-        <a-button type="primary" @click="addGiftCapsule">addGiftCapsule</a-button>
+        <a-button type="primary" @click="addTicket">addTicket</a-button>
         <a-button type="primary" @click="addChatMessage">addChatMessage</a-button>
         <a-button type="primary" @click="addGiftCard">addGiftCard</a-button>
       </a-space>
       <a-divider />
       <a-space :size="10">
-        <a-button type="primary" @click="clearGiftCapsule">clearGiftCapsule</a-button>
+        <a-button type="primary" @click="clearTicket">clearTicket</a-button>
         <a-button type="primary" @click="clearChatMessage">clearChatMessage</a-button>
         <a-button type="primary" @click="clearGiftCard">clearGiftCard</a-button>
       </a-space>
@@ -44,24 +44,24 @@
 </template>
 
 <script lang="ts" setup>
-import type GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
+import type TicketPanel from '@/components/TicketPanel.vue'
 import type ChatMessageList from '@/components/ChatMessageList.vue'
 import type GiftCardPanel from '@/components/GiftCardPanel.vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
-import { getRandomChatMessage, getRandomGiftCapsule, getRandomGiftCard } from '@/api/mock'
+import { getRandomChatMessage, getRandomTicket, getRandomGiftCard } from '@/api/mock'
 
 const store = useStore(key)
 
-const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
+const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 const GiftCardPanelRef = ref<InstanceType<typeof GiftCardPanel>>()
 
 const chatMessageListFontSize = ref(18)
 
-const addGiftCapsule = () => {
-  GiftCapsulePanelRef.value?.add({
-    ...getRandomGiftCapsule()
+const addTicket = () => {
+  TicketPanelRef.value?.add({
+    ...getRandomTicket()
   })
 }
 
@@ -77,7 +77,7 @@ const addGiftCard = () => {
   })
 }
 
-const clearGiftCapsule = () => GiftCapsulePanelRef.value?.clear()
+const clearTicket = () => TicketPanelRef.value?.clear()
 
 const clearChatMessage = () => ChatMessageListRef.value?.clear()
 

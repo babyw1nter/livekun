@@ -7,7 +7,7 @@ interface IBasePluginData {
   avatarUrl: string
 }
 
-interface IGiftCapsuleMockData extends IBasePluginData {
+interface ITicketMockData extends IBasePluginData {
   money: number
 }
 
@@ -31,7 +31,7 @@ interface IGiftCardMockData extends IBasePluginData {
   comment: string
 }
 
-let giftCapsuleMockData: Array<IGiftCapsuleMockData> = []
+let ticketMockData: Array<ITicketMockData> = []
 let chatMessageMockData: Array<IChatMessageMockData> = []
 let giftCardMockData: Array<IGiftCardMockData> = []
 
@@ -41,7 +41,7 @@ const getMockData = (): void => {
     .then((res) => {
       const reponseData = res.data
 
-      giftCapsuleMockData = reponseData.data.giftCapsuleMockData
+      ticketMockData = reponseData.data.ticketMockData
       chatMessageMockData = reponseData.data.chatMessageMockData
       giftCardMockData = reponseData.data.giftCardMockData
     })
@@ -50,10 +50,10 @@ const getMockData = (): void => {
     })
 }
 
-const getRandomGiftCapsule = () => {
+const getRandomTicket = () => {
   return {
     key: getRandomUUID(),
-    ...giftCapsuleMockData[randomNum(0, giftCapsuleMockData.length - 1)],
+    ...ticketMockData[randomNum(0, ticketMockData.length - 1)],
     money: randomNum(5, 2500)
   }
 }
@@ -68,4 +68,4 @@ const getRandomGiftCard = () => {
   return { key: getRandomUUID(), ...giftCardMockData[randomNum(0, giftCardMockData.length - 1)] }
 }
 
-export { getMockData, getRandomGiftCapsule, getRandomChatMessage, getRandomGiftCard }
+export { getMockData, getRandomTicket, getRandomChatMessage, getRandomGiftCard }

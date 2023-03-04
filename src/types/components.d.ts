@@ -43,8 +43,6 @@ declare module '@vue/runtime-core' {
     ChatMessage: typeof import('./../components/AtomicComponents/ChatMessage.vue')['default']
     ChatMessageList: typeof import('./../components/ChatMessageList.vue')['default']
     CreditCardOutlined: typeof import('@ant-design/icons-vue')['CreditCardOutlined']
-    GiftCapsule: typeof import('./../components/AtomicComponents/GiftCapsule.vue')['default']
-    GiftCapsulePanel: typeof import('./../components/GiftCapsulePanel.vue')['default']
     GiftCard: typeof import('./../components/AtomicComponents/GiftCard.vue')['default']
     GiftCardPanel: typeof import('./../components/GiftCardPanel.vue')['default']
     GiftOutlined: typeof import('@ant-design/icons-vue')['GiftOutlined']
@@ -56,6 +54,8 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     SettingOutlined: typeof import('@ant-design/icons-vue')['SettingOutlined']
     SmileOutlined: typeof import('@ant-design/icons-vue')['SmileOutlined']
+    Ticket: typeof import('./../components/AtomicComponents/Ticket.vue')['default']
+    TicketPanel: typeof import('./../components/TicketPanel.vue')['default']
     UserOutlined: typeof import('@ant-design/icons-vue')['UserOutlined']
   }
 }

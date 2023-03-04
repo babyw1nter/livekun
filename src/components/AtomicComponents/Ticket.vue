@@ -1,6 +1,6 @@
 <template>
-  <div class="gift-capsule no-select" :class="type">
-    <span class="gift-capsule-bg" :style="{ width: `${percentage.toFixed(1)}%` }"></span>
+  <div class="ticket no-select" :class="type">
+    <span class="ticket-bg" :style="{ width: `${percentage.toFixed(1)}%` }"></span>
     <a-avatar class="capsule-avatar" :src="avatarUrl" :size="27"> </a-avatar>
     <span class="money">
       <h-font :text="message || `¥${moneyText}`"></h-font>
@@ -39,7 +39,7 @@ const bgWidth = ref<number>(0)
 </script>
 
 <style lang="less" scoped>
-.gift-capsule {
+.ticket {
   position: relative;
   display: block;
   width: 100%;
@@ -51,7 +51,7 @@ const bgWidth = ref<number>(0)
   overflow: hidden;
   transition: width 0.2s;
 
-  .gift-capsule-bg {
+  .ticket-bg {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -76,7 +76,7 @@ const bgWidth = ref<number>(0)
   &.level-0 {
     background: #1ebea5;
 
-    .gift-capsule-bg {
+    .ticket-bg {
       background: #32e8b7;
     }
   }
@@ -84,7 +84,7 @@ const bgWidth = ref<number>(0)
   &.level-1 {
     background: #1db1db;
 
-    .gift-capsule-bg {
+    .ticket-bg {
       background: #25d5fd;
     }
   }
@@ -92,7 +92,7 @@ const bgWidth = ref<number>(0)
   &.level-2 {
     background: #d23968;
 
-    .gift-capsule-bg {
+    .ticket-bg {
       background: #f74170;
     }
   }
@@ -100,7 +100,7 @@ const bgWidth = ref<number>(0)
   &.guard-monthly {
     background: #573594;
 
-    .gift-capsule-bg {
+    .ticket-bg {
       background: #9480b9;
     }
   }
@@ -108,7 +108,7 @@ const bgWidth = ref<number>(0)
   &.guard-annual {
     background: #ff9800;
 
-    .gift-capsule-bg {
+    .ticket-bg {
       background: #ffbc6a;
     }
   }

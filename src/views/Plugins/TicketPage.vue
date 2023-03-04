@@ -1,12 +1,12 @@
 <template>
-  <GiftCapsulePanel ref="GiftCapsulePanelRef" :maximum="store.state.config.giftCapsule.maximum"
-    :level="store.state.config.giftCapsule.level" :duration="store.state.config.giftCapsule.duration" />
+  <TicketPanel ref="TicketPanelRef" :maximum="store.state.config.ticket.maximum"
+    :level="store.state.config.ticket.level" :duration="store.state.config.ticket.duration" />
 </template>
 
 <script lang="ts" setup>
 import { useStore } from 'vuex'
 import { key } from '@/store'
-import type GiftCapsulePanel from '@/components/GiftCapsulePanel.vue'
+import type TicketPanel from '@/components/TicketPanel.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { createSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
@@ -18,12 +18,12 @@ interface IPluginTicketData extends IPluginCommonMessage {
 }
 
 const store = useStore(key)
-const GiftCapsulePanelRef = ref<InstanceType<typeof GiftCapsulePanel>>()
+const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {
     case PluginActions.CLEAR:
-      GiftCapsulePanelRef.value?.clear()
+      TicketPanelRef.value?.clear()
       break
     case PluginActions.REFRESH_PAGE:
       break
@@ -35,7 +35,7 @@ const pluginActionCallback = (action: PluginActions) => {
 
 const pluginMessageCallback = (message: IPluginCommonMessage) => {
   const msgData = message as IPluginTicketData
-  GiftCapsulePanelRef.value?.add({
+  TicketPanelRef.value?.add({
     ...msgData
   })
 }

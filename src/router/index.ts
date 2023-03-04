@@ -4,15 +4,15 @@ import http from '@/api/http'
 
 const Home = () => import(/* webpackChunkName: "home" */ '../views/Home/Home.vue')
 const ConnectPage = () => import(/* webpackChunkName: "home" */ '../views/Home/ConnectPage.vue')
-const GiftCapsuleConfigPage = () =>
-  import(/* webpackChunkName: "home" */ '../views/Home/Config/GiftCapsuleConfigPage.vue')
+const TicketConfigPage = () =>
+  import(/* webpackChunkName: "home" */ '../views/Home/Config/TicketConfigPage.vue')
 const GiftCardConfigPage = () => import(/* webpackChunkName: "home" */ '../views/Home/Config/GiftCardConfigPage.vue')
 const ChatMessageConfigPage = () =>
   import(/* webpackChunkName: "home" */ '../views/Home/Config/ChatMessageConfigPage.vue')
 const AccountPage = () => import(/* webpackChunkName: "home" */ '../views/Home/AccountPage.vue')
 const LoginPage = () => import(/* webpackChunkName: "user" */ '../views/User/Login.vue')
 const TestPage = () => import(/* webpackChunkName: "test" */ '../views/TestPage.vue')
-const GiftCapsulePage = () => import(/* webpackChunkName: "gift-capsule" */ '../views/Plugins/GiftCapsulePage.vue')
+const TicketPage = () => import(/* webpackChunkName: "ticket" */ '../views/Plugins/TicketPage.vue')
 const ChatMessagePage = () => import(/* webpackChunkName: "chat-message" */ '../views/Plugins/ChatMessagePage.vue')
 const GiftCardPage = () => import(/* webpackChunkName: "gift-card" */ '../views/Plugins/GiftCardPage.vue')
 
@@ -44,12 +44,12 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
-        path: 'config/gift-capsule',
-        name: 'GiftCapsuleConfig',
-        component: GiftCapsuleConfigPage,
+        path: 'config/ticket',
+        name: 'TicketConfig',
+        component: TicketConfigPage,
         meta: {
-          title: '插件设置 - SC横栏',
-          menuItemKey: '/config/gift-capsule',
+          title: '插件设置 - SC Ticket',
+          menuItemKey: '/config/ticket',
           requiresAuth: true
         }
       },
@@ -94,15 +94,15 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: false }
   },
   {
-    path: '/gift-capsule',
+    path: '/ticket',
     redirect: {
-      name: 'GiftCapsule'
+      name: 'Ticket'
     }
   },
   {
-    path: '/plugins/gift-capsule',
-    name: 'GiftCapsule',
-    component: GiftCapsulePage,
+    path: '/plugins/ticket',
+    name: 'Ticket',
+    component: TicketPage,
     meta: { requiresAuth: false }
   },
   {

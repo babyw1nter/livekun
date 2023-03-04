@@ -5,7 +5,7 @@ import router from '@/router'
 import http from '@/api/http'
 
 export interface IUserConfig {
-  giftCapsule: {
+  ticket: {
     level: Array<number>
     duration: Array<number>
     maximum: number
@@ -54,7 +54,7 @@ export const defaultStatus: IStatus = {
 }
 
 export const defaultUserConfig: IUserConfig = {
-  giftCapsule: {
+  ticket: {
     level: [0, 99, 199],
     duration: [5, 15, 30],
     maximum: 10,

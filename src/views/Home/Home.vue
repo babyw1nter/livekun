@@ -31,17 +31,17 @@
                 </template>
                 聊天消息
               </a-menu-item>
-              <a-menu-item key="/config/gift-capsule">
+              <a-menu-item key="/config/ticket">
                 <template #icon>
                   <GiftOutlined />
                 </template>
-                SC横栏
+                SC Ticket
               </a-menu-item>
               <a-menu-item key="/config/gift-card">
                 <template #icon>
                   <CreditCardOutlined />
                 </template>
-                SC卡片
+                SC Paid
               </a-menu-item>
             </a-sub-menu>
             <a-menu-item key="/account">

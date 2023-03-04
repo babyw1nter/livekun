@@ -3,7 +3,7 @@
  */
 enum PluginNames {
   PLUGIN_CHAT_MESSAGE = 'chat-message',
-  PLUGIN_TICKET = 'gift-capsule',
+  PLUGIN_TICKET = 'ticket',
   PLUGIN_PAID = 'gift-card'
 }
 

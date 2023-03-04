@@ -1,10 +1,10 @@
 <template>
-  <TransitionGroup name="list" tag="ul" class="gift-capsule-panel clearfix">
+  <TransitionGroup name="list" tag="ul" class="ticket-panel clearfix">
     <li v-for="ticket in ticketsList" :key="ticket.key">
       <a-dropdown>
-        <GiftCapsule :type="ticket.type || `level-${getLevel(ticket.money, level)}`" :avatar-url="ticket.avatarUrl"
+        <Ticket :type="ticket.type || `level-${getLevel(ticket.money, level)}`" :avatar-url="ticket.avatarUrl"
           :money="ticket.money" :message="ticket.message" :percentage="ticket.percentage">
-        </GiftCapsule>
+        </Ticket>
 
         <template #overlay>
           <a-menu>
@@ -140,7 +140,7 @@ defineExpose({
 </script>
 
 <style lang="less" scoped>
-.gift-capsule-panel {
+.ticket-panel {
   padding: 10px;
   width: 100%;
   height: 55px;

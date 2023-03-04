@@ -119,7 +119,7 @@
 * 优化 html lang 标识符 ([94e6c5f](https://github.com/hhui64/livekun-web/commit/94e6c5f411803152ca180cd5a3556db368fe73aa))
 * 优化接口数据合并以减少请求数量 ([4f93b54](https://github.com/hhui64/livekun-web/commit/4f93b54ef72b951802f39b5de29403d2a7c16150))
 * 优化页面样式 ([c0c3e98](https://github.com/hhui64/livekun-web/commit/c0c3e98944249891c1f9f48cd8733b4208fbdffb))
-* **GiftCapsulePanel:** 优化礼物胶囊添加逻辑 ([303ca17](https://github.com/hhui64/livekun-web/commit/303ca17a8f2ba6e0d5472b7ea3413d0c8d3aa2c5))
+* **TicketPanel:** 优化 Ticket 添加逻辑 ([303ca17](https://github.com/hhui64/livekun-web/commit/303ca17a8f2ba6e0d5472b7ea3413d0c8d3aa2c5))
 * **GiftCardConfigPage:** 优化配置项说明文案 ([e0fe390](https://github.com/hhui64/livekun-web/commit/e0fe390a2ff74495f827966ddf0cc11ea72a39d8))
 * **views/*:** 优化页面样式 ([c5db17f](https://github.com/hhui64/livekun-web/commit/c5db17f0e5bee6d3f945a59242f0dbbf5681f898))
 * **views/Home:** 优化布局样式 ([aa3641f](https://github.com/hhui64/livekun-web/commit/aa3641f6cec267dc236b388bebfca9c2fcd0d769))
@@ -240,7 +240,7 @@
 * 代码逻辑优化 ([6a05f5b](https://github.com/hhui64/livekun-web/commit/6a05f5b364b1beb0510556e715570400f921d7ff))
 * 修复`奶玲`错误拼写成`奶铃`的问题 ([bee3d6d](https://github.com/hhui64/livekun-web/commit/bee3d6db6b95aed0601582e85c6742cf964cf4c0))
 * 修复测试页面的数据中的`奶玲`错误拼写成`奶铃`等问题 ([b0b46aa](https://github.com/hhui64/livekun-web/commit/b0b46aa401326248eef97254f434bd867fa33b53))
-* 修复礼物胶囊持续时间进度不显示的问题 ([41bf23c](https://github.com/hhui64/livekun-web/commit/41bf23ce1c6895bf10173c4727c68cda52595a14))
+* 修复 Ticket 持续时间进度不显示的问题 ([41bf23c](https://github.com/hhui64/livekun-web/commit/41bf23ce1c6895bf10173c4727c68cda52595a14))
 * 修复留言的错别字问题 ([2ebaf6b](https://github.com/hhui64/livekun-web/commit/2ebaf6bcdcba97816c6c725c3402f02f464c73dd))
 * adjust style ([d23335f](https://github.com/hhui64/livekun-web/commit/d23335f7b929c15cc69fe0139a42327c3303a07d))
 * adjust style ([27250a9](https://github.com/hhui64/livekun-web/commit/27250a91341da505d5cfbddd547bc823ee3d3f2d))
@@ -252,7 +252,7 @@
 ### Features
 
 * 调整 UI 样式 ([0168a51](https://github.com/hhui64/livekun-web/commit/0168a511b4f5b8c89b6d05a0699af0be3ca0a0f2))
-* 调整礼物胶囊尺寸样式 ([5b6c360](https://github.com/hhui64/livekun-web/commit/5b6c360c1e07b4f24dd234732f094eb6e50cb555))
+* 调整 Ticket 尺寸样式 ([5b6c360](https://github.com/hhui64/livekun-web/commit/5b6c360c1e07b4f24dd234732f094eb6e50cb555))
 * 调整礼物卡片的样式 ([24d3ac1](https://github.com/hhui64/livekun-web/commit/24d3ac1f70a3c224b5b8cdacda7baaf664fc12ce))
 * 调整样式 ([81374f7](https://github.com/hhui64/livekun-web/commit/81374f7cc9694ab6e99415d3682fcb9133aae70a))
 * 更多调试日志信息 ([3ebfcd5](https://github.com/hhui64/livekun-web/commit/3ebfcd5840cae8cfc8d96dab9e739507b3addca8))
@@ -268,7 +268,7 @@
 * **ChatMessage:** 添加 ChatMessage 组件的 type 属性类型注解 ([a59b9e4](https://github.com/hhui64/livekun-web/commit/a59b9e423dbba9409e0b590b20c58fa7a9cde83a))
 * **ChatMessageList:** auto smooth scroll ([9c95bd1](https://github.com/hhui64/livekun-web/commit/9c95bd1fec6e89c27611823458735b4fcf9c0723))
 * dev ([01f759a](https://github.com/hhui64/livekun-web/commit/01f759ae2860858d67208b4f76a76661cb1c119d))
-* **GiftCapsulePanel:** 礼物胶囊面板组件支持添加自定义`duration`和`message`属性 ([822957c](https://github.com/hhui64/livekun-web/commit/822957c5262dc1443e2e346df37c9cbef18814a1))
+* **TicketPanel:**  Ticket 面板组件支持添加自定义`duration`和`message`属性 ([822957c](https://github.com/hhui64/livekun-web/commit/822957c5262dc1443e2e346df37c9cbef18814a1))
 * guard types style ([2f24a4c](https://github.com/hhui64/livekun-web/commit/2f24a4c25e4c8d16445466c15d558b79d00b2589))
 * liveroom title ([c88b994](https://github.com/hhui64/livekun-web/commit/c88b994ee99fdf715e0352b67162750cd7586775))
 * new components ([2b7ee31](https://github.com/hhui64/livekun-web/commit/2b7ee31cbab68c653cbc892fb4400b4342555865))
@@ -276,7 +276,7 @@
 
 ### Performance Improvements
 
-* 调整礼物胶囊的持续时间的单位 ([2caf23f](https://github.com/hhui64/livekun-web/commit/2caf23fc85ad0796660cd2c479f251a9d29e5ce1))
+* 调整 Ticket 的持续时间的单位 ([2caf23f](https://github.com/hhui64/livekun-web/commit/2caf23fc85ad0796660cd2c479f251a9d29e5ce1))
 
 
 
