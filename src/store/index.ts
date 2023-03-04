@@ -62,7 +62,7 @@ export const defaultUserConfig: IUserConfig = {
   },
   chatMessage: {
     style: {
-      fontSize: 16
+      fontSize: 18
     },
     show: {
       join: false,
