@@ -1,5 +1,5 @@
 <template>
-  <li class="chat-message" :class="type">
+  <div class="chat-message" :class="type">
     <a-avatar class="chat-message-avatar no-select" :src="avatarUrl" :size="fontSize + 6"></a-avatar>
     <div class="text-wrap" :style="{ paddingLeft: `${fontSize + 13}px`, lineHeight: `${fontSize + 2}px` }">
       <!-- TODO: 身份标识这部分样式没设计好，暂时隐藏掉，想好再说 -->
@@ -32,7 +32,7 @@
         <h-font :color="customStyle.messageColor" :font-size="fontSize" :text="message"></h-font>
       </span>
     </div>
-  </li>
+  </div>
 </template>
 
 <script lang="ts" setup>

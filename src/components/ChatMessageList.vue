@@ -1,19 +1,21 @@
 <template>
   <ul ref="dom" class="chat-message-list clearfix" :class="{ 'smooth-scroll': !isTooQuickly }">
-    <template v-for="item in chatMessageListItemCache" :key="item.key">
-      <ChatMessage
-        v-if="item.messageType === 'chat'"
-        :avatar-url="item.avatarUrl"
-        :nickname="item.nickname"
-        :message="item.message"
-        :admin="item.admin"
-        :guard="item.guard"
-        :badgeInfo="item.badgeInfo"
-        :custom-style="item.customStyle"
-        :font-size="fontSize"
-        :type="item.type"
-      >
-      </ChatMessage>
+    <template v-for="item in chatMessageList" :key="item.key">
+      <li class="chat-list-message">
+        <ChatMessage
+          v-if="item.messageType === 'chat'"
+          :avatar-url="item.avatarUrl"
+          :nickname="item.nickname"
+          :message="item.message"
+          :admin="item.admin"
+          :guard="item.guard"
+          :badgeInfo="item.badgeInfo"
+          :custom-style="item.customStyle"
+          :font-size="fontSize"
+          :type="item.type"
+        >
+        </ChatMessage>
+      </li>
       <li class="chat-list-gift" v-if="item.messageType === 'gift'">
         <GiftCard
           :type="item.type || `level-${getLevel(item?.money || 0, store.state.config.giftCard.level)}`"
@@ -38,7 +40,7 @@ import { useStore } from 'vuex'
 import { key } from '@/store'
 import { getLevel } from '@/api/common'
 
-interface IChatMessageListItem {
+interface ChatMessage {
   key: string
   uid: number | string
   avatarUrl: string
@@ -68,7 +70,7 @@ interface IChatMessageListItem {
 
 const props = defineProps({
   list: {
-    type: Array as PropType<IChatMessageListItem[]>,
+    type: Array as PropType<ChatMessage[]>,
     default: () => []
   },
   maximum: {
@@ -88,9 +90,9 @@ const props = defineProps({
 const store = useStore(key)
 
 const dom = ref<HTMLElement>()
-const chatMessageListItemCache = reactive<IChatMessageListItem[]>([])
+const chatMessageList = reactive<ChatMessage[]>([])
 
-watch(chatMessageListItemCache, () => {
+watch(chatMessageList, () => {
   nextTick(() => {
     if (dom.value) {
       dom.value.scrollTop = dom.value.scrollHeight
@@ -101,29 +103,29 @@ watch(chatMessageListItemCache, () => {
 const isTooQuickly = ref<boolean>(false)
 let interval = 0
 
-const add = (chatMessageItem: IChatMessageListItem) => {
-  if (!chatMessageItem.nickname || !chatMessageItem.message) return
+const add = (chatMessage: ChatMessage) => {
+  if (!chatMessage.nickname || !chatMessage.message) return
 
-  if (chatMessageListItemCache.length >= props.maximum) {
-    del(chatMessageListItemCache[0].key)
+  if (chatMessageList.length >= props.maximum) {
+    del(chatMessageList[0].key)
   }
 
   const nowTimestamp = new Date().getTime()
   isTooQuickly.value = nowTimestamp - interval < props.smoothScrollInterval
   interval = nowTimestamp
 
-  chatMessageListItemCache.push(chatMessageItem)
+  chatMessageList.push(chatMessage)
 }
 
 const del = (key: string) => {
-  const index = chatMessageListItemCache.findIndex(i => i.key === key)
+  const index = chatMessageList.findIndex(i => i.key === key)
     if (index > -1) {
-    chatMessageListItemCache.splice(index, 1)
+    chatMessageList.splice(index, 1)
   }
 }
 
 const clear = () => {
-  chatMessageListItemCache.splice(0, chatMessageListItemCache.length)
+  chatMessageList.splice(0, chatMessageList.length)
 }
 
 defineExpose({
@@ -150,7 +152,11 @@ defineExpose({
     width: 0 !important;
   }
 
-  .chat-list-gift {
+  li.chat-list-message {
+    list-style: none;
+  }
+
+  li.chat-list-gift {
     margin: 8px 1rem;
   }
 }
