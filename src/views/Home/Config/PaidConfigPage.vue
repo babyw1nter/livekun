@@ -1,8 +1,7 @@
 <template>
   <div class="config-paid options-panel">
     <div class="preview-wrapper">
-      <PaidPanel ref="PaidPanelRef" class="preview-paid-panel" :list="paidList"
-        :level="store.state.config.paid.level" />
+      <PaidPanel ref="PaidPanelRef" class="preview-paid-panel" :list="paidList" :level="store.state.config.paid.level" />
       <a-checkbox v-model:checked="autoPreview" @change="autoPreviewChange"
         style="margin: 1rem; float: right; color: #fff;">自动预览
       </a-checkbox>
@@ -30,11 +29,11 @@
       </a-space>
 
       <a-space direction="vertical">
-        <a-typography-text> Paid 最低金额（元）</a-typography-text>
+        <a-typography-text><a-tag color="orange">开发中</a-tag>Paid 最低金额（元）</a-typography-text>
         <a-typography-text type="secondary">
           礼物价值低于此金额将不会显示在屏幕上
         </a-typography-text>
-        <a-input-number :min="0" v-model:value="store.state.config.paid.minMoney" />
+        <a-input-number :min="0" v-model:value="store.state.config.paid.minMoney" disabled />
       </a-space>
 
       <a-space direction="vertical">
@@ -42,8 +41,7 @@
         <a-typography-text type="secondary">
           开启后，观众可以在 Paid 上留言
         </a-typography-text>
-        <a-switch checked-children="开" un-checked-children="关"
-          v-model:checked="store.state.config.paid.comment.use" />
+        <a-switch checked-children="开" un-checked-children="关" v-model:checked="store.state.config.paid.comment.use" />
       </a-space>
 
       <a-space direction="vertical" v-if="store.state.config.paid.comment.use">
@@ -51,17 +49,16 @@
         <a-typography-text type="secondary">
           观众在送出礼物前发出以此前缀开头的消息，在送出礼物后就会将此消息作为该 Paid 的留言
         </a-typography-text>
-        <a-input v-model:value="store.state.config.paid.comment.prefix"
-          :disabled="!store.state.config.paid.comment.use" style="width: 90px;" />
+        <a-input v-model:value="store.state.config.paid.comment.prefix" :disabled="!store.state.config.paid.comment.use"
+          style="width: 90px;" />
       </a-space>
 
       <a-space direction="vertical" v-if="store.state.config.paid.comment.use">
-        <a-typography-text>留言礼物金额（元）</a-typography-text>
+        <a-typography-text><a-tag color="orange">开发中</a-tag>留言礼物金额（元）</a-typography-text>
         <a-typography-text type="secondary">
           当礼物价值大于或等于此金额时才可以留言
         </a-typography-text>
-        <a-input-number :min="0" v-model:value="store.state.config.paid.comment.giftMinMoney"
-          :disabled="!store.state.config.paid.comment.use" />
+        <a-input-number :min="0" v-model:value="store.state.config.paid.comment.giftMinMoney" disabled />
       </a-space>
 
       <a-space direction="vertical" v-if="store.state.config.paid.comment.use">
