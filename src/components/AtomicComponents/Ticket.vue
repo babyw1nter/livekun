@@ -74,26 +74,72 @@ const bgWidth = ref<number>(0)
   }
 
   &.level-0 {
-    background: #1ebea5;
+
+    background: #1565c0;
+
 
     .ticket-bg {
-      background: #32e8b7;
+      display: none;
     }
   }
 
   &.level-1 {
-    background: #1db1db;
+
+    background: #00b8d4;
+
 
     .ticket-bg {
-      background: #25d5fd;
+      background: #00e5ff;
     }
   }
 
   &.level-2 {
-    background: #d23968;
+
+    background: #00bfa5;
+
+
+    .ticket-bg {
+      background: #1de9b6;
+    }
+  }
+
+  &.level-3 {
+
+    background: #ffb300;
+
+
+    .ticket-bg {
+      background: #ffca28;
+    }
+  }
+
+  &.level-4 {
+
+    background: #e65100;
+
+
+    .ticket-bg {
+      background: #f57c00;
+    }
+  }
+
+  &.level-5 {
+
+    background: #d43667;
+
 
     .ticket-bg {
       background: #f74170;
+    }
+  }
+
+  &.level-6 {
+
+    background: #ca000e;
+
+
+    .ticket-bg {
+      background: #e01f20;
     }
   }
 

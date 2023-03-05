@@ -55,10 +55,10 @@ export const defaultStatus: IStatus = {
 
 export const defaultUserConfig: IUserConfig = {
   ticket: {
-    level: [0, 99, 199],
-    duration: [5, 15, 30],
+    level: [0, 9, 49, 99, 199, 249, 499],
+    duration: [1, 5, 10, 15, 30, 45, 60],
     maximum: 100,
-    minMoney: 0.01
+    minMoney: 5
   },
   chatMessage: {
     style: {

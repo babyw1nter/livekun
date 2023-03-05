@@ -52,11 +52,11 @@ const props = defineProps({
   },
   level: {
     type: Array as PropType<number[]>,
-    default: () => [0, 99, 199]
+    default: () => [0, 9, 49, 99, 199, 249, 499]
   },
   duration: {
     type: Array as PropType<number[]>,
-    default: () => [5, 15, 30]
+    default: () => [1, 5, 10, 15, 30, 45, 60]
   }
 })
 
