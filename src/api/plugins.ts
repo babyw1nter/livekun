@@ -27,7 +27,7 @@ interface IPluginConfig<K extends keyof IPluginConfigMap> {
   isDefault?: boolean
 }
 
-type PluginsConfig = Array<IPluginConfig<'ticket'> | IPluginConfig<'chat-message'> | IPluginConfig<'paid'>>
+type PluginsConfig = Array<IPluginConfig<PluginNames>>
 interface IPluginConfigMap {
   ticket: {
     level: Array<number>
