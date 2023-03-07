@@ -144,7 +144,6 @@ router.beforeEach((to, from) => {
             localStorage.setItem('UUID', responseData.data.user.uuid)
 
             store.commit('updateStatus', responseData.data.status)
-            store.commit('updateConfig', responseData.data.config)
 
             console.log('[auth] 自动登陆成功！', responseData)
           } else {
@@ -154,7 +153,6 @@ router.beforeEach((to, from) => {
             localStorage.removeItem('UUID')
 
             store.commit('resetStatus')
-            store.commit('resetConfig')
 
             console.warn('[auth] 自动登陆失败，已重置登录状态！', responseData)
             router.push({
@@ -169,7 +167,7 @@ router.beforeEach((to, from) => {
           // })
         })
     } else {
-      console.log('[auth] 尚未登录！')
+      console.warn('[auth] 尚未登录！')
       router.push({
         path: '/user/login'
       })

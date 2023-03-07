@@ -1,7 +1,7 @@
 <template>
   <div class="config-paid options-panel">
     <div class="preview-wrapper">
-      <PaidPanel ref="PaidPanelRef" class="preview-paid-panel" :list="paidList" :level="store.state.config.paid.level" />
+      <PaidPanel ref="PaidPanelRef" class="preview-paid-panel" :list="paidList" :level="reactivityPluginConfig.pluginConfig.level" />
       <a-checkbox v-model:checked="autoPreview" @change="autoPreviewChange"
         style="margin: 1rem; float: right; color: #fff;">自动预览
       </a-checkbox>
@@ -23,8 +23,8 @@
           Paid 的颜色风格会随着金额档位自动改变，从左到右依次对应7个档位的金额
         </a-typography-text>
         <a-space :size="10">
-          <a-input-number v-for="i in store.state.config.paid.level.length" :key="i" :min="0"
-            v-model:value="store.state.config.paid.level[i - 1]" disabled />
+          <a-input-number v-for="i in reactivityPluginConfig.pluginConfig.level.length" :key="i" :min="0"
+            v-model:value="reactivityPluginConfig.pluginConfig.level[i - 1]" disabled />
         </a-space>
       </a-space>
 
@@ -33,7 +33,7 @@
         <a-typography-text type="secondary">
           礼物价值低于此金额将不会显示在屏幕上
         </a-typography-text>
-        <a-input-number :min="0" v-model:value="store.state.config.paid.minMoney" disabled />
+        <a-input-number :min="0" v-model:value="reactivityPluginConfig.pluginConfig.minMoney" disabled />
       </a-space>
 
       <a-space direction="vertical">
@@ -41,33 +41,32 @@
         <a-typography-text type="secondary">
           开启后，观众可以在 Paid 上留言
         </a-typography-text>
-        <a-switch checked-children="开" un-checked-children="关" v-model:checked="store.state.config.paid.comment.use" />
+        <a-switch checked-children="开" un-checked-children="关" v-model:checked="reactivityPluginConfig.pluginConfig.comment.use" />
       </a-space>
 
-      <a-space direction="vertical" v-if="store.state.config.paid.comment.use">
+      <a-space direction="vertical" v-if="reactivityPluginConfig.pluginConfig.comment.use">
         <a-typography-text>留言消息前缀格式</a-typography-text>
         <a-typography-text type="secondary">
           观众在送出礼物前发出以此前缀开头的消息，在送出礼物后就会将此消息作为该 Paid 的留言
         </a-typography-text>
-        <a-input v-model:value="store.state.config.paid.comment.prefix" :disabled="!store.state.config.paid.comment.use"
-          style="width: 90px;" />
+        <a-input v-model:value="reactivityPluginConfig.pluginConfig.comment.prefix" :disabled="!reactivityPluginConfig.pluginConfig.comment.use" style="width: 90px;" />
       </a-space>
 
-      <a-space direction="vertical" v-if="store.state.config.paid.comment.use">
+      <a-space direction="vertical" v-if="reactivityPluginConfig.pluginConfig.comment.use">
         <a-typography-text><a-tag color="orange">开发中</a-tag>留言礼物金额（元）</a-typography-text>
         <a-typography-text type="secondary">
           当礼物价值大于或等于此金额时才可以留言
         </a-typography-text>
-        <a-input-number :min="0" v-model:value="store.state.config.paid.comment.giftMinMoney" disabled />
+        <a-input-number :min="0" v-model:value="reactivityPluginConfig.pluginConfig.comment.giftMinMoney" disabled />
       </a-space>
 
-      <a-space direction="vertical" v-if="store.state.config.paid.comment.use">
+      <a-space direction="vertical" v-if="reactivityPluginConfig.pluginConfig.comment.use">
         <a-typography-text>指定留言礼物列表</a-typography-text>
         <a-typography-text type="secondary">
           在此列表内的礼物才可以留言，一行一个，留空表示不做限制
         </a-typography-text>
-        <a-textarea v-model:value="store.state.config.paid.comment.giftWhitelist"
-          :disabled="!store.state.config.paid.comment.use" :rows="4" style="width: 300px;" />
+        <a-textarea v-model:value="reactivityPluginConfig.pluginConfig.comment.giftWhitelist" :disabled="!reactivityPluginConfig.pluginConfig.comment.use" :rows="4"
+          style="width: 300px;" />
       </a-space>
     </a-space>
 
@@ -87,9 +86,13 @@ import { message } from 'ant-design-vue'
 import http from '@/api/http'
 import PaidPanel from '@/components/PaidPanel.vue'
 import { getRandomPaid } from '@/api/mock'
+import { PluginNames } from '@/api/plugins'
+import { usePluginConfig } from '@/api/config'
 
 const store = useStore(key)
 const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
+
+let { reactivityPluginConfig, pull, reset, save } = usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)
@@ -133,10 +136,6 @@ const clear = () => {
       message.error(reason.toString())
     })
 }
-
-const save = () => store.dispatch('saveRemoteConfig')
-
-const reset = () => null
 
 const paidList = ref([])
 </script>

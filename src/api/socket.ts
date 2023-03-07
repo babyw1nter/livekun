@@ -106,8 +106,6 @@ const createSocket: CreateSocketCallbackFn = (
         uuid: uuid
       }
     })
-
-    store.dispatch('getRemoteConfig')
   })
   websocket.addEventListener('error', () => {
     console.error('连接错误！')

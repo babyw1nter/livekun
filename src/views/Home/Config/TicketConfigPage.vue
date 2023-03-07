@@ -1,8 +1,8 @@
 <template>
   <div class="config-ticket options-panel">
     <div class="preview-wrapper">
-      <TicketPanel ref="TicketPanelRef" class="preview-ticket-panel" :level="store.state.config.ticket.level"
-        :duration="store.state.config.ticket.duration" />
+      <TicketPanel ref="TicketPanelRef" class="preview-ticket-panel" :level="reactivityPluginConfig.pluginConfig.level"
+        :duration="reactivityPluginConfig.pluginConfig.duration" />
       <a-checkbox v-model:checked="autoPreview" @change="autoPreviewChange"
         style="margin: 1rem; float: right; color: #fff;">自动预览
       </a-checkbox>
@@ -24,8 +24,8 @@
           Ticket 的颜色风格会随着金额档位自动改变，从左到右依次对应7个档位的金额
         </a-typography-text>
         <a-space :size="10">
-          <a-input-number v-for="i in store.state.config.ticket.level.length" :key="i + 888" :min="0"
-            v-model:value="store.state.config.ticket.level[i - 1]" disabled />
+          <a-input-number v-for="i in reactivityPluginConfig.pluginConfig.level.length" :key="i + 888" :min="0"
+            v-model:value="reactivityPluginConfig.pluginConfig.level[i - 1]" disabled />
         </a-space>
       </a-space>
 
@@ -35,8 +35,8 @@
           从左到右依次对应7个档位的金额的 Ticket 的持续时间
         </a-typography-text>
         <a-space :size="10">
-          <a-input-number v-for="i in store.state.config.ticket.duration.length" :key="i + 999" :min="0"
-            v-model:value="store.state.config.ticket.duration[i - 1]" disabled />
+          <a-input-number v-for="i in reactivityPluginConfig.pluginConfig.duration.length" :key="i + 999" :min="0"
+            v-model:value="reactivityPluginConfig.pluginConfig.duration[i - 1]" disabled />
         </a-space>
       </a-space>
 
@@ -45,7 +45,7 @@
         <a-typography-text type="secondary">
           礼物价值低于此金额将不会显示在屏幕上
         </a-typography-text>
-        <a-input-number :min="0" v-model:value="store.state.config.ticket.minMoney" disabled />
+        <a-input-number :min="0" v-model:value="reactivityPluginConfig.pluginConfig.minMoney" disabled />
       </a-space>
 
       <a-space direction="vertical">
@@ -53,7 +53,7 @@
         <a-typography-text type="secondary">
           当 Ticket 数量达到上限时，将会移除末尾的 Ticket，即使它没有过期
         </a-typography-text>
-        <a-input-number :min="1" v-model:value="store.state.config.ticket.maximum" />
+        <a-input-number :min="1" v-model:value="reactivityPluginConfig.pluginConfig.maximum" />
       </a-space>
     </a-space>
     <a-divider />
@@ -71,9 +71,13 @@ import { message } from 'ant-design-vue'
 import type TicketPanel from '@/components/TicketPanel.vue'
 import http from '@/api/http'
 import { getRandomTicket } from '@/api/mock'
+import { PluginNames } from '@/api/plugins'
+import { usePluginConfig } from '@/api/config'
 
 const store = useStore(key)
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
+
+let { reactivityPluginConfig, pull, reset, save } = usePluginConfig<PluginNames.PLUGIN_TICKET>(PluginNames.PLUGIN_TICKET)
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)
@@ -117,10 +121,6 @@ const clear = () => {
       message.error(reason.toString())
     })
 }
-
-const save = () => store.dispatch('saveRemoteConfig')
-
-const reset = () => null
 </script>
 
 <style lang="less" scoped>

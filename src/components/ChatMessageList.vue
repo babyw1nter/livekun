@@ -1,7 +1,7 @@
 <template>
   <div class="chat-message-panel" :class="{ 'show-ticket-panel': showTicketPanel }">
-    <TicketPanel ref="TicketPanelRef" :maximum="store.state.config.ticket.maximum"
-      :level="store.state.config.ticket.level" :duration="store.state.config.ticket.duration"
+    <TicketPanel ref="TicketPanelRef" :maximum="ticketConfig.maximum"
+      :level="ticketConfig.level" :duration="ticketConfig.duration"
       class="chat-message-ticket-panel mb-0" />
     <ul ref="dom" class="chat-message-list clearfix mb-0" :class="{ 'smooth-scroll': !isTooQuickly }">
       <template v-for="item in chatMessageList" :key="item.key">
@@ -21,7 +21,7 @@
         </li>
         <li class="chat-list-gift" v-if="item.messageType === 'gift'">
           <Paid
-            :type="item.type || `level-${getLevel(item?.money || 0, store.state.config.paid.level)}`"
+            :type="item.type || `level-${getLevel(item?.money || 0, paidConfig.level)}`"
             :avatar-url="item.avatarUrl"
             :nickname="item.nickname"
             :money="item.money"
@@ -44,6 +44,7 @@ import { useStore } from 'vuex'
 import { key } from '@/store'
 import { getLevel } from '@/api/common'
 import type TicketPanel from '@/components/TicketPanel.vue'
+import { getDefaultPluginsConfig, IPluginConfig, IPluginConfigMap, PluginNames } from '@/api/plugins'
 
 interface ChatMessage {
   key: string
@@ -93,10 +94,16 @@ const props = defineProps({
   showTicketPanel: {
     type: Boolean,
     default: true
-  }
+  },
+  ticketConfig: {
+    type: Object as PropType<IPluginConfigMap[PluginNames.PLUGIN_TICKET]>,
+    default: () => getDefaultPluginsConfig(PluginNames.PLUGIN_TICKET)?.pluginConfig
+  },
+  paidConfig: {
+    type: Object as PropType<IPluginConfigMap[PluginNames.PLUGIN_PAID]>,
+    default: () => getDefaultPluginsConfig(PluginNames.PLUGIN_PAID)?.pluginConfig
+  },
 })
-
-const store = useStore(key)
 
 const dom = ref<HTMLElement>()
 const chatMessageList = reactive<ChatMessage[]>([])

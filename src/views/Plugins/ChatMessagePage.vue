@@ -1,6 +1,8 @@
 <template>
-  <ChatMessageList ref="ChatMessageListRef" :font-size="store.state.config.chatMessage.style.fontSize"
-    :level="store.state.config.paid.level" />
+  <ChatMessageList ref="ChatMessageListRef"
+    :font-size="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.style.fontSize"
+    :ticket-config="ticketPluginConfig.reactivityPluginConfig.pluginConfig"
+    :paid-config="paidPluginConfig.reactivityPluginConfig.pluginConfig" />
 </template>
 
 <script lang="ts" setup>
@@ -9,7 +11,8 @@ import { key } from '@/store'
 import type ChatMessageList from '@/components/ChatMessageList.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { createSocket } from '@/api/socket'
-import { PluginNames, PluginActions } from '@/api/plugins'
+import { PluginNames, PluginActions, getDefaultPluginsConfig, IPluginConfig } from '@/api/plugins'
+import { useChatMessagePluginConfig } from '@/api/config'
 
 interface IPluginChatMessageData extends IPluginCommonMessage {
   message: string
@@ -20,6 +23,8 @@ interface IPluginChatMessageData extends IPluginCommonMessage {
 const store = useStore(key)
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
+let { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig } = useChatMessagePluginConfig()
+
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {
     case PluginActions.CLEAR:
@@ -28,7 +33,7 @@ const pluginActionCallback = (action: PluginActions) => {
     case PluginActions.REFRESH_PAGE:
       break
     case PluginActions.REFRESH_CONFIG:
-      store.dispatch('getRemoteConfig')
+      chatMessagePluginConfig.pull()
       break
   }
 }

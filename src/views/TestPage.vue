@@ -3,7 +3,7 @@
     <TicketPanel ref="TicketPanelRef" :maximum="5" style="margin-bottom: 1rem"></TicketPanel>
 
     <ChatMessageList ref="ChatMessageListRef" :font-size="chatMessageListFontSize"
-      :level="store.state.config.paid.level" style="margin-bottom: 1rem; width: 400px; height: 400px">
+      style="margin-bottom: 1rem; width: 400px; height: 400px">
     </ChatMessageList>
 
     <PaidPanel ref="PaidPanelRef" style="width: 300px; height: 340px"> </PaidPanel>
@@ -50,8 +50,6 @@ import type PaidPanel from '@/components/PaidPanel.vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import { getRandomChatMessage, getRandomTicket, getRandomPaid } from '@/api/mock'
-
-const store = useStore(key)
 
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()

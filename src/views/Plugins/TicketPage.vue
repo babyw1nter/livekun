@@ -1,6 +1,6 @@
 <template>
-  <TicketPanel ref="TicketPanelRef" :maximum="store.state.config.ticket.maximum"
-    :level="store.state.config.ticket.level" :duration="store.state.config.ticket.duration" />
+  <TicketPanel ref="TicketPanelRef" :maximum="reactivityPluginConfig.pluginConfig.maximum" :level="reactivityPluginConfig.pluginConfig.level"
+    :duration="reactivityPluginConfig.pluginConfig.duration" />
 </template>
 
 <script lang="ts" setup>
@@ -9,7 +9,8 @@ import { key } from '@/store'
 import type TicketPanel from '@/components/TicketPanel.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { createSocket } from '@/api/socket'
-import { PluginNames, PluginActions } from '@/api/plugins'
+import { PluginNames, PluginActions, getDefaultPluginsConfig, IPluginConfig } from '@/api/plugins'
+import { usePluginConfig } from '@/api/config'
 
 interface IPluginTicketData extends IPluginCommonMessage {
   money: number
@@ -20,6 +21,8 @@ interface IPluginTicketData extends IPluginCommonMessage {
 const store = useStore(key)
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 
+let { reactivityPluginConfig, pull, reset, save } = usePluginConfig<PluginNames.PLUGIN_TICKET>(PluginNames.PLUGIN_TICKET)
+
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {
     case PluginActions.CLEAR:
@@ -28,7 +31,7 @@ const pluginActionCallback = (action: PluginActions) => {
     case PluginActions.REFRESH_PAGE:
       break
     case PluginActions.REFRESH_CONFIG:
-      store.dispatch('getRemoteConfig')
+      pull()
       break
   }
 }

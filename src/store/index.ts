@@ -2,41 +2,7 @@ import { InjectionKey } from 'vue'
 import { createStore, Store } from 'vuex'
 import { message } from 'ant-design-vue'
 import router from '@/router'
-import http from '@/api/http'
-
-export interface IUserConfig {
-  ticket: {
-    level: Array<number>
-    duration: Array<number>
-    maximum: number
-    minMoney: number
-  }
-  chatMessage: {
-    style: {
-      fontSize: number
-    }
-    show: {
-      join: boolean
-      follow: boolean
-      gift: boolean
-    }
-    blacklist: Array<{
-      ccid: number | string
-      note: string
-    }>
-  }
-  paid: {
-    level: Array<number>
-    minMoney: number
-    comment: {
-      use: boolean
-      prefix: string
-      giftMinMoney: number
-      giftWhitelist: string
-    }
-  }
-}
-
+import http, { IHttpResponse } from '@/api/http'
 export interface IStatus {
   isJoinRoom: boolean
   roomInfo: {
@@ -53,44 +19,7 @@ export const defaultStatus: IStatus = {
   }
 }
 
-export const defaultUserConfig: IUserConfig = {
-  ticket: {
-    level: [0, 9, 49, 99, 199, 249, 499],
-    duration: [1, 5, 10, 15, 30, 45, 60],
-    maximum: 100,
-    minMoney: 5
-  },
-  chatMessage: {
-    style: {
-      fontSize: 18
-    },
-    show: {
-      join: false,
-      follow: false,
-      gift: false
-    },
-    blacklist: []
-  },
-  paid: {
-    level: [0, 9, 49, 99, 199, 249, 499],
-    minMoney: 5,
-    comment: {
-      use: false,
-      prefix: '留言：',
-      giftMinMoney: 10,
-      giftWhitelist: ''
-    }
-  }
-}
-
-interface IResponse {
-  code: number
-  message: string
-  data: unknown
-}
-
 interface State {
-  config: IUserConfig
   status: IStatus
   auth: {
     isLoggedIn: boolean
@@ -102,7 +31,6 @@ export const key: InjectionKey<Store<State>> = Symbol(0)
 
 export default createStore<State>({
   state: {
-    config: defaultUserConfig,
     status: {
       isJoinRoom: false,
       roomInfo: {
@@ -116,14 +44,6 @@ export default createStore<State>({
     }
   },
   mutations: {
-    updateConfig(state, newValue: IUserConfig) {
-      state.config = newValue
-      // console.log('更新 vuex 配置', newValue)
-    },
-    resetConfig(state) {
-      state.config = defaultUserConfig
-      // console.log('重置 vuex 配置')
-    },
     updateStatus(state, newValue: IStatus) {
       state.status = newValue
       // console.log('更新 vuex 状态', newValue)
@@ -148,68 +68,20 @@ export default createStore<State>({
 
       console.log('请求远程状态...')
       http
-        .get('/api/get-status')
-        .then(res => {
-          const responseData = res.data as IResponse
+        .get('/api/getStatus')
+        .then((res) => {
+          const responseData = res.data as IHttpResponse<IStatus>
           if (responseData.code === 200) {
             const remoteStatus = responseData.data as IStatus
             context.commit('updateStatus', remoteStatus)
             console.log('请求远程状态成功', remoteStatus)
           } else {
-            // message.error('请求远程状态失败：' + responseData.code + ' ' + responseData.message)
             console.error('请求远程状态失败：' + responseData.code + ' ' + responseData.message)
           }
         })
         .catch((reason: Error) => {
-          // message.error('请求远程状态失败：' + reason.message)
           console.error('请求远程状态失败：' + reason.message)
         })
-    },
-    getRemoteConfig(context) {
-      console.log('请求远程配置...')
-      http
-        .get('/user/get-config', {
-          params: {
-            uuid: router.currentRoute.value.query.uuid
-          }
-        })
-        .then(res => {
-          const responseData = res.data as IResponse
-          if (responseData.code === 200) {
-            const remoteConfig = responseData.data as IUserConfig
-            context.commit('updateConfig', remoteConfig)
-            console.log('请求远程配置成功', remoteConfig)
-          } else {
-            // message.error('请求远程配置失败：' + responseData.code + ' ' + responseData.message)
-            console.error('请求远程配置失败：' + responseData.code + ' ' + responseData.message)
-          }
-        })
-        .catch((reason: Error) => {
-          // message.error('请求远程配置失败：' + reason.message)
-          console.error('请求远程配置失败：' + reason.message)
-        })
-    },
-    saveRemoteConfig(context) {
-      console.log('保存远程配置...')
-      http
-        .post('/user/update-config', context.state.config)
-        .then(res => {
-          const responseData = res.data as IResponse
-          if (responseData.code === 200) {
-            const remoteConfig = responseData.data as IUserConfig
-            context.commit('updateConfig', remoteConfig)
-            console.log('保存远程配置成功', remoteConfig)
-            message.success('配置已保存！')
-          } else {
-            // message.error('保存远程配置失败：' + responseData.code + ' ' + responseData.message)
-            console.error('保存远程配置失败：' + responseData.code + ' ' + responseData.message)
-          }
-        })
-        .catch((reason: Error) => {
-          // message.error('保存远程配置失败：' + reason.message)
-          console.error('保存远程配置失败：' + reason.message)
-        })
     }
-  },
-  modules: {}
+  }
 })

@@ -37,7 +37,7 @@ let paidMockData: Array<IPaidMockData> = []
 
 const getMockData = (): void => {
   http
-    .get('/api/get-mockdata')
+    .get('/api/getMockdata')
     .then((res) => {
       const reponseData = res.data
 

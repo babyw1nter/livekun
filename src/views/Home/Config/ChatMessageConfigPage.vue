@@ -4,7 +4,9 @@
       <ChatMessageList
         ref="ChatMessageListRef"
         class="preview-chat-message-list"
-        :font-size="store.state.config.chatMessage.style.fontSize"
+        :font-size="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.style.fontSize"
+        :ticket-config="ticketPluginConfig.reactivityPluginConfig.pluginConfig"
+        :paid-config="paidPluginConfig.reactivityPluginConfig.pluginConfig"
       />
       <a-checkbox v-model:checked="autoPreview" @change="autoPreviewChange" style="margin: 1rem; float: right; color: #fff;"
         >自动预览
@@ -27,7 +29,7 @@
         <a-slider
           :min="18"
           :max="32"
-          v-model:value="store.state.config.chatMessage.style.fontSize"
+          v-model:value="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.style.fontSize"
           style="width: 280px; margin-bottom: 3rem"
           :marks="{ 18: '小', 32: '大' }"
         />
@@ -50,25 +52,25 @@
         <a-typography-text><a-tag color="orange">开发中</a-tag>消息显示控制</a-typography-text>
         <a-typography-text type="secondary"> 控制显示哪些聊天消息 </a-typography-text>
         <a-space :size="10" style="margin-top: 1rem">
-          <a-checkbox v-model:checked="store.state.config.chatMessage.show.join" disabled>进入直播间</a-checkbox>
-          <a-checkbox v-model:checked="store.state.config.chatMessage.show.follow" disabled>用户关注</a-checkbox>
-          <a-checkbox v-model:checked="store.state.config.chatMessage.show.gift" disabled>赠送礼物</a-checkbox>
+          <a-checkbox v-model:checked="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.show.join" disabled>进入直播间</a-checkbox>
+          <a-checkbox v-model:checked="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.show.follow" disabled>用户关注</a-checkbox>
+          <a-checkbox v-model:checked="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.show.gift" disabled>赠送礼物</a-checkbox>
         </a-space>
       </a-space>
 
-      <a-space direction="vertical">
+      <!-- <a-space direction="vertical">
         <a-typography-text>黑名单用户设置</a-typography-text>
         <a-typography-text type="secondary"> 过滤指定用户的聊天消息 </a-typography-text>
         <a-space :size="10" style="margin-top: 1rem">
           <a-button type="primary" @click="showBlacklistModel" ghost>编辑黑名单</a-button>
-          <span>黑名单用户数: {{ store.state.config.chatMessage.blacklist.length }}</span>
+          <span>黑名单用户数: {{ chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.blacklist.length }}</span>
         </a-space>
-      </a-space>
+      </a-space> -->
     </a-space>
 
     <a-divider />
 
-    <a-modal v-model:visible="showBlacklistModelStatus" title="编辑黑名单" @ok="showBlacklistModel">
+    <!-- <a-modal v-model:visible="showBlacklistModelStatus" title="编辑黑名单" @ok="showBlacklistModel">
       <template #footer>
         <a-button key="submit" type="primary" @click="showBlacklistModel">完成</a-button>
       </template>
@@ -85,7 +87,7 @@
         style="margin-top: 10px"
         size="middle"
         :columns="blacklistColumns"
-        :data-source="store.state.config.chatMessage.blacklist"
+        :data-source="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.blacklist"
         :pagination="{ hideOnSinglePage: true }"
         :locale="{ emptyText: '暂时还没有用户捏~' }"
       >
@@ -95,11 +97,11 @@
           </template>
         </template>
       </a-table>
-    </a-modal>
+    </a-modal> -->
 
     <a-space :size="10">
-      <a-button type="primary" @click="save">保存设置</a-button>
-      <a-button danger @click="reset">恢复默认</a-button>
+      <a-button type="primary" @click="chatMessagePluginConfig.save">保存设置</a-button>
+      <a-button danger @click="chatMessagePluginConfig.reset">恢复默认</a-button>
     </a-space>
   </div>
 </template>
@@ -111,10 +113,12 @@ import { message } from 'ant-design-vue'
 import type ChatMessageList from '@/components/ChatMessageList.vue'
 import http from '@/api/http'
 import { getRandomChatMessage } from '@/api/mock'
-import type  { ColumnsType } from 'ant-design-vue/es/table'
+import { useChatMessagePluginConfig } from '@/api/config'
 
 const store = useStore(key)
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
+
+let { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig } = useChatMessagePluginConfig()
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)
@@ -130,51 +134,6 @@ const autoPreviewChange = () => {
     }, 1000)
   } else {
     window.clearInterval(autoPreviewTimer.value)
-  }
-}
-
-const blacklistColumns: ColumnsType<unknown> = [
-  { title: 'CCID', dataIndex: 'ccid' },
-  { title: '备注信息', dataIndex: 'note' },
-  {
-    title: '操作',
-    key: 'operation',
-    fixed: 'right',
-    width: 100,
-  }
-]
-
-const blacklistUserCCID = ref(''),
-  blacklistUserNote = ref('')
-const showBlacklistModelStatus = ref(false)
-const showBlacklistModel = () => {
-  showBlacklistModelStatus.value = !showBlacklistModelStatus.value
-}
-const blacklistModelhandleOk = () => {
-  //
-}
-const addBlacklistUser = () => {
-  const index = store.state.config.chatMessage.blacklist.findIndex((i) => i.ccid === blacklistUserCCID.value)
-  if (blacklistUserCCID.value) {
-    if (index < 0) {
-      store.state.config.chatMessage.blacklist.push({
-        ccid: blacklistUserCCID.value.trim(),
-        note: blacklistUserNote.value
-      })
-      blacklistUserCCID.value = ''
-      blacklistUserNote.value = ''
-      message.success('添加成功')
-    } else {
-      message.error('用户已存在')
-    }
-  } else {
-    message.error('请输入用户CCID')
-  }
-}
-const delBlacklistUser = (ccid: number | string) => {
-  const index = store.state.config.chatMessage.blacklist.findIndex((i) => i.ccid === ccid)
-  if (index > -1) {
-    store.state.config.chatMessage.blacklist.splice(index, 1)
   }
 }
 
@@ -203,10 +162,6 @@ const clear = () => {
       message.error(reason.toString())
     })
 }
-
-const save = () => store.dispatch('saveRemoteConfig')
-
-const reset = () => null
 </script>
 
 <style lang="less" scoped>

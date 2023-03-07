@@ -1,5 +1,5 @@
 <template>
-  <PaidPanel ref="PaidPanelRef" :level="store.state.config.paid.level" />
+  <PaidPanel ref="PaidPanelRef" :level="reactivityPluginConfig.pluginConfig.level" />
 </template>
 
 <script lang="ts" setup>
@@ -9,6 +9,7 @@ import type PaidPanel from '@/components/PaidPanel.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { createSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
+import { usePluginConfig } from '@/api/config'
 
 interface IPluginPaidData extends IPluginCommonMessage {
   money: number
@@ -19,8 +20,9 @@ interface IPluginPaidData extends IPluginCommonMessage {
   comment: string
 }
 
-const store = useStore(key)
 const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
+
+let { reactivityPluginConfig, pull, reset, save } = usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
 
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {
@@ -30,7 +32,7 @@ const pluginActionCallback = (action: PluginActions) => {
     case PluginActions.REFRESH_PAGE:
       break
     case PluginActions.REFRESH_CONFIG:
-      store.dispatch('getRemoteConfig')
+      pull()
       break
   }
 }

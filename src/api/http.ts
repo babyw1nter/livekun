@@ -32,6 +32,12 @@ http.interceptors.response.use(res => {
   return res
 })
 
-export { baseURL, baseWsURL }
+interface IHttpResponse<T> {
+  code: number
+  message: string
+  data: T
+}
 
+export { baseURL, baseWsURL }
+export type { IHttpResponse }
 export default http

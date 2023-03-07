@@ -84,7 +84,6 @@ import { globalAppConfig, randomNum } from '@/api/common'
 import http from '@/api/http'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 
-const store = useStore(key)
 const route = useRoute()
 const router = useRouter()
 
@@ -98,7 +97,7 @@ const broadcast = ref('')
 onBeforeMount(() => {
   // 获取公告数据
   http
-    .get('/api/get-broadcasts')
+    .get('/api/getBroadcasts')
     .then((res) => {
       const responseData = res.data
       if (responseData.code === 200) {
