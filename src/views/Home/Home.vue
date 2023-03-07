@@ -1,8 +1,9 @@
 <template>
   <a-layout class="home">
-    <a-layout-sider breakpoint="lg" @collapse="onCollapse" :collapsedWidth="60" :trigger="null" collapsible>
+    <a-layout-sider class="left-wrapper" breakpoint="lg" @collapse="onCollapse" :collapsedWidth="60"
+      v-model:collapsed="isCollapsed" :trigger="null" collapsible>
 
-      <div class="logo no-select" :style="{ display: isCollapsed ? 'none' : 'block' }">
+      <div class="logo no-select" :style="{ height: isCollapsed ? 0 : 'auto' }">
         <span class="logo-text">
           <span style="color: #0084ff">LIVE</span>
           <span>KUN</span>
@@ -51,6 +52,10 @@
         </a-menu-item>
       </a-menu>
 
+      <div class="menu-footer">
+        <menu-unfold-outlined v-if="isCollapsed" class="trigger" @click="() => (isCollapsed = !isCollapsed)" />
+        <menu-fold-outlined v-else class="trigger" @click="() => (isCollapsed = !isCollapsed)" />
+      </div>
     </a-layout-sider>
     <a-layout class="right-wrapper" :class="{ collapsed: isCollapsed }">
       <!-- <a-layout-header style="background: #fff; padding: 0">
@@ -132,27 +137,36 @@ const onCollapse = (collapsed: boolean, type: string) => {
 </script>
 
 <style lang="less" scoped>
-// .trigger {
-//   font-size: 18px;
-//   line-height: 64px;
-//   padding: 0 24px;
-//   cursor: pointer;
-//   transition: color 0.3s;
+.trigger {
+  font-size: 18px;
+  line-height: 50px;
+  // padding: 0 21px;
+  width: 100%;
+  cursor: pointer;
+  transition: color 0.3s;
 
-//   &:hover {
-//     color: #1890ff;
-//   }
-// }
+  &:hover {
+    color: #1890ff;
+  }
+}
+
+.menu-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #fafafa;
+  text-align: center;
+}
 
 
 .home {
   min-height: 100%;
 
   .logo {
-    margin-bottom: 12px;
     text-align: center;
     font-weight: 800;
-    border-bottom: 1px solid #f0f0f0;
+    transition: all .2s;
+    overflow: hidden;
 
     .logo-text {
       font-size: 2em;
@@ -160,7 +174,7 @@ const onCollapse = (collapsed: boolean, type: string) => {
     }
   }
 
-  .ant-layout-sider {
+  .left-wrapper {
     overflow-x: hidden;
     overflow-y: auto;
     height: 100vh;
@@ -169,11 +183,16 @@ const onCollapse = (collapsed: boolean, type: string) => {
     top: 0px;
     bottom: 0px;
     background: #fff;
+
+    // .ant-layout-sider-children {
+    //   position: relative;
+    // }
   }
 
   .right-wrapper {
     overflow: hidden;
     margin-left: 200px;
+    transition: all .2s;
 
     &.collapsed {
       margin-left: 60px
