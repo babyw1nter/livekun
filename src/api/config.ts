@@ -71,6 +71,7 @@ const usePluginConfig = <K extends keyof IPluginConfigMap>(pluginName: PluginNam
     pluginConfig: getDefault()
   })
 
+  /** 拉取配置文件 */
   const pull = async () => {
     const remotePluginsConfig = await getRemotePluginConfig(getUUID(), pluginName)
 
