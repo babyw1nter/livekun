@@ -1,78 +1,72 @@
 <template>
   <a-layout class="home">
-    <a-layout-content class="main">
-      <a-alert :message="banner" type="warning" show-icon style="margin: 1rem 0">
-        <template #icon><smile-outlined /></template>
-      </a-alert>
-      <a-layout style="background: #fff; border-radius: 2px; overflow: hidden">
-        <a-layout-sider width="200" style="border-right: 1px solid #f0f0f0; background: #fff">
-          <div class="logo no-select">
-            <span class="logo-text">
-              <span style="color: #0084ff">LIVE</span>
-              <span>KUN</span>
-            </span>
-          </div>
-          <a-menu class="home-menu no-select" mode="inline" :selectedKeys="selectedKeys" @click="menuClicked"
-            style="border-right: none">
-            <a-menu-item key="/">
-              <template #icon>
-                <ApiOutlined />
-              </template>
-              连接控制
-            </a-menu-item>
-            <a-sub-menu key="/config">
-              <template #icon>
-                <SettingOutlined />
-              </template>
-              <template #title>插件设置</template>
-              <a-menu-item key="/config/chat-message">
-                <template #icon>
-                  <MessageOutlined />
-                </template>
-                聊天消息
-              </a-menu-item>
-              <a-menu-item key="/config/ticket">
-                <template #icon>
-                  <GiftOutlined />
-                </template>
-                SC Ticket
-                <a-tag color="green">新版</a-tag>
-              </a-menu-item>
-              <a-menu-item key="/config/paid">
-                <template #icon>
-                  <CreditCardOutlined />
-                </template>
-                SC Paid
-                <a-tag color="green">新版</a-tag>
-              </a-menu-item>
-            </a-sub-menu>
-            <a-menu-item key="/account">
-              <template #icon>
-                <UserOutlined />
-              </template>
-              账号管理
-            </a-menu-item>
-          </a-menu>
-        </a-layout-sider>
-        <a-layout-content style="min-height: 555px">
-          <div class="right-title no-select">
-            <span class="page-header">{{ route.meta.title }}</span>
-            <a-tooltip>
-              <template #title>{{ broadcastsToptips }}</template>
-              <a-typography-text type="secondary" class="broadcast">{{ broadcast }}</a-typography-text>
-            </a-tooltip>
-          </div>
-          <div class="right-main">
-            <router-view></router-view>
-          </div>
-        </a-layout-content>
-      </a-layout>
-    </a-layout-content>
-    <a-layout-footer class="footer">
-      <a-typography-text type="secondary">
-        {{ globalAppConfig.copyright }} {{ globalAppConfig.icp.beian }} {{ globalAppConfig.gongan.beian }}
-      </a-typography-text>
-    </a-layout-footer>
+    <a-layout-sider breakpoint="lg" @collapse="onCollapse" :collapsedWidth="60" :trigger="null" collapsible>
+
+      <div class="logo no-select" :style="{ display: isCollapsed ? 'none' : 'block' }">
+        <span class="logo-text">
+          <span style="color: #0084ff">LIVE</span>
+          <span>KUN</span>
+        </span>
+      </div>
+
+      <a-menu class="home-menu no-select" mode="inline" :selectedKeys="selectedKeys" @click="menuClicked"
+        style="border-right: none">
+        <a-menu-item key="/">
+          <template #icon>
+            <ApiOutlined />
+          </template>
+          连接控制
+        </a-menu-item>
+        <a-sub-menu key="/config">
+          <template #icon>
+            <SettingOutlined />
+          </template>
+          <template #title>插件设置</template>
+          <a-menu-item key="/config/chat-message">
+            <template #icon>
+              <MessageOutlined />
+            </template>
+            聊天消息
+          </a-menu-item>
+          <a-menu-item key="/config/ticket">
+            <template #icon>
+              <GiftOutlined />
+            </template>
+            SC Ticket
+            <a-tag color="green">新版</a-tag>
+          </a-menu-item>
+          <a-menu-item key="/config/paid">
+            <template #icon>
+              <CreditCardOutlined />
+            </template>
+            SC Paid
+            <a-tag color="green">新版</a-tag>
+          </a-menu-item>
+        </a-sub-menu>
+        <a-menu-item key="/account">
+          <template #icon>
+            <UserOutlined />
+          </template>
+          账号管理
+        </a-menu-item>
+      </a-menu>
+
+    </a-layout-sider>
+    <a-layout class="right-wrapper" :class="{ collapsed: isCollapsed }">
+      <!-- <a-layout-header style="background: #fff; padding: 0">
+        <menu-unfold-outlined v-if="collapsed" class="trigger" @click="() => (collapsed = !collapsed)" />
+        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
+      </a-layout-header> -->
+      <a-layout-content :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }">
+        <router-view></router-view>
+      </a-layout-content>
+
+      <a-layout-footer class="footer">
+        <a-typography-text type="secondary">
+          {{ globalAppConfig.copyright }} {{ globalAppConfig.icp.beian }} {{ globalAppConfig.gongan.beian }}
+        </a-typography-text>
+      </a-layout-footer>
+    </a-layout>
   </a-layout>
 </template>
 
@@ -87,6 +81,7 @@ import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 const route = useRoute()
 const router = useRouter()
 
+const isCollapsed = ref(false)
 const selectedKeys = computed(() => [route.meta.menuItemKey || ''])
 
 const banner = ref('')
@@ -126,59 +121,62 @@ const menuClicked = (e: MenuInfo) => {
     path: key.toString()
   })
 }
+
+const onBreakpoint = (broken: boolean) => {
+  //
+}
+
+const onCollapse = (collapsed: boolean, type: string) => {
+  isCollapsed.value = collapsed
+}
 </script>
 
 <style lang="less" scoped>
+// .trigger {
+//   font-size: 18px;
+//   line-height: 64px;
+//   padding: 0 24px;
+//   cursor: pointer;
+//   transition: color 0.3s;
+
+//   &:hover {
+//     color: #1890ff;
+//   }
+// }
+
+
 .home {
   min-height: 100%;
 
-  .main {
-    margin: 0 auto;
-    padding: 0 1rem;
-    width: 100%;
+  .logo {
+    margin-bottom: 12px;
+    text-align: center;
+    font-weight: 800;
+    border-bottom: 1px solid #f0f0f0;
 
-    .logo {
-      margin-bottom: 12px;
-      text-align: center;
-      font-weight: 800;
-      height: 52px;
-      border-bottom: 1px solid #f0f0f0;
-
-      .logo-text {
-        font-size: 1.5em;
-        line-height: 52px;
-      }
+    .logo-text {
+      font-size: 2em;
+      line-height: 3em;
     }
+  }
 
-    .right-title {
-      padding: 0 1rem;
-      height: 52px;
-      border-bottom: 1px solid #f0f0f0;
-      overflow: hidden;
+  .ant-layout-sider {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100vh;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    background: #fff;
+  }
 
-      .h-page-header {
-        margin: 6px 0;
-        padding: 0;
-      }
+  .right-wrapper {
+    overflow: hidden;
+    margin-left: 200px;
 
-      span.page-header {
-        padding-left: 12px;
-        line-height: 52px;
-        border-left: 4px solid #1890ff;
-        color: rgba(0, 0, 0, 0.85);
-        font-weight: bold;
-        font-size: 1rem;
-      }
-
-      span.broadcast {
-        float: right;
-        margin: 15px 0px;
-        transition: all 0.5s;
-      }
-    }
-
-    .right-main {
-      padding: 1rem 1rem 24px 1rem;
+    &.collapsed {
+      margin-left: 60px
     }
   }
 
