@@ -15,7 +15,7 @@ const http = axios.create({
   timeout: 10000
 })
 
-http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+http.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
 http.interceptors.response.use(res => {
   if (res.status !== 200) {
