@@ -1,3 +1,42 @@
+# [1.0.0-alpha.9](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2023-03-11)
+
+
+### Bug Fixes
+
+* 修复 ajax `Content-Type` 类型错误的 bug ([481130f](https://github.com/hhui64/livekun-web/commit/481130f2b00451793bf1829f55b02b2285418490))
+* 修复 Ticket level-0 没有背景色样式的 bug ([4fe0f97](https://github.com/hhui64/livekun-web/commit/4fe0f971252d758561e4e7f60626650890c49792))
+* 修复 v-bind prop 不正确的 bug ([1fe4622](https://github.com/hhui64/livekun-web/commit/1fe4622fa305f662da8ca3cb7a5bb56be0047a4b))
+* 修复插件在 OBS 内背景不为透明的 bug ([8934a27](https://github.com/hhui64/livekun-web/commit/8934a278566a451e7b3263af1c5a7aefb27542f8))
+* 修复预览组件插件名称错误的 bug ([dc48f20](https://github.com/hhui64/livekun-web/commit/dc48f208001d649b1f3efa7c8d303d5078ebf827))
+
+
+### Features
+
+* 新的插件配置页面 ([15c1ad6](https://github.com/hhui64/livekun-web/commit/15c1ad6cf639ad425189890fa0609dc911910a2f))
+* 新的首页 UI 样式 ([1100329](https://github.com/hhui64/livekun-web/commit/1100329403d12e76d30539a1f871d6d4a61170cd))
+* 新增 Ticket 的更多颜色分级 ([9cc4c75](https://github.com/hhui64/livekun-web/commit/9cc4c7555f02d21c04d5bdf151c5966dc4e61aed))
+* 新增插件默认配置类型字段 ([c056ed4](https://github.com/hhui64/livekun-web/commit/c056ed47b7e719140149f92c78bc3750a8ab4d85))
+* 新增插件配置系统 ([0bdbc04](https://github.com/hhui64/livekun-web/commit/0bdbc047cbec4ee377fcfaebe88e0957fe2daa8b))
+* 新增插件预览框组件 ([000ecf4](https://github.com/hhui64/livekun-web/commit/000ecf477140bfe1e57bf9478555b962eca0ffe2))
+* 新增登录页的申请使用权限提示 ([73e37b0](https://github.com/hhui64/livekun-web/commit/73e37b04b40500c00ecc69fe8b3628cb39c10df4))
+* 新增聊天消息插件顶部的 Ticket 栏 ([767152a](https://github.com/hhui64/livekun-web/commit/767152a0b23f3a35719dbe9e9f73bdcfbfeafd47))
+* 新增页脚版权信息公共组件 ([b0af43e](https://github.com/hhui64/livekun-web/commit/b0af43e6f5a896e88f9cbd5159de7f8de7b6dc02))
+* 新增左侧导航的收缩和展开按钮 ([85df5da](https://github.com/hhui64/livekun-web/commit/85df5da9be4b706c0b3860281a4cbd3183a48754))
+* **ChatMessage:** 新增更多可调整的配置 ([0f26f3d](https://github.com/hhui64/livekun-web/commit/0f26f3d07732823709690e9e7d8fe0d9373b4f91))
+* **Home:** 新增页脚版权信息 ([f638878](https://github.com/hhui64/livekun-web/commit/f6388784a12b68fcf0bdedf7e8597805539922e1))
+
+
+### Performance Improvements
+
+* 移除不必要的嵌套标签 ([83846b8](https://github.com/hhui64/livekun-web/commit/83846b8252f286c9cbfe6cf11f4d59d917a4e15d))
+* 优化 `Paid` 和 `Ticket` 插件配置页面的样式 ([d927870](https://github.com/hhui64/livekun-web/commit/d92787032bd09f2747cf5367728094988231f5b2))
+* 优化 `PluginsConfig` 类型约束 ([8cfcdab](https://github.com/hhui64/livekun-web/commit/8cfcdabdea1398ceb618881ab8db7849a4ab5669))
+* 优化插件设置页面的文案 ([0e03d6f](https://github.com/hhui64/livekun-web/commit/0e03d6f72688b70f48c62a79c1ab80edcd3a2dc3))
+* 优化页面样式 ([e30ac33](https://github.com/hhui64/livekun-web/commit/e30ac33433e481486ac659bbf769ab7fae24c4c3))
+* **app.config:** 优化版权信息 ([e1f0cae](https://github.com/hhui64/livekun-web/commit/e1f0cae0d27785e7237c502d6b7c21075183d1f4))
+
+
+
 # [1.0.0-alpha.8](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2023-03-04)
 
 
