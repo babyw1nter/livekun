@@ -2,8 +2,7 @@
   <div class="test-page">
     <TicketPanel ref="TicketPanelRef" :maximum="5" style="margin-bottom: 1rem"></TicketPanel>
 
-    <ChatMessageList ref="ChatMessageListRef" :font-size="chatMessageListFontSize"
-      style="margin-bottom: 1rem; width: 400px; height: 400px">
+    <ChatMessageList ref="ChatMessageListRef" style="margin-bottom: 1rem; width: 400px; height: 400px">
     </ChatMessageList>
 
     <PaidPanel ref="PaidPanelRef" style="width: 300px; height: 340px"> </PaidPanel>
@@ -37,8 +36,6 @@
         <a-button type="primary" @click="clearPaid">clearPaid</a-button>
       </a-space>
       <a-divider />
-      <p>ChatMessageList Font Size: {{ chatMessageListFontSize }}px</p>
-      <a-slider :min="12" :max="64" v-model:value="chatMessageListFontSize" />
     </div>
   </div>
 </template>
@@ -47,15 +44,11 @@
 import type TicketPanel from '@/components/TicketPanel.vue'
 import type ChatMessageList from '@/components/ChatMessageList.vue'
 import type PaidPanel from '@/components/PaidPanel.vue'
-import { useStore } from 'vuex'
-import { key } from '@/store'
 import { getRandomChatMessage, getRandomTicket, getRandomPaid } from '@/api/mock'
 
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
-
-const chatMessageListFontSize = ref(18)
 
 const addTicket = () => {
   TicketPanelRef.value?.add({
