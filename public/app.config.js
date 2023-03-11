@@ -1,8 +1,8 @@
 const appConfig = {
-  copyright: '© 2023 hhui64.',
+  copyright: '© 2023 hhui64. Made for Linger, Customized.',
   icp: {
     beian: '桂ICP备15007582号-4',
-    url: 'http://beian.miit.gov.cn/'
+    url: 'https://beian.miit.gov.cn/'
   },
   gongan: {
     beian: '桂公网安备45010302002861号',
