@@ -136,7 +136,6 @@
             <a-form :label-align="'right'" :label-col="labelCol" style="max-width: none;">
               <a-row :gutter="24" style="margin: 0;">
                 <a-col :xs="24" :sm="12" :lg="24" :xl="12">
-
                   <a-form-item label="粉丝徽章">
                     <a-switch :checked="false" checked-children="开" un-checked-children="关" disabled />
                   </a-form-item>
@@ -158,7 +157,6 @@
                   <a-form-item label="主播图标">
                     <a-switch :checked="false" checked-children="开" un-checked-children="关" disabled />
                   </a-form-item>
-
                 </a-col>
               </a-row>
             </a-form>
