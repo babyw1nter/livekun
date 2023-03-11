@@ -47,7 +47,7 @@
 
       <a-col :sm="24" :lg="10" :xl="8" style="width: 100%;">
         <a-affix :offset-top="16" style="width: 100%;">
-          <PluginPreviewWrapper class="plugin-ticket-preview" :plugin-name="PluginNames.PLUGIN_PAID"
+          <PluginPreviewWrapper class="plugin-ticket-preview" :plugin-name="PluginNames.PLUGIN_TICKET"
             v-model:auto-preview="autoPreview" @on-auto-preview-switch-change="autoPreviewSwitchChange">
             <TicketPanel ref="TicketPanelRef" class="preview-ticket-panel"
               :level="reactivityPluginConfig.pluginConfig.level"
