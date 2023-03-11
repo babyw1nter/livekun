@@ -1,28 +1,21 @@
 <template>
   <div class="connect-page-wrapper">
-    <a-alert
-      :message="store.state.status.isJoinRoom ? `已连接 ${store.state.status.roomInfo.liveId}` : '未连接'"
-      :description="
-        store.state.status.isJoinRoom
-          ? `已进入直播间「${store.state.status.roomInfo.title}」`
-          : '请进入一个直播间以使用所有功能。'
-      "
-      :type="store.state.status.isJoinRoom ? 'success' : 'info'"
-      style="margin-bottom: 1rem"
-      show-icon
-    />
-    <div class="join-input-wrap" style="margin-top: 1rem">
-      <a-space :size="10">
-        <a-input
-          v-model:value="liveIdInputValue"
-          placeholder="请输入直播间ID"
-          :disabled="isLoading || isReseting"
-          allowClear
-        />
-        <a-button @click="joinRoom" type="primary" :loading="isLoading" :disabled="isReseting">进入</a-button>
-        <a-button @click="reset" danger :loading="isReseting">重置</a-button>
-      </a-space>
-    </div>
+    <a-card>
+      <a-alert :message="store.state.status.isJoinRoom ? `已连接 ${store.state.status.roomInfo.liveId}` : '未连接'"
+        :description="
+          store.state.status.isJoinRoom
+            ? `已进入直播间「${store.state.status.roomInfo.title}」`
+            : '请进入一个直播间以使用所有功能。'
+        " :type="store.state.status.isJoinRoom ? 'success' : 'info'" style="margin-bottom: 1rem" show-icon />
+      <div class="join-input-wrap" style="margin-top: 1rem">
+        <a-space :size="10">
+          <a-input v-model:value="liveIdInputValue" placeholder="请输入直播间ID" :disabled="isLoading || isReseting"
+            allowClear />
+          <a-button @click="joinRoom" type="primary" :loading="isLoading" :disabled="isReseting">进入</a-button>
+          <a-button @click="reset" danger :loading="isReseting">重置</a-button>
+        </a-space>
+      </div>
+    </a-card>
   </div>
 </template>
 

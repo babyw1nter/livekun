@@ -1,10 +1,12 @@
 <template>
   <div class="account-page-wrapper">
-    <a-alert message="如果忘记密码，请联系管理员重置！" type="info" showIcon style="margin-bottom: 1rem;" />
-    <a-typography-paragraph :copyable="{ text: store.state.auth.uuid }">
-      UUID：{{ store.state.auth.uuid }}
-    </a-typography-paragraph>
-    <a-button @click="logout" danger>退出登录</a-button>
+    <a-card>
+      <a-alert message="如果忘记密码，请联系管理员重置！" type="info" showIcon style="margin-bottom: 1rem;" />
+      <a-typography-paragraph :copyable="{ text: store.state.auth.uuid }">
+        UUID：{{ store.state.auth.uuid }}
+      </a-typography-paragraph>
+      <a-button @click="logout" danger>退出登录</a-button>
+    </a-card>
   </div>
 </template>
 
