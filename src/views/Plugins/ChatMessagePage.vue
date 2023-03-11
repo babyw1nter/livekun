@@ -1,17 +1,15 @@
 <template>
   <ChatMessageList ref="ChatMessageListRef"
-    :font-size="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.style.fontSize"
+    :chat-message-config="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig"
     :ticket-config="ticketPluginConfig.reactivityPluginConfig.pluginConfig"
     :paid-config="paidPluginConfig.reactivityPluginConfig.pluginConfig" />
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-import { key } from '@/store'
 import type ChatMessageList from '@/components/ChatMessageList.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { createSocket } from '@/api/socket'
-import { PluginNames, PluginActions, getDefaultPluginsConfig, IPluginConfig } from '@/api/plugins'
+import { PluginNames, PluginActions } from '@/api/plugins'
 import { useChatMessagePluginConfig } from '@/api/config'
 
 interface IPluginChatMessageData extends IPluginCommonMessage {
@@ -20,7 +18,6 @@ interface IPluginChatMessageData extends IPluginCommonMessage {
   type: string
 }
 
-const store = useStore(key)
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
 let { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig } = useChatMessagePluginConfig()
