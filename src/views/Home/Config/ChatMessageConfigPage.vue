@@ -258,8 +258,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-import { key } from '@/store'
 import { message } from 'ant-design-vue'
 import type ChatMessageList from '@/components/ChatMessageList.vue'
 import http from '@/api/http'
