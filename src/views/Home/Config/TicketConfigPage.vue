@@ -1,6 +1,62 @@
 <template>
   <div class="config-ticket options-panel">
-    <div class="preview-wrapper">
+    <a-row :gutter="[16, 16]">
+      <a-col :sm="24" :lg="14" :xl="16" style="width: 100%;">
+        <a-space direction="vertical" size="middle" style="width: 100%;">
+          <a-card>
+            <a-typography-text strong>通用设置</a-typography-text>
+
+            <a-divider />
+
+            <a-form :label-align="'right'" :label-col="labelCol" style="max-width: none;">
+              <a-row :gutter="24" style="margin: 0;">
+                <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
+                  <a-form-item label="最大数量">
+                    <a-input-number :min="1" v-model:value="reactivityPluginConfig.pluginConfig.maximum" />
+                  </a-form-item>
+                </a-col>
+
+                <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
+                  <a-form-item label="最低金额">
+                    <a-input-number :min="0" v-model:value="reactivityPluginConfig.pluginConfig.minMoney" disabled />
+                  </a-form-item>
+                </a-col>
+              </a-row>
+            </a-form>
+          </a-card>
+
+          <a-card>
+            <a-space direction="vertical">
+              <a-typography-text strong>插件控制</a-typography-text>
+              <!-- <a-typography-text type="secondary"> 控制在 OBS 中添加的插件 </a-typography-text> -->
+              <a-space :size="10" style="margin-top: 1rem">
+                <a-button @click="sendMock">发送模拟数据至插件</a-button>
+                <a-button @click="clear">清空插件数据</a-button>
+              </a-space>
+            </a-space>
+          </a-card>
+
+          <a-card>
+            <a-space :size="10">
+              <a-button type="primary" @click="save">保存设置</a-button>
+              <a-button danger @click="reset">恢复默认</a-button>
+            </a-space>
+          </a-card>
+        </a-space>
+      </a-col>
+
+      <a-col :sm="24" :lg="10" :xl="8" style="width: 100%;">
+        <a-affix :offset-top="16" style="width: 100%;">
+          <PluginPreviewWrapper class="plugin-ticket-preview" :plugin-name="PluginNames.PLUGIN_PAID"
+            v-model:auto-preview="autoPreview" @on-auto-preview-switch-change="autoPreviewSwitchChange">
+            <TicketPanel ref="TicketPanelRef" class="preview-ticket-panel"
+              :level="reactivityPluginConfig.pluginConfig.level"
+              :duration="reactivityPluginConfig.pluginConfig.duration" />
+          </PluginPreviewWrapper>
+        </a-affix>
+      </a-col>
+    </a-row>
+    <!-- <div class="preview-wrapper">
       <TicketPanel ref="TicketPanelRef" class="preview-ticket-panel" :level="reactivityPluginConfig.pluginConfig.level"
         :duration="reactivityPluginConfig.pluginConfig.duration" />
       <a-checkbox v-model:checked="autoPreview" @change="autoPreviewChange"
@@ -60,13 +116,11 @@
     <a-space :size="10">
       <a-button type="primary" @click="save">保存设置</a-button>
       <a-button danger @click="reset">恢复默认</a-button>
-    </a-space>
+    </a-space> -->
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-import { key } from '@/store'
 import { message } from 'ant-design-vue'
 import type TicketPanel from '@/components/TicketPanel.vue'
 import http from '@/api/http'
@@ -74,18 +128,17 @@ import { getRandomTicket } from '@/api/mock'
 import { PluginNames } from '@/api/plugins'
 import { usePluginConfig } from '@/api/config'
 
-const store = useStore(key)
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 
 let { reactivityPluginConfig, pull, reset, save } = usePluginConfig<PluginNames.PLUGIN_TICKET>(PluginNames.PLUGIN_TICKET)
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)
-const autoPreviewChange = () => {
-  TicketPanelRef.value?.add({
-    ...getRandomTicket()
-  })
-  if (autoPreview.value) {
+const autoPreviewSwitchChange = (checked: boolean) => {
+  if (checked) {
+    TicketPanelRef.value?.add({
+      ...getRandomTicket()
+    })
     autoPreviewTimer.value = window.setInterval(() => {
       TicketPanelRef.value?.add({
         ...getRandomTicket()
@@ -96,9 +149,7 @@ const autoPreviewChange = () => {
   }
 }
 
-onMounted(() => autoPreviewChange())
-
-const url = computed(() => `${window.location.origin}/#/plugins/ticket?uuid=${store.state.auth.uuid}`)
+onMounted(() => autoPreviewSwitchChange(true))
 
 const sendMock = () => {
   http
@@ -121,14 +172,19 @@ const clear = () => {
       message.error(reason.toString())
     })
 }
+
+const labelCol = {
+  style: {
+    width: '150px'
+  }
+}
 </script>
 
 <style lang="less" scoped>
 .config-ticket {
-  .preview-ticket-panel {
-    position: absolute;
+  .plugin-ticket-preview {
+    height: calc(100vh - 150px);
     width: 100%;
-    top: 50px;
   }
 }
 </style>

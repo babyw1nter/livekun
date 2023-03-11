@@ -1,6 +1,61 @@
 <template>
   <div class="config-paid options-panel">
-    <div class="preview-wrapper">
+    <a-row :gutter="[16, 16]">
+      <a-col :sm="24" :lg="14" :xl="16" style="width: 100%;">
+        <a-space direction="vertical" size="middle" style="width: 100%;">
+          <a-card>
+            <a-typography-text strong>通用设置</a-typography-text>
+            <a-tag color="orange" style="margin-left: 4px; margin-top: -2px; vertical-align: bottom;">未完成</a-tag>
+
+            <a-divider />
+
+            <a-form :label-align="'right'" :label-col="labelCol" style="max-width: none;">
+              <a-row :gutter="24" style="margin: 0;">
+                <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
+                  <a-form-item label="最大数量">
+                    <a-input-number :min="1" :value="100" disabled />
+                  </a-form-item>
+                </a-col>
+
+                <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
+                  <a-form-item label="最低金额">
+                    <a-input-number :min="0" v-model:value="reactivityPluginConfig.pluginConfig.minMoney" disabled />
+                  </a-form-item>
+                </a-col>
+              </a-row>
+            </a-form>
+          </a-card>
+          <a-card>
+            <a-space direction="vertical">
+              <a-typography-text strong>插件控制</a-typography-text>
+              <!-- <a-typography-text type="secondary"> 控制在 OBS 中添加的插件 </a-typography-text> -->
+              <a-space :size="10" style="margin-top: 1rem">
+                <a-button @click="sendMock">发送模拟数据至插件</a-button>
+                <a-button @click="clear">清空插件数据</a-button>
+              </a-space>
+            </a-space>
+          </a-card>
+
+          <a-card>
+            <a-space :size="10">
+              <a-button type="primary" @click="save">保存设置</a-button>
+              <a-button danger @click="reset">恢复默认</a-button>
+            </a-space>
+          </a-card>
+        </a-space>
+      </a-col>
+
+      <a-col :sm="24" :lg="10" :xl="8" style="width: 100%;">
+        <a-affix :offset-top="16" style="width: 100%;">
+          <PluginPreviewWrapper class="plugin-paid-preview" :plugin-name="PluginNames.PLUGIN_PAID"
+            v-model:auto-preview="autoPreview" @on-auto-preview-switch-change="autoPreviewSwitchChange">
+            <PaidPanel ref="PaidPanelRef" class="preview-paid-panel" :list="paidList"
+              :level="reactivityPluginConfig.pluginConfig.level" />
+          </PluginPreviewWrapper>
+        </a-affix>
+      </a-col>
+    </a-row>
+    <!-- <div class="preview-wrapper">
       <PaidPanel ref="PaidPanelRef" class="preview-paid-panel" :list="paidList" :level="reactivityPluginConfig.pluginConfig.level" />
       <a-checkbox v-model:checked="autoPreview" @change="autoPreviewChange"
         style="margin: 1rem; float: right; color: #fff;">自动预览
@@ -75,13 +130,11 @@
     <a-space :size="10">
       <a-button type="primary" @click="save">保存设置</a-button>
       <a-button danger @click="reset">恢复默认</a-button>
-    </a-space>
+    </a-space> -->
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-import { key } from '@/store'
 import { message } from 'ant-design-vue'
 import http from '@/api/http'
 import PaidPanel from '@/components/PaidPanel.vue'
@@ -89,18 +142,18 @@ import { getRandomPaid } from '@/api/mock'
 import { PluginNames } from '@/api/plugins'
 import { usePluginConfig } from '@/api/config'
 
-const store = useStore(key)
 const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
 
 let { reactivityPluginConfig, pull, reset, save } = usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)
-const autoPreviewChange = () => {
-  PaidPanelRef.value?.add({
-    ...getRandomPaid()
-  })
-  if (autoPreview.value) {
+const autoPreviewSwitchChange = (checked: boolean) => {
+  if (checked) {
+    PaidPanelRef.value?.add({
+      ...getRandomPaid()
+    })
+
     autoPreviewTimer.value = window.setInterval(() => {
       PaidPanelRef.value?.add({
         ...getRandomPaid()
@@ -111,9 +164,7 @@ const autoPreviewChange = () => {
   }
 }
 
-onMounted(() => autoPreviewChange())
-
-const url = computed(() => `${window.location.origin}/#/plugins/paid?uuid=${store.state.auth.uuid}`)
+onMounted(() => autoPreviewSwitchChange(true))
 
 const sendMock = () => {
   http
@@ -138,16 +189,19 @@ const clear = () => {
 }
 
 const paidList = ref([])
+
+const labelCol = {
+  style: {
+    width: '150px'
+  }
+}
 </script>
 
 <style lang="less" scoped>
 .config-paid {
-  .preview-paid-panel {
-    position: absolute;
-    width: 350px;
-    height: 370px;
-    top: 70px;
-    left: 20px;
+  .plugin-paid-preview {
+    height: calc(100vh - 150px);
+    width: 100%;
   }
 }
 </style>
