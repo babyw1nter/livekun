@@ -7,7 +7,7 @@
             <a-space direction="vertical" style="width: 100%;">
               <a-typography-text strong>自定义样式</a-typography-text>
 
-              <a-form :label-align="'right'" :label-col="labelCol" :wrapper-col="wrapperCol" style="max-width: none;">
+              <a-form :label-align="'right'" :label-col="labelCol" style="max-width: none;">
                 <a-row :gutter="24" style="margin: 0;">
                   <a-divider orientation="left">文本样式</a-divider>
 
@@ -15,7 +15,7 @@
                     <a-form-item label="文字大小">
                       <a-select ref="select"
                         v-model:value="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.fontSize">
-                        <a-select-option :value="i + 17" v-for="i in 15" :key="i + 987">{{ i + 17 }}px</a-select-option>
+                        <a-select-option :value="i + 17" v-for="i in 15" :key="i + 114514">{{ i + 17 }}px</a-select-option>
                       </a-select>
                     </a-form-item>
                   </a-col>
@@ -135,7 +135,7 @@
 
               <a-divider />
 
-              <a-form :label-align="'right'" :label-col="labelCol" :wrapper-col="wrapperCol" style="max-width: none;">
+              <a-form :label-align="'right'" :label-col="labelCol" style="max-width: none;">
                 <a-row :gutter="24" style="margin: 0;">
                   <a-col :xs="24" :sm="12" :lg="24" :xl="12">
 
@@ -173,7 +173,7 @@
 
               <a-divider />
 
-              <a-form :label-align="'right'" :label-col="labelCol" :wrapper-col="wrapperCol" style="max-width: none;">
+              <a-form :label-align="'right'" :label-col="labelCol" style="max-width: none;">
                 <a-row :gutter="24" style="margin: 0;">
                   <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                     <a-form-item label="Ticket 价签栏">
@@ -199,7 +199,7 @@
 
               <a-divider />
 
-              <a-form :label-align="'right'" :label-col="labelCol" :wrapper-col="wrapperCol" style="max-width: none;">
+              <a-form :label-align="'right'" :label-col="labelCol" style="max-width: none;">
                 <a-row :gutter="24" style="margin: 0;">
                   <a-col :xs="24">
                     <a-form-item label="事件类型">
@@ -267,7 +267,6 @@ import { getRandomChatMessage } from '@/api/mock'
 import { useChatMessagePluginConfig } from '@/api/config'
 import { PluginNames } from '@/api/plugins'
 
-const store = useStore(key)
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
 let { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig } = useChatMessagePluginConfig()
@@ -314,19 +313,9 @@ const clear = () => {
 }
 
 const labelCol = {
-  // sm: { span: 4 },
-  // lg: { span: 24 },
   style: {
     width: '150px'
   }
-}
-
-const wrapperCol = {
-  // sm: { span: 14 },
-  // lg: { span: 24, offset: 24 },
-  // style: {
-  //   width: '150px'
-  // }
 }
 </script>
 
