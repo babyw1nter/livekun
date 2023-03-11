@@ -1,39 +1,26 @@
 <template>
-  <div class="chat-message-panel" :class="{ 'show-ticket-panel': showTicketPanel }">
-    <TicketPanel ref="TicketPanelRef" :maximum="ticketConfig.maximum"
-      :level="ticketConfig.level" :duration="ticketConfig.duration"
-      class="chat-message-ticket-panel mb-0" />
+  <div class="chat-message-panel" :class="{ 'show-ticket-panel': chatMessageConfig.type.ticket }">
+    <TicketPanel ref="TicketPanelRef" :maximum="ticketConfig.maximum" :level="ticketConfig.level"
+      :duration="ticketConfig.duration" class="chat-message-ticket-panel mb-0" />
+
     <ul ref="dom" class="chat-message-list clearfix mb-0" :class="{ 'smooth-scroll': !isTooQuickly }">
       <template v-for="item in chatMessageList" :key="item.key">
+        <!-- 聊天消息 start -->
         <li class="chat-list-message" v-if="item.messageType === 'chat'">
-          <ChatMessage
-            :avatar-url="item.avatarUrl"
-            :nickname="item.nickname"
-            :message="item.message"
-            :admin="item.admin"
-            :guard="item.guard"
-            :badgeInfo="item.badgeInfo"
-            :custom-style="item.customStyle"
-            :font-size="fontSize"
-            :type="item.type"
-          >
+          <ChatMessage :avatar-url="item.avatarUrl" :nickname="item.nickname" :message="item.message" :rule="item.rule"
+            :guard="item.guard" :badgeInfo="item.badgeInfo" :custom-style="chatMessageConfig.customStyle" :type="item.type">
           </ChatMessage>
         </li>
-        <li class="chat-list-gift" v-if="item.messageType === 'gift'">
-          <Paid
-            :type="item.type || `level-${getLevel(item?.money || 0, paidConfig.level)}`"
-            :avatar-url="item.avatarUrl"
-            :nickname="item.nickname"
-            :money="item.money"
-            :gift-name="item.giftName"
-            :gift-count="item.giftCount"
-            :gift-image="item.giftImage"
-            :gift-icon="item.giftIcon"
-            :message="item.message"
-            :comment="item.comment"
-          >
+        <!-- 聊天消息 end -->
+
+        <!-- paid start -->
+        <li class="chat-list-gift" v-if="item.messageType === 'gift' && chatMessageConfig.type.paid">
+          <Paid :type="item.type || `level-${getLevel(item?.money || 0, paidConfig.level)}`" :avatar-url="item.avatarUrl"
+            :nickname="item.nickname" :money="item.money" :gift-name="item.giftName" :gift-count="item.giftCount"
+            :gift-image="item.giftImage" :gift-icon="item.giftIcon" :message="item.message" :comment="item.comment">
           </Paid>
         </li>
+        <!-- paid end -->
       </template>
     </ul>
   </div>
@@ -45,6 +32,7 @@ import { key } from '@/store'
 import { getLevel } from '@/api/common'
 import type TicketPanel from '@/components/TicketPanel.vue'
 import { getDefaultPluginsConfig, IPluginConfig, IPluginConfigMap, PluginNames } from '@/api/plugins'
+import { PropType } from 'vue'
 
 interface ChatMessage {
   key: string
@@ -53,24 +41,24 @@ interface ChatMessage {
   nickname: string
   message: string
   messageType: 'chat' | 'gift' | string
+  /** @deprecated */
   type?: 'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string
-  admin?: boolean
+  rule?: {
+    admin: boolean
+    anchor: boolean
+  }
   guard?: number
   badgeInfo?: {
     badgename: string
     level: number
   }
+
   money?: number
   giftName?: string
   giftCount?: number
   giftImage?: string
   giftIcon?: string
   comment?: string
-  customStyle?: {
-    nicknameColor?: string
-    messageColor?: string
-    fontSize?: number
-  }
   [propName: string]: unknown
 }
 
@@ -79,21 +67,13 @@ const props = defineProps({
     type: Array as PropType<ChatMessage[]>,
     default: () => []
   },
-  maximum: {
-    type: Number,
-    default: 150
-  },
   smoothScrollInterval: {
     type: Number,
     default: 250
   },
-  fontSize: {
-    type: Number,
-    default: 18
-  },
-  showTicketPanel: {
-    type: Boolean,
-    default: true
+  chatMessageConfig: {
+    type: Object as PropType<IPluginConfigMap[PluginNames.PLUGIN_CHAT_MESSAGE]>,
+    default: () => getDefaultPluginsConfig(PluginNames.PLUGIN_CHAT_MESSAGE)?.pluginConfig
   },
   ticketConfig: {
     type: Object as PropType<IPluginConfigMap[PluginNames.PLUGIN_TICKET]>,
@@ -123,7 +103,7 @@ let interval = 0
 const add = (chatMessage: ChatMessage) => {
   if (!chatMessage.nickname || !chatMessage.message) return
 
-  if (chatMessageList.length >= props.maximum) {
+  if (chatMessageList.length >= props.chatMessageConfig.maximum) {
     del(chatMessageList[0].key)
   }
 
@@ -180,6 +160,7 @@ defineExpose({
     .chat-message-ticket-panel {
       display: block;
     }
+
     .chat-message-list {
       height: calc(100% - 55px);
     }
