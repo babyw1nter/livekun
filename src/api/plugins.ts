@@ -29,17 +29,59 @@ interface IPluginConfig<K extends keyof IPluginConfigMap> {
 
 type PluginsConfig = Array<IPluginConfig<PluginNames>>
 interface IPluginConfigMap {
-  ticket: {
+  [PluginNames.PLUGIN_TICKET]: {
     level: Array<number>
     duration: Array<number>
     maximum: number
     minMoney: number
   }
-  'chat-message': {
-    style: {
+  [PluginNames.PLUGIN_CHAT_MESSAGE]: {
+    maximum: number
+    customStyle: {
+      /** 字体大小 */
       fontSize: number
+      /** 消息颜色样式 */
+      color: {
+        /** 普通用户 */
+        normal: {
+          nickname: string
+          message: string
+        }
+        /** cc守护/虎牙守护/bilibili大航海 */
+        guard: {
+          /** cc守护/虎牙守护（月守），bilibili（舰长） */
+          lv1: {
+            nickname: string
+            message: string
+          }
+          /** cc守护/虎牙守护（年守），bilibili（提督） */
+          lv2: {
+            nickname: string
+            message: string
+          }
+          /** bilibili（总督） */
+          lv3: {
+            nickname: string
+            message: string
+          }
+        }
+        /** 房管 */
+        admin: {
+          nickname: string
+          message: string
+        }
+        /** 主播 */
+        anchor: {
+          nickname: string
+          message: string
+        }
+      }
     }
-    show: {
+    type: {
+      ticket: boolean
+      paid: boolean
+    }
+    event: {
       join: boolean
       follow: boolean
       gift: boolean
@@ -49,7 +91,7 @@ interface IPluginConfigMap {
       note: string
     }>
   }
-  paid: {
+  [PluginNames.PLUGIN_PAID]: {
     level: Array<number>
     minMoney: number
     comment: {
@@ -69,21 +111,56 @@ const defaultPluginsConfig: PluginsConfig = [
       duration: [1, 5, 10, 15, 30, 45, 60],
       maximum: 100,
       minMoney: 5
-    }
+    },
+    isDefault: true
   },
   {
     pluginName: PluginNames.PLUGIN_CHAT_MESSAGE,
     pluginConfig: {
-      style: {
-        fontSize: 18
+      maximum: 150,
+      customStyle: {
+        fontSize: 18,
+        color: {
+          normal: {
+            nickname: '#ccc',
+            message: '#fff'
+          },
+          guard: {
+            lv1: {
+              nickname: '#0F9D58',
+              message: '#fff'
+            },
+            lv2: {
+              nickname: '#0F9D58',
+              message: '#fff'
+            },
+            lv3: {
+              nickname: '#0F9D58',
+              message: '#fff'
+            }
+          },
+          admin: {
+            nickname: '#5f84f1',
+            message: '#fff'
+          },
+          anchor: {
+            nickname: '#FFD600',
+            message: '#fff'
+          }
+        }
       },
-      show: {
+      type: {
+        ticket: true,
+        paid: true
+      },
+      event: {
         join: false,
         follow: false,
-        gift: true
+        gift: false
       },
       blacklist: []
-    }
+    },
+    isDefault: true
   },
   {
     pluginName: PluginNames.PLUGIN_PAID,
@@ -96,7 +173,8 @@ const defaultPluginsConfig: PluginsConfig = [
         giftMinMoney: 10,
         giftWhitelist: ''
       }
-    }
+    },
+    isDefault: true
   }
 ]
 

@@ -14,7 +14,10 @@ interface ITicketMockData extends IBasePluginData {
 interface IChatMessageMockData extends IBasePluginData {
   message: string
   messageType: string
-  admin: boolean
+  rule: {
+    admin: boolean
+    anchor: boolean
+  }
   guard: number
   badgeInfo: {
     badgename: string
