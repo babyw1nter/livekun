@@ -6,41 +6,48 @@
           <span style="color: #0084ff;">LIVE</span>
           <span>KUN</span>
         </h1>
-        <p>网易CC直播OBS互动插件</p>
+        <p>多直播平台 OBS 互动插件</p>
       </div>
       <div class="main">
         <a-form name="login-form" ref="loginFormRef" :model="formState" :rules="rules" @finish="handleFinish">
           <a-form-item has-feedback name="username">
             <a-input v-model:value="formState.username" placeholder="请输入用户名" size="large" autocomplete="off">
-              <template #prefix> <UserOutlined style="color: #0084ff;" /> </template>
+              <template #prefix>
+                <UserOutlined style="color: #0084ff;" />
+              </template>
             </a-input>
           </a-form-item>
           <a-form-item has-feedback name="password">
-            <a-input-password
-              v-model:value="formState.password"
-              placeholder="请输入密码"
-              type="password"
-              size="large"
-              autocomplete="off"
-            >
-              <template #prefix> <LockOutlined style="color: #0084ff;" /> </template>
+            <a-input-password v-model:value="formState.password" placeholder="请输入密码" type="password" size="large"
+              autocomplete="off">
+              <template #prefix>
+                <LockOutlined style="color: #0084ff;" />
+              </template>
             </a-input-password>
           </a-form-item>
           <a-form-item name="autologin">
             <a-checkbox v-model:checked="formState.autologin">自动登陆</a-checkbox>
-            <a-typography-link style="float: right;">申请使用权限</a-typography-link>
+            <a-typography-link style="float: right;" @click.stop="visible = !visible">申请使用权限</a-typography-link>
           </a-form-item>
           <a-form-item>
             <a-button type="primary" style="width: 100%;" size="large" html-type="submit" :loading="isLoading">
-              登录
+              立即登录
             </a-button>
           </a-form-item>
         </a-form>
       </div>
       <div class="footer">
-        <p>{{ globalAppConfig.copyright }} {{ globalAppConfig.icp.beian }} {{ globalAppConfig.gongan.beian }}</p>
+        <PageFooter class="ft" />
       </div>
     </div>
+    <a-modal v-model:visible="visible" title="申请使用权限" :footer="null">
+      <a-typography-text>
+        这个项目目前还处于开发内测阶段，仅提供少数内测使用名额。<br />
+        如果你感兴趣，可以扫一扫下方二维码与我联系！
+      </a-typography-text>
+      <br />
+      <img src="@/assets/qrcode-wx.jpg" />
+    </a-modal>
   </div>
 </template>
 
@@ -51,7 +58,7 @@ import { message } from 'ant-design-vue'
 import http from '@/api/http'
 import { globalAppConfig } from '@/api/common'
 import { useRoute, useRouter } from 'vue-router'
-import { Rule, RuleObject, ValidateErrorEntity } from 'ant-design-vue/es/form/interface'
+import { Rule, RuleObject } from 'ant-design-vue/es/form/interface'
 
 interface FormState {
   username: string
@@ -80,7 +87,7 @@ const checkUsername = async (rule: RuleObject, value: string) => {
 
 const checkPassword = async (rule: RuleObject, value: string) => {
   if (value === '') {
-    return Promise.reject(new Error('密码不能为空！'))
+    return Promise.reject(new Error('密码不能为空'))
   } else {
     return Promise.resolve()
   }
@@ -136,6 +143,9 @@ const login = (username: string, password: string, autologin: boolean) => {
       isLoading.value = false
     })
 }
+
+const visible = ref(false)
+
 </script>
 
 <style lang="less" scoped>
@@ -156,9 +166,11 @@ const login = (username: string, password: string, autologin: boolean) => {
       h1 {
         font-weight: bold;
       }
+
       p {
         color: rgba(0, 0, 0, 0.45);
       }
+
       text-align: center;
       min-height: 100px;
       margin-bottom: 2rem;
@@ -176,8 +188,12 @@ const login = (username: string, password: string, autologin: boolean) => {
       width: 100%;
       margin: 48px 0 24px;
       padding: 0 16px;
-      text-align: center;
-      color: rgba(0, 0, 0, 0.45);
+
+      :deep(.ft) {
+        p {
+          margin: 8px !important;
+        }
+      }
     }
   }
 }
