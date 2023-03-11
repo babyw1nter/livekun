@@ -74,10 +74,10 @@ const bgWidth = ref<number>(0)
   }
 
   &.level-0 {
-    background: #1565c0;
+    background: #0553aa;
 
     .ticket-bg {
-      display: none;
+      background: #1565c0;
     }
   }
 
