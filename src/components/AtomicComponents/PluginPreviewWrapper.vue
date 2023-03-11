@@ -35,7 +35,6 @@ const onChange = (checked: unknown) => {
 
 const themeSwitch = (checked: unknown) => {
   emit('update:theme', checked as boolean ? 'dark' : 'light')
-  console.log(props.theme)
 }
 
 const themeSwitchState = ref(true)
@@ -48,21 +47,24 @@ const themeSwitchState = ref(true)
       <slot></slot>
     </div>
 
-    <a-space :size="5">
-      <a-switch :checked="autoPreview" checked-children="开" un-checked-children="关"
-        @change="(checked) => onChange(checked)" style="vertical-align: bottom;">
-      </a-switch>
-      <a-typography-text>自动预览</a-typography-text>
-    </a-space>
-    <a-space :size="5">
-      <a-switch v-model:checked="themeSwitchState" checked-children="暗" un-checked-children="亮"
-        @change="(checked) => themeSwitch(checked)" style="vertical-align: bottom; margin-left: 10px; background-color: #1890ff;">
-      </a-switch>
-      <a-typography-text>背景</a-typography-text>
-    </a-space>
-    <a-typography-link :href="url" :copyable="{ text: url }" target="_blank" style="float: right;">
-      插件链接
-    </a-typography-link>
+    <div class="preview-footer">
+      <a-space :size="5">
+        <a-switch :checked="autoPreview" checked-children="开" un-checked-children="关"
+          @change="(checked) => onChange(checked)" style="vertical-align: bottom;">
+        </a-switch>
+        <a-typography-text>自动预览</a-typography-text>
+      </a-space>
+      <a-space :size="5">
+        <a-switch v-model:checked="themeSwitchState" checked-children="暗" un-checked-children="亮"
+          @change="(checked) => themeSwitch(checked)"
+          style="vertical-align: bottom; margin-left: 10px; background-color: #1890ff;">
+        </a-switch>
+        <a-typography-text>背景</a-typography-text>
+      </a-space>
+      <a-typography-link :href="url" :copyable="{ text: url }" target="_blank" style="float: right;">
+        插件链接
+      </a-typography-link>
+    </div>
   </div>
 </template>
 

@@ -3,8 +3,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-import { key } from '@/store'
 import type PaidPanel from '@/components/PaidPanel.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { createSocket } from '@/api/socket'

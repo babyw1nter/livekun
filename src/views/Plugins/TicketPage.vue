@@ -1,15 +1,13 @@
 <template>
-  <TicketPanel ref="TicketPanelRef" :maximum="reactivityPluginConfig.pluginConfig.maximum" :level="reactivityPluginConfig.pluginConfig.level"
-    :duration="reactivityPluginConfig.pluginConfig.duration" />
+  <TicketPanel ref="TicketPanelRef" :maximum="reactivityPluginConfig.pluginConfig.maximum"
+    :level="reactivityPluginConfig.pluginConfig.level" :duration="reactivityPluginConfig.pluginConfig.duration" />
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-import { key } from '@/store'
 import type TicketPanel from '@/components/TicketPanel.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { createSocket } from '@/api/socket'
-import { PluginNames, PluginActions, getDefaultPluginsConfig, IPluginConfig } from '@/api/plugins'
+import { PluginNames, PluginActions } from '@/api/plugins'
 import { usePluginConfig } from '@/api/config'
 
 interface IPluginTicketData extends IPluginCommonMessage {
@@ -18,7 +16,6 @@ interface IPluginTicketData extends IPluginCommonMessage {
   giftCount: number
 }
 
-const store = useStore(key)
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 
 let { reactivityPluginConfig, pull, reset, save } = usePluginConfig<PluginNames.PLUGIN_TICKET>(PluginNames.PLUGIN_TICKET)
