@@ -64,24 +64,7 @@
 
       <a-layout-footer class="footer" style="font-size: 13px;">
         <a-divider />
-        <p>
-          <a-typography-text type="secondary">
-            {{ globalAppConfig.copyright }}
-            Powered by
-            <a-typography-link type="secondary" :href="'https://github.com/vueComponent/ant-design-vue'" target="_blank"
-              underline>Ant Design Vue</a-typography-link>.
-          </a-typography-text>
-        </p>
-        <p>
-          <img src="@/assets/record-logo.png" height="20" style="vertical-align: bottom; margin-right: 4px;" />
-          <a-typography-link type="secondary" :href="globalAppConfig.gongan.url" target="_blank">
-            {{ globalAppConfig.gongan.beian }}
-          </a-typography-link>
-
-          <a-typography-link type="secondary" :href="globalAppConfig.icp.url" target="_blank" style="margin-left: 8px;">
-            {{ globalAppConfig.icp.beian }}
-          </a-typography-link>
-        </p>
+        <PageFooter />
       </a-layout-footer>
     </a-layout>
   </a-layout>
@@ -152,7 +135,6 @@ const onCollapse = (collapsed: boolean, type: string) => {
 .trigger {
   font-size: 18px;
   line-height: 50px;
-  // padding: 0 21px;
   width: 100%;
   cursor: pointer;
   transition: color 0.3s;
@@ -195,10 +177,6 @@ const onCollapse = (collapsed: boolean, type: string) => {
     top: 0px;
     bottom: 0px;
     background: #fff;
-
-    // .ant-layout-sider-children {
-    //   position: relative;
-    // }
   }
 
   .right-wrapper {
@@ -213,11 +191,6 @@ const onCollapse = (collapsed: boolean, type: string) => {
 
   .footer {
     padding: 24px 16px;
-
-    p {
-      margin: 0;
-    }
-
     text-align: center;
   }
 }
