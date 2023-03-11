@@ -38,7 +38,13 @@ export default defineConfig({
     }),
     Components({
       dts: 'src/types/components.d.ts',
-      resolvers: [AntDesignVueResolver({ importStyle: 'less', resolveIcons: true }), IconsResolver()]
+      resolvers: [
+        AntDesignVueResolver({ importStyle: 'less', resolveIcons: true }),
+        IconsResolver(),
+        (componentName) => {
+          return componentName === 'ColorPicker' ? { name: 'ColorPicker', from: 'vue3-colorpicker' } : undefined
+        }
+      ]
     }),
     Icons({
       compiler: 'vue3'
