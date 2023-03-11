@@ -1,7 +1,7 @@
 <template>
   <a-layout class="home">
     <a-layout-sider class="left-wrapper" breakpoint="lg" @collapse="onCollapse" :collapsedWidth="60"
-      v-model:collapsed="isCollapsed" :trigger="null" collapsible>
+      v-model:collapsed="isCollapsed" :trigger="null" collapsible :width="260">
 
       <div class="logo no-select" :style="{ height: isCollapsed ? 0 : 'auto' }">
         <span class="logo-text">
@@ -14,13 +14,13 @@
         style="border-right: none">
         <a-menu-item key="/">
           <template #icon>
-            <ApiOutlined />
+            <HomeOutlined />
           </template>
-          连接控制
+          首页
         </a-menu-item>
         <a-sub-menu key="/config">
           <template #icon>
-            <SettingOutlined />
+            <AppstoreOutlined />
           </template>
           <template #title>插件设置</template>
           <a-menu-item key="/config/chat-message">
@@ -58,18 +58,30 @@
       </div>
     </a-layout-sider>
     <a-layout class="right-wrapper" :class="{ collapsed: isCollapsed }">
-      <!-- <a-layout-header style="background: #fff; padding: 0">
-        <menu-unfold-outlined v-if="collapsed" class="trigger" @click="() => (collapsed = !collapsed)" />
-        <menu-fold-outlined v-else class="trigger" @click="() => (collapsed = !collapsed)" />
-      </a-layout-header> -->
-      <a-layout-content :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }">
+      <a-layout-content :style="{ margin: '16px', minHeight: '280px' }">
         <router-view></router-view>
       </a-layout-content>
 
-      <a-layout-footer class="footer">
-        <a-typography-text type="secondary">
-          {{ globalAppConfig.copyright }} {{ globalAppConfig.icp.beian }} {{ globalAppConfig.gongan.beian }}
-        </a-typography-text>
+      <a-layout-footer class="footer" style="font-size: 13px;">
+        <a-divider />
+        <p>
+          <a-typography-text type="secondary">
+            {{ globalAppConfig.copyright }}
+            Powered by
+            <a-typography-link type="secondary" :href="'https://github.com/vueComponent/ant-design-vue'" target="_blank"
+              underline>Ant Design Vue</a-typography-link>.
+          </a-typography-text>
+        </p>
+        <p>
+          <img src="@/assets/record-logo.png" height="20" style="vertical-align: bottom; margin-right: 4px;" />
+          <a-typography-link type="secondary" :href="globalAppConfig.gongan.url" target="_blank">
+            {{ globalAppConfig.gongan.beian }}
+          </a-typography-link>
+
+          <a-typography-link type="secondary" :href="globalAppConfig.icp.url" target="_blank" style="margin-left: 8px;">
+            {{ globalAppConfig.icp.beian }}
+          </a-typography-link>
+        </p>
       </a-layout-footer>
     </a-layout>
   </a-layout>
@@ -191,7 +203,7 @@ const onCollapse = (collapsed: boolean, type: string) => {
 
   .right-wrapper {
     overflow: hidden;
-    margin-left: 200px;
+    margin-left: 260px;
     transition: all .2s;
 
     &.collapsed {
@@ -200,6 +212,12 @@ const onCollapse = (collapsed: boolean, type: string) => {
   }
 
   .footer {
+    padding: 24px 16px;
+
+    p {
+      margin: 0;
+    }
+
     text-align: center;
   }
 }
