@@ -16,64 +16,66 @@ const TicketPluginPage = () => import('../components/plugins/Ticket/views/Plugin
 const PaidConfigPage = () => import('../components/plugins/Paid/views/ConfigPage.vue')
 const PaidPluginPage = () => import('../components/plugins/Paid/views/PluginPage.vue')
 
+const childrenRoutes: Array<RouteRecordRaw> = [
+  {
+    path: '',
+    name: 'Connect',
+    component: ConnectPage,
+    meta: {
+      title: '连接控制',
+      menuItemKey: '/',
+      requiresAuth: true
+    }
+  },
+  {
+    path: 'config/chat-message',
+    name: 'ChatMessageConfig',
+    component: ChatMessageConfigPage,
+    meta: {
+      title: '插件设置 - 聊天消息',
+      menuItemKey: '/config/chat-message',
+      requiresAuth: true
+    }
+  },
+  {
+    path: 'config/ticket',
+    name: 'TicketConfig',
+    component: TicketConfigPage,
+    meta: {
+      title: '插件设置 - SC Ticket',
+      menuItemKey: '/config/ticket',
+      requiresAuth: true
+    }
+  },
+  {
+    path: 'config/paid',
+    name: 'PaidConfig',
+    component: PaidConfigPage,
+    meta: {
+      title: '插件设置 - SC Paid',
+      menuItemKey: '/config/paid',
+      requiresAuth: true
+    }
+  },
+  {
+    path: 'account',
+    name: 'Account',
+    component: AccountPage,
+    meta: {
+      title: '账号管理',
+      menuItemKey: '/account',
+      requiresAuth: true
+    }
+  }
+]
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
     component: Home,
     meta: { requiresAuth: true },
-    children: [
-      {
-        path: '',
-        name: 'Connect',
-        component: ConnectPage,
-        meta: {
-          title: '连接控制',
-          menuItemKey: '/',
-          requiresAuth: true
-        }
-      },
-      {
-        path: 'config/chat-message',
-        name: 'ChatMessageConfig',
-        component: ChatMessageConfigPage,
-        meta: {
-          title: '插件设置 - 聊天消息',
-          menuItemKey: '/config/chat-message',
-          requiresAuth: true
-        }
-      },
-      {
-        path: 'config/ticket',
-        name: 'TicketConfig',
-        component: TicketConfigPage,
-        meta: {
-          title: '插件设置 - SC Ticket',
-          menuItemKey: '/config/ticket',
-          requiresAuth: true
-        }
-      },
-      {
-        path: 'config/paid',
-        name: 'PaidConfig',
-        component: PaidConfigPage,
-        meta: {
-          title: '插件设置 - SC Paid',
-          menuItemKey: '/config/paid',
-          requiresAuth: true
-        }
-      },
-      {
-        path: 'account',
-        name: 'Account',
-        component: AccountPage,
-        meta: {
-          title: '账号管理',
-          menuItemKey: '/account',
-          requiresAuth: true
-        }
-      }
-    ]
+    children: [...childrenRoutes]
   },
   {
     path: '/test',
@@ -82,34 +84,16 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: false }
   },
   {
-    path: '/chat-message',
-    redirect: {
-      name: 'ChatMessage'
-    }
-  },
-  {
     path: '/plugins/chat-message',
     name: 'ChatMessage',
     component: ChatMessagePluginPage,
     meta: { requiresAuth: false }
   },
   {
-    path: '/ticket',
-    redirect: {
-      name: 'Ticket'
-    }
-  },
-  {
     path: '/plugins/ticket',
     name: 'Ticket',
     component: TicketPluginPage,
     meta: { requiresAuth: false }
-  },
-  {
-    path: '/paid',
-    redirect: {
-      name: 'Paid'
-    }
   },
   {
     path: '/plugins/paid',
@@ -124,6 +108,5 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: false }
   }
 ]
-
 
 export { routes }
