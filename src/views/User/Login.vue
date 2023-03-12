@@ -6,7 +6,7 @@
           <span style="color: #0084ff;">LIVE</span>
           <span>KUN</span>
         </h1>
-        <p>多直播平台 OBS 互动插件</p>
+        <p>多直播平台 OBS 互动插件系统</p>
       </div>
       <div class="main">
         <a-form name="login-form" ref="loginFormRef" :model="formState" :rules="rules" @finish="handleFinish">
