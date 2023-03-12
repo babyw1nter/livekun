@@ -1,34 +1,9 @@
-# livekun-web
+# Livekun
 
-## Project setup
-```
-npm install
-```
+一个支持多直播平台 YouTube 风格的 OBS 互动插件
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 软件截图
 
-### Compiles and minifies for production
-```
-npm run build
-```
+![WEB](./screenshot/web.png)
 
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![OBS](./screenshot/obs.png)
