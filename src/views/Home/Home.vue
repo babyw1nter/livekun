@@ -71,10 +71,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-import { key } from '@/store'
-import { useRoute, useRouter } from 'vue-router'
-import { globalAppConfig, randomNum } from '@/api/common'
+import { randomNum } from '@/api/common'
 import http from '@/api/http'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 

@@ -56,8 +56,6 @@ import { useStore } from 'vuex'
 import { key } from '@/store'
 import { message } from 'ant-design-vue'
 import http from '@/api/http'
-import { globalAppConfig } from '@/api/common'
-import { useRoute, useRouter } from 'vue-router'
 import { Rule, RuleObject } from 'ant-design-vue/es/form/interface'
 
 interface FormState {
