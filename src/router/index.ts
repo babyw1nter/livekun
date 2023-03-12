@@ -26,8 +26,6 @@ router.beforeEach((to, from) => {
             localStorage.setItem('UUID', responseData.data.user.uuid)
 
             store.commit('updateStatus', responseData.data.status)
-
-            console.log('[auth] 自动登陆成功！', responseData)
           } else {
             store.commit('setLoginStatus', false)
             store.commit('setUUID', '')
