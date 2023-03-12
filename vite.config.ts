@@ -44,7 +44,8 @@ export default defineConfig({
         (componentName) => {
           return componentName === 'ColorPicker' ? { name: 'ColorPicker', from: 'vue3-colorpicker' } : undefined
         }
-      ]
+      ],
+      allowOverrides: true
     }),
     Icons({
       compiler: 'vue3'
