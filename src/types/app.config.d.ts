@@ -1,4 +1,4 @@
-declare var appConfig: {
+declare let appConfig: {
   copyright: string
   icp: {
     beian: string

@@ -137,7 +137,7 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
 import http from '@/api/http'
-import PaidPanel from '@/components/PaidPanel.vue'
+import PaidPanel from '@/components/plugins/Paid/components/PaidPanel.vue'
 import { getRandomPaid } from '@/api/mock'
 import { PluginNames } from '@/api/plugins'
 import { usePluginConfig } from '@/api/config'

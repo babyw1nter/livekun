@@ -13,7 +13,7 @@ import { globalAppConfig } from '@/api/common'
       </a-typography-text>
     </p>
     <p>
-      <img src="@/assets/record-logo.png" height="20" style="vertical-align: bottom; margin-right: 4px;" />
+      <img src="@/assets/img/record-logo.png" height="20" style="vertical-align: bottom; margin-right: 4px;" />
       <a-typography-link type="secondary" :href="globalAppConfig.gongan.url" target="_blank">
         {{ globalAppConfig.gongan.beian }}
       </a-typography-link>

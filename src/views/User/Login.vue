@@ -46,7 +46,7 @@
         如果你感兴趣，可以扫一扫下方二维码与我联系！
       </a-typography-text>
       <br />
-      <img src="@/assets/qrcode-wx.jpg" />
+      <img src="@/assets/img/qrcode-wx.jpg" />
     </a-modal>
   </div>
 </template>

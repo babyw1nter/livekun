@@ -27,11 +27,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-import { key } from '@/store'
 import { getLevel } from '@/api/common'
-import type TicketPanel from '@/components/TicketPanel.vue'
-import { getDefaultPluginsConfig, IPluginConfig, IPluginConfigMap, PluginNames } from '@/api/plugins'
+import type TicketPanel from '@/components/plugins/Ticket/components/TicketPanel.vue'
+import { getDefaultPluginsConfig, IPluginConfigMap, PluginNames } from '@/api/plugins'
 import { PropType } from 'vue'
 
 interface ChatMessage {
