@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash-es'
+
 /**
  * 插件注册名称
  */
@@ -178,8 +180,8 @@ const defaultPluginsConfig: PluginsConfig = [
   }
 ]
 
-const getDefaultPluginsConfig = (pluginName: PluginNames) => {
-  return defaultPluginsConfig.find((i) => i.pluginName === pluginName)
+const getDefaultPluginsConfig = <K extends keyof IPluginConfigMap>(pluginName: K | PluginNames) => {
+  return cloneDeep(defaultPluginsConfig.find((i) => i.pluginName === pluginName))
 }
 
 export {
