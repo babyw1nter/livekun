@@ -258,7 +258,7 @@ import { PluginNames } from '@/api/plugins'
 
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
-let { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig } = useChatMessagePluginConfig()
+let { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig } = await useChatMessagePluginConfig()
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)

@@ -144,7 +144,7 @@ import { usePluginConfig } from '@/api/config'
 
 const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
 
-let { reactivityPluginConfig, pull, reset, save } = usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
+let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)

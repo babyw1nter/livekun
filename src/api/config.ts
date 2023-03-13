@@ -55,15 +55,15 @@ const resetRemotePluginConfig = async (uuid: string, pluginName: string) => {
   return res.code === 200 ? res.data : null
 }
 
-const useChatMessagePluginConfig = () => {
-  const chatMessagePluginConfig = usePluginConfig<PluginNames.PLUGIN_CHAT_MESSAGE>(PluginNames.PLUGIN_CHAT_MESSAGE)
-  const ticketPluginConfig = usePluginConfig<PluginNames.PLUGIN_TICKET>(PluginNames.PLUGIN_TICKET)
-  const paidPluginConfig = usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
+const useChatMessagePluginConfig = async () => {
+  const chatMessagePluginConfig = await usePluginConfig<PluginNames.PLUGIN_CHAT_MESSAGE>(PluginNames.PLUGIN_CHAT_MESSAGE)
+  const ticketPluginConfig = await usePluginConfig<PluginNames.PLUGIN_TICKET>(PluginNames.PLUGIN_TICKET)
+  const paidPluginConfig = await usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
 
   return { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig }
 }
 
-const usePluginConfig = <K extends keyof IPluginConfigMap>(pluginName: PluginNames) => {
+const usePluginConfig = async <K extends keyof IPluginConfigMap>(pluginName: PluginNames) => {
   const getDefault = () => getDefaultPluginsConfig(pluginName)?.pluginConfig as IPluginConfigMap[K]
   const getUUID = () => router.currentRoute.value.query.uuid?.toString() || store.state.auth.uuid || ''
 
@@ -101,7 +101,7 @@ const usePluginConfig = <K extends keyof IPluginConfigMap>(pluginName: PluginNam
 
   // watch(reactivityPluginConfig.pluginConfig, () => save())
 
-  onBeforeMount(async () => await pull())
+  await pull()
 
   return {
     reactivityPluginConfig,

@@ -20,7 +20,7 @@ interface IPluginPaidData extends IPluginCommonMessage {
 
 const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
 
-let { reactivityPluginConfig, pull, reset, save } = usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
+let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
 
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {

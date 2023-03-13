@@ -1,6 +1,17 @@
 <template>
   <a-config-provider :locale="locale" :autoInsertSpaceInButton="false">
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <template v-if="Component">
+        <Suspense>
+          <template #default>
+            <component :is="Component"></component>
+          </template>
+          <template #fallback>
+            <span></span>
+          </template>
+        </Suspense>
+      </template>
+    </router-view>
   </a-config-provider>
 </template>
 
@@ -8,9 +19,7 @@
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import { getMockData } from '@/api/mock'
 
-onBeforeMount(() => {
-  getMockData()
-})
+getMockData()
 
 const locale = zhCN
 

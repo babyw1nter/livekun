@@ -81,36 +81,31 @@ const router = useRouter()
 const isCollapsed = ref(false)
 const selectedKeys = computed(() => [route.meta.menuItemKey || ''])
 
-const banner = ref('')
-const broadcastsToptips = ref('')
-const broadcasts = ref([''])
 const broadcast = ref('')
 
-onBeforeMount(() => {
-  // 获取公告数据
-  http
-    .get('/api/getBroadcasts')
-    .then((res) => {
-      const responseData = res.data
-      if (responseData.code === 200) {
-        banner.value = responseData.data.banner as string
-        broadcastsToptips.value = responseData.data.broadcastsToptips as string
-        broadcasts.value = responseData.data.broadcasts as Array<string>
-        updateBroadcast()
-      }
-    })
-    .catch((reason) => {
-      console.error(reason)
-    })
+const broadcastsData = reactive({
+  banner: '',
+  broadcastsToptips: '',
+  broadcasts: [] as Array<string>
 })
 
-watch(route, () => updateBroadcast())
-
 const updateBroadcast = () => {
-  if (broadcasts.value.length > 0) {
-    broadcast.value = broadcasts.value[randomNum(0, broadcasts.value.length - 1)]
+  if (broadcastsData.broadcasts.length > 0) {
+    broadcast.value = broadcastsData.broadcasts[randomNum(0, broadcastsData.broadcasts.length - 1)]
   }
 }
+
+const responseData = await http.get('/api/getBroadcasts')
+
+if (responseData.status === 200) {
+  broadcastsData.banner = responseData.data.banner as string
+  broadcastsData.broadcastsToptips = responseData.data.broadcastsToptips as string
+  broadcastsData.broadcasts = responseData.data.broadcasts as Array<string>
+
+  updateBroadcast()
+}
+
+watch(route, () => updateBroadcast())
 
 const menuClicked = (e: MenuInfo) => {
   const key = e.key

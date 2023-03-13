@@ -20,7 +20,7 @@ interface IPluginChatMessageData extends IPluginCommonMessage {
 
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
-let { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig } = useChatMessagePluginConfig()
+let { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig } = await useChatMessagePluginConfig()
 
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {

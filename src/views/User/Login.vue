@@ -100,13 +100,11 @@ const rules: Record<string, Rule[]> = {
   password: [{ required: true, validator: checkPassword, trigger: 'blur' }]
 }
 
-onBeforeMount(() => {
-  if (store.state.auth.isLoggedIn && localStorage.getItem('isLoggedIn') === '1') {
-    router.push({
-      path: '/'
-    })
-  }
-})
+if (store.state.auth.isLoggedIn && localStorage.getItem('isLoggedIn') === '1') {
+  router.push({
+    path: '/'
+  })
+}
 
 const isLoading = ref<boolean>(false)
 
