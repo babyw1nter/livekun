@@ -90,7 +90,7 @@ const broadcastsData = reactive({
 })
 
 const updateBroadcast = () => {
-  if (broadcastsData.broadcasts.length > 0) {
+  if (broadcastsData?.broadcasts?.length > 0) {
     broadcast.value = broadcastsData.broadcasts[randomNum(0, broadcastsData.broadcasts.length - 1)]
   }
 }
