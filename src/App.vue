@@ -7,7 +7,7 @@
             <component :is="Component"></component>
           </template>
           <template #fallback>
-            <span></span>
+            <a-spin style="margin: 1rem;" />
           </template>
         </Suspense>
       </template>
