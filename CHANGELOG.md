@@ -1,3 +1,28 @@
+# [1.0.0-alpha.10](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2023-03-13)
+
+
+### Bug Fixes
+
+* 修复更新 broadcast 的生命周期相关 bug ([3b7473e](https://github.com/hhui64/livekun-web/commit/3b7473e66f649c4f691bda92da53e7101f9f7d28))
+
+
+### Features
+
+* 新增组件支持异步加载数据 ([16a9ad6](https://github.com/hhui64/livekun-web/commit/16a9ad62a8d319cd4631613d50071d1642d8fd11))
+
+
+### Performance Improvements
+
+* 优化 socket api 方法 ([9c29499](https://github.com/hhui64/livekun-web/commit/9c294993efbd6c01998e69081f7695610091c036))
+* 优化登录成功时不再输出控制台信息 ([68c8160](https://github.com/hhui64/livekun-web/commit/68c8160eac8ece9a191b09a0446b44a5db5f1834))
+* 优化获取默认配置对象时使用深拷贝 ([12f6d28](https://github.com/hhui64/livekun-web/commit/12f6d282e206862d9b4c7edf0cf0ba91514697a0))
+* 优化项目的目录结构 ([5474276](https://github.com/hhui64/livekun-web/commit/54742761ef5a14d2633808ce6290500993e8302d))
+* 优化页面切换时自动滚动到顶部 ([9fb4279](https://github.com/hhui64/livekun-web/commit/9fb4279619aa54e5470133acb1027a0d06e14a39))
+* 优化异步组件加载时显示加载动画 ([693f060](https://github.com/hhui64/livekun-web/commit/693f0607440d891d863ce9e231195d4e1b2c8879))
+* update slogan ([909a232](https://github.com/hhui64/livekun-web/commit/909a2322f7a080fa6c74b415f445e3c18bef1266))
+
+
+
 # [1.0.0-alpha.9](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2023-03-11)
 
 
