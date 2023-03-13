@@ -42,8 +42,6 @@ const pluginMessageCallback = (message: IPluginCommonMessage) => {
   })
 }
 
+createSocket(PluginNames.PLUGIN_PAID, pluginActionCallback, pluginMessageCallback)
 
-onMounted(() => {
-  createSocket(PluginNames.PLUGIN_PAID, pluginActionCallback, pluginMessageCallback)
-})
 </script>

@@ -56,7 +56,7 @@ const encode = <T>(data: T): ArrayBuffer => {
   return new TextEncoder().encode(JSON.stringify(data))
 }
 
-interface CreateSocketCallbackFn {
+interface CreateSocketFn {
   (
     /** 绑定插件的名称 */
     pluginName: PluginNames,
@@ -70,10 +70,10 @@ interface CreateSocketCallbackFn {
       websocket: WebSocket,
       message?: IBaseSocketMessage<'UNKNOWN'>
     ) => void
-  ): WebSocket | null
+  ): Promise<WebSocket | null>
 }
 
-const createSocket: CreateSocketCallbackFn = (
+const createSocket: CreateSocketFn = async (
   pluginName,
   onPluginActionEventCallbackFn,
   onPluginMessageEventCallbackFn,
@@ -83,7 +83,7 @@ const createSocket: CreateSocketCallbackFn = (
 
   if (!uuid) {
     console.warn('没有 UUID 参数，不连接 socket 服务器！')
-    return null
+    return Promise.resolve(null)
   }
 
   console.log('正在创建 WS 连接...')
@@ -155,7 +155,7 @@ const createSocket: CreateSocketCallbackFn = (
     }
   })
 
-  return websocket
+  return Promise.resolve(websocket)
 }
 
 export { createSocket, encode, decode }

@@ -42,7 +42,6 @@ const pluginMessageCallback = (message: IPluginCommonMessage) => {
   })
 }
 
-onMounted(() => {
-  createSocket(PluginNames.PLUGIN_CHAT_MESSAGE, pluginActionCallback, pluginMessageCallback)
-})
+createSocket(PluginNames.PLUGIN_CHAT_MESSAGE, pluginActionCallback, pluginMessageCallback)
+
 </script>
