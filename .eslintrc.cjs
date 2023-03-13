@@ -38,6 +38,7 @@ module.exports = {
     'vue/no-unused-components': 'warn',
     'vue/attributes-order': 'off',
     'vue/attribute-hyphenation': 'off',
-    'vue/no-v-html': 'off'
+    'vue/no-v-html': 'off',
+    'vue/no-unused-vars': 'off'
   }
 }
