@@ -4,9 +4,9 @@
 
 ## 软件截图
 
-![WEB](./screenshot/web.png)
+![WEB](./screenshots/web.png)
 
-![OBS](./screenshot/obs.png)
+![OBS](./screenshots/obs.png)
 
 ## 功能特性
 
