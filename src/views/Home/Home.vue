@@ -1,7 +1,7 @@
 <template>
   <a-layout class="home">
     <a-layout-sider class="left-wrapper" breakpoint="lg" @collapse="onCollapse" :collapsedWidth="60"
-      v-model:collapsed="isCollapsed" :trigger="null" collapsible :width="260">
+      v-model:collapsed="isCollapsed" :trigger="null" collapsible :width="240">
 
       <div class="logo no-select" :style="{ height: isCollapsed ? 0 : 'auto' }">
         <span class="logo-text">
@@ -19,7 +19,7 @@
           首页
         </a-menu-item>
 
-        <a-sub-menu key="/pluginsConfigPage">
+        <a-sub-menu key="/plugins">
           <template #icon>
             <AppstoreOutlined />
           </template>
@@ -35,6 +35,27 @@
             <UserOutlined />
           </template>
           个人中心
+        </a-menu-item>
+
+        <a-menu-item key="/help">
+          <template #icon>
+            <question-circle-outlined />
+          </template>
+          使用帮助
+        </a-menu-item>
+
+        <a-menu-item key="/github">
+          <template #icon>
+            <github-outlined />
+          </template>
+          项目地址
+        </a-menu-item>
+
+        <a-menu-item key="/about">
+          <template #icon>
+            <info-circle-outlined />
+          </template>
+          关于
         </a-menu-item>
       </a-menu>
 
@@ -64,7 +85,7 @@ import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 const route = useRoute()
 const router = useRouter()
 
-const pluginRoutes = computed(() => router.getRoutes().filter(i => i.path.startsWith('/pluginsConfigPage')))
+const pluginRoutes = computed(() => router.getRoutes().filter(i => i.path.startsWith('/plugins/')))
 
 const isCollapsed = ref(false)
 const selectedKeys = computed(() => [route.meta.menuItemKey || ''])
@@ -161,7 +182,7 @@ const onCollapse = (collapsed: boolean, type: string) => {
 
   .right-wrapper {
     overflow: hidden;
-    margin-left: 260px;
+    margin-left: 240px;
     transition: all .2s;
 
     &.collapsed {
