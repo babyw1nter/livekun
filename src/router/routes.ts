@@ -7,15 +7,6 @@ const AccountPage = () => import('../views/Home/AccountPage.vue')
 const LoginPage = () => import('../views/User/Login.vue')
 const TestPage = () => import('../views/TestPage.vue')
 
-const ChatMessageConfigPage = () => import('../components/plugins/ChatMessage/views/ConfigPage.vue')
-const ChatMessagePluginPage = () => import('../components/plugins/ChatMessage/views/PluginPage.vue')
-
-const TicketConfigPage = () => import('../components/plugins/Ticket/views/ConfigPage.vue')
-const TicketPluginPage = () => import('../components/plugins/Ticket/views/PluginPage.vue')
-
-const PaidConfigPage = () => import('../components/plugins/Paid/views/ConfigPage.vue')
-const PaidPluginPage = () => import('../components/plugins/Paid/views/PluginPage.vue')
-
 const childrenRoutes: Array<RouteRecordRaw> = [
   {
     path: '',
@@ -24,36 +15,7 @@ const childrenRoutes: Array<RouteRecordRaw> = [
     meta: {
       title: '连接控制',
       menuItemKey: '/',
-      requiresAuth: true
-    }
-  },
-  {
-    path: 'config/chat-message',
-    name: 'ChatMessageConfig',
-    component: ChatMessageConfigPage,
-    meta: {
-      title: '插件设置 - 聊天消息',
-      menuItemKey: '/config/chat-message',
-      requiresAuth: true
-    }
-  },
-  {
-    path: 'config/ticket',
-    name: 'TicketConfig',
-    component: TicketConfigPage,
-    meta: {
-      title: '插件设置 - SC Ticket',
-      menuItemKey: '/config/ticket',
-      requiresAuth: true
-    }
-  },
-  {
-    path: 'config/paid',
-    name: 'PaidConfig',
-    component: PaidConfigPage,
-    meta: {
-      title: '插件设置 - SC Paid',
-      menuItemKey: '/config/paid',
+      showOnMenu: true,
       requiresAuth: true
     }
   },
@@ -62,8 +24,9 @@ const childrenRoutes: Array<RouteRecordRaw> = [
     name: 'Account',
     component: AccountPage,
     meta: {
-      title: '账号管理',
+      title: '个人中心',
       menuItemKey: '/account',
+      showOnMenu: true,
       requiresAuth: true
     }
   }
@@ -81,24 +44,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '/test',
     name: 'TestPage',
     component: TestPage,
-    meta: { requiresAuth: false }
-  },
-  {
-    path: '/plugins/chat-message',
-    name: 'ChatMessage',
-    component: ChatMessagePluginPage,
-    meta: { requiresAuth: false }
-  },
-  {
-    path: '/plugins/ticket',
-    name: 'Ticket',
-    component: TicketPluginPage,
-    meta: { requiresAuth: false }
-  },
-  {
-    path: '/plugins/paid',
-    name: 'Paid',
-    component: PaidPluginPage,
     meta: { requiresAuth: false }
   },
   {

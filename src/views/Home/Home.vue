@@ -18,37 +18,23 @@
           </template>
           首页
         </a-menu-item>
-        <a-sub-menu key="/config">
+
+        <a-sub-menu key="/pluginsConfigPage">
           <template #icon>
             <AppstoreOutlined />
           </template>
           <template #title>插件设置</template>
-          <a-menu-item key="/config/chat-message">
-            <template #icon>
-              <MessageOutlined />
-            </template>
-            聊天消息
-          </a-menu-item>
-          <a-menu-item key="/config/ticket">
-            <template #icon>
-              <GiftOutlined />
-            </template>
-            SC Ticket
-            <a-tag color="green">新版</a-tag>
-          </a-menu-item>
-          <a-menu-item key="/config/paid">
-            <template #icon>
-              <CreditCardOutlined />
-            </template>
-            SC Paid
-            <a-tag color="green">新版</a-tag>
+
+          <a-menu-item v-for="item in pluginRoutes" :key="item.path">
+            {{ item.meta.menuItemName }}
           </a-menu-item>
         </a-sub-menu>
+
         <a-menu-item key="/account">
           <template #icon>
             <UserOutlined />
           </template>
-          账号管理
+          个人中心
         </a-menu-item>
       </a-menu>
 
@@ -77,6 +63,8 @@ import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 
 const route = useRoute()
 const router = useRouter()
+
+const pluginRoutes = computed(() => router.getRoutes().filter(i => i.path.startsWith('/pluginsConfigPage')))
 
 const isCollapsed = ref(false)
 const selectedKeys = computed(() => [route.meta.menuItemKey || ''])

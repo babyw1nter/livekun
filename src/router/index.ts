@@ -11,7 +11,7 @@ const router = createRouter({
   }
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
     if (store.state.auth.isLoggedIn || localStorage.getItem('isLoggedIn') === '1') {
       http
@@ -53,6 +53,8 @@ router.beforeEach((to, from) => {
       })
     }
   }
+
+  next()
 })
 
 export default router
