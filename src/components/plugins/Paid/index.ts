@@ -18,10 +18,10 @@ export default {
     }
 
     router.addRoute('Home', {
-      path: `/pluginsConfigPage/${_options.pluginName}`,
+      path: `/plugins/${_options.pluginName}`,
       component: ConfigPage,
       meta: {
-        menuItemKey: `/pluginsConfigPage/${_options.pluginName}`,
+        menuItemKey: `/plugins/${_options.pluginName}`,
         menuItemName: 'SC Paid',
         showOnMenu: true,
         requiresAuth: true
@@ -29,7 +29,7 @@ export default {
     })
 
     router.addRoute({
-      path: `/plugins/${_options.pluginName}`,
+      path: `/plugins-obs/${_options.pluginName}`,
       component: PluginPage,
       meta: { requiresAuth: false }
     })

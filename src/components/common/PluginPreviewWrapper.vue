@@ -26,7 +26,7 @@ const emit = defineEmits<{
   (event: 'onAutoPreviewSwitchChange', checked: boolean): void
 }>()
 
-const url = computed(() => `${window.location.origin}/#/plugins/${props.pluginName}?uuid=${store.state.auth.uuid}`)
+const url = computed(() => `${window.location.origin}/#/plugins-obs/${props.pluginName}?uuid=${store.state.auth.uuid}`)
 
 const onChange = (checked: unknown) => {
   emit('update:autoPreview', checked as boolean)
