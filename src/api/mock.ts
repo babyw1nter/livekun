@@ -38,7 +38,7 @@ let ticketMockData: Array<ITicketMockData> = []
 let chatMessageMockData: Array<IChatMessageMockData> = []
 let paidMockData: Array<IPaidMockData> = []
 
-const getMockData = (): void => {
+const getMockData = async () => {
   http
     .get('/api/getMockdata')
     .then((res) => {
