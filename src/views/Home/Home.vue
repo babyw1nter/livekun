@@ -37,21 +37,21 @@
           个人中心
         </a-menu-item>
 
-        <a-menu-item key="/help">
+        <a-menu-item key="https://github.com/hhui64/livekun-web?help">
           <template #icon>
             <question-circle-outlined />
           </template>
           使用帮助
         </a-menu-item>
 
-        <a-menu-item key="/github">
+        <a-menu-item key="https://github.com/hhui64/livekun-web">
           <template #icon>
             <github-outlined />
           </template>
           项目地址
         </a-menu-item>
 
-        <a-menu-item key="/about">
+        <a-menu-item key="https://github.com/hhui64/livekun-web?about">
           <template #icon>
             <info-circle-outlined />
           </template>
@@ -117,10 +117,16 @@ if (responseData.status === 200) {
 watch(route, () => updateBroadcast())
 
 const menuClicked = (e: MenuInfo) => {
-  const key = e.key
-  router.push({
-    path: key.toString()
-  })
+  const key = e.key.toString()
+
+  if (key.startsWith('http')) {
+    window.open(key)
+  } else {
+    router.push({
+      path: key
+    })
+  }
+
 }
 
 const onBreakpoint = (broken: boolean) => {
