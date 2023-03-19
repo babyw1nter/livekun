@@ -34,10 +34,10 @@ export default defineConfig({
     }),
     AutoImport({
       imports: ['vue', 'vue-router'],
-      dts: 'src/types/auto-imports.d.ts'
+      dts: 'src/typings/auto-imports.d.ts'
     }),
     Components({
-      dts: 'src/types/components.d.ts',
+      dts: 'src/typings/components.d.ts',
       resolvers: [
         AntDesignVueResolver({ importStyle: 'less', resolveIcons: true }),
         IconsResolver(),
