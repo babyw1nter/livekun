@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
 
-const Home = () => import('../views/Home/Home.vue')
+const WebMain = () => import('../views/WebMain.vue')
 const ConnectPage = () => import('../views/Home/ConnectPage.vue')
 
 const AccountPage = () => import('../views/Home/AccountPage.vue')
@@ -35,8 +35,8 @@ const childrenRoutes: Array<RouteRecordRaw> = [
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'WebMain',
+    component: WebMain,
     meta: { requiresAuth: true },
     children: [...childrenRoutes]
   },

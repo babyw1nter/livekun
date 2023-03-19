@@ -1,5 +1,5 @@
 <template>
-  <a-layout class="home">
+  <a-layout class="webmain">
     <a-layout-sider class="left-wrapper" breakpoint="lg" @collapse="onCollapse" :collapsedWidth="60"
       v-model:collapsed="isCollapsed" :trigger="null" collapsible :width="240">
 
@@ -160,7 +160,7 @@ const onCollapse = (collapsed: boolean, type: string) => {
 }
 
 
-.home {
+.webmain {
   min-height: 100%;
 
   .logo {
