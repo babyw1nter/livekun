@@ -105,80 +105,11 @@ interface IPluginConfigMap {
   }
 }
 
-const defaultPluginsConfig: PluginsConfig = [
-  {
-    pluginName: PluginNames.PLUGIN_TICKET,
-    pluginConfig: {
-      level: [0, 9, 49, 99, 199, 249, 499],
-      duration: [1, 5, 10, 15, 30, 45, 60],
-      maximum: 100,
-      minMoney: 5
-    },
-    isDefault: true
-  },
-  {
-    pluginName: PluginNames.PLUGIN_CHAT_MESSAGE,
-    pluginConfig: {
-      maximum: 150,
-      customStyle: {
-        fontSize: 18,
-        color: {
-          normal: {
-            nickname: '#ccc',
-            message: '#fff'
-          },
-          guard: {
-            lv1: {
-              nickname: '#0F9D58',
-              message: '#fff'
-            },
-            lv2: {
-              nickname: '#0F9D58',
-              message: '#fff'
-            },
-            lv3: {
-              nickname: '#0F9D58',
-              message: '#fff'
-            }
-          },
-          admin: {
-            nickname: '#5f84f1',
-            message: '#fff'
-          },
-          anchor: {
-            nickname: '#FFD600',
-            message: '#fff'
-          }
-        }
-      },
-      type: {
-        ticket: true,
-        paid: true
-      },
-      event: {
-        join: false,
-        follow: false,
-        gift: false
-      },
-      blacklist: []
-    },
-    isDefault: true
-  },
-  {
-    pluginName: PluginNames.PLUGIN_PAID,
-    pluginConfig: {
-      level: [0, 9, 49, 99, 199, 249, 499],
-      minMoney: 5,
-      comment: {
-        use: false,
-        prefix: '留言：',
-        giftMinMoney: 10,
-        giftWhitelist: ''
-      }
-    },
-    isDefault: true
-  }
-]
+const defaultPluginsConfig: PluginsConfig = []
+
+const addDefaultPluginsConfig = (cfg: IPluginConfig<PluginNames>) => {
+  return defaultPluginsConfig.push(cfg)
+}
 
 const getDefaultPluginsConfig = <K extends keyof IPluginConfigMap>(pluginName: K | PluginNames) => {
   return cloneDeep(defaultPluginsConfig.find((i) => i.pluginName === pluginName))
@@ -191,5 +122,6 @@ export {
   IPluginConfig,
   PluginsConfig,
   defaultPluginsConfig,
-  getDefaultPluginsConfig
+  getDefaultPluginsConfig,
+  addDefaultPluginsConfig
 }
