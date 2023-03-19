@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import store from '@/store'
 import http from '@/api/http'
 import { routes } from './routes'
+import { PluginNames } from '@/api/plugins'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -10,6 +11,30 @@ const router = createRouter({
     return { top: 0 }
   }
 })
+
+export const addPluginRoute = (
+  pluginName: PluginNames | string,
+  displayName: string,
+  componentConfigPage: () => Promise<unknown>,
+  componentPluginPage: () => Promise<unknown>
+) => {
+  router.addRoute('WebMain', {
+    path: `/plugins/${pluginName}`,
+    component: componentConfigPage,
+    meta: {
+      menuItemKey: `/plugins/${pluginName}`,
+      menuItemName: displayName,
+      showOnMenu: true,
+      requiresAuth: true
+    }
+  })
+
+  router.addRoute({
+    path: `/plugins-obs/${pluginName}`,
+    component: componentPluginPage,
+    meta: { requiresAuth: false }
+  })
+}
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {

@@ -1,5 +1,5 @@
 import { PluginNames } from '@/api/plugins'
-import router from '@/router'
+import router, { addPluginRoute } from '@/router'
 import { App } from 'vue'
 
 const ConfigPage = () => import('./views/ConfigPage.vue')
@@ -17,21 +17,6 @@ export default {
       pluginConfig: options?.pluginConfig || {}
     }
 
-    router.addRoute('Home', {
-      path: `/plugins/${_options.pluginName}`,
-      component: ConfigPage,
-      meta: {
-        menuItemKey: `/plugins/${_options.pluginName}`,
-        menuItemName: 'SC Paid',
-        showOnMenu: true,
-        requiresAuth: true
-      }
-    })
-
-    router.addRoute({
-      path: `/plugins-obs/${_options.pluginName}`,
-      component: PluginPage,
-      meta: { requiresAuth: false }
-    })
+    addPluginRoute(PluginNames.PLUGIN_PAID, '礼物卡片 Paid', ConfigPage, PluginPage)
   }
 }
