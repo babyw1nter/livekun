@@ -1,5 +1,5 @@
 import { PluginNames } from '@/api/plugins'
-import router, { addPluginRoute } from '@/router'
+import { addPluginRoute } from '@/router'
 import { App } from 'vue'
 
 const ConfigPage = () => import('./views/ConfigPage.vue')
