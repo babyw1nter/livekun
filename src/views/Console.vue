@@ -10,7 +10,7 @@
         </span>
       </div>
 
-      <a-menu class="home-menu no-select" mode="inline" :selectedKeys="selectedKeys" @click="menuClicked"
+      <a-menu class="console-menu no-select" mode="inline" :selectedKeys="selectedKeys" @click="menuClicked"
         style="border-right: none">
         <a-menu-item key="/console/connect">
           <template #icon>
