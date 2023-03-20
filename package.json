@@ -1,7 +1,19 @@
 {
   "name": "livekun-web",
   "version": "1.0.0-alpha.10",
+  "description": "A OBS browser plugins platform.",
   "private": true,
+  "author": {
+    "name": "hhui64",
+    "email": "907322015@qq.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hhui64/livekun-web.git"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
