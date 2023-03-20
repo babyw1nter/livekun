@@ -20,9 +20,9 @@
 
 * 更多插件和功能正在开发中...
 
-## 鸣谢信息
+## 开源许可信息
 
-该项目内置插件样式来自 [blivechat](https://github.com/xfgryujk/blivechat)，在本项目中对其进行了一些修改，感谢作者的辛勤付出！
+* [blivechat](https://github.com/xfgryujk/blivechat), Licensed under MIT license.
 
 ## License
 
