@@ -18,11 +18,11 @@ export const addPluginRoute = (
   componentConfigPage: () => Promise<unknown>,
   componentPluginPage: () => Promise<unknown>
 ) => {
-  router.addRoute('WebMain', {
-    path: `/plugins/${pluginName}`,
+  router.addRoute('Console', {
+    path: `/console/plugins/${pluginName}`,
     component: componentConfigPage,
     meta: {
-      menuItemKey: `/plugins/${pluginName}`,
+      menuItemKey: `/console/plugins/${pluginName}`,
       menuItemName: displayName,
       showOnMenu: true,
       requiresAuth: true

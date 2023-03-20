@@ -1,5 +1,5 @@
 <template>
-  <a-layout class="webmain">
+  <a-layout class="console">
     <a-layout-sider class="left-wrapper" breakpoint="lg" @collapse="onCollapse" :collapsedWidth="60"
       v-model:collapsed="isCollapsed" :trigger="null" collapsible :width="240">
 
@@ -12,14 +12,14 @@
 
       <a-menu class="home-menu no-select" mode="inline" :selectedKeys="selectedKeys" @click="menuClicked"
         style="border-right: none">
-        <a-menu-item key="/">
+        <a-menu-item key="/console/connect">
           <template #icon>
             <HomeOutlined />
           </template>
           首页
         </a-menu-item>
 
-        <a-sub-menu key="/plugins">
+        <a-sub-menu key="/console/plugins">
           <template #icon>
             <AppstoreOutlined />
           </template>
@@ -30,7 +30,7 @@
           </a-menu-item>
         </a-sub-menu>
 
-        <a-menu-item key="/account">
+        <a-menu-item key="/console/account">
           <template #icon>
             <UserOutlined />
           </template>
@@ -92,7 +92,7 @@ interface IBroadcastData {
 const route = useRoute()
 const router = useRouter()
 
-const pluginRoutes = computed(() => router.getRoutes().filter(i => i.path.startsWith('/plugins/')))
+const pluginRoutes = computed(() => router.getRoutes().filter(i => i.path.startsWith('/console/plugins/')))
 
 const isCollapsed = ref(false)
 const selectedKeys = computed(() => [route.meta.menuItemKey || ''])
@@ -167,7 +167,7 @@ const onCollapse = (collapsed: boolean, type: string) => {
 }
 
 
-.webmain {
+.console {
   min-height: 100%;
 
   .logo {
