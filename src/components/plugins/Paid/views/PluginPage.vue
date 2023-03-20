@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import type PaidPanel from '@/components/plugins/Paid/components/PaidPanel.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
-import { createSocket } from '@/api/socket'
+import { useSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
 import { usePluginConfig } from '@/api/config'
 
@@ -42,6 +42,6 @@ const pluginMessageCallback = (message: IPluginCommonMessage) => {
   })
 }
 
-createSocket(PluginNames.PLUGIN_PAID, pluginActionCallback, pluginMessageCallback)
+useSocket(PluginNames.PLUGIN_PAID, pluginActionCallback, pluginMessageCallback)
 
 </script>

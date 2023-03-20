@@ -56,7 +56,7 @@ const encode = <T>(data: T): ArrayBuffer => {
   return new TextEncoder().encode(JSON.stringify(data))
 }
 
-interface CreateSocketFn {
+interface UseSocketFn {
   (
     /** 绑定插件的名称 */
     pluginName: PluginNames,
@@ -73,7 +73,7 @@ interface CreateSocketFn {
   ): Promise<WebSocket | null>
 }
 
-const createSocket: CreateSocketFn = async (
+const useSocket: UseSocketFn = async (
   pluginName,
   onPluginActionEventCallbackFn,
   onPluginMessageEventCallbackFn,
@@ -107,9 +107,11 @@ const createSocket: CreateSocketFn = async (
       }
     })
   })
+
   websocket.addEventListener('error', () => {
     console.error('连接错误！')
   })
+
   websocket.addEventListener('close', (ev) => {
     console.warn('连接关闭', ev.code, ev.reason)
 
@@ -123,7 +125,7 @@ const createSocket: CreateSocketFn = async (
     if (websocket.readyState !== WebSocket.CONNECTING && websocket.readyState !== WebSocket.OPEN) {
       window.setTimeout(
         () =>
-          createSocket(
+          useSocket(
             pluginName,
             onPluginActionEventCallbackFn,
             onPluginMessageEventCallbackFn,
@@ -133,6 +135,7 @@ const createSocket: CreateSocketFn = async (
       )
     }
   })
+
   websocket.addEventListener('message', (ev) => {
     const message = decode(ev.data)
 
@@ -158,5 +161,5 @@ const createSocket: CreateSocketFn = async (
   return Promise.resolve(websocket)
 }
 
-export { createSocket, encode, decode }
+export { useSocket, encode, decode }
 export type { IBaseSocketMessage, IBaseSocketMessageMap, IPluginCommonMessage }

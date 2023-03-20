@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import type ChatMessageList from '@/components/plugins/ChatMessage/components/ChatMessageList.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
-import { createSocket } from '@/api/socket'
+import { useSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
 import { useChatMessagePluginConfig } from '@/api/config'
 
@@ -42,6 +42,6 @@ const pluginMessageCallback = (message: IPluginCommonMessage) => {
   })
 }
 
-createSocket(PluginNames.PLUGIN_CHAT_MESSAGE, pluginActionCallback, pluginMessageCallback)
+useSocket(PluginNames.PLUGIN_CHAT_MESSAGE, pluginActionCallback, pluginMessageCallback)
 
 </script>
