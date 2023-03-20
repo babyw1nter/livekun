@@ -28,11 +28,11 @@
     "emoji-regex": "^10.2.1",
     "gsap": "^3.11.4",
     "lodash-es": "^4.17.21",
+    "pinia": "^2.0.33",
     "uuid": "^9.0.0",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
     "vue3-colorpicker": "^2.1.2",
-    "vuex": "^4.1.0",
     "websocket": "^1.0.34"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store, { key } from './store'
+import { createPinia } from 'pinia'
 import dayjs from 'dayjs'
 import Vue3ColorPicker from 'vue3-colorpicker'
 import PluginChatMessage from './components/plugins/ChatMessage'
@@ -28,6 +28,6 @@ app.use(PluginTicket)
 app.use(PluginPaid)
 // ================================
 
-app.use(store, key).use(router)
+app.use(createPinia()).use(router)
 
 app.mount('#app')

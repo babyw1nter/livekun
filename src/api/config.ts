@@ -1,9 +1,10 @@
 import router from '@/router'
-import store from '@/store'
 import { message } from 'ant-design-vue'
 import { UnwrapRef } from 'vue'
 import http, { IHttpResponse } from './http'
 import { getDefaultPluginsConfig, IPluginConfig, IPluginConfigMap, PluginNames, PluginsConfig } from './plugins'
+import { AxiosResponse } from 'axios'
+import { useUserStore } from '@/stores/user'
 
 const pluginsConfig = reactive([])
 
@@ -16,16 +17,14 @@ const getRemotePluginConfig = async (uuid: string, pluginName: string | string[]
       .join(',')
   }
 
-  const res = (
-    await http.get('/user/getPluginConfig', {
-      params: {
-        uuid,
-        pluginName: _n
-      }
-    })
-  ).data as IHttpResponse<PluginsConfig>
+  const res: AxiosResponse<IHttpResponse<PluginsConfig>> = await http.get('/user/getPluginConfig', {
+    params: {
+      uuid,
+      pluginName: _n
+    }
+  })
 
-  return res.code === 200 ? res.data : []
+  return res.data.code === 200 ? res.data.data : []
 }
 
 const setRemotePluginConfig = async <K extends keyof IPluginConfigMap>(
@@ -33,39 +32,39 @@ const setRemotePluginConfig = async <K extends keyof IPluginConfigMap>(
   pluginName: string,
   pluginConfig: IPluginConfigMap[K]
 ) => {
-  const res = (
-    await http.post('/user/setPluginConfig', {
-      uuid,
-      pluginName,
-      pluginConfig
-    })
-  ).data as IHttpResponse<PluginsConfig>
+  const res: AxiosResponse<IHttpResponse<PluginsConfig>> = await http.post('/user/setPluginConfig', {
+    uuid,
+    pluginName,
+    pluginConfig
+  })
 
-  return res.code === 200 ? res.data : null
+  return res.data.code === 200 ? res.data.data : null
 }
 
 const resetRemotePluginConfig = async (uuid: string, pluginName: string) => {
-  const res = (
-    await http.post('/user/resetPluginConfig', {
-      uuid,
-      pluginName
-    })
-  ).data as IHttpResponse<PluginsConfig>
+  const res: AxiosResponse<IHttpResponse<PluginsConfig>> = await http.post('/user/resetPluginConfig', {
+    uuid,
+    pluginName
+  })
 
-  return res.code === 200 ? res.data : null
+  return res.data.code === 200 ? res.data.data : null
 }
 
 const useChatMessagePluginConfig = async () => {
-  const chatMessagePluginConfig = await usePluginConfig<PluginNames.PLUGIN_CHAT_MESSAGE>(PluginNames.PLUGIN_CHAT_MESSAGE)
+  const chatMessagePluginConfig = await usePluginConfig<PluginNames.PLUGIN_CHAT_MESSAGE>(
+    PluginNames.PLUGIN_CHAT_MESSAGE
+  )
   const ticketPluginConfig = await usePluginConfig<PluginNames.PLUGIN_TICKET>(PluginNames.PLUGIN_TICKET)
   const paidPluginConfig = await usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
 
   return { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig }
 }
 
-const usePluginConfig = async <K extends keyof IPluginConfigMap>(pluginName: PluginNames) => {
+const usePluginConfig = async <K extends keyof IPluginConfigMap> (pluginName: PluginNames) => {
+  const store = useUserStore()
+
   const getDefault = () => getDefaultPluginsConfig(pluginName)?.pluginConfig as IPluginConfigMap[K]
-  const getUUID = () => router.currentRoute.value.query.uuid?.toString() || store.state.auth.uuid || ''
+  const getUUID = () => router.currentRoute.value.query.uuid?.toString() || store.uuid || ''
 
   const reactivityPluginConfig = reactive({
     pluginConfig: getDefault()

@@ -1,5 +1,5 @@
 import router from '@/router'
-import { message } from 'ant-design-vue'
+import { message } from 'ant-design-vue/es'
 import axios from 'axios'
 
 const devURL = '10.0.0.230:39075'
@@ -32,10 +32,11 @@ http.interceptors.response.use(res => {
   return res
 })
 
-interface IHttpResponse<T> {
+interface IHttpResponse<T = unknown> {
   code: number
   message: string
   data: T
+  timestamp?: number
 }
 
 export { baseURL, baseWsURL }

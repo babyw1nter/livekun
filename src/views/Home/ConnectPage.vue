@@ -1,16 +1,14 @@
 <template>
   <div class="connect-page-wrapper">
     <a-card>
-      <a-alert :message="store.state.status.isJoinRoom ? `已连接 ${store.state.status.roomInfo.liveId}` : '未连接'"
-        :description="
-          store.state.status.isJoinRoom
-            ? `已进入直播间「${store.state.status.roomInfo.title}」`
-            : '请进入一个直播间以使用所有功能。'
-        " :type="store.state.status.isJoinRoom ? 'success' : 'info'" style="margin-bottom: 1rem" show-icon />
+      <a-alert :message="store.isJoinedRoom ? `已连接 ${store.roomInfo.liveId}` : '未连接'" :description="
+        store.isJoinedRoom
+          ? `已进入直播间「${store.roomInfo.title}」`
+          : '请进入一个直播间以使用所有功能。'
+      " :type="store.isJoinedRoom ? 'success' : 'info'" style="margin-bottom: 1rem" show-icon />
       <div class="join-input-wrap" style="margin-top: 1rem">
         <a-space :size="10">
-          <a-input v-model:value="liveIdInputValue" placeholder="请输入直播间ID" :disabled="isLoading || isReseting"
-            allowClear />
+          <a-input v-model:value="liveId" placeholder="请输入直播间ID" :disabled="isLoading || isReseting" allowClear />
           <a-button @click="joinRoom" type="primary" :loading="isLoading" :disabled="isReseting">进入</a-button>
           <a-button @click="reset" danger :loading="isReseting">重置</a-button>
         </a-space>
@@ -20,65 +18,31 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-import { key } from '@/store'
-import { message } from 'ant-design-vue'
-import http from '@/api/http'
+import { useConnentStore } from '@/stores/connent'
+import { message } from 'ant-design-vue/es'
 
-const store = useStore(key)
+const store = useConnentStore()
 
-const liveIdInputValue = ref<string>('')
+await store.getStatus()
+
+const liveId = ref<string>('')
 const isLoading = ref(false)
 const isReseting = ref(false)
 
-const joinRoom = () => {
-  if (liveIdInputValue.value !== '') {
-    isLoading.value = true
-    http
-      .post('/api/join', {
-        liveId: liveIdInputValue.value
-      })
-      .then((res) => {
-        const responseData = res.data
-
-        if (responseData.code === 200) {
-          message.success('进入直播间成功！')
-          store.commit('updateStatus', responseData.data.status)
-        } else if (responseData.code === 10001) {
-          message.error('进入直播间失败！')
-        } else {
-          message.error('服务器错误！')
-        }
-      })
-      .catch((reason: Error) => {
-        console.log(reason)
-      })
-      .finally(() => {
-        isLoading.value = false
-      })
+const joinRoom = async () => {
+  if (!liveId.value) {
+    message.warn('请输入直播间ID或房间ID！')
   } else {
-    message.warn('请输入直播间ID！')
+    isLoading.value = true
+    await store.joinRoom(liveId.value)
+    isLoading.value = false
   }
 }
 
-const reset = () => {
+const reset = async () => {
   isReseting.value = true
-  http
-    .post('/api/reset')
-    .then((res) => {
-      if (res.data.code === 200) {
-        message.success('重置成功！')
-      } else {
-        message.warn(res.data.message)
-      }
-    })
-    .catch((reason: Error) => {
-      message.error(reason.toString())
-    })
-    .finally(() => {
-      store.commit('resetStatus')
-      isReseting.value = false
-    })
+  await store.reset()
+  isReseting.value = false
 }
 </script>
 

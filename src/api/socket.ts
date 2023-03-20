@@ -1,4 +1,3 @@
-import store from '@/store'
 import router from '@/router'
 import { baseWsURL } from './http'
 import { PluginNames, PluginActions } from './plugins'

@@ -79,8 +79,15 @@
 
 <script lang="ts" setup>
 import { randomNum } from '@/api/common'
-import http from '@/api/http'
+import http, { IHttpResponse } from '@/api/http'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
+import { AxiosResponse } from 'axios'
+
+interface IBroadcastData {
+  banner: string
+  broadcastsToptips: string
+  broadcasts: string[]
+}
 
 const route = useRoute()
 const router = useRouter()
@@ -92,10 +99,10 @@ const selectedKeys = computed(() => [route.meta.menuItemKey || ''])
 
 const broadcast = ref('')
 
-const broadcastsData = reactive({
+const broadcastsData = reactive<IBroadcastData>({
   banner: '',
   broadcastsToptips: '',
-  broadcasts: [] as Array<string>
+  broadcasts: []
 })
 
 const updateBroadcast = () => {
@@ -104,12 +111,12 @@ const updateBroadcast = () => {
   }
 }
 
-const responseData = await http.get('/api/getBroadcasts')
+const res: AxiosResponse<IHttpResponse<IBroadcastData>> = await http.get('/api/getBroadcasts')
 
-if (responseData.status === 200) {
-  broadcastsData.banner = responseData.data.banner as string
-  broadcastsData.broadcastsToptips = responseData.data.broadcastsToptips as string
-  broadcastsData.broadcasts = responseData.data.broadcasts as Array<string>
+if (res.status === 200) {
+  broadcastsData.banner = res.data.data.banner as string
+  broadcastsData.broadcastsToptips = res.data.data.broadcastsToptips as string
+  broadcastsData.broadcasts = res.data.data.broadcasts as Array<string>
 
   updateBroadcast()
 }

@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-import { key } from '@/store'
-import { PluginNames } from '@/api/plugins'
+import { useUserStore } from '@/stores/user'
 import { PropType } from 'vue'
 
-const store = useStore(key)
+const store = useUserStore()
 
 const props = defineProps({
   pluginName: {
@@ -26,7 +24,7 @@ const emit = defineEmits<{
   (event: 'onAutoPreviewSwitchChange', checked: boolean): void
 }>()
 
-const url = computed(() => `${window.location.origin}/#/plugins-obs/${props.pluginName}?uuid=${store.state.auth.uuid}`)
+const url = computed(() => `${window.location.origin}/#/plugins-obs/${props.pluginName}?uuid=${store.uuid}`)
 
 const onChange = (checked: unknown) => {
   emit('update:autoPreview', checked as boolean)

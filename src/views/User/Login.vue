@@ -52,11 +52,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex'
-import { key } from '@/store'
-import { message } from 'ant-design-vue'
-import http from '@/api/http'
 import { Rule, RuleObject } from 'ant-design-vue/es/form/interface'
+import { useUserStore } from '@/stores/user'
 
 interface FormState {
   username: string
@@ -64,9 +61,18 @@ interface FormState {
   autologin: boolean
 }
 
-const store = useStore(key)
-const route = useRoute()
+const store = useUserStore()
 const router = useRouter()
+
+const isLoading = ref(false)
+const visible = ref(false)
+
+// 检测登录状态，如果已登录，则跳转至主页
+if (store.isLoggedIn && localStorage.getItem('isLoggedIn') === '1') {
+  router.push({
+    path: '/'
+  })
+}
 
 const loginFormRef = ref()
 const formState = reactive<FormState>({
@@ -91,57 +97,23 @@ const checkPassword = async (rule: RuleObject, value: string) => {
   }
 }
 
-const handleFinish = (values: FormState) => {
-  login(values.username, values.password, values.autologin)
+const handleFinish = async (values: FormState) => {
+  isLoading.value = true
+
+  const authResult = await store.login(values.username, values.password, values.autologin)
+  if (authResult) {
+    router.push({
+      path: '/'
+    })
+  }
+
+  isLoading.value = false
 }
 
 const rules: Record<string, Rule[]> = {
   username: [{ required: true, validator: checkUsername, trigger: 'blur' }],
   password: [{ required: true, validator: checkPassword, trigger: 'blur' }]
 }
-
-if (store.state.auth.isLoggedIn && localStorage.getItem('isLoggedIn') === '1') {
-  router.push({
-    path: '/'
-  })
-}
-
-const isLoading = ref<boolean>(false)
-
-const login = (username: string, password: string, autologin: boolean) => {
-  http
-    .post('/user/login', {
-      username,
-      password,
-      autologin
-    })
-    .then(res => {
-      if (res.data.code === 200) {
-        message.success('登录成功！')
-
-        store.commit('setLoginStatus', true)
-        store.commit('setUUID', res.data.data.uuid)
-
-        localStorage.setItem('isLoggedIn', '1')
-        localStorage.setItem('UUID', res.data.data.uuid)
-
-        router.push({
-          path: '/'
-        })
-      } else {
-        message.warn(res.data.message)
-      }
-    })
-    .catch(reason => {
-      message.error(reason)
-    })
-    .finally(() => {
-      isLoading.value = false
-    })
-}
-
-const visible = ref(false)
-
 </script>
 
 <style lang="less" scoped>
