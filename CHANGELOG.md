@@ -1,3 +1,21 @@
+# [1.0.0-alpha.11](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2023-03-20)
+
+
+### Bug Fixes
+
+* 修复 socket 重连时的判断不符合逻辑的 bug ([fdd760b](https://github.com/hhui64/livekun-web/commit/fdd760b11b4f62eebeccdc5071c0aaf8eed848b5))
+
+
+### Features
+
+* 更新 OBS 插件的 url 地址 ([2427e5a](https://github.com/hhui64/livekun-web/commit/2427e5af8b47c2ba7d51b93be093cb0a26f0470e))
+* 新增 404 页面 ([777b74f](https://github.com/hhui64/livekun-web/commit/777b74f6ed43b331d7c03a8d37c489b30b581ec1))
+* 新增插件注册使用，并自动添加导航 ([1b48716](https://github.com/hhui64/livekun-web/commit/1b48716e84a4dfd587a086ccff24a3c102810b71))
+* 新增导航页面 ([672adc6](https://github.com/hhui64/livekun-web/commit/672adc665331449380bd7936a0f27632fe45e92e))
+* 新增一些导航菜单项目 ([d911086](https://github.com/hhui64/livekun-web/commit/d911086eac853412aef041327b7281b7cc1180d8))
+
+
+
 # [1.0.0-alpha.10](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2023-03-13)
 
 
