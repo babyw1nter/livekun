@@ -3,9 +3,10 @@ import { RouteRecordRaw } from 'vue-router'
 const NotFound = () => import('../views/Common/NotFound.vue')
 
 const Console = () => import('../views/Console.vue')
-const ConnectPage = () => import('../views/Home/ConnectPage.vue')
 
-const AccountPage = () => import('../views/Home/AccountPage.vue')
+const ConnectPage = () => import('../views/Console/ConnectPage.vue')
+const AccountPage = () => import('../views/Console/AccountPage.vue')
+
 const LoginPage = () => import('../views/User/Login.vue')
 const TestPage = () => import('../views/TestPage.vue')
 
