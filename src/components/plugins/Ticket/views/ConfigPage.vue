@@ -121,7 +121,7 @@
 </template>
 
 <script lang="ts" setup>
-import { message } from 'ant-design-vue'
+import { message } from 'ant-design-vue/es'
 import type TicketPanel from '@/components/plugins/Ticket/components/TicketPanel.vue'
 import http from '@/api/http'
 import { getRandomTicket } from '@/api/mock'

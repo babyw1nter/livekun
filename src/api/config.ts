@@ -1,8 +1,8 @@
 import router from '@/router'
-import { message } from 'ant-design-vue'
+import { message } from 'ant-design-vue/es'
 import { UnwrapRef } from 'vue'
 import http, { IHttpResponse } from './http'
-import { getDefaultPluginsConfig, IPluginConfig, IPluginConfigMap, PluginNames, PluginsConfig } from './plugins'
+import { getDefaultPluginsConfig, IPluginConfigMap, PluginNames, PluginsConfig } from './plugins'
 import { AxiosResponse } from 'axios'
 import { useUserStore } from '@/stores/user'
 
