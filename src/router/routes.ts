@@ -11,7 +11,7 @@ const LoginPage = () => import('../views/User/Login.vue')
 const TestPage = () => import('../views/TestPage.vue')
 
 const childrenRoutes: Array<RouteRecordRaw> = [
-  /** @tudo 控制台首页，重定向至 connect 页面，因为暂时没有完成 */
+  /** @todo 控制台首页，重定向至 connect 页面，因为暂时没有完成 */
   {
     path: '/console',
     redirect: '/console/connect'
@@ -50,7 +50,7 @@ const childrenRoutes: Array<RouteRecordRaw> = [
 ]
 
 const routes: Array<RouteRecordRaw> = [
-  /** @tudo livekun 首页，重定向至控制台首页，因为暂时没有完成 */
+  /** @todo livekun 首页，重定向至控制台首页，因为暂时没有完成 */
   {
     path: '/',
     redirect: '/console'
