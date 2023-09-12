@@ -147,6 +147,7 @@ const onCollapse = (collapsed: boolean, type: string) => {
 
 <style lang="less" scoped>
 .trigger {
+  display: inline-block;
   font-size: 18px;
   line-height: 50px;
   width: 100%;

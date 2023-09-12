@@ -76,7 +76,7 @@ const themeSwitchState = ref(true)
     height: calc(100% - 80px);
     background-position: 0 0, 16px 0, 16px -16px, 0 16px;
     background-size: 32px 32px;
-    border-radius: 2px;
+    border-radius: 6px;
     overflow: hidden;
     position: relative;
   }

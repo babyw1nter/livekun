@@ -9,8 +9,6 @@ import PluginPaid from './components/plugins/Paid'
 import PluginTicket from './components/plugins/Ticket'
 import 'vue3-colorpicker/style.css'
 import 'dayjs/locale/zh-cn'
-import 'ant-design-vue/es/message/style/css'
-import 'ant-design-vue/es/notification/style/css'
 import '@/assets/styles/custom.less'
 
 const app = createApp(App)
