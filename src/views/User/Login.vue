@@ -155,7 +155,7 @@ const rules: Record<string, Rule[]> = {
       bottom: 0;
       width: 100%;
       margin: 48px 0 24px;
-      padding: 0 16px;
+      // padding: 0 16px;
 
       :deep(.ft) {
         p {
