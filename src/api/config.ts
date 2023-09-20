@@ -61,10 +61,10 @@ const useChatMessagePluginConfig = async () => {
 }
 
 const usePluginConfig = async <K extends keyof IPluginConfigMap> (pluginName: PluginNames) => {
-  const store = useUserStore()
+  const userStore = useUserStore()
 
   const getDefault = () => getDefaultPluginsConfig(pluginName)?.pluginConfig as IPluginConfigMap[K]
-  const getUUID = () => router.currentRoute.value.query.uuid?.toString() || store.uuid || ''
+  const getUUID = () => router.currentRoute.value.query.uuid?.toString() || userStore.uuid || ''
 
   const reactivityPluginConfig = reactive({
     pluginConfig: getDefault()

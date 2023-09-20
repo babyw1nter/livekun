@@ -2,7 +2,7 @@
 import { useUserStore } from '@/stores/user'
 import { PropType } from 'vue'
 
-const store = useUserStore()
+const userStore = useUserStore()
 
 const props = defineProps({
   pluginName: {
@@ -24,7 +24,7 @@ const emit = defineEmits<{
   (event: 'onAutoPreviewSwitchChange', checked: boolean): void
 }>()
 
-const url = computed(() => `${window.location.origin}/#/plugins-obs/${props.pluginName}?uuid=${store.uuid}`)
+const url = computed(() => `${window.location.origin}/#/plugins-obs/${props.pluginName}?uuid=${userStore.uuid}`)
 
 const onChange = (checked: unknown) => {
   emit('update:autoPreview', checked as boolean)

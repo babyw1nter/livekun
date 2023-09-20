@@ -37,11 +37,11 @@ export const addPluginRoute = (
 }
 
 router.beforeEach(async (to, from, next) => {
-  const store = useUserStore()
+  const userStore = useUserStore()
 
   if (to.meta.requiresAuth) {
-    if (store.isLoggedIn || localStorage.getItem('isLoggedIn') === '1') {
-      const authResult = await store.autologin()
+    if (userStore.isLoggedIn || localStorage.getItem('isLoggedIn') === '1') {
+      const authResult = await userStore.autologin()
 
       if (!authResult) {
         router.push({
