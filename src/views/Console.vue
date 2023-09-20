@@ -3,11 +3,21 @@
     <a-layout-sider class="left-wrapper" breakpoint="lg" @collapse="onCollapse" :collapsedWidth="60"
       v-model:collapsed="isCollapsed" :trigger="null" collapsible :width="240">
 
-      <div class="logo no-select" :style="{ height: isCollapsed ? 0 : 'auto' }">
-        <span class="logo-text">
-          <span style="color: #0084ff">LIVE</span>
-          <span>KUN</span>
-        </span>
+      <div class="menu-header no-select" :style="{ padding: isCollapsed ? '10px' : '10px 22px' }">
+        <div class="user-info">
+          <div class="avatar-wrap">
+            <a-avatar size="large">
+              {{ userStore.username }}
+            </a-avatar>
+          </div>
+
+          <div class="basic-info-wrap">
+            <a-space-compact direction="vertical" :gap="0">
+              <a-typography-text strong ellipsis>{{ userStore.username }}</a-typography-text>
+              <a-typography-text type="secondary" ellipsis>没有个性签名~</a-typography-text>
+            </a-space-compact>
+          </div>
+        </div>
       </div>
 
       <a-menu class="console-menu no-select" mode="inline" :selectedKeys="selectedKeys" @click="menuClicked"
@@ -82,6 +92,7 @@ import { randomNum } from '@/api/common'
 import http, { IHttpResponse } from '@/api/http'
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface'
 import { AxiosResponse } from 'axios'
+import { useUserStore } from '@/stores/user'
 
 interface IBroadcastData {
   banner: string
@@ -89,6 +100,7 @@ interface IBroadcastData {
   broadcasts: string[]
 }
 
+const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
 
@@ -156,6 +168,29 @@ const onCollapse = (collapsed: boolean, type: string) => {
 
   &:hover {
     color: #1890ff;
+  }
+}
+
+.menu-header {
+  padding: 10px;
+
+  .user-info {
+    display: flex;
+
+    .avatar-wrap {
+      padding-top: 2px;
+      width: 40px;
+    }
+
+    .basic-info-wrap {
+      flex: 1;
+      margin-left: 10px;
+      width: 100%;
+      height: 44px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+    }
   }
 }
 

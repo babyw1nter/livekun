@@ -6,13 +6,29 @@ import { defineStore } from 'pinia'
 export interface IUserStore {
   isLoggedIn: boolean
   uuid: string
+  username: string
+  // userInfo: {
+  //   uuid: string
+  //   uid: number
+  //   nickname: string
+  //   username: string
+  //   avatarUrl?: string
+  // }
 }
 
 export const useUserStore = defineStore('userStore', {
   state() {
     return {
       isLoggedIn: false,
-      uuid: ''
+      uuid: '',
+      username: ''
+      // userInfo: {
+      //   uuid: '',
+      //   uid: 0,
+      //   nickname: '',
+      //   username: '',
+      //   avatarUrl: ''
+      // }
     } as IUserStore
   },
   actions: {
@@ -26,7 +42,8 @@ export const useUserStore = defineStore('userStore', {
       if (res.data.code === 200) {
         this.$state = {
           isLoggedIn: true,
-          uuid: res.data.data.uuid as string
+          uuid: res.data.data.uuid as string,
+          username: res.data.data.username as string
         }
 
         localStorage.setItem('isLoggedIn', '1')
@@ -47,7 +64,8 @@ export const useUserStore = defineStore('userStore', {
       if (res.data.code === 200) {
         this.$state = {
           isLoggedIn: true,
-          uuid: res.data.data.uuid as string
+          uuid: res.data.data.uuid as string,
+          username: res.data.data.username as string
         }
 
         localStorage.setItem('isLoggedIn', '1')
