@@ -26,7 +26,7 @@
             </a-input-password>
           </a-form-item>
           <a-form-item name="autologin">
-            <a-checkbox v-model:checked="formState.autologin">自动登陆</a-checkbox>
+            <a-checkbox v-model:checked="formState.autologin">自动登录</a-checkbox>
             <a-typography-link style="float: right;" @click.stop="visible = !visible">申请使用权限</a-typography-link>
           </a-form-item>
           <a-form-item>
@@ -61,14 +61,14 @@ interface FormState {
   autologin: boolean
 }
 
-const store = useUserStore()
+const userStore = useUserStore()
 const router = useRouter()
 
 const isLoading = ref(false)
 const visible = ref(false)
 
 // 检测登录状态，如果已登录，则跳转至主页
-if (store.isLoggedIn && localStorage.getItem('isLoggedIn') === '1') {
+if (userStore.isLoggedIn && localStorage.getItem('isLoggedIn') === '1') {
   router.push({
     path: '/'
   })
@@ -100,7 +100,7 @@ const checkPassword = async (rule: RuleObject, value: string) => {
 const handleFinish = async (values: FormState) => {
   isLoading.value = true
 
-  const authResult = await store.login(values.username, values.password, values.autologin)
+  const authResult = await userStore.login(values.username, values.password, values.autologin)
   if (authResult) {
     router.push({
       path: '/'
