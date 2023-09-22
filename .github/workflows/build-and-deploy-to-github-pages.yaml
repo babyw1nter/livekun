@@ -2,11 +2,20 @@ name: Build And Deploy To Github Pages
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
+    uses: actions/setup-node@v3
+    with:
+      node-version: 20
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
@@ -15,15 +24,12 @@ jobs:
           persist-credentials: false
 
       - name: Install and Build
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
         run: |
           npm ci
           npm run build
-      
+
       - name: Deploy to Github Pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
