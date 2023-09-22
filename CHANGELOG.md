@@ -1,3 +1,23 @@
+# [1.0.0-alpha.12](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2023-09-22)
+
+
+### Bug Fixes
+
+* 修复文案错别字 ([6b681bf](https://github.com/hhui64/livekun-web/commit/6b681bfdd8a251c6e79d5b915de26f56e8e2c2b6))
+
+
+### Features
+
+* 新的UI样式，来自 Antdv4 ([f8d7026](https://github.com/hhui64/livekun-web/commit/f8d7026dca5a7dd6d3eb0699622bd3ecb12be708))
+* 新增导航菜单顶上显示用户信息的功能 ([2a71c88](https://github.com/hhui64/livekun-web/commit/2a71c88cc7cd2262ab29668c724bef25bedea795))
+
+
+### Performance Improvements
+
+* 优化变量名称 ([b41a11a](https://github.com/hhui64/livekun-web/commit/b41a11adc035deb36482deb848c838d970cc2314))
+
+
+
 # [1.0.0-alpha.11](https://github.com/hhui64/livekun-web/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2023-03-20)
 
 
