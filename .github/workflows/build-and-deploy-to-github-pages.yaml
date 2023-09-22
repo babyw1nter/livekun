@@ -11,9 +11,6 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    uses: actions/setup-node@v3
-    with:
-      node-version: 20
     permissions:
       contents: write
 
@@ -34,3 +31,4 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: dist
+          CLEAN: true
