@@ -88,14 +88,14 @@ const usePluginConfig = async <K extends keyof IPluginConfigMap> (pluginName: Pl
     await resetRemotePluginConfig(getUUID(), pluginName)
     await pull()
 
-    message.success('重置成功！')
+    message.success('恢复默认选项完成！')
   }
 
   /** 保存 */
   const save = async () => {
     await setRemotePluginConfig(getUUID(), pluginName, reactivityPluginConfig.pluginConfig)
     await pull()
-    message.success('保存成功！')
+    message.success('选项保存完成，已即时生效！')
   }
 
   // watch(reactivityPluginConfig.pluginConfig, () => save())

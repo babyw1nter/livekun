@@ -39,7 +39,9 @@
           <a-card>
             <a-space :size="10">
               <a-button type="primary" @click="save">保存设置</a-button>
-              <a-button danger @click="reset">恢复默认</a-button>
+              <a-popconfirm title="确定要恢复默认吗？" ok-text="确定" cancel-text="取消" @confirm="reset">
+                <a-button danger>恢复默认</a-button>
+              </a-popconfirm>
             </a-space>
           </a-card>
         </a-space>
