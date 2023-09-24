@@ -215,7 +215,6 @@
           <a-card>
             <a-space direction="vertical">
               <a-typography-text strong>插件控制</a-typography-text>
-              <!-- <a-typography-text type="secondary"> 控制在 OBS 中添加的插件 </a-typography-text> -->
               <a-space :size="10" style="margin-top: 1rem">
                 <a-button @click="sendMock">发送模拟数据至插件</a-button>
                 <a-button @click="clear">清空插件数据</a-button>
