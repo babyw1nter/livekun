@@ -16,7 +16,14 @@ const props = defineProps({
   }
 })
 
-const t = computed(() => replaceEmoji(props.text))
+const slots = useSlots()
+
+const t = computed(() => {
+  if (slots && typeof slots.default === 'function') {
+    const text = slots.default()[0].children?.toString() || props.text || ''
+    return replaceEmoji(text)
+  }
+})
 </script>
 
 <template>

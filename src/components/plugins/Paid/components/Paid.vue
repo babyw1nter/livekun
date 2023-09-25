@@ -4,16 +4,16 @@
       <a-avatar class="card-avatar" :src="avatarUrl" :size="24"> </a-avatar>
       <div class="p-wrap">
         <p class="nickname">
-          <h-font :text="nickname"></h-font>
+          <h-font>{{ nickname }}</h-font>
         </p>
         <p class="money">
-          <h-font :text="profile || `¥${moneyText}`"></h-font>
+          <h-font>{{ profile || `¥${moneyText}` }}</h-font>
         </p>
       </div>
     </div>
     <div class="card-footer" v-if="comment !== ''">
       <p class="message">
-        <h-font :text="comment"></h-font>
+        <h-font>{{ comment }}</h-font>
       </p>
     </div>
   </div>

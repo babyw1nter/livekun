@@ -19,7 +19,7 @@
           v-for="(badge, index) in badgeArray"
           :key="index"
           class="badge-icon"
-          :src="badge.icon"
+          :src="badge.icon" 
           :width="badge.w"
           :height="badge.h"
           title="一些小的业务图标"
@@ -27,7 +27,7 @@
       </p>
       -->
       <p class="nickname">
-        <h-font :color="color.nickname" :font-size="customStyle.fontSize" :text="`${nickname}:`"></h-font>
+        <h-font :color="color.nickname" :font-size="customStyle.fontSize">{{ `${nickname}:` }}</h-font>
 
         <i class="yt-icon" v-if="rule.admin" :style="{ color: '#5f84f1' }"><svg viewBox="0 0 16 16"
             preserveAspectRatio="xMidYMid meet" focusable="false"
@@ -42,7 +42,7 @@
       </p>
 
       <span class="message">
-        <h-font :color="color.message" :font-size="customStyle.fontSize" :text="message"></h-font>
+        <h-font :color="color.message" :font-size="customStyle.fontSize">{{ message }}</h-font>
       </span>
     </div>
   </div>

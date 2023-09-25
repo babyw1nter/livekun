@@ -3,7 +3,7 @@
     <span class="ticket-bg" :style="{ width: `${percentage.toFixed(1)}%` }"></span>
     <a-avatar class="capsule-avatar" :src="avatarUrl" :size="27"> </a-avatar>
     <span class="money">
-      <h-font :text="message || `¥${moneyText}`"></h-font>
+      <h-font>{{ message || `¥${moneyText}` }}</h-font>
     </span>
   </div>
 </template>
