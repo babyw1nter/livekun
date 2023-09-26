@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { replaceEmoji } from '@/api/common'
+import { useSlotsText } from '@/api/uses'
 
 const props = defineProps({
   text: {
@@ -16,14 +17,9 @@ const props = defineProps({
   }
 })
 
-const slots = useSlots()
+const slotsText = useSlotsText()
 
-const t = computed(() => {
-  if (slots && typeof slots.default === 'function') {
-    const text = slots.default()[0].children?.toString() || props.text || ''
-    return replaceEmoji(text)
-  }
-})
+const t = computed(() => replaceEmoji(slotsText.text.value || props.text))
 </script>
 
 <template>
