@@ -2,12 +2,13 @@
   <div class="login">
     <div class="login-wrapper">
       <div class="top">
-        <h1 style="font-size: 4em; margin-bottom: 0;">
+        <h1>
           <span style="color: #0084ff;">LIVE</span>
           <span>KUN</span>
         </h1>
-        <p>多直播平台 OBS 互动插件系统</p>
+        <a-typography-text type="secondary">多直播平台 OBS 互动插件系统</a-typography-text>
       </div>
+
       <div class="main">
         <a-form name="login-form" ref="loginFormRef" :model="formState" :rules="rules" @finish="handleFinish">
           <a-form-item has-feedback name="username">
@@ -27,7 +28,7 @@
           </a-form-item>
           <a-form-item name="autologin">
             <a-checkbox v-model:checked="formState.autologin">自动登录</a-checkbox>
-            <a-typography-link style="float: right;" @click.stop="visible = !visible">申请使用权限</a-typography-link>
+            <a-typography-link style="float: right;" @click.stop="open = !open">参与内测</a-typography-link>
           </a-form-item>
           <a-form-item>
             <a-button type="primary" style="width: 100%;" size="large" html-type="submit" :loading="isLoading">
@@ -36,13 +37,15 @@
           </a-form-item>
         </a-form>
       </div>
+
       <div class="footer">
         <PageFooter class="ft" />
       </div>
     </div>
-    <a-modal v-model:visible="visible" title="申请使用权限" :footer="null">
+
+    <a-modal v-model:open="open" title="参与内测" :footer="null">
       <a-typography-text>
-        这个项目目前还处于开发内测阶段，仅提供少数内测使用名额。<br />
+        这个项目目前还处于开发内测阶段，仅提供少数内测用户使用。<br />
         如果你感兴趣，可以扫一扫下方二维码与我联系！
       </a-typography-text>
       <br />
@@ -65,7 +68,7 @@ const userStore = useUserStore()
 const router = useRouter()
 
 const isLoading = ref(false)
-const visible = ref(false)
+const open = ref(false)
 
 // 检测登录状态，如果已登录，则跳转至主页
 if (userStore.isLoggedIn && localStorage.getItem('isLoggedIn') === '1') {
@@ -121,6 +124,7 @@ const rules: Record<string, Rule[]> = {
   height: 100%;
 
   .login-wrapper {
+    box-sizing: border-box;
     position: relative;
     width: 100%;
     min-height: 100%;
@@ -132,16 +136,14 @@ const rules: Record<string, Rule[]> = {
 
     .top {
       h1 {
+        margin: 0;
+        font-size: 3em;
         font-weight: bold;
-      }
-
-      p {
-        color: rgba(0, 0, 0, 0.45);
       }
 
       text-align: center;
       min-height: 100px;
-      margin-bottom: 2rem;
+      margin-bottom: 4rem;
     }
 
     .main {
@@ -155,7 +157,6 @@ const rules: Record<string, Rule[]> = {
       bottom: 0;
       width: 100%;
       margin: 48px 0 24px;
-      // padding: 0 16px;
 
       :deep(.ft) {
         p {

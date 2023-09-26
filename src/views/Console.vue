@@ -13,8 +13,8 @@
 
           <div class="basic-info-wrap">
             <a-space-compact direction="vertical" :gap="0">
-              <a-typography-text strong ellipsis>{{ userStore.username }}</a-typography-text>
-              <a-typography-text type="secondary" ellipsis>没有个性签名~</a-typography-text>
+              <a-typography-text strong ellipsis :content="userStore.username"></a-typography-text>
+              <a-typography-text type="secondary" ellipsis :content="'没有个性签名~'"></a-typography-text>
             </a-space-compact>
           </div>
         </div>

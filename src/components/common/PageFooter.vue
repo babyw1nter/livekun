@@ -8,8 +8,8 @@ import { globalAppConfig } from '@/api/common'
       <a-typography-text type="secondary">
         {{ globalAppConfig.copyright }}
         Powered by
-        <a-typography-link type="secondary" :href="'https://github.com/vueComponent/ant-design-vue'" target="_blank"
-          underline>Ant Design Vue</a-typography-link>.
+        <a-typography-link type="secondary" :href="'https://antdv.com/'" target="_blank" underline>Ant Design
+          Vue</a-typography-link>.
       </a-typography-text>
     </p>
     <p>
