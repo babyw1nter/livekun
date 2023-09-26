@@ -15,6 +15,10 @@
 
 @border-radius: 6px;
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   width: 100%;
@@ -49,14 +53,36 @@ ul {
 
 .h-font {
   .emoji {
+    font-family: 'AppleColorEmoji' !important;
     text-shadow: none !important;
   }
 
-  text-shadow: -2px -2px #000000, -2px -1px #000000, -2px 0px #000000, -2px 1px #000000, -2px 2px #000000,
-    -1px -2px #000000, -1px -1px #000000, -1px 0px #000000, -1px 1px #000000, -1px 2px #000000, 0px -2px #000000,
-    0px -1px #000000, 0px 0px #000000, 0px 1px #000000, 0px 2px #000000, 1px -2px #000000, 1px -1px #000000,
-    1px 0px #000000, 1px 1px #000000, 1px 2px #000000, 2px -2px #000000, 2px -1px #000000, 2px 0px #000000,
-    2px 1px #000000, 2px 2px #000000;
+  text-shadow:
+    -2px -2px #000000,
+    -2px -1px #000000,
+    -2px 0px #000000,
+    -2px 1px #000000,
+    -2px 2px #000000,
+    -1px -2px #000000,
+    -1px -1px #000000,
+    -1px 0px #000000,
+    -1px 1px #000000,
+    -1px 2px #000000,
+    0px -2px #000000,
+    0px -1px #000000,
+    0px 0px #000000,
+    0px 1px #000000,
+    0px 2px #000000,
+    1px -2px #000000,
+    1px -1px #000000,
+    1px 0px #000000,
+    1px 1px #000000,
+    1px 2px #000000,
+    2px -2px #000000,
+    2px -1px #000000,
+    2px 0px #000000,
+    2px 1px #000000,
+    2px 2px #000000;
 }
 
 .nickname {
@@ -68,8 +94,8 @@ ul {
 
 .message {
   .h-font {
-    font-family: 'Imprima', 'AppleColorEmoji', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-      'Microsoft YaHei', '\5FAE \8F6F \96C5 \9ED1 ', SimHei, Arial, sans-serif;
+    font-family: 'Imprima', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      '\5FAE \8F6F \96C5 \9ED1 ', SimHei, Arial, sans-serif;
   }
 }
 
@@ -117,7 +143,7 @@ ul {
   background-image: none !important;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
-  transition: all .2s;
+  transition: all 0.2s;
 
   &:hover {
     border-color: #4096ff;
