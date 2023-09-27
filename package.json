@@ -25,7 +25,7 @@
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.0",
     "ant-design-vue": "^4.0.3",
-    "axios": "^1.5.0",
+    "axios": "^1.5.1",
     "emoji-regex": "^10.2.1",
     "gsap": "^3.12.2",
     "lodash-es": "^4.17.21",
@@ -61,6 +61,6 @@
     "vite": "^4.4.9",
     "vite-plugin-eslint": "^1.8.1",
     "vue-eslint-parser": "^9.3.1",
-    "vue-tsc": "^1.8.14"
+    "vue-tsc": "^1.8.15"
   }
 }
