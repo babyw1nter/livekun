@@ -29,8 +29,8 @@
       <p class="nickname">
         <h-font :color="color.nickname" :font-size="customStyle.fontSize">{{ `${nickname}:` }}</h-font>
 
-        <i class="yt-icon" v-if="rule.admin" :style="{ color: '#5f84f1' }"><svg viewBox="0 0 16 16"
-            preserveAspectRatio="xMidYMid meet" focusable="false"
+        <i class="yt-icon" v-if="rule.admin" :style="{ color: '#5f84f1' }">
+          <svg viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet" focusable="false"
             style="pointer-events: none; display: block; width: 100%; height: 100%;">
             <g>
               <path fill="currentColor"
