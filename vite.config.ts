@@ -56,7 +56,9 @@ export default defineConfig(({ mode }) => {
       })
     ],
     define: {
-      __APP_VERSION__: JSON.stringify(process.env.npm_package_version)
+      __APP_VERSION__: `"${process.env.npm_package_version}"`,
+      __DEV_URL__: `"10.0.0.230:39075"`,
+      __PROD_URL__: `"livekun-webapi.anankun.icu:4433"`
     },
     build: {
       rollupOptions: {

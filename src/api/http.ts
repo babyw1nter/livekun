@@ -2,16 +2,12 @@ import router from '@/router'
 import { message } from 'ant-design-vue/es'
 import axios from 'axios'
 
-const devURL = '10.0.0.230:39075'
-const prodURL = 'livekun-webapi.anankun.icu:4433'
-
-const baseURL = process.env.NODE_ENV === 'development' ? `http://${devURL}` : `https://${prodURL}`
-const baseWsURL = process.env.NODE_ENV === 'development' ? `ws://${devURL}` : `wss://${prodURL}`
+const baseUrl = process.env.NODE_ENV === 'development' ? `http://${__DEV_URL__}` : `https://${__PROD_URL__}`
 
 axios.defaults.withCredentials = true
 
 const http = axios.create({
-  baseURL,
+  baseURL: baseUrl,
   timeout: 10000
 })
 
@@ -39,6 +35,6 @@ interface IHttpResponse<T = unknown> {
   timestamp?: number
 }
 
-export { baseURL, baseWsURL }
+export { baseUrl }
 export type { IHttpResponse }
 export default http
