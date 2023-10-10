@@ -2,10 +2,11 @@
   <div class="login">
     <div class="login-wrapper">
       <div class="top">
-        <h1>
-          <span style="color: #0084ff;">LIVE</span>
-          <span>KUN</span>
-        </h1>
+        <div class="logo" style="display: block; margin-bottom: 10px;">
+          <a href="#" class="no-select">
+            <img src="@/assets/images/logo_270x80.png" width="220" />
+          </a>
+        </div>
         <a-typography-text type="secondary">多直播平台 OBS 互动插件系统</a-typography-text>
       </div>
 
