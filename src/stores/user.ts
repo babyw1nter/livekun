@@ -39,24 +39,30 @@ export const useUserStore = defineStore('userStore', {
         autologin
       })
 
-      if (res.data.code === 200) {
-        this.$state = {
-          isLoggedIn: true,
-          uuid: res.data.data.uuid as string,
-          username: res.data.data.username as string
+      if (res.status === 200) {
+        if (res.data.code === 200) {
+          this.$state = {
+            isLoggedIn: true,
+            uuid: res.data.data.uuid as string,
+            username: res.data.data.username as string
+          }
+
+          localStorage.setItem('isLoggedIn', '1')
+          localStorage.setItem('UUID', res.data.data.uuid)
+
+          message.success('登录成功！')
+
+          return Promise.resolve(true)
+        } else {
+          message.warn(res.data.message)
+
+          return Promise.resolve(false)
         }
-
-        localStorage.setItem('isLoggedIn', '1')
-        localStorage.setItem('UUID', res.data.data.uuid)
-
-        message.success('登录成功！')
-
-        return Promise.resolve(true)
       } else {
-        message.warn(res.data.message as string)
-      }
+        message.error('http error')
 
-      return Promise.resolve(false)
+        return Promise.reject('http error')
+      }
     },
     async autologin() {
       const res: AxiosResponse<IHttpResponse<IUserStore>> = await http.post('/user/autologin', {})

@@ -11,6 +11,8 @@
       </div>
 
       <div class="main">
+        <!-- <a-alert message="账号或密码错误" type="error" show-icon style="margin-bottom: 20px;" /> -->
+
         <a-form name="login-form" ref="loginFormRef" :model="formState" :rules="rules" @finish="handleFinish">
           <a-form-item has-feedback name="username">
             <a-input v-model:value="formState.username" placeholder="请输入用户名" size="large" autocomplete="off">
@@ -109,6 +111,8 @@ const handleFinish = async (values: FormState) => {
     router.push({
       path: '/'
     })
+  } else {
+    //
   }
 
   isLoading.value = false
