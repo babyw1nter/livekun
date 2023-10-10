@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router'
 const NotFound = () => import('../views/Common/NotFound.vue')
 
 const Console = () => import('../views/Console.vue')
+const PluginsOBS = () => import('../views/PluginsOBS.vue')
 
 const ConnectPage = () => import('../views/Console/ConnectPage.vue')
 const AccountPage = () => import('../views/Console/AccountPage.vue')
@@ -61,6 +62,12 @@ const routes: Array<RouteRecordRaw> = [
     component: Console,
     meta: { requiresAuth: true },
     children: [...childrenRoutes]
+  },
+  {
+    path: '/plugins-obs',
+    name: 'PluginsOBS',
+    component: PluginsOBS,
+    meta: { requiresAuth: false },
   },
   {
     path: '/test',

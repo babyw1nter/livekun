@@ -29,7 +29,7 @@ export const addPluginRoute = (
     }
   })
 
-  router.addRoute({
+  router.addRoute('PluginsOBS', {
     path: `/plugins-obs/${pluginName}`,
     component: componentPluginPage,
     meta: { requiresAuth: false }
