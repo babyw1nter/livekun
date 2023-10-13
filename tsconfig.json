@@ -16,7 +16,9 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost", "WebWorker"],
+    "declaration": true,
+    "declarationDir": "src/typings"
   },
   "vueCompilerOptions": {},
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
