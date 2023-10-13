@@ -31,7 +31,7 @@
     "eventemitter3": "^5.0.1",
     "gsap": "^3.12.2",
     "lodash-es": "^4.17.21",
-    "pinia": "^2.1.6",
+    "pinia": "^2.1.7",
     "uuid": "^9.0.1",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5",
@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.9",
-    "@types/node": "^20.8.5",
+    "@types/node": "^20.8.6",
     "@types/sharedworker": "^0.0.104",
     "@types/uuid": "^9.0.5",
     "@types/websocket": "^1.0.7",
@@ -63,6 +63,7 @@
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.4.11",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-progress": "^0.0.7",
     "vue-eslint-parser": "^9.3.2",
     "vue-tsc": "^1.8.19"
   }

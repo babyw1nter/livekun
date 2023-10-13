@@ -8,6 +8,7 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
+import progress from 'vite-plugin-progress'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -53,7 +54,8 @@ export default defineConfig(({ mode }) => {
       }),
       Icons({
         compiler: 'vue3'
-      })
+      }),
+      progress()
     ],
     define: {
       __APP_VERSION__: `"${process.env.npm_package_version}"`,
