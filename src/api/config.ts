@@ -50,17 +50,7 @@ const resetRemotePluginConfig = async (uuid: string, pluginName: string) => {
   return res.data.code === 200 ? res.data.data : null
 }
 
-const useChatMessagePluginConfig = async () => {
-  const chatMessagePluginConfig = await usePluginConfig<PluginNames.PLUGIN_CHAT_MESSAGE>(
-    PluginNames.PLUGIN_CHAT_MESSAGE
-  )
-  const ticketPluginConfig = await usePluginConfig<PluginNames.PLUGIN_TICKET>(PluginNames.PLUGIN_TICKET)
-  const paidPluginConfig = await usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
-
-  return { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig }
-}
-
-const usePluginConfig = async <K extends keyof IPluginConfigMap> (pluginName: PluginNames) => {
+const usePluginConfig = async <K extends keyof IPluginConfigMap>(pluginName: PluginNames) => {
   const userStore = useUserStore()
 
   const getDefault = () => getDefaultPluginsConfig(pluginName)?.pluginConfig as IPluginConfigMap[K]
@@ -83,8 +73,6 @@ const usePluginConfig = async <K extends keyof IPluginConfigMap> (pluginName: Pl
 
   /** 重置 */
   const reset = async () => {
-    // reactivityPluginConfig.pluginConfig = JSON.parse(JSON.stringify(getDefault())) as UnwrapRef<IPluginConfigMap[K]>
-
     await resetRemotePluginConfig(getUUID(), pluginName)
     await pull()
 
@@ -98,8 +86,6 @@ const usePluginConfig = async <K extends keyof IPluginConfigMap> (pluginName: Pl
     message.success('选项保存完成，已即时生效！')
   }
 
-  // watch(reactivityPluginConfig.pluginConfig, () => save())
-
   await pull()
 
   return {
@@ -110,5 +96,4 @@ const usePluginConfig = async <K extends keyof IPluginConfigMap> (pluginName: Pl
   }
 }
 
-export { pluginsConfig, getRemotePluginConfig }
-export { useChatMessagePluginConfig, usePluginConfig }
+export { pluginsConfig, usePluginConfig, getRemotePluginConfig }
