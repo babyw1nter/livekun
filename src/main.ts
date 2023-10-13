@@ -18,14 +18,11 @@ dayjs.locale('zh-cn')
 
 app.use(Vue3ColorPicker)
 
-// ================================
-/**
- * 注册插件必须在注册 router 之前调用
- */
+// 使用平台插件必须在使用 router 之前调用
+// 否则会导致平台插件动态添加路由失效 :)
 app.use(PluginChatMessage)
 app.use(PluginTicket)
 app.use(PluginPaid)
-// ================================
 
 app.use(createPinia()).use(router)
 
