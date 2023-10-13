@@ -11,6 +11,7 @@ import type { IPluginCommonMessage } from '@/api/socket'
 import { useSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
 import { usePluginConfig } from '@/api/config'
+import { useChatMessagePluginConfig } from '../api/uses'
 
 interface IPluginChatMessageData extends IPluginCommonMessage {
   message: string
@@ -19,16 +20,6 @@ interface IPluginChatMessageData extends IPluginCommonMessage {
 }
 
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
-
-const useChatMessagePluginConfig = async () => {
-  const chatMessagePluginConfig = await usePluginConfig<PluginNames.PLUGIN_CHAT_MESSAGE>(
-    PluginNames.PLUGIN_CHAT_MESSAGE
-  )
-  const ticketPluginConfig = await usePluginConfig<PluginNames.PLUGIN_TICKET>(PluginNames.PLUGIN_TICKET)
-  const paidPluginConfig = await usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
-
-  return { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig }
-}
 
 let { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig } = await useChatMessagePluginConfig()
 

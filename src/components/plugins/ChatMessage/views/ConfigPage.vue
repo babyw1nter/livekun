@@ -254,8 +254,8 @@ import { message } from 'ant-design-vue/es'
 import type ChatMessageList from '@/components/plugins/ChatMessage/components/ChatMessageList.vue'
 import http from '@/api/http'
 import { getRandomChatMessage } from '@/api/mock'
-import { useChatMessagePluginConfig } from '@/api/config'
 import { PluginNames } from '@/api/plugins'
+import { useChatMessagePluginConfig } from '../api/uses'
 
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
