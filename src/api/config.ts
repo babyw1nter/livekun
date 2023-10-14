@@ -2,7 +2,7 @@ import router from '@/router'
 import { message } from 'ant-design-vue/es'
 import { UnwrapRef } from 'vue'
 import http, { IHttpResponse } from './http'
-import { getDefaultPluginsConfig, IPluginConfigMap, PluginNames, PluginsConfig } from './plugins'
+import { getDefaultPluginsConfig, PluginsConfig } from './plugins'
 import { AxiosResponse } from 'axios'
 import { useUserStore } from '@/stores/user'
 
@@ -27,10 +27,10 @@ const getRemotePluginConfig = async (uuid: string, pluginName: string | string[]
   return res.data.code === 200 ? res.data.data : []
 }
 
-const setRemotePluginConfig = async <K extends keyof IPluginConfigMap>(
+const setRemotePluginConfig = async <T>(
   uuid: string,
   pluginName: string,
-  pluginConfig: IPluginConfigMap[K]
+  pluginConfig: T
 ) => {
   const res: AxiosResponse<IHttpResponse<PluginsConfig>> = await http.post('/user/setPluginConfig', {
     uuid,
@@ -50,14 +50,13 @@ const resetRemotePluginConfig = async (uuid: string, pluginName: string) => {
   return res.data.code === 200 ? res.data.data : null
 }
 
-const usePluginConfig = async <K extends keyof IPluginConfigMap>(pluginName: PluginNames) => {
+const usePluginConfig = async <T>(pluginName: string) => {
   const userStore = useUserStore()
 
-  const getDefault = () => getDefaultPluginsConfig(pluginName)?.pluginConfig as IPluginConfigMap[K]
   const getUUID = () => router.currentRoute.value.query.uuid?.toString() || userStore.uuid || ''
 
   const reactivityPluginConfig = reactive({
-    pluginConfig: getDefault()
+    pluginConfig: getDefaultPluginsConfig<T>(pluginName)!.pluginConfig
   })
 
   /** 拉取配置文件 */
@@ -67,7 +66,7 @@ const usePluginConfig = async <K extends keyof IPluginConfigMap>(pluginName: Plu
     const rcfg = remotePluginsConfig.find((i) => i.pluginName === pluginName)
 
     if (remotePluginsConfig.length > -1 && rcfg) {
-      reactivityPluginConfig.pluginConfig = rcfg.pluginConfig as UnwrapRef<IPluginConfigMap[K]>
+      reactivityPluginConfig.pluginConfig = rcfg.pluginConfig as UnwrapRef<T>
     }
   }
 

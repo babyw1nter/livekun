@@ -255,11 +255,14 @@ import type ChatMessageList from '@/components/plugins/ChatMessage/components/Ch
 import http from '@/api/http'
 import { getRandomChatMessage } from '@/api/mock'
 import { PluginNames } from '@/api/plugins'
-import { useChatMessagePluginConfig } from '../api/uses'
+import { usePluginConfig } from '@/api/config'
+import { TypePaidPluginConfig } from '../../Paid/config'
+import { TypeTicketPluginConfig } from '../../Ticket/config'
+import { TypeChatMessagePluginConfig } from '../config'
 
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
-let { chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig } = await useChatMessagePluginConfig()
+let [chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig] = [await usePluginConfig<TypeChatMessagePluginConfig>(PluginNames.PLUGIN_CHAT_MESSAGE), await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET), await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)]
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)

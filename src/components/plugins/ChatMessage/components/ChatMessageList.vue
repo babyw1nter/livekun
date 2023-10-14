@@ -8,7 +8,8 @@
         <!-- 聊天消息 start -->
         <li class="chat-list-message" v-if="item.messageType === 'chat'">
           <ChatMessage :avatar-url="item.avatarUrl" :nickname="item.nickname" :message="item.message" :rule="item.rule"
-            :guard="item.guard" :badgeInfo="item.badgeInfo" :custom-style="chatMessageConfig.customStyle" :type="item.type">
+            :guard="item.guard" :badgeInfo="item.badgeInfo" :custom-style="chatMessageConfig.customStyle"
+            :type="item.type">
           </ChatMessage>
         </li>
         <!-- 聊天消息 end -->
@@ -29,8 +30,11 @@
 <script lang="ts" setup>
 import { getLevel } from '@/api/common'
 import type TicketPanel from '@/components/plugins/Ticket/components/TicketPanel.vue'
-import { getDefaultPluginsConfig, IPluginConfigMap, PluginNames } from '@/api/plugins'
+import { getDefaultPluginsConfig, PluginNames } from '@/api/plugins'
 import { PropType } from 'vue'
+import { TypePaidPluginConfig } from '../../Paid/config'
+import { TypeTicketPluginConfig } from '../../Ticket/config'
+import { TypeChatMessagePluginConfig } from '../config'
 
 interface ChatMessage {
   key: string
@@ -70,15 +74,15 @@ const props = defineProps({
     default: 250
   },
   chatMessageConfig: {
-    type: Object as PropType<IPluginConfigMap[PluginNames.PLUGIN_CHAT_MESSAGE]>,
+    type: Object as PropType<TypeChatMessagePluginConfig>,
     default: () => getDefaultPluginsConfig(PluginNames.PLUGIN_CHAT_MESSAGE)?.pluginConfig
   },
   ticketConfig: {
-    type: Object as PropType<IPluginConfigMap[PluginNames.PLUGIN_TICKET]>,
+    type: Object as PropType<TypeTicketPluginConfig>,
     default: () => getDefaultPluginsConfig(PluginNames.PLUGIN_TICKET)?.pluginConfig
   },
   paidConfig: {
-    type: Object as PropType<IPluginConfigMap[PluginNames.PLUGIN_PAID]>,
+    type: Object as PropType<TypePaidPluginConfig>,
     default: () => getDefaultPluginsConfig(PluginNames.PLUGIN_PAID)?.pluginConfig
   },
 })

@@ -50,6 +50,7 @@
 
 <script lang="ts" setup>
 import { IPluginConfig, PluginNames } from '@/api/plugins'
+import { TypeChatMessagePluginConfig } from '../config'
 
 const props = defineProps({
   /** @deprecated */
@@ -76,7 +77,9 @@ const props = defineProps({
       anchor: false
     }),
     type: Object as PropType<{
+      /** 房管 */
       admin: boolean
+      /** 主播 */
       anchor: boolean
     }>
   },
@@ -103,7 +106,7 @@ const props = defineProps({
   /** 自定义样式 */
   customStyle: {
     default: () => ({}),
-    type: Object as PropType<IPluginConfig<PluginNames.PLUGIN_CHAT_MESSAGE>['pluginConfig']['customStyle']>
+    type: Object as PropType<IPluginConfig<TypeChatMessagePluginConfig>['pluginConfig']['customStyle']>
   }
 })
 

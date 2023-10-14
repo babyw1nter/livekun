@@ -8,6 +8,7 @@ import type { IPluginCommonMessage } from '@/api/socket'
 import { useSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
 import { usePluginConfig } from '@/api/config'
+import { TypePaidPluginConfig } from '../config'
 
 interface IPluginPaidData extends IPluginCommonMessage {
   money: number
@@ -20,7 +21,7 @@ interface IPluginPaidData extends IPluginCommonMessage {
 
 const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
 
-let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
+let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
 
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {

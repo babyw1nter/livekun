@@ -67,10 +67,11 @@ import http from '@/api/http'
 import { getRandomTicket } from '@/api/mock'
 import { PluginNames } from '@/api/plugins'
 import { usePluginConfig } from '@/api/config'
+import { TypeTicketPluginConfig } from '../config'
 
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 
-let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<PluginNames.PLUGIN_TICKET>(PluginNames.PLUGIN_TICKET)
+let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)

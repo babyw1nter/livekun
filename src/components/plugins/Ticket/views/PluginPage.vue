@@ -9,6 +9,7 @@ import type { IPluginCommonMessage } from '@/api/socket'
 import { useSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
 import { usePluginConfig } from '@/api/config'
+import { TypeTicketPluginConfig } from '../config'
 
 interface IPluginTicketData extends IPluginCommonMessage {
   money: number
@@ -18,7 +19,7 @@ interface IPluginTicketData extends IPluginCommonMessage {
 
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 
-let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<PluginNames.PLUGIN_TICKET>(PluginNames.PLUGIN_TICKET)
+let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
 
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {

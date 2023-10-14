@@ -66,10 +66,11 @@ import PaidPanel from '@/components/plugins/Paid/components/PaidPanel.vue'
 import { getRandomPaid } from '@/api/mock'
 import { PluginNames } from '@/api/plugins'
 import { usePluginConfig } from '@/api/config'
+import { TypePaidPluginConfig } from '../config'
 
 const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
 
-let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<PluginNames.PLUGIN_PAID>(PluginNames.PLUGIN_PAID)
+let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)
