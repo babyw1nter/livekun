@@ -43,6 +43,8 @@ export default defineConfig(({ mode }) => {
       }),
       Components({
         dts: 'src/typings/components.d.ts',
+        globs: ['src/components/**/*.vue', 'src/plugins/**/components/*.vue'],
+        deep: true,
         resolvers: [
           AntDesignVueResolver({ importStyle: 'less', resolveIcons: true }),
           IconsResolver(),
