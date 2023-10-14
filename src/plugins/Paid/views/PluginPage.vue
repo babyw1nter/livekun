@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import type PaidPanel from '@/components/plugins/Paid/components/PaidPanel.vue'
+import type PaidPanel from '@/plugins/Paid/components/PaidPanel.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { useSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'

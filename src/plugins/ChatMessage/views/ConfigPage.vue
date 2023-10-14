@@ -251,7 +251,7 @@
 
 <script lang="ts" setup>
 import { message } from 'ant-design-vue/es'
-import type ChatMessageList from '@/components/plugins/ChatMessage/components/ChatMessageList.vue'
+import type ChatMessageList from '@/plugins/ChatMessage/components/ChatMessageList.vue'
 import http from '@/api/http'
 import { getRandomChatMessage } from '@/api/mock'
 import { PluginNames } from '@/api/plugins'

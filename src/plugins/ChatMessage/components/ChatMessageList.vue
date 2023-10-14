@@ -29,7 +29,7 @@
 
 <script lang="ts" setup>
 import { getLevel } from '@/api/common'
-import type TicketPanel from '@/components/plugins/Ticket/components/TicketPanel.vue'
+import type TicketPanel from '@/plugins/Ticket/components/TicketPanel.vue'
 import { getDefaultPluginsConfig, PluginNames } from '@/api/plugins'
 import { PropType } from 'vue'
 import { TypePaidPluginConfig } from '../../Paid/config'

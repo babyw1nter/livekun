@@ -50,9 +50,9 @@
 </template>
 
 <script lang="ts" setup>
-import type TicketPanel from '@/components/plugins/Ticket/components/TicketPanel.vue'
-import type ChatMessageList from '@/components/plugins/ChatMessage/components/ChatMessageList.vue'
-import type PaidPanel from '@/components/plugins/Paid/components/PaidPanel.vue'
+import type TicketPanel from '@/plugins/Ticket/components/TicketPanel.vue'
+import type ChatMessageList from '@/plugins/ChatMessage/components/ChatMessageList.vue'
+import type PaidPanel from '@/plugins/Paid/components/PaidPanel.vue'
 import { getRandomChatMessage, getRandomTicket, getRandomPaid } from '@/api/mock'
 
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()

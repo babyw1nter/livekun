@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts" setup>
-import type TicketPanel from '@/components/plugins/Ticket/components/TicketPanel.vue'
+import type TicketPanel from '@/plugins/Ticket/components/TicketPanel.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { useSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
