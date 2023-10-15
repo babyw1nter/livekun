@@ -1,7 +1,7 @@
-import { cloneDeep } from 'lodash-es'
-
 /**
  * 插件注册名称
+ *
+ * @deprecated 不够优雅，重构重构重构
  */
 enum PluginNames {
   PLUGIN_CHAT_MESSAGE = 'chat-message',
@@ -23,36 +23,7 @@ enum PluginActions {
   CLEAR = 'clear'
 }
 
-interface IPluginConfig<T = unknown> {
-  pluginName: string
-  pluginConfig: T
-  isDefault?: boolean
-}
-
-type PluginsConfig = Array<IPluginConfig>
-
-const defaultPluginsConfig: PluginsConfig = []
-
-const addDefaultPluginsConfig = <T>(pluginName: string, pluginConfig: T) => {
-  defaultPluginsConfig.push({
-    pluginName,
-    pluginConfig,
-    isDefault: true
-  })
-}
-
-const getDefaultPluginsConfig = <T>(pluginName: string) => {
-  const defaultPluginConfig = defaultPluginsConfig.find((i) => i.pluginName === pluginName)
-
-  return defaultPluginConfig ? (cloneDeep(defaultPluginConfig) as IPluginConfig<T>) : undefined
-}
-
 export {
   PluginNames,
-  PluginActions,
-  IPluginConfig,
-  PluginsConfig,
-  defaultPluginsConfig,
-  getDefaultPluginsConfig,
-  addDefaultPluginsConfig
+  PluginActions
 }

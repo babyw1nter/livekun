@@ -7,7 +7,7 @@ import type PaidPanel from '@/plugins/Paid/components/PaidPanel.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { useSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
-import { usePluginConfig } from '@/api/config'
+import { usePluginConfig } from '@/api/pluginmanager'
 import { TypePaidPluginConfig } from '../config'
 
 interface IPluginPaidData extends IPluginCommonMessage {

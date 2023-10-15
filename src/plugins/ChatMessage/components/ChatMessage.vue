@@ -49,7 +49,6 @@
 </template>
 
 <script lang="ts" setup>
-import { IPluginConfig, PluginNames } from '@/api/plugins'
 import { TypeChatMessagePluginConfig } from '../config'
 
 const props = defineProps({
@@ -106,7 +105,7 @@ const props = defineProps({
   /** 自定义样式 */
   customStyle: {
     default: () => ({}),
-    type: Object as PropType<IPluginConfig<TypeChatMessagePluginConfig>['pluginConfig']['customStyle']>
+    type: Object as PropType<TypeChatMessagePluginConfig['customStyle']>
   }
 })
 

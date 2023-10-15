@@ -8,7 +8,7 @@ import type TicketPanel from '@/plugins/Ticket/components/TicketPanel.vue'
 import type { IPluginCommonMessage } from '@/api/socket'
 import { useSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
-import { usePluginConfig } from '@/api/config'
+import { usePluginConfig } from '@/api/pluginmanager'
 import { TypeTicketPluginConfig } from '../config'
 
 interface IPluginTicketData extends IPluginCommonMessage {

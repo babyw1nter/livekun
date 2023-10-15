@@ -65,7 +65,7 @@ import http from '@/api/http'
 import PaidPanel from '@/plugins/Paid/components/PaidPanel.vue'
 import { getRandomPaid } from '@/api/mock'
 import { PluginNames } from '@/api/plugins'
-import { usePluginConfig } from '@/api/config'
+import { usePluginConfig } from '@/api/pluginmanager'
 import { TypePaidPluginConfig } from '../config'
 
 const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()

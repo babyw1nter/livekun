@@ -10,7 +10,7 @@ import type ChatMessageList from '@/plugins/ChatMessage/components/ChatMessageLi
 import type { IPluginCommonMessage } from '@/api/socket'
 import { useSocket } from '@/api/socket'
 import { PluginNames, PluginActions } from '@/api/plugins'
-import { usePluginConfig } from '@/api/config'
+import { usePluginConfig } from '@/api/pluginmanager'
 import { TypePaidPluginConfig } from '../../Paid/config'
 import { TypeTicketPluginConfig } from '../../Ticket/config'
 import { TypeChatMessagePluginConfig } from '../config'

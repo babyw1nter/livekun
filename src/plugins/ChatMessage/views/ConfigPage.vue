@@ -255,7 +255,7 @@ import type ChatMessageList from '@/plugins/ChatMessage/components/ChatMessageLi
 import http from '@/api/http'
 import { getRandomChatMessage } from '@/api/mock'
 import { PluginNames } from '@/api/plugins'
-import { usePluginConfig } from '@/api/config'
+import { usePluginConfig } from '@/api/pluginmanager'
 import { TypePaidPluginConfig } from '../../Paid/config'
 import { TypeTicketPluginConfig } from '../../Ticket/config'
 import { TypeChatMessagePluginConfig } from '../config'

@@ -30,7 +30,8 @@
 <script lang="ts" setup>
 import { getLevel } from '@/api/common'
 import type TicketPanel from '@/plugins/Ticket/components/TicketPanel.vue'
-import { getDefaultPluginsConfig, PluginNames } from '@/api/plugins'
+import { PluginNames } from '@/api/plugins'
+import { getPluginConfig } from '@/api/pluginmanager'
 import { PropType } from 'vue'
 import { TypePaidPluginConfig } from '../../Paid/config'
 import { TypeTicketPluginConfig } from '../../Ticket/config'
@@ -75,15 +76,15 @@ const props = defineProps({
   },
   chatMessageConfig: {
     type: Object as PropType<TypeChatMessagePluginConfig>,
-    default: () => getDefaultPluginsConfig(PluginNames.PLUGIN_CHAT_MESSAGE)?.pluginConfig
+    default: () => getPluginConfig<TypeChatMessagePluginConfig>(PluginNames.PLUGIN_CHAT_MESSAGE)
   },
   ticketConfig: {
     type: Object as PropType<TypeTicketPluginConfig>,
-    default: () => getDefaultPluginsConfig(PluginNames.PLUGIN_TICKET)?.pluginConfig
+    default: () => getPluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
   },
   paidConfig: {
     type: Object as PropType<TypePaidPluginConfig>,
-    default: () => getDefaultPluginsConfig(PluginNames.PLUGIN_PAID)?.pluginConfig
+    default: () => getPluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
   },
 })
 

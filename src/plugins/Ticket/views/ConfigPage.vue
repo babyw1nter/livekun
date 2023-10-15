@@ -66,7 +66,7 @@ import type TicketPanel from '@/plugins/Ticket/components/TicketPanel.vue'
 import http from '@/api/http'
 import { getRandomTicket } from '@/api/mock'
 import { PluginNames } from '@/api/plugins'
-import { usePluginConfig } from '@/api/config'
+import { usePluginConfig } from '@/api/pluginmanager'
 import { TypeTicketPluginConfig } from '../config'
 
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()

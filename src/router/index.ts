@@ -12,30 +12,6 @@ const router = createRouter({
   }
 })
 
-export const addPluginRoute = (
-  pluginName: PluginNames | string,
-  displayName: string,
-  componentConfigPage: () => Promise<unknown>,
-  componentPluginPage: () => Promise<unknown>
-) => {
-  router.addRoute('Console', {
-    path: `/console/plugins/${pluginName}`,
-    component: componentConfigPage,
-    meta: {
-      menuItemKey: `/console/plugins/${pluginName}`,
-      menuItemName: displayName,
-      showOnMenu: true,
-      requiresAuth: true
-    }
-  })
-
-  router.addRoute('PluginsOBS', {
-    path: `/plugins-obs/${pluginName}`,
-    component: componentPluginPage,
-    meta: { requiresAuth: false }
-  })
-}
-
 router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore()
 
