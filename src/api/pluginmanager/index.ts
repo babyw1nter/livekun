@@ -123,8 +123,6 @@ const usePluginConfig = async <T>(pluginName: string) => {
     message.success('选项保存完成，已即时生效！')
   }
 
-  await pull()
-
   return {
     reactivityPluginConfig,
     pull,
@@ -140,7 +138,7 @@ const createLivekunPluginManager = () => {
     componentConfigPage: () => Promise<unknown>,
     componentPluginPage: () => Promise<unknown>
   ) => {
-    router.addRoute('Console', {
+    router.addRoute('Plugins', {
       path: `/console/plugins/${pluginName}`,
       component: componentConfigPage,
       meta: {

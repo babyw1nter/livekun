@@ -92,6 +92,10 @@ const autoPreviewSwitchChange = (checked: boolean) => {
 
 onMounted(() => autoPreviewSwitchChange(true))
 
+onActivated(() => {
+  pull()
+})
+
 const sendMock = () => {
   http
     .post('/api/control', { method: 'sendMockDataToPaid' })

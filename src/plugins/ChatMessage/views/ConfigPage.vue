@@ -284,6 +284,12 @@ const autoPreviewSwitchChange = (checked: boolean) => {
 
 onMounted(() => autoPreviewSwitchChange(true))
 
+onActivated(() => {
+  chatMessagePluginConfig.pull()
+  ticketPluginConfig.pull()
+  paidPluginConfig.pull()
+})
+
 const sendMock = () => {
   http
     .post('/api/control', { method: 'sendMockDataToChatMessage' })

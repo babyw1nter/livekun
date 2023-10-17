@@ -20,8 +20,8 @@
         </div>
       </div>
 
-      <a-menu class="console-menu no-select" mode="inline" :selectedKeys="selectedKeys" @click="menuClicked"
-        style="border-right: none">
+      <a-menu class="console-menu no-select" mode="inline" :selectedKeys="selectedKeys" :openKeys="openKeys"
+        @click="menuClicked">
         <a-menu-item key="/console/connect">
           <template #icon>
             <HomeOutlined />
@@ -107,7 +107,9 @@ const router = useRouter()
 const pluginRoutes = computed(() => router.getRoutes().filter(i => i.path.startsWith('/console/plugins/')))
 
 const isCollapsed = ref(false)
+
 const selectedKeys = computed(() => [route.meta.menuItemKey || ''])
+const openKeys = computed(() => [route.meta.menuItemKey?.startsWith('/console/plugins/') ? '/console/plugins' : '' || ''])
 
 const broadcast = ref('')
 
