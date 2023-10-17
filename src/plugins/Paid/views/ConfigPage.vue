@@ -19,7 +19,7 @@
 
                 <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
                   <a-form-item label="最低金额">
-                    <a-input-number :min="0" v-model:value="reactivityPluginConfig.pluginConfig.minMoney" disabled />
+                    <a-input-number :min="0" v-model:value="pluginConfig.minMoney" disabled />
                   </a-form-item>
                 </a-col>
               </a-row>
@@ -51,7 +51,7 @@
           <PluginPreviewWrapper class="plugin-paid-preview" :plugin-name="PluginNames.PLUGIN_PAID"
             v-model:auto-preview="autoPreview" @on-auto-preview-switch-change="autoPreviewSwitchChange">
             <PaidPanel ref="PaidPanelRef" class="preview-paid-panel" :list="paidList"
-              :level="reactivityPluginConfig.pluginConfig.level" />
+              :level="pluginConfig.level" />
           </PluginPreviewWrapper>
         </a-affix>
       </a-col>
@@ -70,7 +70,7 @@ import { TypePaidPluginConfig } from '../config'
 
 const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
 
-let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
+let { pluginConfig, pull, reset, save } = await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)

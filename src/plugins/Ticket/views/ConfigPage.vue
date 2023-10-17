@@ -12,13 +12,13 @@
               <a-row :gutter="24" style="margin: 0;">
                 <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
                   <a-form-item label="最大数量">
-                    <a-input-number :min="1" v-model:value="reactivityPluginConfig.pluginConfig.maximum" />
+                    <a-input-number :min="1" v-model:value="pluginConfig.maximum" />
                   </a-form-item>
                 </a-col>
 
                 <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
                   <a-form-item label="最低金额">
-                    <a-input-number :min="0" v-model:value="reactivityPluginConfig.pluginConfig.minMoney" disabled />
+                    <a-input-number :min="0" v-model:value="pluginConfig.minMoney" disabled />
                   </a-form-item>
                 </a-col>
               </a-row>
@@ -51,8 +51,8 @@
           <PluginPreviewWrapper class="plugin-ticket-preview" :plugin-name="PluginNames.PLUGIN_TICKET"
             v-model:auto-preview="autoPreview" @on-auto-preview-switch-change="autoPreviewSwitchChange">
             <TicketPanel ref="TicketPanelRef" class="preview-ticket-panel"
-              :level="reactivityPluginConfig.pluginConfig.level"
-              :duration="reactivityPluginConfig.pluginConfig.duration" />
+              :level="pluginConfig.level"
+              :duration="pluginConfig.duration" />
           </PluginPreviewWrapper>
         </a-affix>
       </a-col>
@@ -71,7 +71,7 @@ import { TypeTicketPluginConfig } from '../config'
 
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 
-let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
+let { pluginConfig, pull, reset, save } = await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
 
 const autoPreviewTimer = ref(0)
 const autoPreview = ref(true)

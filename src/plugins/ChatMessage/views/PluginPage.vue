@@ -1,8 +1,8 @@
 <template>
   <ChatMessageList ref="ChatMessageListRef"
-    :chat-message-config="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig"
-    :ticket-config="ticketPluginConfig.reactivityPluginConfig.pluginConfig"
-    :paid-config="paidPluginConfig.reactivityPluginConfig.pluginConfig" />
+    :chat-message-config="chatMessagePluginConfig.pluginConfig"
+    :ticket-config="ticketPluginConfig.pluginConfig"
+    :paid-config="paidPluginConfig.pluginConfig" />
 </template>
 
 <script lang="ts" setup>

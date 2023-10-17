@@ -1,5 +1,5 @@
 <template>
-  <PaidPanel ref="PaidPanelRef" :level="reactivityPluginConfig.pluginConfig.level" />
+  <PaidPanel ref="PaidPanelRef" :level="pluginConfig.level" />
 </template>
 
 <script lang="ts" setup>
@@ -21,7 +21,7 @@ interface IPluginPaidData extends IPluginCommonMessage {
 
 const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
 
-let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
+let { pluginConfig, pull, reset, save } = await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
 
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {

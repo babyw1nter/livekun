@@ -20,16 +20,29 @@ interface LivekunPlugin {
   displayName: string
   description?: string
   author?: string
-  defaultPluginConfig: unknown
+  pluginConfig: unknown
   events?: Array<string>
   componentConfigPage: () => Promise<unknown>
   componentPluginPage: () => Promise<unknown>
 }
 
+type LivekunPluginFn = () => LivekunPlugin
+
 interface IPluginConfig<T = unknown> {
   pluginName: string
   pluginConfig: T
   isDefault?: boolean
+}
+
+/**
+ * 定义一个 Livekun 插件。
+ * 它可以接受一个 {@link LivekunPlugin} 对象或是一个函数，该函数应返回一个 {@link LivekunPlugin} 对象。
+ */
+function defineLivekunPlugin(plugin: LivekunPlugin): LivekunPlugin
+function defineLivekunPlugin(plugin: LivekunPluginFn): LivekunPlugin
+function defineLivekunPlugin(plugin: LivekunPlugin | LivekunPluginFn) {
+  if (typeof plugin === 'function') return plugin()
+  if (typeof plugin === 'object') return plugin
 }
 
 const _getRemotePluginConfig = async (uuid: string, pluginName: string | string[]) => {
@@ -70,8 +83,6 @@ const _resetRemotePluginConfig = async (uuid: string, pluginName: string) => {
   return res.data.code === 200 ? res.data.data : null
 }
 
-const defineLivekunPlugin = (plugin: LivekunPlugin) => plugin
-
 const getPluginConfig = <T>(pluginName: string) => {
   const plugin = _plugin.find((plugin) => plugin.pluginName === pluginName)
 
@@ -80,7 +91,9 @@ const getPluginConfig = <T>(pluginName: string) => {
       '未找到插件，是否已在插件管理器中注册插件？如果一个插件依赖了另一个插件，而被依赖的插件没有被注册，则会看到此错误！'
     )
 
-  return plugin ? (cloneDeep(plugin.defaultPluginConfig) as T) : undefined
+  const pluginConfig = cloneDeep<T>(plugin.pluginConfig as T)
+
+  return pluginConfig
 }
 
 const usePluginConfig = async <T>(pluginName: string) => {
@@ -90,11 +103,7 @@ const usePluginConfig = async <T>(pluginName: string) => {
 
   const getUUID = () => router.currentRoute.value.query.uuid?.toString() || userStore.uuid || ''
 
-  const pluginConfig = getPluginConfig<T>(pluginName)
-
-  const reactivityPluginConfig = reactive({
-    pluginConfig: pluginConfig as T
-  })
+  const pluginConfig = reactive(Object.assign({}, getPluginConfig<T>(pluginName)))
 
   /** 拉取配置文件 */
   const pull = async () => {
@@ -103,7 +112,7 @@ const usePluginConfig = async <T>(pluginName: string) => {
     const rcfg = remotePluginConfigs.find((i) => i.pluginName === pluginName)
 
     if (remotePluginConfigs.length > -1 && rcfg) {
-      reactivityPluginConfig.pluginConfig = rcfg.pluginConfig as UnwrapRef<T>
+      Object.assign(pluginConfig, rcfg.pluginConfig)
     }
   }
 
@@ -117,14 +126,14 @@ const usePluginConfig = async <T>(pluginName: string) => {
 
   /** 保存 */
   const save = async () => {
-    await _setRemotePluginConfig(getUUID(), pluginName, reactivityPluginConfig.pluginConfig)
+    await _setRemotePluginConfig(getUUID(), pluginName, pluginConfig)
     await pull()
 
     message.success('选项保存完成，已即时生效！')
   }
 
   return {
-    reactivityPluginConfig,
+    pluginConfig,
     pull,
     reset,
     save

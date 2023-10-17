@@ -1,6 +1,6 @@
 <template>
-  <TicketPanel ref="TicketPanelRef" :maximum="reactivityPluginConfig.pluginConfig.maximum"
-    :level="reactivityPluginConfig.pluginConfig.level" :duration="reactivityPluginConfig.pluginConfig.duration" />
+  <TicketPanel ref="TicketPanelRef" :maximum="pluginConfig.maximum"
+    :level="pluginConfig.level" :duration="pluginConfig.duration" />
 </template>
 
 <script lang="ts" setup>
@@ -19,7 +19,7 @@ interface IPluginTicketData extends IPluginCommonMessage {
 
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 
-let { reactivityPluginConfig, pull, reset, save } = await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
+let { pluginConfig, pull, reset, save } = await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
 
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {

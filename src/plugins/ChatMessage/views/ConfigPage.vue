@@ -13,7 +13,7 @@
                 <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
                   <a-form-item label="文字大小">
                     <a-select ref="select"
-                      v-model:value="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.fontSize">
+                      v-model:value="chatMessagePluginConfig.pluginConfig.customStyle.fontSize">
                       <a-select-option :value="i + 17" v-for="i in 15" :key="i + 114514">{{ i + 17 }}px</a-select-option>
                     </a-select>
                   </a-form-item>
@@ -32,7 +32,7 @@
                 <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="昵称颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.normal.nickname">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.normal.nickname">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
@@ -40,7 +40,7 @@
                 <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="消息颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.normal.message">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.normal.message">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
@@ -50,19 +50,19 @@
                 <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="月守、舰长昵称颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.guard.lv1.nickname">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv1.nickname">
                     </ColorPicker>
                   </a-form-item>
 
                   <a-form-item label="年守、提督昵称颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.guard.lv2.nickname">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv2.nickname">
                     </ColorPicker>
                   </a-form-item>
 
                   <a-form-item label="总督昵称颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.guard.lv3.nickname">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv3.nickname">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
@@ -70,19 +70,19 @@
                 <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="月守、舰长消息颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.guard.lv1.message">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv1.message">
                     </ColorPicker>
                   </a-form-item>
 
                   <a-form-item label="年守、提督消息颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.guard.lv2.message">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv2.message">
                     </ColorPicker>
                   </a-form-item>
 
                   <a-form-item label="总督消息颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.guard.lv3.message">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv3.message">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
@@ -92,7 +92,7 @@
                 <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="昵称颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.admin.nickname">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.admin.nickname">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
@@ -100,7 +100,7 @@
                 <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="消息颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.admin.message">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.admin.message">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
@@ -110,7 +110,7 @@
                 <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="昵称颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.anchor.nickname">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.anchor.nickname">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
@@ -118,7 +118,7 @@
                 <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="消息颜色">
                     <ColorPicker format="hex" disable-alpha disable-history
-                      v-model:pure-color="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.customStyle.color.anchor.message">
+                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.anchor.message">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
@@ -171,14 +171,14 @@
               <a-row :gutter="24" style="margin: 0;">
                 <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="Ticket 价签栏">
-                    <a-switch v-model:checked="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.type.ticket"
+                    <a-switch v-model:checked="chatMessagePluginConfig.pluginConfig.type.ticket"
                       checked-children="开" un-checked-children="关" />
                   </a-form-item>
                 </a-col>
 
                 <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="Paid 礼物卡片">
-                    <a-switch v-model:checked="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.type.paid"
+                    <a-switch v-model:checked="chatMessagePluginConfig.pluginConfig.type.paid"
                       checked-children="开" un-checked-children="关" />
                   </a-form-item>
                 </a-col>
@@ -198,12 +198,12 @@
                 <a-col :xs="24">
                   <a-form-item label="事件类型">
                     <a-checkbox-group>
-                      <a-checkbox v-model:checked="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.event.join"
+                      <a-checkbox v-model:checked="chatMessagePluginConfig.pluginConfig.event.join"
                         disabled>进入直播间</a-checkbox>
                       <a-checkbox
-                        v-model:checked="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.event.follow"
+                        v-model:checked="chatMessagePluginConfig.pluginConfig.event.follow"
                         disabled>用户关注</a-checkbox>
-                      <a-checkbox v-model:checked="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig.event.gift"
+                      <a-checkbox v-model:checked="chatMessagePluginConfig.pluginConfig.event.gift"
                         disabled>赠送礼物</a-checkbox>
                     </a-checkbox-group>
                   </a-form-item>
@@ -238,9 +238,9 @@
           <PluginPreviewWrapper class="plugin-chat-message-preview" :plugin-name="PluginNames.PLUGIN_CHAT_MESSAGE"
             v-model:auto-preview="autoPreview" @on-auto-preview-switch-change="autoPreviewSwitchChange">
             <ChatMessageList ref="ChatMessageListRef" class="preview-chat-message-list"
-              :chat-message-config="chatMessagePluginConfig.reactivityPluginConfig.pluginConfig"
-              :ticket-config="ticketPluginConfig.reactivityPluginConfig.pluginConfig"
-              :paid-config="paidPluginConfig.reactivityPluginConfig.pluginConfig" />
+              :chat-message-config="chatMessagePluginConfig.pluginConfig"
+              :ticket-config="ticketPluginConfig.pluginConfig"
+              :paid-config="paidPluginConfig.pluginConfig" />
           </PluginPreviewWrapper>
         </a-affix>
       </a-col>
