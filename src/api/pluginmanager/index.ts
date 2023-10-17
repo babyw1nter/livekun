@@ -105,7 +105,7 @@ const usePluginConfig = async <T>(pluginName: string) => {
 
   const pluginConfig = reactive(Object.assign({}, getPluginConfig<T>(pluginName)))
 
-  /** 拉取配置文件 */
+  /** 拉取远程配置文件 */
   const pull = async () => {
     const remotePluginConfigs = await _getRemotePluginConfig(getUUID(), pluginName)
 
