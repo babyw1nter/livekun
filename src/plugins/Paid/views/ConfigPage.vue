@@ -1,25 +1,57 @@
 <template>
   <div class="config-paid options-panel">
     <a-row :gutter="[16, 16]">
-      <a-col :sm="24" :lg="14" :xl="16" style="width: 100%;">
-        <a-space direction="vertical" size="middle" style="width: 100%;">
+      <a-col
+        :sm="24"
+        :lg="14"
+        :xl="16"
+        style="width: 100%">
+        <a-space
+          direction="vertical"
+          size="middle"
+          style="width: 100%">
           <a-card>
             <a-typography-text strong>通用设置</a-typography-text>
-            <a-tag color="orange" style="margin-left: 4px; margin-top: -2px; vertical-align: bottom;">未完成</a-tag>
+            <a-tag
+              color="orange"
+              style="margin-left: 4px; margin-top: -2px; vertical-align: bottom">
+              未完成
+            </a-tag>
 
             <a-divider />
 
-            <a-form :label-align="'right'" :label-col="labelCol" style="max-width: none;">
-              <a-row :gutter="24" style="margin: 0;">
-                <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
+            <a-form
+              :label-align="'right'"
+              :label-col="labelCol"
+              style="max-width: none">
+              <a-row
+                :gutter="24"
+                style="margin: 0">
+                <a-col
+                  :xs="24"
+                  :sm="24"
+                  :md="12"
+                  :lg="24"
+                  :xl="12">
                   <a-form-item label="最大数量">
-                    <a-input-number :min="1" :value="100" disabled />
+                    <a-input-number
+                      :min="1"
+                      :value="100"
+                      disabled />
                   </a-form-item>
                 </a-col>
 
-                <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
+                <a-col
+                  :xs="24"
+                  :sm="24"
+                  :md="12"
+                  :lg="24"
+                  :xl="12">
                   <a-form-item label="最低金额">
-                    <a-input-number :min="0" v-model:value="pluginConfig.minMoney" disabled />
+                    <a-input-number
+                      :min="0"
+                      v-model:value="pluginConfig.minMoney"
+                      disabled />
                   </a-form-item>
                 </a-col>
               </a-row>
@@ -28,7 +60,9 @@
           <a-card>
             <a-space direction="vertical">
               <a-typography-text strong>插件控制</a-typography-text>
-              <a-space :size="10" style="margin-top: 1rem">
+              <a-space
+                :size="10"
+                style="margin-top: 1rem">
                 <a-button @click="sendMock">发送模拟数据至插件</a-button>
                 <a-button @click="clear">清空插件数据</a-button>
               </a-space>
@@ -37,8 +71,16 @@
 
           <a-card>
             <a-space :size="10">
-              <a-button type="primary" @click="save">保存设置</a-button>
-              <a-popconfirm title="确定要恢复默认吗？" ok-text="确定" cancel-text="取消" @confirm="reset">
+              <a-button
+                type="primary"
+                @click="save">
+                保存设置
+              </a-button>
+              <a-popconfirm
+                title="确定要恢复默认吗？"
+                ok-text="确定"
+                cancel-text="取消"
+                @confirm="reset">
                 <a-button danger>恢复默认</a-button>
               </a-popconfirm>
             </a-space>
@@ -46,11 +88,23 @@
         </a-space>
       </a-col>
 
-      <a-col :sm="24" :lg="10" :xl="8" style="width: 100%;">
-        <a-affix :offset-top="16" style="width: 100%;">
-          <PluginPreviewWrapper class="plugin-paid-preview" :plugin-name="PluginNames.PLUGIN_PAID"
-            v-model:auto-preview="autoPreview" @on-auto-preview-switch-change="autoPreviewSwitchChange">
-            <PaidPanel ref="PaidPanelRef" class="preview-paid-panel" :list="paidList"
+      <a-col
+        :sm="24"
+        :lg="10"
+        :xl="8"
+        style="width: 100%">
+        <a-affix
+          :offset-top="16"
+          style="width: 100%">
+          <PluginPreviewWrapper
+            class="plugin-paid-preview"
+            :plugin-name="PluginNames.PLUGIN_PAID"
+            v-model:auto-preview="autoPreview"
+            @on-auto-preview-switch-change="autoPreviewSwitchChange">
+            <PaidPanel
+              ref="PaidPanelRef"
+              class="preview-paid-panel"
+              :list="paidList"
               :level="pluginConfig.level" />
           </PluginPreviewWrapper>
         </a-affix>
@@ -99,7 +153,7 @@ onActivated(() => {
 const sendMock = () => {
   http
     .post('/api/control', { method: 'sendMockDataToPaid' })
-    .then(res => {
+    .then((res) => {
       //
     })
     .catch((reason: Error) => {
@@ -110,7 +164,7 @@ const sendMock = () => {
 const clear = () => {
   http
     .post('/api/control', { method: 'clearPaid' })
-    .then(res => {
+    .then((res) => {
       //
     })
     .catch((reason: Error) => {

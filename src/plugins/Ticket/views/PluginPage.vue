@@ -1,6 +1,9 @@
 <template>
-  <TicketPanel ref="TicketPanelRef" :maximum="pluginConfig.maximum"
-    :level="pluginConfig.level" :duration="pluginConfig.duration" />
+  <TicketPanel
+    ref="TicketPanelRef"
+    :maximum="pluginConfig.maximum"
+    :level="pluginConfig.level"
+    :duration="pluginConfig.duration" />
 </template>
 
 <script lang="ts" setup>
@@ -44,5 +47,4 @@ const pluginMessageCallback = (message: IPluginCommonMessage) => {
 }
 
 useSocket(PluginNames.PLUGIN_TICKET, pluginActionCallback, pluginMessageCallback)
-
 </script>

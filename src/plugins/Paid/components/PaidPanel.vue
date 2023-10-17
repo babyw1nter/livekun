@@ -1,10 +1,22 @@
 <template>
-  <ul class="paid-panel clearfix" ref="PaidPanelRef">
+  <ul
+    class="paid-panel clearfix"
+    ref="PaidPanelRef">
     <TransitionGroup name="fade">
-      <li v-for="paid in paidList" :key="paid.key">
-        <Paid :type="paid.type || `level-${getLevel(paid.money, level)}`" :avatar-url="paid.avatarUrl"
-          :nickname="paid.nickname" :money="paid.money" :gift-name="paid.giftName" :gift-count="paid.giftCount"
-          :gift-image="paid.giftImage" :gift-icon="paid.giftIcon" :message="paid.message" :comment="paid.comment">
+      <li
+        v-for="paid in paidList"
+        :key="paid.key">
+        <Paid
+          :type="paid.type || `level-${getLevel(paid.money, level)}`"
+          :avatar-url="paid.avatarUrl"
+          :nickname="paid.nickname"
+          :money="paid.money"
+          :gift-name="paid.giftName"
+          :gift-count="paid.giftCount"
+          :gift-image="paid.giftImage"
+          :gift-icon="paid.giftIcon"
+          :message="paid.message"
+          :comment="paid.comment">
         </Paid>
       </li>
     </TransitionGroup>
@@ -67,7 +79,7 @@ const add = (paid: Paid) => {
 }
 
 const del = (key: string) => {
-  const index = paidList.findIndex(i => i.key === key)
+  const index = paidList.findIndex((i) => i.key === key)
   if (index > -1) {
     paidList.splice(index, 1)
   }

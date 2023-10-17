@@ -3,7 +3,6 @@ import chalk from 'chalk'
 import { PluginNames, PluginActions } from '../plugins'
 import EventEmitter from 'eventemitter3'
 
-
 const ctx: SharedWorkerGlobalScope = self as never
 
 interface IPluginCommonMessage {
@@ -140,10 +139,12 @@ ctx.onconnect = (event: MessageEvent) => {
             uuid: msg.data.uuid as string
           }
         })
+        break
       case 'PING':
         port.postMessage({
           type: 'PONG'
         })
+        break
     }
   }
 }

@@ -1,7 +1,15 @@
 <template>
-  <div class="ticket no-select" :class="type">
-    <span class="ticket-bg" :style="{ width: `${percentage.toFixed(1)}%` }"></span>
-    <a-avatar class="capsule-avatar" :src="avatarUrl" :size="27"> </a-avatar>
+  <div
+    class="ticket no-select"
+    :class="type">
+    <span
+      class="ticket-bg"
+      :style="{ width: `${percentage.toFixed(1)}%` }"></span>
+    <a-avatar
+      class="capsule-avatar"
+      :src="avatarUrl"
+      :size="27">
+    </a-avatar>
     <span class="money">
       <h-font>{{ message || `¥${moneyText}` }}</h-font>
     </span>
@@ -145,7 +153,8 @@ const bgWidth = ref<number>(0)
     }
   }
 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12),
-  0 0 6px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.12),
+    0 0 6px rgba(0, 0, 0, 0.04);
 }
 </style>

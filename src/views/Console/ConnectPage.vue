@@ -1,20 +1,41 @@
 <template>
   <div class="connect-page-wrapper">
     <a-card>
-      <a-alert :message="store.isJoinedRoom ? `已连接 ${store.roomInfo.liveId}` : '未连接'" :description="
-        store.isJoinedRoom
-          ? `已进入直播间「${store.roomInfo.title}」`
-          : '请进入一个直播间以使用所有功能。'
-      " :type="store.isJoinedRoom ? 'success' : 'info'" style="margin-bottom: 1rem" show-icon />
-      <div class="join-input-wrap" style="margin-top: 1rem">
+      <a-alert
+        :message="store.isJoinedRoom ? `已连接 ${store.roomInfo.liveId}` : '未连接'"
+        :description="
+          store.isJoinedRoom ? `已进入直播间「${store.roomInfo.title}」` : '请进入一个直播间以使用所有功能。'
+        "
+        :type="store.isJoinedRoom ? 'success' : 'info'"
+        style="margin-bottom: 1rem"
+        show-icon />
+      <div
+        class="join-input-wrap"
+        style="margin-top: 1rem">
         <a-space :size="10">
-          <a-input v-model:value="liveId" placeholder="请输入直播间ID" :disabled="isLoading || isReseting" allowClear />
-          <a-button @click="joinRoom" type="primary" :loading="isLoading" :disabled="isReseting">进入</a-button>
-          <a-button @click="reset" danger :loading="isReseting">重置</a-button>
+          <a-input
+            v-model:value="liveId"
+            placeholder="请输入直播间ID"
+            :disabled="isLoading || isReseting"
+            allowClear />
+          <a-button
+            @click="joinRoom"
+            type="primary"
+            :loading="isLoading"
+            :disabled="isReseting">
+            进入
+          </a-button>
+          <a-button
+            @click="reset"
+            danger
+            :loading="isReseting">
+            重置
+          </a-button>
         </a-space>
       </div>
     </a-card>
   </div>
+  667
 </template>
 
 <script lang="ts" setup>

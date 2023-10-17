@@ -1,7 +1,13 @@
 <template>
-  <div class="paid no-select" :class="type">
+  <div
+    class="paid no-select"
+    :class="type">
     <div class="card-body">
-      <a-avatar class="card-avatar" :src="avatarUrl" :size="24"> </a-avatar>
+      <a-avatar
+        class="card-avatar"
+        :src="avatarUrl"
+        :size="24">
+      </a-avatar>
       <div class="p-wrap">
         <p class="nickname">
           <h-font>{{ nickname }}</h-font>
@@ -11,7 +17,9 @@
         </p>
       </div>
     </div>
-    <div class="card-footer" v-if="comment !== ''">
+    <div
+      class="card-footer"
+      v-if="comment !== ''">
       <p class="message">
         <h-font>{{ comment }}</h-font>
       </p>
@@ -210,7 +218,8 @@ const moneyText = computed(() => moneyFormat(Number(props.money.toFixed(2)), 2))
     }
   }
 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12),
-  0 0 6px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.12),
+    0 0 6px rgba(0, 0, 0, 0.04);
 }
 </style>

@@ -13,7 +13,7 @@ const http = axios.create({
 
 http.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 
-http.interceptors.response.use(res => {
+http.interceptors.response.use((res) => {
   if (res.status !== 200) {
     message.error('网络错误！')
   }

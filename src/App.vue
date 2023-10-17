@@ -1,5 +1,7 @@
 <template>
-  <a-config-provider :locale="locale" :autoInsertSpaceInButton="false">
+  <a-config-provider
+    :locale="locale"
+    :autoInsertSpaceInButton="false">
     <router-view v-slot="{ Component }">
       <template v-if="Component">
         <Suspense>
@@ -7,7 +9,7 @@
             <component :is="Component"></component>
           </template>
           <template #fallback>
-            <a-spin style="margin: 1rem;" />
+            <a-spin style="margin: 1rem" />
           </template>
         </Suspense>
       </template>
@@ -22,7 +24,6 @@ import { getMockData } from '@/api/mock'
 getMockData()
 
 const locale = zhCN
-
 </script>
 
 <style lang="less">

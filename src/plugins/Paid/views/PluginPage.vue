@@ -1,5 +1,7 @@
 <template>
-  <PaidPanel ref="PaidPanelRef" :level="pluginConfig.level" />
+  <PaidPanel
+    ref="PaidPanelRef"
+    :level="pluginConfig.level" />
 </template>
 
 <script lang="ts" setup>
@@ -46,5 +48,4 @@ const pluginMessageCallback = (message: IPluginCommonMessage) => {
 }
 
 useSocket(PluginNames.PLUGIN_PAID, pluginActionCallback, pluginMessageCallback)
-
 </script>

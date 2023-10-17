@@ -23,7 +23,4 @@ enum PluginActions {
   CLEAR = 'clear'
 }
 
-export {
-  PluginNames,
-  PluginActions
-}
+export { PluginNames, PluginActions }

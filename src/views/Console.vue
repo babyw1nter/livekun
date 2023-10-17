@@ -1,9 +1,17 @@
 <template>
   <a-layout class="console">
-    <a-layout-sider class="left-sider" breakpoint="lg" @collapse="onCollapse" :collapsedWidth="60"
-      v-model:collapsed="isCollapsed" :trigger="null" collapsible :width="240">
-
-      <div class="menu-header no-select" :style="{ padding: isCollapsed ? '10px' : '10px 22px' }">
+    <a-layout-sider
+      class="left-sider"
+      breakpoint="lg"
+      @collapse="onCollapse"
+      :collapsedWidth="60"
+      v-model:collapsed="isCollapsed"
+      :trigger="null"
+      collapsible
+      :width="240">
+      <div
+        class="menu-header no-select"
+        :style="{ padding: isCollapsed ? '10px' : '10px 22px' }">
         <div class="user-info">
           <div class="avatar-wrap">
             <a-avatar size="large">
@@ -12,15 +20,27 @@
           </div>
 
           <div class="basic-info-wrap">
-            <a-space-compact direction="vertical" :gap="0">
-              <a-typography-text strong ellipsis :content="userStore.username"></a-typography-text>
-              <a-typography-text type="secondary" ellipsis :content="'没有个性签名~'"></a-typography-text>
+            <a-space-compact
+              direction="vertical"
+              :gap="0">
+              <a-typography-text
+                strong
+                ellipsis
+                :content="userStore.username" />
+              <a-typography-text
+                type="secondary"
+                ellipsis
+                :content="'没有个性签名~'" />
             </a-space-compact>
           </div>
         </div>
       </div>
 
-      <a-menu class="console-menu no-select" mode="inline" :selectedKeys="selectedKeys" :openKeys="openKeys"
+      <a-menu
+        class="console-menu no-select"
+        mode="inline"
+        :selectedKeys="selectedKeys"
+        :openKeys="openKeys"
         @click="menuClicked">
         <a-menu-item key="/console/connect">
           <template #icon>
@@ -35,7 +55,9 @@
           </template>
           <template #title>插件设置</template>
 
-          <a-menu-item v-for="item in pluginRoutes" :key="item.path">
+          <a-menu-item
+            v-for="item in pluginRoutes"
+            :key="item.path">
             {{ item.meta.menuItemName }}
           </a-menu-item>
         </a-sub-menu>
@@ -70,16 +92,26 @@
       </a-menu>
 
       <div class="menu-footer">
-        <menu-unfold-outlined v-if="isCollapsed" class="trigger" @click="() => (isCollapsed = !isCollapsed)" />
-        <menu-fold-outlined v-else class="trigger" @click="() => (isCollapsed = !isCollapsed)" />
+        <menu-unfold-outlined
+          v-if="isCollapsed"
+          class="trigger"
+          @click="() => (isCollapsed = !isCollapsed)" />
+        <menu-fold-outlined
+          v-else
+          class="trigger"
+          @click="() => (isCollapsed = !isCollapsed)" />
       </div>
     </a-layout-sider>
-    <a-layout class="right-wrapper" :class="{ collapsed: isCollapsed }">
+    <a-layout
+      class="right-wrapper"
+      :class="{ collapsed: isCollapsed }">
       <a-layout-content :style="{ margin: '16px', minHeight: '280px' }">
         <router-view></router-view>
       </a-layout-content>
 
-      <a-layout-footer class="footer" style="font-size: 13px;">
+      <a-layout-footer
+        class="footer"
+        style="font-size: 13px">
         <a-divider />
         <PageFooter />
       </a-layout-footer>
@@ -104,12 +136,14 @@ const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
 
-const pluginRoutes = computed(() => router.getRoutes().filter(i => i.path.startsWith('/console/plugins/')))
+const pluginRoutes = computed(() => router.getRoutes().filter((i) => i.path.startsWith('/console/plugins/')))
 
 const isCollapsed = ref(false)
 
 const selectedKeys = computed(() => [route.meta.menuItemKey || ''])
-const openKeys = computed(() => [route.meta.menuItemKey?.startsWith('/console/plugins/') ? '/console/plugins' : '' || ''])
+const openKeys = computed(() => [
+  route.meta.menuItemKey?.startsWith('/console/plugins/') ? '/console/plugins' : '' || ''
+])
 
 const broadcast = ref('')
 
@@ -147,7 +181,6 @@ const menuClicked = (e: MenuInfo) => {
       path: key
     })
   }
-
 }
 
 const onBreakpoint = (broken: boolean) => {
@@ -204,14 +237,13 @@ const onCollapse = (collapsed: boolean, type: string) => {
   text-align: center;
 }
 
-
 .console {
   min-height: 100%;
 
   .logo {
     text-align: center;
     font-weight: 800;
-    transition: all .2s;
+    transition: all 0.2s;
     overflow: hidden;
 
     .logo-text {
@@ -229,16 +261,16 @@ const onCollapse = (collapsed: boolean, type: string) => {
     top: 0px;
     bottom: 0px;
     background: #fff;
-    box-shadow: 2px 0 8px rgba(29, 35, 41, .05);
+    box-shadow: 2px 0 8px rgba(29, 35, 41, 0.05);
   }
 
   .right-wrapper {
     overflow: hidden;
     margin-left: 240px;
-    transition: all .2s;
+    transition: all 0.2s;
 
     &.collapsed {
-      margin-left: 60px
+      margin-left: 60px;
     }
   }
 

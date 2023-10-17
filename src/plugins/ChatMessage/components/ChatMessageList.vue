@@ -1,24 +1,53 @@
 <template>
-  <div class="chat-message-panel" :class="{ 'show-ticket-panel': chatMessageConfig.type.ticket }">
-    <TicketPanel ref="TicketPanelRef" :maximum="ticketConfig.maximum" :level="ticketConfig.level"
-      :duration="ticketConfig.duration" class="chat-message-ticket-panel mb-0" />
+  <div
+    class="chat-message-panel"
+    :class="{ 'show-ticket-panel': chatMessageConfig.type.ticket }">
+    <TicketPanel
+      ref="TicketPanelRef"
+      :maximum="ticketConfig.maximum"
+      :level="ticketConfig.level"
+      :duration="ticketConfig.duration"
+      class="chat-message-ticket-panel mb-0" />
 
-    <ul ref="dom" class="chat-message-list clearfix mb-0" :class="{ 'smooth-scroll': !isTooQuickly }">
-      <template v-for="item in chatMessageList" :key="item.key">
+    <ul
+      ref="dom"
+      class="chat-message-list clearfix mb-0"
+      :class="{ 'smooth-scroll': !isTooQuickly }">
+      <template
+        v-for="item in chatMessageList"
+        :key="item.key">
         <!-- 聊天消息 start -->
-        <li class="chat-list-message" v-if="item.messageType === 'chat'">
-          <ChatMessage :avatar-url="item.avatarUrl" :nickname="item.nickname" :message="item.message" :rule="item.rule"
-            :guard="item.guard" :badgeInfo="item.badgeInfo" :custom-style="chatMessageConfig.customStyle"
+        <li
+          class="chat-list-message"
+          v-if="item.messageType === 'chat'">
+          <ChatMessage
+            :avatar-url="item.avatarUrl"
+            :nickname="item.nickname"
+            :message="item.message"
+            :rule="item.rule"
+            :guard="item.guard"
+            :badgeInfo="item.badgeInfo"
+            :custom-style="chatMessageConfig.customStyle"
             :type="item.type">
           </ChatMessage>
         </li>
         <!-- 聊天消息 end -->
 
         <!-- paid start -->
-        <li class="chat-list-gift" v-if="item.messageType === 'gift' && chatMessageConfig.type.paid">
-          <Paid :type="item.type || `level-${getLevel(item?.money || 0, paidConfig.level)}`" :avatar-url="item.avatarUrl"
-            :nickname="item.nickname" :money="item.money" :gift-name="item.giftName" :gift-count="item.giftCount"
-            :gift-image="item.giftImage" :gift-icon="item.giftIcon" :message="item.message" :comment="item.comment">
+        <li
+          class="chat-list-gift"
+          v-if="item.messageType === 'gift' && chatMessageConfig.type.paid">
+          <Paid
+            :type="item.type || `level-${getLevel(item?.money || 0, paidConfig.level)}`"
+            :avatar-url="item.avatarUrl"
+            :nickname="item.nickname"
+            :money="item.money"
+            :gift-name="item.giftName"
+            :gift-count="item.giftCount"
+            :gift-image="item.giftImage"
+            :gift-icon="item.giftIcon"
+            :message="item.message"
+            :comment="item.comment">
           </Paid>
         </li>
         <!-- paid end -->
@@ -85,7 +114,7 @@ const props = defineProps({
   paidConfig: {
     type: Object as PropType<TypePaidPluginConfig>,
     default: () => getPluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
-  },
+  }
 })
 
 const dom = ref<HTMLElement>()
@@ -121,13 +150,13 @@ const add = (chatMessage: ChatMessage) => {
     msg.type = ''
     msg.message = ''
     TicketPanelRef.value?.add({
-      ...msg,
+      ...msg
     })
   }
 }
 
 const del = (key: string) => {
-  const index = chatMessageList.findIndex(i => i.key === key)
+  const index = chatMessageList.findIndex((i) => i.key === key)
   if (index > -1) {
     chatMessageList.splice(index, 1)
   }

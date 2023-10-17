@@ -1,5 +1,6 @@
 <template>
-  <ChatMessageList ref="ChatMessageListRef"
+  <ChatMessageList
+    ref="ChatMessageListRef"
     :chat-message-config="chatMessagePluginConfig.pluginConfig"
     :ticket-config="ticketPluginConfig.pluginConfig"
     :paid-config="paidPluginConfig.pluginConfig" />
@@ -23,7 +24,11 @@ interface IPluginChatMessageData extends IPluginCommonMessage {
 
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
-let [chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig] = [await usePluginConfig<TypeChatMessagePluginConfig>(PluginNames.PLUGIN_CHAT_MESSAGE), await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET), await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)]
+let [chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig] = [
+  await usePluginConfig<TypeChatMessagePluginConfig>(PluginNames.PLUGIN_CHAT_MESSAGE),
+  await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET),
+  await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
+]
 
 await chatMessagePluginConfig.pull()
 await ticketPluginConfig.pull()
@@ -50,5 +55,4 @@ const pluginMessageCallback = (message: IPluginCommonMessage) => {
 }
 
 useSocket(PluginNames.PLUGIN_CHAT_MESSAGE, pluginActionCallback, pluginMessageCallback)
-
 </script>

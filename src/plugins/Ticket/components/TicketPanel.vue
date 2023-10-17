@@ -1,15 +1,28 @@
 <template>
-  <TransitionGroup name="list" tag="ul" class="ticket-panel clearfix">
-    <li v-for="ticket in ticketsList" :key="ticket.key">
+  <TransitionGroup
+    name="list"
+    tag="ul"
+    class="ticket-panel clearfix">
+    <li
+      v-for="ticket in ticketsList"
+      :key="ticket.key">
       <a-dropdown>
-        <Ticket :type="ticket.type || `level-${getLevel(ticket.money, level)}`" :avatar-url="ticket.avatarUrl"
-          :money="ticket.money" :message="ticket.message" :percentage="ticket.percentage">
+        <Ticket
+          :type="ticket.type || `level-${getLevel(ticket.money, level)}`"
+          :avatar-url="ticket.avatarUrl"
+          :money="ticket.money"
+          :message="ticket.message"
+          :percentage="ticket.percentage">
         </Ticket>
 
         <template #overlay>
           <a-menu>
             <a-menu-item>
-              <a href="javascript:;" @click="del(ticket.key)">移除</a>
+              <a
+                href="javascript:;"
+                @click="del(ticket.key)">
+                移除
+              </a>
             </a-menu-item>
           </a-menu>
         </template>
@@ -83,11 +96,11 @@ const add = async (ticket: Ticket) => {
   const timer: Timer = {
     key: ticket.key,
     timer: window.setInterval(() => {
-      const index = ticketsList.findIndex(i => i.key === ticket.key)
+      const index = ticketsList.findIndex((i) => i.key === ticket.key)
 
       if (index > -1) {
         if (ticketsList[index].timing <= 0) {
-          const timerCacheIndex = timerCache.findIndex(i => i.key === ticket.key)
+          const timerCacheIndex = timerCache.findIndex((i) => i.key === ticket.key)
           if (timerCache[timerCacheIndex]) {
             clearInterval(timerCache[timerCacheIndex].timer)
             timerCache.splice(timerCacheIndex, 1)
@@ -102,10 +115,7 @@ const add = async (ticket: Ticket) => {
 
         ticketsList[index].timing -= 100
         ticketsList[index].percentage = Number(
-          (
-            (ticketsList[index].timing / ticketsList[index].duration) *
-            100
-          ).toFixed(1)
+          ((ticketsList[index].timing / ticketsList[index].duration) * 100).toFixed(1)
         )
       }
     }, 100)
@@ -115,8 +125,8 @@ const add = async (ticket: Ticket) => {
 }
 
 const del = (key: string) => {
-  const index = ticketsList.findIndex(i => i.key === key)
-  const timerCacheIndex = timerCache.findIndex(i => i.key === key)
+  const index = ticketsList.findIndex((i) => i.key === key)
+  const timerCacheIndex = timerCache.findIndex((i) => i.key === key)
   if (index > -1) {
     ticketsList.splice(index, 1)
   }
@@ -127,7 +137,7 @@ const del = (key: string) => {
 }
 
 const clear = () => {
-  timerCache.forEach(ticket => window.clearInterval(ticket.timer))
+  timerCache.forEach((ticket) => window.clearInterval(ticket.timer))
   timerCache.splice(0, timerCache.length)
   ticketsList.splice(0, ticketsList.length)
 }
@@ -161,7 +171,7 @@ defineExpose({
 .list-move,
 .list-enter-active,
 .list-leave-active {
-  transition: all .3s cubic-bezier(0.55, 0, 0.1, 1);
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
 }
 
 .list-enter-from {

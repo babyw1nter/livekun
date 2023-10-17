@@ -23,6 +23,9 @@ const t = computed(() => replaceEmoji(slotsText.text.value || props.text))
 </script>
 
 <template>
-  <span class="h-font" :style="{ color, fontSize: `${fontSize}px` }" v-html="t">
+  <span
+    class="h-font"
+    :style="{ color, fontSize: `${fontSize}px` }"
+    v-html="t">
   </span>
 </template>

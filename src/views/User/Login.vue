@@ -2,9 +2,15 @@
   <div class="login">
     <div class="login-wrapper">
       <div class="top">
-        <div class="logo" style="display: block; margin-bottom: 10px;">
-          <a href="#" class="no-select">
-            <img src="@/assets/images/logo_270x80.png" width="220" />
+        <div
+          class="logo"
+          style="display: block; margin-bottom: 10px">
+          <a
+            href="#"
+            class="no-select">
+            <img
+              src="@/assets/images/logo_270x80.png"
+              width="220" />
           </a>
         </div>
         <a-typography-text type="secondary">多直播平台 OBS 互动插件系统</a-typography-text>
@@ -13,28 +19,54 @@
       <div class="main">
         <!-- <a-alert message="账号或密码错误" type="error" show-icon style="margin-bottom: 20px;" /> -->
 
-        <a-form name="login-form" ref="loginFormRef" :model="formState" :rules="rules" @finish="handleFinish">
-          <a-form-item has-feedback name="username">
-            <a-input v-model:value="formState.username" placeholder="请输入用户名" size="large" autocomplete="off">
+        <a-form
+          name="login-form"
+          ref="loginFormRef"
+          :model="formState"
+          :rules="rules"
+          @finish="handleFinish">
+          <a-form-item
+            has-feedback
+            name="username">
+            <a-input
+              v-model:value="formState.username"
+              placeholder="请输入用户名"
+              size="large"
+              autocomplete="off">
               <template #prefix>
-                <UserOutlined style="color: #0084ff;" />
+                <UserOutlined style="color: #0084ff" />
               </template>
             </a-input>
           </a-form-item>
-          <a-form-item has-feedback name="password">
-            <a-input-password v-model:value="formState.password" placeholder="请输入密码" type="password" size="large"
+          <a-form-item
+            has-feedback
+            name="password">
+            <a-input-password
+              v-model:value="formState.password"
+              placeholder="请输入密码"
+              type="password"
+              size="large"
               autocomplete="off">
               <template #prefix>
-                <LockOutlined style="color: #0084ff;" />
+                <LockOutlined style="color: #0084ff" />
               </template>
             </a-input-password>
           </a-form-item>
           <a-form-item name="autologin">
             <a-checkbox v-model:checked="formState.autologin">自动登录</a-checkbox>
-            <a-typography-link style="float: right;" @click.stop="open = !open">参与内测</a-typography-link>
+            <a-typography-link
+              style="float: right"
+              @click.stop="open = !open">
+              参与内测
+            </a-typography-link>
           </a-form-item>
           <a-form-item>
-            <a-button type="primary" style="width: 100%;" size="large" html-type="submit" :loading="isLoading">
+            <a-button
+              type="primary"
+              style="width: 100%"
+              size="large"
+              html-type="submit"
+              :loading="isLoading">
               立即登录
             </a-button>
           </a-form-item>
@@ -46,7 +78,10 @@
       </div>
     </div>
 
-    <a-modal v-model:open="open" title="参与内测" :footer="null">
+    <a-modal
+      v-model:open="open"
+      title="参与内测"
+      :footer="null">
       <a-typography-text>
         这个项目目前还处于开发内测阶段，仅提供少数内测用户使用。<br />
         如果你感兴趣，可以扫一扫下方二维码与我联系！

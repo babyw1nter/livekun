@@ -1,8 +1,15 @@
 <template>
   <div class="chat-message">
-    <a-avatar class="chat-message-avatar no-select" :src="avatarUrl" :size="(customStyle.fontSize || 18) + 6"></a-avatar>
-    <div class="text-wrap"
-      :style="{ paddingLeft: `${(customStyle.fontSize || 18) + 13}px`, lineHeight: `${(customStyle.fontSize || 18) + 2}px` }">
+    <a-avatar
+      class="chat-message-avatar no-select"
+      :src="avatarUrl"
+      :size="(customStyle.fontSize || 18) + 6"></a-avatar>
+    <div
+      class="text-wrap"
+      :style="{
+        paddingLeft: `${(customStyle.fontSize || 18) + 13}px`,
+        lineHeight: `${(customStyle.fontSize || 18) + 2}px`
+      }">
       <!-- TODO: 身份标识这部分样式没设计好，暂时隐藏掉，想好再说 -->
       <!-- 
       <p class="badge-wrap">
@@ -27,22 +34,36 @@
       </p>
       -->
       <p class="nickname">
-        <h-font :color="color.nickname" :font-size="customStyle.fontSize">{{ `${nickname}:` }}</h-font>
+        <h-font
+          :color="color.nickname"
+          :font-size="customStyle.fontSize">
+          {{ `${nickname}:` }}
+        </h-font>
 
-        <i class="yt-icon" v-if="rule.admin" :style="{ color: '#5f84f1' }">
-          <svg viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet" focusable="false"
-            style="pointer-events: none; display: block; width: 100%; height: 100%;">
+        <i
+          class="yt-icon"
+          v-if="rule.admin"
+          :style="{ color: '#5f84f1' }">
+          <svg
+            viewBox="0 0 16 16"
+            preserveAspectRatio="xMidYMid meet"
+            focusable="false"
+            style="pointer-events: none; display: block; width: 100%; height: 100%">
             <g>
-              <path fill="currentColor"
-                d="M9.64589146,7.05569719 C9.83346524,6.562372 9.93617022,6.02722257 9.93617022,5.46808511 C9.93617022,3.00042984 7.93574038,1 5.46808511,1 C4.90894765,1 4.37379823,1.10270499 3.88047304,1.29027875 L6.95744681,4.36725249 L4.36725255,6.95744681 L1.29027875,3.88047305 C1.10270498,4.37379824 1,4.90894766 1,5.46808511 C1,7.93574038 3.00042984,9.93617022 5.46808511,9.93617022 C6.02722256,9.93617022 6.56237198,9.83346524 7.05569716,9.64589147 L12.4098057,15 L15,12.4098057 L9.64589146,7.05569719 Z">
-              </path>
+              <path
+                fill="currentColor"
+                d="M9.64589146,7.05569719 C9.83346524,6.562372 9.93617022,6.02722257 9.93617022,5.46808511 C9.93617022,3.00042984 7.93574038,1 5.46808511,1 C4.90894765,1 4.37379823,1.10270499 3.88047304,1.29027875 L6.95744681,4.36725249 L4.36725255,6.95744681 L1.29027875,3.88047305 C1.10270498,4.37379824 1,4.90894766 1,5.46808511 C1,7.93574038 3.00042984,9.93617022 5.46808511,9.93617022 C6.02722256,9.93617022 6.56237198,9.83346524 7.05569716,9.64589147 L12.4098057,15 L15,12.4098057 L9.64589146,7.05569719 Z"></path>
             </g>
           </svg>
         </i>
       </p>
 
       <span class="message">
-        <h-font :color="color.message" :font-size="customStyle.fontSize">{{ message }}</h-font>
+        <h-font
+          :color="color.message"
+          :font-size="customStyle.fontSize"
+          >{{ message }}</h-font
+        >
       </span>
     </div>
   </div>
@@ -146,7 +167,6 @@ const color = computed(() => {
 //     w: 18
 //   })
 // }
-
 </script>
 
 <style lang="less" scoped>
