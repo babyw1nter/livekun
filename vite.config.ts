@@ -49,7 +49,12 @@ export default defineConfig(({ mode }) => {
           AntDesignVueResolver({ importStyle: 'less', resolveIcons: true }),
           IconsResolver(),
           (componentName) => {
-            return componentName === 'ColorPicker' ? { name: 'ColorPicker', from: 'vue3-colorpicker' } : undefined
+            switch (componentName) {
+              case 'ColorPicker':
+                return { name: 'ColorPicker', from: 'vue3-colorpicker' }
+              case 'AApp':
+                return { name: 'App', from: 'ant-design-vue/es' }
+            }
           }
         ],
         allowOverrides: true

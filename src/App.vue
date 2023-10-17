@@ -2,18 +2,20 @@
   <a-config-provider
     :locale="locale"
     :autoInsertSpaceInButton="false">
-    <router-view v-slot="{ Component }">
-      <template v-if="Component">
-        <Suspense>
-          <template #default>
-            <component :is="Component" />
-          </template>
-          <template #fallback>
-            <a-spin style="margin: 1rem" />
-          </template>
-        </Suspense>
-      </template>
-    </router-view>
+    <a-app>
+      <router-view v-slot="{ Component }">
+        <template v-if="Component">
+          <Suspense>
+            <template #default>
+              <component :is="Component" />
+            </template>
+            <template #fallback>
+              <a-spin style="margin: 1rem" />
+            </template>
+          </Suspense>
+        </template>
+      </router-view>
+    </a-app>
   </a-config-provider>
 </template>
 

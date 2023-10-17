@@ -40,7 +40,7 @@
         class="console-menu no-select"
         mode="inline"
         :selectedKeys="selectedKeys"
-        :openKeys="openKeys"
+        v-model:openKeys="openKeys"
         @click="menuClicked">
         <a-menu-item key="/console/connect">
           <template #icon>
