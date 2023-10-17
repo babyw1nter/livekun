@@ -25,6 +25,10 @@ const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
 let [chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig] = [await usePluginConfig<TypeChatMessagePluginConfig>(PluginNames.PLUGIN_CHAT_MESSAGE), await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET), await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)]
 
+await chatMessagePluginConfig.pull()
+await ticketPluginConfig.pull()
+await paidPluginConfig.pull()
+
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {
     case PluginActions.CLEAR:

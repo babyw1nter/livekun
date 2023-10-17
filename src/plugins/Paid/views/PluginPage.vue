@@ -23,6 +23,8 @@ const PaidPanelRef = ref<InstanceType<typeof PaidPanel>>()
 
 let { pluginConfig, pull, reset, save } = await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
 
+await pull()
+
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {
     case PluginActions.CLEAR:

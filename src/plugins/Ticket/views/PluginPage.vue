@@ -21,6 +21,8 @@ const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 
 let { pluginConfig, pull, reset, save } = await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
 
+await pull()
+
 const pluginActionCallback = (action: PluginActions) => {
   switch (action) {
     case PluginActions.CLEAR:
