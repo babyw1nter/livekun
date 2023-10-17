@@ -1,6 +1,6 @@
 <template>
   <a-layout class="console">
-    <a-layout-sider class="left-wrapper" breakpoint="lg" @collapse="onCollapse" :collapsedWidth="60"
+    <a-layout-sider class="left-sider" breakpoint="lg" @collapse="onCollapse" :collapsedWidth="60"
       v-model:collapsed="isCollapsed" :trigger="null" collapsible :width="240">
 
       <div class="menu-header no-select" :style="{ padding: isCollapsed ? '10px' : '10px 22px' }">
@@ -218,7 +218,7 @@ const onCollapse = (collapsed: boolean, type: string) => {
     }
   }
 
-  .left-wrapper {
+  .left-sider {
     overflow-x: hidden;
     overflow-y: auto;
     height: 100vh;
@@ -227,6 +227,7 @@ const onCollapse = (collapsed: boolean, type: string) => {
     top: 0px;
     bottom: 0px;
     background: #fff;
+    box-shadow: 2px 0 8px rgba(29, 35, 41, .05);
   }
 
   .right-wrapper {
