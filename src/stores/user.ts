@@ -54,7 +54,7 @@ export const useUserStore = defineStore('userStore', {
 
           return Promise.resolve(true)
         } else {
-          message.warn(res.data.message)
+          message.warning(res.data.message)
 
           return Promise.resolve(false)
         }
@@ -100,7 +100,7 @@ export const useUserStore = defineStore('userStore', {
 
         return Promise.resolve(true)
       } else {
-        message.warn(res.data.message)
+        message.warning(res.data.message)
       }
 
       return Promise.resolve(false)

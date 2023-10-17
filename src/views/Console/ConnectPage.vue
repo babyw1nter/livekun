@@ -52,7 +52,7 @@ const isReseting = ref(false)
 
 const joinRoom = async () => {
   if (!liveId.value) {
-    message.warn('请输入直播间ID或房间ID！')
+    message.warning('请输入直播间ID或房间ID！')
   } else {
     isLoading.value = true
     await store.joinRoom(liveId.value)

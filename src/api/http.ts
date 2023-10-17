@@ -19,7 +19,7 @@ http.interceptors.response.use((res) => {
   }
 
   if (res.data.code === 530) {
-    message.warn('需要登录！')
+    message.warning('需要登录！')
     router.push({
       path: '/user/login'
     })
