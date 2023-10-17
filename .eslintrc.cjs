@@ -33,6 +33,7 @@ module.exports = {
     'no-undef': 'off',
     'no-unref': 'off',
     'no-unused-vars': 'off',
+    'no-control-regex': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-empty-function': 'warn',
     'vue/first-attribute-linebreak': 'off',
