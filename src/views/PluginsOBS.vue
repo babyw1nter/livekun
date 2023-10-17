@@ -3,7 +3,9 @@
 </template>
 
 <script lang="ts" setup>
-console.info('OBS插件页面')
+import { useWs } from '@/api/wslib/ws'
+
+useWs()
 </script>
 
 <style lang="less" scoped></style>
