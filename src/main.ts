@@ -10,9 +10,11 @@ import 'dayjs/locale/zh-cn'
 import '@/assets/styles/custom.less'
 import livekunPluginManager from './plugins'
 
+dayjs.locale('zh-cn')
+
 const app = createApp(App)
 
-dayjs.locale('zh-cn')
+app.config.performance = true
 
 app.use(Vue3ColorPicker).use(createPinia()).use(livekunPluginManager).use(router)
 
