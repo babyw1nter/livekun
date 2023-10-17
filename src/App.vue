@@ -6,7 +6,7 @@
       <template v-if="Component">
         <Suspense>
           <template #default>
-            <component :is="Component"></component>
+            <component :is="Component" />
           </template>
           <template #fallback>
             <a-spin style="margin: 1rem" />

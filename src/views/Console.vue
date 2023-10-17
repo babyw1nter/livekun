@@ -106,7 +106,7 @@
       class="right-wrapper"
       :class="{ collapsed: isCollapsed }">
       <a-layout-content :style="{ margin: '16px', minHeight: '280px' }">
-        <router-view></router-view>
+        <router-view />
       </a-layout-content>
 
       <a-layout-footer

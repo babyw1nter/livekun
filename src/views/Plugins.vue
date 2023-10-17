@@ -1,9 +1,9 @@
 <template>
-  <RouterView v-slot="{ Component }">
+  <router-view v-slot="{ Component }">
     <KeepAlive>
-      <component :is="Component"></component>
+      <component :is="Component" />
     </KeepAlive>
-  </RouterView>
+  </router-view>
 </template>
 
 <script lang="ts" setup></script>
