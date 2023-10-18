@@ -35,7 +35,6 @@
       </div>
     </a-card>
   </div>
-  667
 </template>
 
 <script lang="ts" setup>
