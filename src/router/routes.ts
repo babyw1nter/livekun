@@ -3,6 +3,8 @@ import { RouteRecordRaw } from 'vue-router'
 const NotFound = () => import('../views/Common/NotFound.vue')
 
 const Console = () => import('../views/Console.vue')
+const Plugins = () => import('../views/Plugins.vue')
+const PluginsOBS = () => import('../views/PluginsOBS.vue')
 
 const ConnectPage = () => import('../views/Console/ConnectPage.vue')
 const AccountPage = () => import('../views/Console/AccountPage.vue')
@@ -23,6 +25,17 @@ const childrenRoutes: Array<RouteRecordRaw> = [
     meta: {
       title: '连接控制',
       menuItemKey: '/console/connect',
+      showOnMenu: true,
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/console/plugins',
+    name: 'Plugins',
+    component: Plugins,
+    meta: {
+      title: '插件设置',
+      menuItemKey: '/console/plugins',
       showOnMenu: true,
       requiresAuth: true
     }
@@ -61,6 +74,12 @@ const routes: Array<RouteRecordRaw> = [
     component: Console,
     meta: { requiresAuth: true },
     children: [...childrenRoutes]
+  },
+  {
+    path: '/plugins-obs',
+    name: 'PluginsOBS',
+    component: PluginsOBS,
+    meta: { requiresAuth: false }
   },
   {
     path: '/test',

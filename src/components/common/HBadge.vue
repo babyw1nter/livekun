@@ -1,12 +1,25 @@
 <template>
   <span class="h-badge no-select">
-    <img v-if="Number(level) && guard > 0"
-      :src="`https://cc.res.netease.com/webcc/v2/static/images/room/guard/${Number(guard).toString()}_32.png`" height="26"
-      class="guard-icon" :style="{
+    <img
+      v-if="Number(level) && guard > 0"
+      :src="`https://cc.res.netease.com/webcc/v2/static/images/room/guard/${Number(guard).toString()}_32.png`"
+      height="26"
+      class="guard-icon"
+      :style="{
         top: guard === 2 ? '-5px' : '-4px'
-      }" title="守护图标" />
-    <a-tag :color="computedColor" class="badge-text" :class="badgeTextClass" :style="badgeTextStyle">{{ text }}</a-tag>
-    <a-tag v-if="Number(level)" class="badge-level" :class="{ light, expire }"
+      }"
+      title="守护图标" />
+    <a-tag
+      :color="computedColor"
+      class="badge-text"
+      :class="badgeTextClass"
+      :style="badgeTextStyle">
+      {{ text || slotsText.text.value }}
+    </a-tag>
+    <a-tag
+      v-if="Number(level)"
+      class="badge-level"
+      :class="{ light, expired }"
       :style="{ borderColor: computedColor, color: computedColor }">
       {{ level }}
     </a-tag>
@@ -14,9 +27,11 @@
 </template>
 
 <script lang="ts" setup>
+import { useSlotsText } from '@/api/uses'
+
 const props = defineProps({
   text: {
-    default: '粉丝团',
+    default: '',
     type: String
   },
   level: {
@@ -31,7 +46,7 @@ const props = defineProps({
     default: false,
     type: Boolean
   },
-  expire: {
+  expired: {
     default: false,
     type: Boolean
   },
@@ -56,16 +71,18 @@ const props = defineProps({
   }
 })
 
+const slotsText = useSlotsText()
+
 const getLevelStyle = (level: number, levelStyleArray: Array<{ level: number; color: string }>) => {
   for (let i = 0; i < levelStyleArray.length; i++) {
-    if (level >= levelStyleArray[levelStyleArray.length - 1].level)
-      return levelStyleArray[levelStyleArray.length - 1]
+    if (level >= levelStyleArray[levelStyleArray.length - 1].level) return levelStyleArray[levelStyleArray.length - 1]
     if (level < levelStyleArray[i].level) return i <= 0 ? levelStyleArray[0] : levelStyleArray[i - 1]
   }
+
   return levelStyleArray[0]
 }
 
-const autoColor = computed(() => !props.expire ? getLevelStyle(props.level, props.levelStyle).color : '#b9b9b9')
+const autoColor = computed(() => (!props.expired ? getLevelStyle(props.level, props.levelStyle).color : '#b9b9b9'))
 const computedColor = computed(() => props.color || (Number(props.level) ? autoColor.value : props.color))
 
 const badgeTextClass = reactive({
@@ -83,7 +100,6 @@ const badgeTextStyle = reactive({
 .h-badge {
   position: relative;
   display: inline-block;
-  margin-right: 4px;
   line-height: 19px;
 
   &:last-child {
@@ -106,8 +122,19 @@ const badgeTextStyle = reactive({
     box-sizing: border-box;
     margin-right: 0px;
     border-radius: 4px;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-      'Apple Color Emoji', 'Segoe UI Emoji', Segoe UI Symbol, 'Noto Color Emoji';
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      Segoe UI,
+      Roboto,
+      Helvetica Neue,
+      Arial,
+      Noto Sans,
+      sans-serif,
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      Segoe UI Symbol,
+      'Noto Color Emoji';
 
     &.light {
       background-color: transparent !important;

@@ -49,7 +49,7 @@ export const useConnentStore = defineStore('connentStore', {
 
         return Promise.resolve(true)
       } else if (res.data.code === 10001) {
-        message.warn('进入直播间失败，请稍后再试！')
+        message.warning('进入直播间失败，请稍后再试！')
       } else {
         message.error('服务器错误！')
       }
@@ -70,7 +70,7 @@ export const useConnentStore = defineStore('connentStore', {
 
         return Promise.resolve(true)
       } else {
-        message.warn(res.data.message)
+        message.warning(res.data.message)
       }
 
       await this.getStatus()

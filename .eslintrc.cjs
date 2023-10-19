@@ -6,8 +6,8 @@ module.exports = {
     es2021: true
   },
   extends: [
+    'eslint:recommended',
     'eslint-config-prettier',
-    // 'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:vue/vue3-essential',
     'plugin:vue/vue3-recommended',
@@ -30,7 +30,10 @@ module.exports = {
   plugins: ['vue', '@typescript-eslint', 'prettier'],
   rules: {
     'prettier/prettier': 'off',
+    'no-undef': 'off',
+    'no-unref': 'off',
     'no-unused-vars': 'off',
+    'no-control-regex': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-empty-function': 'warn',
     'vue/first-attribute-linebreak': 'off',
@@ -39,6 +42,13 @@ module.exports = {
     'vue/attributes-order': 'off',
     'vue/attribute-hyphenation': 'off',
     'vue/no-v-html': 'off',
-    'vue/no-unused-vars': 'off'
+    'vue/no-unused-vars': 'off',
+    'vue/max-attributes-per-line': [
+      'warn',
+      {
+        singleline: 1,
+        multiline: 1
+      }
+    ]
   }
 }

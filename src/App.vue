@@ -1,17 +1,21 @@
 <template>
-  <a-config-provider :locale="locale" :autoInsertSpaceInButton="false">
-    <router-view v-slot="{ Component }">
-      <template v-if="Component">
-        <Suspense>
-          <template #default>
-            <component :is="Component"></component>
-          </template>
-          <template #fallback>
-            <a-spin style="margin: 1rem;" />
-          </template>
-        </Suspense>
-      </template>
-    </router-view>
+  <a-config-provider
+    :locale="locale"
+    :autoInsertSpaceInButton="false">
+    <a-app>
+      <router-view v-slot="{ Component }">
+        <template v-if="Component">
+          <Suspense>
+            <template #default>
+              <component :is="Component" />
+            </template>
+            <template #fallback>
+              <a-spin style="margin: 1rem" />
+            </template>
+          </Suspense>
+        </template>
+      </router-view>
+    </a-app>
   </a-config-provider>
 </template>
 
@@ -22,7 +26,6 @@ import { getMockData } from '@/api/mock'
 getMockData()
 
 const locale = zhCN
-
 </script>
 
 <style lang="less">

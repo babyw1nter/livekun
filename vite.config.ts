@@ -8,6 +8,7 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
+import progress from 'vite-plugin-progress'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -42,19 +43,32 @@ export default defineConfig(({ mode }) => {
       }),
       Components({
         dts: 'src/typings/components.d.ts',
+        globs: ['src/components/**/*.vue', 'src/plugins/**/components/*.vue'],
+        deep: true,
         resolvers: [
           AntDesignVueResolver({ importStyle: 'less', resolveIcons: true }),
           IconsResolver(),
           (componentName) => {
-            return componentName === 'ColorPicker' ? { name: 'ColorPicker', from: 'vue3-colorpicker' } : undefined
+            switch (componentName) {
+              case 'ColorPicker':
+                return { name: 'ColorPicker', from: 'vue3-colorpicker' }
+              case 'AApp':
+                return { name: 'App', from: 'ant-design-vue/es' }
+            }
           }
         ],
         allowOverrides: true
       }),
       Icons({
         compiler: 'vue3'
-      })
+      }),
+      progress()
     ],
+    define: {
+      __APP_VERSION__: `"${process.env.npm_package_version}"`,
+      __DEV_URL__: `"10.0.0.230:39075"`,
+      __PROD_URL__: `"livekun-webapi.anankun.icu:4433"`
+    },
     build: {
       rollupOptions: {
         output: {

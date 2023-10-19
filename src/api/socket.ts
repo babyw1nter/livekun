@@ -1,5 +1,4 @@
 import router from '@/router'
-import { baseWsURL } from './http'
 import { PluginNames, PluginActions } from './plugins'
 
 interface IPluginCommonMessage {
@@ -39,6 +38,8 @@ interface IBaseSocketMessage<K extends keyof IBaseSocketMessageMap> {
   type: K | string
   data: IBaseSocketMessageMap[K]
 }
+
+const baseWsUrl = process.env.NODE_ENV === 'development' ? `ws://${__DEV_URL__}` : `wss://${__PROD_URL__}`
 
 const decode = (data: ArrayBuffer): IBaseSocketMessage<'UNKNOWN'> => {
   try {
@@ -87,7 +88,7 @@ const useSocket: UseSocketFn = async (
 
   console.log('正在创建 WS 连接...')
 
-  const websocket = new WebSocket(baseWsURL, 'web')
+  const websocket = new WebSocket(baseWsUrl, 'web')
   websocket.binaryType = 'arraybuffer'
 
   const send = <K extends keyof IBaseSocketMessageMap>(data: IBaseSocketMessage<K>) => {
@@ -160,5 +161,5 @@ const useSocket: UseSocketFn = async (
   return Promise.resolve(websocket)
 }
 
-export { useSocket, encode, decode }
+export { baseWsUrl, useSocket, encode, decode }
 export type { IBaseSocketMessage, IBaseSocketMessageMap, IPluginCommonMessage }
