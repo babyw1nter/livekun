@@ -64,9 +64,8 @@ const _getRemotePluginConfig = async (uuid: string, pluginName: string | string[
   return res.data.code === 200 ? res.data.data : []
 }
 
-const _setRemotePluginConfig = async <T>(uuid: string, pluginName: string, pluginConfig: T) => {
+const _setRemotePluginConfig = async <T>(pluginName: string, pluginConfig: T) => {
   const res: AxiosResponse<IHttpResponse<Array<IPluginConfig>>> = await http.post('/user/setPluginConfig', {
-    uuid,
     pluginName,
     pluginConfig
   })
@@ -126,7 +125,7 @@ const usePluginConfig = async <T>(pluginName: string) => {
 
   /** 保存 */
   const save = async () => {
-    await _setRemotePluginConfig(getUUID(), pluginName, pluginConfig)
+    await _setRemotePluginConfig(pluginName, pluginConfig)
     await pull()
 
     message.success('选项保存完成，已即时生效！')
