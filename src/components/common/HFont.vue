@@ -1,3 +1,11 @@
+<template>
+  <span
+    class="h-font"
+    :style="{ color, fontSize: `${fontSize}px` }"
+    v-html="t">
+  </span>
+</template>
+
 <script lang="ts" setup>
 import { replaceEmoji } from '@/api/common'
 import { useSlotsText } from '@/api/uses'
@@ -21,11 +29,3 @@ const slotsText = useSlotsText()
 
 const t = computed(() => replaceEmoji(slotsText.text.value || props.text))
 </script>
-
-<template>
-  <span
-    class="h-font"
-    :style="{ color, fontSize: `${fontSize}px` }"
-    v-html="t">
-  </span>
-</template>

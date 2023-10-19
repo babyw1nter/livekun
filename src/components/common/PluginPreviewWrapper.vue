@@ -1,43 +1,3 @@
-<script lang="ts" setup>
-import { useUserStore } from '@/stores/user'
-import { PropType } from 'vue'
-
-const userStore = useUserStore()
-
-const props = defineProps({
-  pluginName: {
-    type: String,
-    default: ''
-  },
-  autoPreview: {
-    type: Boolean,
-    default: true
-  },
-  theme: {
-    type: String as PropType<'dark' | 'light'>,
-    default: 'dark'
-  }
-})
-const emit = defineEmits<{
-  (event: 'update:autoPreview', checked: boolean): void
-  (event: 'update:theme', style: 'dark' | 'light'): void
-  (event: 'onAutoPreviewSwitchChange', checked: boolean): void
-}>()
-
-const url = computed(() => `${window.location.origin}/#/plugins-obs/${props.pluginName}?uuid=${userStore.uuid}`)
-
-const onChange = (checked: unknown) => {
-  emit('update:autoPreview', checked as boolean)
-  emit('onAutoPreviewSwitchChange', checked as boolean)
-}
-
-const themeSwitch = (checked: unknown) => {
-  emit('update:theme', (checked as boolean) ? 'dark' : 'light')
-}
-
-const themeSwitchState = ref(true)
-</script>
-
 <template>
   <div
     class="plugin-preview-wrapper"
@@ -80,6 +40,46 @@ const themeSwitchState = ref(true)
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { useUserStore } from '@/stores/user'
+import { PropType } from 'vue'
+
+const userStore = useUserStore()
+
+const props = defineProps({
+  pluginName: {
+    type: String,
+    default: ''
+  },
+  autoPreview: {
+    type: Boolean,
+    default: true
+  },
+  theme: {
+    type: String as PropType<'dark' | 'light'>,
+    default: 'dark'
+  }
+})
+const emit = defineEmits<{
+  (event: 'update:autoPreview', checked: boolean): void
+  (event: 'update:theme', style: 'dark' | 'light'): void
+  (event: 'onAutoPreviewSwitchChange', checked: boolean): void
+}>()
+
+const url = computed(() => `${window.location.origin}/#/plugins-obs/${props.pluginName}?uuid=${userStore.uuid}`)
+
+const onChange = (checked: unknown) => {
+  emit('update:autoPreview', checked as boolean)
+  emit('onAutoPreviewSwitchChange', checked as boolean)
+}
+
+const themeSwitch = (checked: unknown) => {
+  emit('update:theme', (checked as boolean) ? 'dark' : 'light')
+}
+
+const themeSwitchState = ref(true)
+</script>
 
 <style lang="less" scoped>
 .plugin-preview-wrapper {

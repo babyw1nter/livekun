@@ -1,7 +1,3 @@
-<script lang="ts" setup>
-import { globalAppConfig } from '@/api/common'
-</script>
-
 <template>
   <div class="page-footer">
     <p>
@@ -39,6 +35,10 @@ import { globalAppConfig } from '@/api/common'
     </p>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { globalAppConfig } from '@/api/common'
+</script>
 
 <style lang="less" scoped>
 .page-footer {
