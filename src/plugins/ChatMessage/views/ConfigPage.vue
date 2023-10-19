@@ -227,9 +227,9 @@
             <a-typography-text strong>业务、身份图标显示</a-typography-text>
             <a-tag
               color="orange"
-              style="margin-left: 4px; margin-top: -2px; vertical-align: bottom"
-              >未完成</a-tag
-            >
+              style="margin-left: 4px; margin-top: -2px; vertical-align: bottom">
+              未完成
+            </a-tag>
 
             <a-divider />
 
