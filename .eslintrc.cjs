@@ -42,13 +42,6 @@ module.exports = {
     'vue/attributes-order': 'off',
     'vue/attribute-hyphenation': 'off',
     'vue/no-v-html': 'off',
-    'vue/no-unused-vars': 'off',
-    'vue/max-attributes-per-line': [
-      'warn',
-      {
-        singleline: 1,
-        multiline: 1
-      }
-    ]
+    'vue/no-unused-vars': 'off'
   }
 }
