@@ -11,6 +11,7 @@
 
     <div class="preview-footer">
       <a-space :size="5">
+        <a-typography-text>自动预览</a-typography-text>
         <a-switch
           :checked="autoPreview"
           checked-children="开"
@@ -18,21 +19,15 @@
           @change="(checked) => onChange(checked)"
           style="vertical-align: bottom">
         </a-switch>
-        <a-typography-text>自动预览</a-typography-text>
-      </a-space>
-      <a-space :size="5">
+
+        <a-typography-text>背景</a-typography-text>
         <a-switch
           v-model:checked="themeSwitchState"
           checked-children="暗"
           un-checked-children="亮"
           @change="(checked) => themeSwitch(checked)"
-          style="
-            vertical-align: bottom;
-            margin-left: 10px;
-            background-color: #1890ff;
-          ">
+          style="vertical-align: bottom; background-color: #1890ff">
         </a-switch>
-        <a-typography-text>背景</a-typography-text>
       </a-space>
       <a-typography-link
         :href="url"
@@ -65,6 +60,7 @@ const props = defineProps({
     default: 'dark'
   }
 })
+
 const emit = defineEmits<{
   (event: 'update:autoPreview', checked: boolean): void
   (event: 'update:theme', style: 'dark' | 'light'): void
