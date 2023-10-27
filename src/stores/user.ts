@@ -33,11 +33,14 @@ export const useUserStore = defineStore('userStore', {
   },
   actions: {
     async login(username: string, password: string, autologin: boolean) {
-      const res: AxiosResponse<IHttpResponse<IUserStore>> = await http.post('/user/login', {
-        username,
-        password,
-        autologin
-      })
+      const res: AxiosResponse<IHttpResponse<IUserStore>> = await http.post(
+        '/user/login',
+        {
+          username,
+          password,
+          autologin
+        }
+      )
 
       if (res.status === 200) {
         if (res.data.code === 200) {
@@ -65,7 +68,10 @@ export const useUserStore = defineStore('userStore', {
       }
     },
     async autologin() {
-      const res: AxiosResponse<IHttpResponse<IUserStore>> = await http.post('/user/autologin', {})
+      const res: AxiosResponse<IHttpResponse<IUserStore>> = await http.post(
+        '/user/autologin',
+        {}
+      )
 
       if (res.data.code === 200) {
         this.$state = {

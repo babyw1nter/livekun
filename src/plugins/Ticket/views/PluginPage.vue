@@ -22,7 +22,8 @@ interface IPluginTicketData extends IPluginCommonMessage {
 
 const TicketPanelRef = ref<InstanceType<typeof TicketPanel>>()
 
-let { pluginConfig, pull, reset, save } = await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
+let { pluginConfig, pull, reset, save } =
+  await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
 
 await pull()
 
@@ -46,5 +47,9 @@ const pluginMessageCallback = (message: IPluginCommonMessage) => {
   })
 }
 
-useSocket(PluginNames.PLUGIN_TICKET, pluginActionCallback, pluginMessageCallback)
+useSocket(
+  PluginNames.PLUGIN_TICKET,
+  pluginActionCallback,
+  pluginMessageCallback
+)
 </script>

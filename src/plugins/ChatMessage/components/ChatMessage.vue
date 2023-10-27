@@ -34,21 +34,21 @@
       </p>
       -->
       <p class="nickname">
-        <h-font
-          :color="color.nickname"
-          :font-size="customStyle.fontSize">
+        <h-font :color="color.nickname" :font-size="customStyle.fontSize">
           {{ `${nickname}:` }}
         </h-font>
 
-        <i
-          class="yt-icon"
-          v-if="rule.admin"
-          :style="{ color: '#5f84f1' }">
+        <i class="yt-icon" v-if="rule.admin" :style="{ color: '#5f84f1' }">
           <svg
             viewBox="0 0 16 16"
             preserveAspectRatio="xMidYMid meet"
             focusable="false"
-            style="pointer-events: none; display: block; width: 100%; height: 100%">
+            style="
+              pointer-events: none;
+              display: block;
+              width: 100%;
+              height: 100%;
+            ">
             <g>
               <path
                 fill="currentColor"
@@ -59,11 +59,9 @@
       </p>
 
       <span class="message">
-        <h-font
-          :color="color.message"
-          :font-size="customStyle.fontSize"
-          >{{ message }}</h-font
-        >
+        <h-font :color="color.message" :font-size="customStyle.fontSize">{{
+          message
+        }}</h-font>
       </span>
     </div>
   </div>
@@ -76,7 +74,9 @@ const props = defineProps({
   /** @deprecated */
   type: {
     default: 'normal',
-    type: String as PropType<'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string>
+    type: String as PropType<
+      'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string
+    >
   },
   avatarUrl: {
     default: '',
@@ -141,7 +141,10 @@ const badgeArray = ref<Badge[]>([])
 
 const color = computed(() => {
   if (props.rule.anchor) return props.customStyle.color.anchor
-  if (props.guard > 0) return props.customStyle.color.guard[`lv${props.guard}` as 'lv1' | 'lv2' | 'lv3']
+  if (props.guard > 0)
+    return props.customStyle.color.guard[
+      `lv${props.guard}` as 'lv1' | 'lv2' | 'lv3'
+    ]
   if (props.rule.admin) return props.customStyle.color.admin
   return props.customStyle.color.normal
 })

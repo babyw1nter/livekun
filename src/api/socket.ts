@@ -39,7 +39,10 @@ interface IBaseSocketMessage<K extends keyof IBaseSocketMessageMap> {
   data: IBaseSocketMessageMap[K]
 }
 
-const baseWsUrl = process.env.NODE_ENV === 'development' ? `ws://${__DEV_URL__}` : `wss://${__PROD_URL__}`
+const baseWsUrl =
+  process.env.NODE_ENV === 'development'
+    ? `ws://${__DEV_URL__}`
+    : `wss://${__PROD_URL__}`
 
 const decode = (data: ArrayBuffer): IBaseSocketMessage<'UNKNOWN'> => {
   try {
@@ -91,7 +94,9 @@ const useSocket: UseSocketFn = async (
   const websocket = new WebSocket(baseWsUrl, 'web')
   websocket.binaryType = 'arraybuffer'
 
-  const send = <K extends keyof IBaseSocketMessageMap>(data: IBaseSocketMessage<K>) => {
+  const send = <K extends keyof IBaseSocketMessageMap>(
+    data: IBaseSocketMessage<K>
+  ) => {
     websocket.send(encode(data))
   }
 
@@ -116,13 +121,18 @@ const useSocket: UseSocketFn = async (
     console.warn('连接关闭', ev.code, ev.reason)
 
     if (ev.code === 1002) {
-      console.error('远程服务器拒绝连接，不再尝试重新创建连接，请手动刷新页面！')
+      console.error(
+        '远程服务器拒绝连接，不再尝试重新创建连接，请手动刷新页面！'
+      )
       return
     }
 
     console.warn('将于 5 秒后尝试重新创建连接...')
 
-    if (websocket.readyState !== WebSocket.CONNECTING && websocket.readyState !== WebSocket.OPEN) {
+    if (
+      websocket.readyState !== WebSocket.CONNECTING &&
+      websocket.readyState !== WebSocket.OPEN
+    ) {
       window.setTimeout(
         () =>
           useSocket(
@@ -141,7 +151,8 @@ const useSocket: UseSocketFn = async (
 
     console.info('接收消息', message)
 
-    if (typeof onWebSocketMessageCallbackFn !== 'undefined') onWebSocketMessageCallbackFn(ev, websocket, message)
+    if (typeof onWebSocketMessageCallbackFn !== 'undefined')
+      onWebSocketMessageCallbackFn(ev, websocket, message)
 
     if (typeof onPluginActionEventCallbackFn !== 'undefined') {
       if (message?.type === 'PLUGIN_ACTION') {

@@ -49,7 +49,10 @@ interface IWorkerPortMessage {
   }
 }
 
-const baseWsUrl = process.env.NODE_ENV === 'development' ? `ws://${__DEV_URL__}` : `wss://${__PROD_URL__}`
+const baseWsUrl =
+  process.env.NODE_ENV === 'development'
+    ? `ws://${__DEV_URL__}`
+    : `wss://${__PROD_URL__}`
 
 const ee: EventEmitter = new EventEmitter()
 
@@ -68,7 +71,9 @@ const encode = <T>(data: T): ArrayBuffer => {
   return new TextEncoder().encode(JSON.stringify(data))
 }
 
-const initWs = (onWsMessageCallbackFn?: (message: IBaseWsMessage<'UNKNOWN'>) => void) => {
+const initWs = (
+  onWsMessageCallbackFn?: (message: IBaseWsMessage<'UNKNOWN'>) => void
+) => {
   console.log('[websocket]', '开始执行初始化步骤...')
 
   const websocket = new WebSocket(baseWsUrl, 'web')
@@ -90,13 +95,19 @@ const initWs = (onWsMessageCallbackFn?: (message: IBaseWsMessage<'UNKNOWN'>) => 
     console.warn('[websocket]', '连接关闭', ev.code, ev.reason)
 
     if (ev.code === 1002) {
-      console.error('[websocket]', '远程服务器拒绝连接，不再尝试重新创建连接，请手动刷新页面！')
+      console.error(
+        '[websocket]',
+        '远程服务器拒绝连接，不再尝试重新创建连接，请手动刷新页面！'
+      )
       return
     }
 
     console.warn('[websocket]', '将于 5 秒后尝试重新创建连接...')
 
-    if (websocket.readyState !== WebSocket.CONNECTING && websocket.readyState !== WebSocket.OPEN) {
+    if (
+      websocket.readyState !== WebSocket.CONNECTING &&
+      websocket.readyState !== WebSocket.OPEN
+    ) {
       setTimeout(() => initWs(onWsMessageCallbackFn), 5000)
     }
   })

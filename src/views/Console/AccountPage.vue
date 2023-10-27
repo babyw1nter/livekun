@@ -6,12 +6,10 @@
         type="info"
         showIcon
         style="margin-bottom: 1rem" />
-      <a-typography-paragraph :copyable="{ text: userStore.uuid }"> UUID：{{ userStore.uuid }} </a-typography-paragraph>
-      <a-button
-        @click="logout"
-        danger>
-        退出登录
-      </a-button>
+      <a-typography-paragraph :copyable="{ text: userStore.uuid }">
+        UUID：{{ userStore.uuid }}
+      </a-typography-paragraph>
+      <a-button @click="logout" danger> 退出登录 </a-button>
     </a-card>
   </div>
 </template>

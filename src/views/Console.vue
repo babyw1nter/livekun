@@ -20,9 +20,7 @@
           </div>
 
           <div class="basic-info-wrap">
-            <a-space-compact
-              direction="vertical"
-              :gap="0">
+            <a-space-compact direction="vertical" :gap="0">
               <a-typography-text
                 strong
                 ellipsis
@@ -55,9 +53,7 @@
           </template>
           <template #title>插件设置</template>
 
-          <a-menu-item
-            v-for="item in pluginRoutes"
-            :key="item.path">
+          <a-menu-item v-for="item in pluginRoutes" :key="item.path">
             {{ item.meta.menuItemName }}
           </a-menu-item>
         </a-sub-menu>
@@ -102,16 +98,12 @@
           @click="() => (isCollapsed = !isCollapsed)" />
       </div>
     </a-layout-sider>
-    <a-layout
-      class="right-wrapper"
-      :class="{ collapsed: isCollapsed }">
+    <a-layout class="right-wrapper" :class="{ collapsed: isCollapsed }">
       <a-layout-content :style="{ margin: '16px', minHeight: '280px' }">
         <router-view />
       </a-layout-content>
 
-      <a-layout-footer
-        class="footer"
-        style="font-size: 13px">
+      <a-layout-footer class="footer" style="font-size: 13px">
         <a-divider />
         <PageFooter />
       </a-layout-footer>
@@ -136,13 +128,17 @@ const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
 
-const pluginRoutes = computed(() => router.getRoutes().filter((i) => i.path.startsWith('/console/plugins/')))
+const pluginRoutes = computed(() =>
+  router.getRoutes().filter((i) => i.path.startsWith('/console/plugins/'))
+)
 
 const isCollapsed = ref(false)
 
 const selectedKeys = computed(() => [route.meta.menuItemKey || ''])
 const openKeys = computed(() => [
-  route.meta.menuItemKey?.startsWith('/console/plugins/') ? '/console/plugins' : '' || ''
+  route.meta.menuItemKey?.startsWith('/console/plugins/')
+    ? '/console/plugins'
+    : '' || ''
 ])
 
 const broadcast = ref('')
@@ -155,11 +151,15 @@ const broadcastsData = reactive<IBroadcastData>({
 
 const updateBroadcast = () => {
   if (broadcastsData?.broadcasts?.length > 0) {
-    broadcast.value = broadcastsData.broadcasts[randomNum(0, broadcastsData.broadcasts.length - 1)]
+    broadcast.value =
+      broadcastsData.broadcasts[
+        randomNum(0, broadcastsData.broadcasts.length - 1)
+      ]
   }
 }
 
-const res: AxiosResponse<IHttpResponse<IBroadcastData>> = await http.get('/api/getBroadcasts')
+const res: AxiosResponse<IHttpResponse<IBroadcastData>> =
+  await http.get('/api/getBroadcasts')
 
 if (res.status === 200) {
   broadcastsData.banner = res.data.data.banner as string

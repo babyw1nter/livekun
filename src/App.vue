@@ -1,7 +1,5 @@
 <template>
-  <a-config-provider
-    :locale="locale"
-    :autoInsertSpaceInButton="false">
+  <a-config-provider :locale="locale" :autoInsertSpaceInButton="false">
     <a-app>
       <router-view v-slot="{ Component }">
         <template v-if="Component">

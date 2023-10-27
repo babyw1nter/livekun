@@ -2,7 +2,9 @@
   <span class="h-badge no-select">
     <img
       v-if="Number(level) && guard > 0"
-      :src="`https://cc.res.netease.com/webcc/v2/static/images/room/guard/${Number(guard).toString()}_32.png`"
+      :src="`https://cc.res.netease.com/webcc/v2/static/images/room/guard/${Number(
+        guard
+      ).toString()}_32.png`"
       height="26"
       class="guard-icon"
       :style="{
@@ -73,17 +75,28 @@ const props = defineProps({
 
 const slotsText = useSlotsText()
 
-const getLevelStyle = (level: number, levelStyleArray: Array<{ level: number; color: string }>) => {
+const getLevelStyle = (
+  level: number,
+  levelStyleArray: Array<{ level: number; color: string }>
+) => {
   for (let i = 0; i < levelStyleArray.length; i++) {
-    if (level >= levelStyleArray[levelStyleArray.length - 1].level) return levelStyleArray[levelStyleArray.length - 1]
-    if (level < levelStyleArray[i].level) return i <= 0 ? levelStyleArray[0] : levelStyleArray[i - 1]
+    if (level >= levelStyleArray[levelStyleArray.length - 1].level)
+      return levelStyleArray[levelStyleArray.length - 1]
+    if (level < levelStyleArray[i].level)
+      return i <= 0 ? levelStyleArray[0] : levelStyleArray[i - 1]
   }
 
   return levelStyleArray[0]
 }
 
-const autoColor = computed(() => (!props.expired ? getLevelStyle(props.level, props.levelStyle).color : '#b9b9b9'))
-const computedColor = computed(() => props.color || (Number(props.level) ? autoColor.value : props.color))
+const autoColor = computed(() =>
+  !props.expired
+    ? getLevelStyle(props.level, props.levelStyle).color
+    : '#b9b9b9'
+)
+const computedColor = computed(
+  () => props.color || (Number(props.level) ? autoColor.value : props.color)
+)
 
 const badgeTextClass = reactive({
   'no-level': !Number(props.level),

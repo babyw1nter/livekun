@@ -23,7 +23,8 @@ export const useConnentStore = defineStore('connentStore', {
   },
   actions: {
     async getStatus() {
-      const res: AxiosResponse<IHttpResponse<IConnentStore>> = await http.get('/api/getStatus')
+      const res: AxiosResponse<IHttpResponse<IConnentStore>> =
+        await http.get('/api/getStatus')
 
       if (res.data.code === 200) {
         this.$state = res.data.data
@@ -36,9 +37,12 @@ export const useConnentStore = defineStore('connentStore', {
       return Promise.resolve(false)
     },
     async joinRoom(id: string | number) {
-      const res: AxiosResponse<IHttpResponse<IConnentStore>> = await http.post('/api/join', {
-        liveId: id.toString()
-      })
+      const res: AxiosResponse<IHttpResponse<IConnentStore>> = await http.post(
+        '/api/join',
+        {
+          liveId: id.toString()
+        }
+      )
 
       if (res.data.code === 200) {
         this.$state = res.data.data

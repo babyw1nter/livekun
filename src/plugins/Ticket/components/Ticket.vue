@@ -1,15 +1,9 @@
 <template>
-  <div
-    class="ticket no-select"
-    :class="type">
+  <div class="ticket no-select" :class="type">
     <span
       class="ticket-bg"
       :style="{ width: `${percentage.toFixed(1)}%` }"></span>
-    <a-avatar
-      class="capsule-avatar"
-      :src="avatarUrl"
-      :size="27">
-    </a-avatar>
+    <a-avatar class="capsule-avatar" :src="avatarUrl" :size="27"> </a-avatar>
     <span class="money">
       <h-font>{{ message || `¥${moneyText}` }}</h-font>
     </span>
@@ -42,7 +36,9 @@ const props = defineProps({
 
 const cardType = ref<string>(props.type)
 
-const moneyText = computed(() => (Math.round(props.money * 100) / 100).toString())
+const moneyText = computed(() =>
+  (Math.round(props.money * 100) / 100).toString()
+)
 const bgWidth = ref<number>(0)
 </script>
 

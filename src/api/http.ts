@@ -2,7 +2,10 @@ import router from '@/router'
 import { message } from 'ant-design-vue/es'
 import axios from 'axios'
 
-const baseUrl = process.env.NODE_ENV === 'development' ? `http://${__DEV_URL__}` : `https://${__PROD_URL__}`
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? `http://${__DEV_URL__}`
+    : `https://${__PROD_URL__}`
 
 axios.defaults.withCredentials = true
 

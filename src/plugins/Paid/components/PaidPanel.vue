@@ -1,11 +1,7 @@
 <template>
-  <ul
-    class="paid-panel clearfix"
-    ref="PaidPanelRef">
+  <ul class="paid-panel clearfix" ref="PaidPanelRef">
     <TransitionGroup name="fade">
-      <li
-        v-for="paid in paidList"
-        :key="paid.key">
+      <li v-for="paid in paidList" :key="paid.key">
         <Paid
           :type="paid.type || `level-${getLevel(paid.money, level)}`"
           :avatar-url="paid.avatarUrl"

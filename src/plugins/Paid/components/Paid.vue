@@ -1,13 +1,7 @@
 <template>
-  <div
-    class="paid no-select"
-    :class="type">
+  <div class="paid no-select" :class="type">
     <div class="card-body">
-      <a-avatar
-        class="card-avatar"
-        :src="avatarUrl"
-        :size="24">
-      </a-avatar>
+      <a-avatar class="card-avatar" :src="avatarUrl" :size="24"> </a-avatar>
       <div class="p-wrap">
         <p class="nickname">
           <h-font>{{ nickname }}</h-font>
@@ -17,9 +11,7 @@
         </p>
       </div>
     </div>
-    <div
-      class="card-footer"
-      v-if="comment !== ''">
+    <div class="card-footer" v-if="comment !== ''">
       <p class="message">
         <h-font>{{ comment }}</h-font>
       </p>

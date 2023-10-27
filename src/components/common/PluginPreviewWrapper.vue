@@ -26,7 +26,11 @@
           checked-children="暗"
           un-checked-children="亮"
           @change="(checked) => themeSwitch(checked)"
-          style="vertical-align: bottom; margin-left: 10px; background-color: #1890ff">
+          style="
+            vertical-align: bottom;
+            margin-left: 10px;
+            background-color: #1890ff;
+          ">
         </a-switch>
         <a-typography-text>背景</a-typography-text>
       </a-space>
@@ -67,7 +71,10 @@ const emit = defineEmits<{
   (event: 'onAutoPreviewSwitchChange', checked: boolean): void
 }>()
 
-const url = computed(() => `${window.location.origin}/#/plugins-obs/${props.pluginName}?uuid=${userStore.uuid}`)
+const url = computed(
+  () =>
+    `${window.location.origin}/#/plugins-obs/${props.pluginName}?uuid=${userStore.uuid}`
+)
 
 const onChange = (checked: unknown) => {
   emit('update:autoPreview', checked as boolean)
@@ -104,7 +111,13 @@ const themeSwitchState = ref(true)
     .preview-main {
       background-color: #444;
       background-image:
-        -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, #333), color-stop(0.25, transparent)),
+        -webkit-gradient(
+          linear,
+          0 100%,
+          100% 0,
+          color-stop(0.25, #333),
+          color-stop(0.25, transparent)
+        ),
         -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #333), color-stop(0.25, transparent)),
         -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.75, transparent), color-stop(0.75, #333)),
         -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.75, transparent), color-stop(0.75, #333));
@@ -115,7 +128,13 @@ const themeSwitchState = ref(true)
     .preview-main {
       background-color: #ddd;
       background-image:
-        -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, #eee), color-stop(0.25, transparent)),
+        -webkit-gradient(
+          linear,
+          0 100%,
+          100% 0,
+          color-stop(0.25, #eee),
+          color-stop(0.25, transparent)
+        ),
         -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, #eee), color-stop(0.25, transparent)),
         -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.75, transparent), color-stop(0.75, #eee)),
         -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.75, transparent), color-stop(0.75, #eee));

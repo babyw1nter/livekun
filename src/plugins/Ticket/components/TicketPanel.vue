@@ -1,11 +1,6 @@
 <template>
-  <TransitionGroup
-    name="list"
-    tag="ul"
-    class="ticket-panel clearfix">
-    <li
-      v-for="ticket in ticketsList"
-      :key="ticket.key">
+  <TransitionGroup name="list" tag="ul" class="ticket-panel clearfix">
+    <li v-for="ticket in ticketsList" :key="ticket.key">
       <a-dropdown>
         <Ticket
           :type="ticket.type || `level-${getLevel(ticket.money, level)}`"
@@ -18,11 +13,7 @@
         <template #overlay>
           <a-menu>
             <a-menu-item>
-              <a
-                href="javascript:;"
-                @click="del(ticket.key)">
-                移除
-              </a>
+              <a href="javascript:;" @click="del(ticket.key)"> 移除 </a>
             </a-menu-item>
           </a-menu>
         </template>
@@ -78,11 +69,13 @@ const timerCache: Timer[] = []
 
 const add = async (ticket: Ticket) => {
   // 当超过最大数量时，删除末尾的 ticket
-  if (ticketsList.length >= props.maximum) del(ticketsList[ticketsList.length - 1].key)
+  if (ticketsList.length >= props.maximum)
+    del(ticketsList[ticketsList.length - 1].key)
 
   // 通过指令添加的 ticket 如果没有 duration 属性，则默认给予一个 duration 初始值
   // 这个 duration 初始值是由即将添加的 ticket 自动计算金额等级得出的
-  const ticketDefaultDuration = props.duration[getLevel(ticket.money, props.level)] * 60 * 1000
+  const ticketDefaultDuration =
+    props.duration[getLevel(ticket.money, props.level)] * 60 * 1000
 
   // 添加 ticket 进缓存数组
   ticketsList.unshift({
@@ -100,7 +93,9 @@ const add = async (ticket: Ticket) => {
 
       if (index > -1) {
         if (ticketsList[index].timing <= 0) {
-          const timerCacheIndex = timerCache.findIndex((i) => i.key === ticket.key)
+          const timerCacheIndex = timerCache.findIndex(
+            (i) => i.key === ticket.key
+          )
           if (timerCache[timerCacheIndex]) {
             clearInterval(timerCache[timerCacheIndex].timer)
             timerCache.splice(timerCacheIndex, 1)
@@ -115,7 +110,10 @@ const add = async (ticket: Ticket) => {
 
         ticketsList[index].timing -= 100
         ticketsList[index].percentage = Number(
-          ((ticketsList[index].timing / ticketsList[index].duration) * 100).toFixed(1)
+          (
+            (ticketsList[index].timing / ticketsList[index].duration) *
+            100
+          ).toFixed(1)
         )
       }
     }, 100)

@@ -63,12 +63,18 @@ const getRandomTicket = () => {
 
 const getRandomChatMessage = () => {
   return randomNum(0, 5)
-    ? { key: getRandomUUID(), ...chatMessageMockData[randomNum(0, chatMessageMockData.length - 1)] }
+    ? {
+        key: getRandomUUID(),
+        ...chatMessageMockData[randomNum(0, chatMessageMockData.length - 1)]
+      }
     : getRandomPaid()
 }
 
 const getRandomPaid = () => {
-  return { key: getRandomUUID(), ...paidMockData[randomNum(0, paidMockData.length - 1)] }
+  return {
+    key: getRandomUUID(),
+    ...paidMockData[randomNum(0, paidMockData.length - 1)]
+  }
 }
 
 export { getMockData, getRandomTicket, getRandomChatMessage, getRandomPaid }

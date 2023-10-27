@@ -2,18 +2,14 @@
   <div class="login">
     <div class="login-wrapper">
       <div class="top">
-        <div
-          class="logo"
-          style="display: block; margin-bottom: 10px">
-          <a
-            href="#"
-            class="no-select">
-            <img
-              src="@/assets/images/logo_270x80.png"
-              width="220" />
+        <div class="logo" style="display: block; margin-bottom: 10px">
+          <a href="#" class="no-select">
+            <img src="@/assets/images/logo_270x80.png" width="220" />
           </a>
         </div>
-        <a-typography-text type="secondary">多直播平台 OBS 互动插件系统</a-typography-text>
+        <a-typography-text type="secondary"
+          >多直播平台 OBS 互动插件系统</a-typography-text
+        >
       </div>
 
       <div class="main">
@@ -25,9 +21,7 @@
           :model="formState"
           :rules="rules"
           @finish="handleFinish">
-          <a-form-item
-            has-feedback
-            name="username">
+          <a-form-item has-feedback name="username">
             <a-input
               v-model:value="formState.username"
               placeholder="请输入用户名"
@@ -38,9 +32,7 @@
               </template>
             </a-input>
           </a-form-item>
-          <a-form-item
-            has-feedback
-            name="password">
+          <a-form-item has-feedback name="password">
             <a-input-password
               v-model:value="formState.password"
               placeholder="请输入密码"
@@ -53,10 +45,10 @@
             </a-input-password>
           </a-form-item>
           <a-form-item name="autologin">
-            <a-checkbox v-model:checked="formState.autologin">自动登录</a-checkbox>
-            <a-typography-link
-              style="float: right"
-              @click.stop="open = !open">
+            <a-checkbox v-model:checked="formState.autologin"
+              >自动登录</a-checkbox
+            >
+            <a-typography-link style="float: right" @click.stop="open = !open">
               参与内测
             </a-typography-link>
           </a-form-item>
@@ -78,10 +70,7 @@
       </div>
     </div>
 
-    <a-modal
-      v-model:open="open"
-      title="参与内测"
-      :footer="null">
+    <a-modal v-model:open="open" title="参与内测" :footer="null">
       <a-typography-text>
         这个项目目前还处于开发内测阶段，仅提供少数内测用户使用。<br />
         如果你感兴趣，可以扫一扫下方二维码与我联系！
@@ -141,7 +130,11 @@ const checkPassword = async (rule: RuleObject, value: string) => {
 const handleFinish = async (values: FormState) => {
   isLoading.value = true
 
-  const authResult = await userStore.login(values.username, values.password, values.autologin)
+  const authResult = await userStore.login(
+    values.username,
+    values.password,
+    values.autologin
+  )
   if (authResult) {
     router.push({
       path: '/'

@@ -45,7 +45,10 @@ function defineLivekunPlugin(plugin: LivekunPlugin | LivekunPluginFn) {
   if (typeof plugin === 'object') return plugin
 }
 
-const _getRemotePluginConfig = async (uuid: string, pluginName: string | string[]) => {
+const _getRemotePluginConfig = async (
+  uuid: string,
+  pluginName: string | string[]
+) => {
   let _n = pluginName
   if (Array.isArray(pluginName)) {
     _n = pluginName
@@ -54,30 +57,36 @@ const _getRemotePluginConfig = async (uuid: string, pluginName: string | string[
       .join(',')
   }
 
-  const res: AxiosResponse<IHttpResponse<Array<IPluginConfig>>> = await http.get('/user/getPluginConfig', {
-    params: {
-      uuid,
-      pluginName: _n
-    }
-  })
+  const res: AxiosResponse<IHttpResponse<Array<IPluginConfig>>> =
+    await http.get('/user/getPluginConfig', {
+      params: {
+        uuid,
+        pluginName: _n
+      }
+    })
 
   return res.data.code === 200 ? res.data.data : []
 }
 
-const _setRemotePluginConfig = async <T>(pluginName: string, pluginConfig: T) => {
-  const res: AxiosResponse<IHttpResponse<Array<IPluginConfig>>> = await http.post('/user/setPluginConfig', {
-    pluginName,
-    pluginConfig
-  })
+const _setRemotePluginConfig = async <T>(
+  pluginName: string,
+  pluginConfig: T
+) => {
+  const res: AxiosResponse<IHttpResponse<Array<IPluginConfig>>> =
+    await http.post('/user/setPluginConfig', {
+      pluginName,
+      pluginConfig
+    })
 
   return res.data.code === 200 ? res.data.data : null
 }
 
 const _resetRemotePluginConfig = async (uuid: string, pluginName: string) => {
-  const res: AxiosResponse<IHttpResponse<Array<IPluginConfig>>> = await http.post('/user/resetPluginConfig', {
-    uuid,
-    pluginName
-  })
+  const res: AxiosResponse<IHttpResponse<Array<IPluginConfig>>> =
+    await http.post('/user/resetPluginConfig', {
+      uuid,
+      pluginName
+    })
 
   return res.data.code === 200 ? res.data.data : null
 }
@@ -100,13 +109,19 @@ const usePluginConfig = async <T>(pluginName: string) => {
 
   const userStore = useUserStore()
 
-  const getUUID = () => router.currentRoute.value.query.uuid?.toString() || userStore.uuid || ''
+  const getUUID = () =>
+    router.currentRoute.value.query.uuid?.toString() || userStore.uuid || ''
 
-  const pluginConfig = reactive(Object.assign({}, getPluginConfig<T>(pluginName)))
+  const pluginConfig = reactive(
+    Object.assign({}, getPluginConfig<T>(pluginName))
+  )
 
   /** 拉取远程配置文件 */
   const pull = async () => {
-    const remotePluginConfigs = await _getRemotePluginConfig(getUUID(), pluginName)
+    const remotePluginConfigs = await _getRemotePluginConfig(
+      getUUID(),
+      pluginName
+    )
 
     const rcfg = remotePluginConfigs.find((i) => i.pluginName === pluginName)
 
@@ -170,7 +185,12 @@ const createLivekunPluginManager = () => {
       console.log('[LPM]', '正在加载插件...')
 
       _plugin.forEach((plugin) => {
-        _addPluginRoute(plugin.pluginName, plugin.displayName, plugin.componentConfigPage, plugin.componentPluginPage)
+        _addPluginRoute(
+          plugin.pluginName,
+          plugin.displayName,
+          plugin.componentConfigPage,
+          plugin.componentPluginPage
+        )
       })
 
       console.log('[LPM]', '加载插件成功！', _plugin)
@@ -186,4 +206,9 @@ const createLivekunPluginManager = () => {
 }
 
 export type { LivekunPluginManager, LivekunPlugin }
-export { createLivekunPluginManager, defineLivekunPlugin, usePluginConfig, getPluginConfig }
+export {
+  createLivekunPluginManager,
+  defineLivekunPlugin,
+  usePluginConfig,
+  getPluginConfig
+}

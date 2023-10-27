@@ -2,16 +2,18 @@
   <div class="connect-page-wrapper">
     <a-card>
       <a-alert
-        :message="store.isJoinedRoom ? `已连接 ${store.roomInfo.liveId}` : '未连接'"
+        :message="
+          store.isJoinedRoom ? `已连接 ${store.roomInfo.liveId}` : '未连接'
+        "
         :description="
-          store.isJoinedRoom ? `已进入直播间「${store.roomInfo.title}」` : '请进入一个直播间以使用所有功能。'
+          store.isJoinedRoom
+            ? `已进入直播间「${store.roomInfo.title}」`
+            : '请进入一个直播间以使用所有功能。'
         "
         :type="store.isJoinedRoom ? 'success' : 'info'"
         style="margin-bottom: 1rem"
         show-icon />
-      <div
-        class="join-input-wrap"
-        style="margin-top: 1rem">
+      <div class="join-input-wrap" style="margin-top: 1rem">
         <a-space :size="10">
           <a-input
             v-model:value="liveId"
@@ -25,10 +27,7 @@
             :disabled="isReseting">
             进入
           </a-button>
-          <a-button
-            @click="reset"
-            danger
-            :loading="isReseting">
+          <a-button @click="reset" danger :loading="isReseting">
             重置
           </a-button>
         </a-space>

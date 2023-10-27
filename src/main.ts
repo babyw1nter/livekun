@@ -17,6 +17,10 @@ const app = createApp(App)
 
 app.config.performance = true
 
-app.use(createPinia()).use(Vue3ColorPicker).use(livekunPluginManager).use(router)
+app
+  .use(createPinia())
+  .use(Vue3ColorPicker)
+  .use(livekunPluginManager)
+  .use(router)
 
 app.mount('#app')

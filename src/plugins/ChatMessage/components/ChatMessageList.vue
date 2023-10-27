@@ -13,13 +13,9 @@
       ref="dom"
       class="chat-message-list clearfix mb-0"
       :class="{ 'smooth-scroll': !isTooQuickly }">
-      <template
-        v-for="item in chatMessageList"
-        :key="item.key">
+      <template v-for="item in chatMessageList" :key="item.key">
         <!-- 聊天消息 start -->
-        <li
-          class="chat-list-message"
-          v-if="item.messageType === 'chat'">
+        <li class="chat-list-message" v-if="item.messageType === 'chat'">
           <ChatMessage
             :avatar-url="item.avatarUrl"
             :nickname="item.nickname"
@@ -38,7 +34,10 @@
           class="chat-list-gift"
           v-if="item.messageType === 'gift' && chatMessageConfig.type.paid">
           <Paid
-            :type="item.type || `level-${getLevel(item?.money || 0, paidConfig.level)}`"
+            :type="
+              item.type ||
+              `level-${getLevel(item?.money || 0, paidConfig.level)}`
+            "
             :avatar-url="item.avatarUrl"
             :nickname="item.nickname"
             :money="item.money"
@@ -74,7 +73,13 @@ interface ChatMessage {
   message: string
   messageType: 'chat' | 'gift' | string
   /** @deprecated */
-  type?: 'normal' | 'admin' | 'anchor' | 'guard-monthly' | 'guard-annual' | string
+  type?:
+    | 'normal'
+    | 'admin'
+    | 'anchor'
+    | 'guard-monthly'
+    | 'guard-annual'
+    | string
   rule?: {
     admin: boolean
     anchor: boolean
@@ -105,15 +110,20 @@ const props = defineProps({
   },
   chatMessageConfig: {
     type: Object as PropType<TypeChatMessagePluginConfig>,
-    default: () => getPluginConfig<TypeChatMessagePluginConfig>(PluginNames.PLUGIN_CHAT_MESSAGE)
+    default: () =>
+      getPluginConfig<TypeChatMessagePluginConfig>(
+        PluginNames.PLUGIN_CHAT_MESSAGE
+      )
   },
   ticketConfig: {
     type: Object as PropType<TypeTicketPluginConfig>,
-    default: () => getPluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
+    default: () =>
+      getPluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET)
   },
   paidConfig: {
     type: Object as PropType<TypePaidPluginConfig>,
-    default: () => getPluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
+    default: () =>
+      getPluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
   }
 })
 

@@ -1,14 +1,8 @@
 <template>
   <div class="config-chat-message options-panel">
     <a-row :gutter="[16, 16]">
-      <a-col
-        :sm="24"
-        :lg="14"
-        :xl="16">
-        <a-space
-          direction="vertical"
-          size="middle"
-          style="width: 100%">
+      <a-col :sm="24" :lg="14" :xl="16">
+        <a-space direction="vertical" size="middle" style="width: 100%">
           <a-card>
             <a-typography-text strong>自定义样式</a-typography-text>
 
@@ -16,21 +10,17 @@
               :label-align="'right'"
               :label-col="labelCol"
               style="max-width: none">
-              <a-row
-                :gutter="24"
-                style="margin: 0">
+              <a-row :gutter="24" style="margin: 0">
                 <a-divider orientation="left">文本样式</a-divider>
 
-                <a-col
-                  :xs="24"
-                  :sm="24"
-                  :md="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
                   <a-form-item label="文字大小">
                     <a-select
                       ref="select"
-                      v-model:value="chatMessagePluginConfig.pluginConfig.customStyle.fontSize">
+                      v-model:value="
+                        chatMessagePluginConfig.pluginConfig.customStyle
+                          .fontSize
+                      ">
                       <a-select-option
                         :value="i + 17"
                         v-for="i in 15"
@@ -41,16 +31,9 @@
                   </a-form-item>
                 </a-col>
 
-                <a-col
-                  :xs="24"
-                  :sm="24"
-                  :md="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="24" :md="12" :lg="24" :xl="12">
                   <a-form-item label="文字字体">
-                    <a-select
-                      ref="select"
-                      :value="'default'">
+                    <a-select ref="select" :value="'default'">
                       <a-select-option value="default">默认</a-select-option>
                     </a-select>
                   </a-form-item>
@@ -58,49 +41,46 @@
 
                 <a-divider orientation="left">普通用户</a-divider>
 
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="昵称颜色">
                     <ColorPicker
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.normal.nickname">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .normal.nickname
+                      ">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
 
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="消息颜色">
                     <ColorPicker
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.normal.message">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .normal.message
+                      ">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
 
                 <a-divider orientation="left">守护、舰长</a-divider>
 
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="月守、舰长昵称颜色">
                     <ColorPicker
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv1.nickname">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .guard.lv1.nickname
+                      ">
                     </ColorPicker>
                   </a-form-item>
 
@@ -109,7 +89,10 @@
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv2.nickname">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .guard.lv2.nickname
+                      ">
                     </ColorPicker>
                   </a-form-item>
 
@@ -118,22 +101,24 @@
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv3.nickname">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .guard.lv3.nickname
+                      ">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
 
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="月守、舰长消息颜色">
                     <ColorPicker
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv1.message">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .guard.lv1.message
+                      ">
                     </ColorPicker>
                   </a-form-item>
 
@@ -142,7 +127,10 @@
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv2.message">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .guard.lv2.message
+                      ">
                     </ColorPicker>
                   </a-form-item>
 
@@ -151,71 +139,70 @@
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.guard.lv3.message">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .guard.lv3.message
+                      ">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
 
                 <a-divider orientation="left">房管</a-divider>
 
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="昵称颜色">
                     <ColorPicker
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.admin.nickname">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .admin.nickname
+                      ">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
 
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="消息颜色">
                     <ColorPicker
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.admin.message">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .admin.message
+                      ">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
 
                 <a-divider orientation="left">主播</a-divider>
 
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="昵称颜色">
                     <ColorPicker
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.anchor.nickname">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .anchor.nickname
+                      ">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
 
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="消息颜色">
                     <ColorPicker
                       format="hex"
                       disable-alpha
                       disable-history
-                      v-model:pure-color="chatMessagePluginConfig.pluginConfig.customStyle.color.anchor.message">
+                      v-model:pure-color="
+                        chatMessagePluginConfig.pluginConfig.customStyle.color
+                          .anchor.message
+                      ">
                     </ColorPicker>
                   </a-form-item>
                 </a-col>
@@ -227,7 +214,11 @@
             <a-typography-text strong>业务、身份图标显示</a-typography-text>
             <a-tag
               color="orange"
-              style="margin-left: 4px; margin-top: -2px; vertical-align: bottom">
+              style="
+                margin-left: 4px;
+                margin-top: -2px;
+                vertical-align: bottom;
+              ">
               未完成
             </a-tag>
 
@@ -237,14 +228,8 @@
               :label-align="'right'"
               :label-col="labelCol"
               style="max-width: none">
-              <a-row
-                :gutter="24"
-                style="margin: 0">
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+              <a-row :gutter="24" style="margin: 0">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="粉丝徽章">
                     <a-switch
                       :checked="false"
@@ -270,11 +255,7 @@
                   </a-form-item>
                 </a-col>
 
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="房管图标">
                     <a-switch
                       :checked="true"
@@ -304,30 +285,24 @@
               :label-align="'right'"
               :label-col="labelCol"
               style="max-width: none">
-              <a-row
-                :gutter="24"
-                style="margin: 0">
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+              <a-row :gutter="24" style="margin: 0">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="Ticket 价签栏">
                     <a-switch
-                      v-model:checked="chatMessagePluginConfig.pluginConfig.type.ticket"
+                      v-model:checked="
+                        chatMessagePluginConfig.pluginConfig.type.ticket
+                      "
                       checked-children="开"
                       un-checked-children="关" />
                   </a-form-item>
                 </a-col>
 
-                <a-col
-                  :xs="24"
-                  :sm="12"
-                  :lg="24"
-                  :xl="12">
+                <a-col :xs="24" :sm="12" :lg="24" :xl="12">
                   <a-form-item label="Paid 礼物卡片">
                     <a-switch
-                      v-model:checked="chatMessagePluginConfig.pluginConfig.type.paid"
+                      v-model:checked="
+                        chatMessagePluginConfig.pluginConfig.type.paid
+                      "
                       checked-children="开"
                       un-checked-children="关" />
                   </a-form-item>
@@ -340,7 +315,11 @@
             <a-typography-text strong>事件消息显示</a-typography-text>
             <a-tag
               color="orange"
-              style="margin-left: 4px; margin-top: -2px; vertical-align: bottom">
+              style="
+                margin-left: 4px;
+                margin-top: -2px;
+                vertical-align: bottom;
+              ">
               未完成
             </a-tag>
 
@@ -350,24 +329,28 @@
               :label-align="'right'"
               :label-col="labelCol"
               style="max-width: none">
-              <a-row
-                :gutter="24"
-                style="margin: 0">
+              <a-row :gutter="24" style="margin: 0">
                 <a-col :xs="24">
                   <a-form-item label="事件类型">
                     <a-checkbox-group>
                       <a-checkbox
-                        v-model:checked="chatMessagePluginConfig.pluginConfig.event.join"
+                        v-model:checked="
+                          chatMessagePluginConfig.pluginConfig.event.join
+                        "
                         disabled>
                         进入直播间
                       </a-checkbox>
                       <a-checkbox
-                        v-model:checked="chatMessagePluginConfig.pluginConfig.event.follow"
+                        v-model:checked="
+                          chatMessagePluginConfig.pluginConfig.event.follow
+                        "
                         disabled>
                         用户关注
                       </a-checkbox>
                       <a-checkbox
-                        v-model:checked="chatMessagePluginConfig.pluginConfig.event.gift"
+                        v-model:checked="
+                          chatMessagePluginConfig.pluginConfig.event.gift
+                        "
                         disabled>
                         赠送礼物
                       </a-checkbox>
@@ -381,9 +364,7 @@
           <a-card>
             <a-space direction="vertical">
               <a-typography-text strong>插件控制</a-typography-text>
-              <a-space
-                :size="10"
-                style="margin-top: 1rem">
+              <a-space :size="10" style="margin-top: 1rem">
                 <a-button @click="sendMock">发送模拟数据至插件</a-button>
                 <a-button @click="clear">清空插件数据</a-button>
               </a-space>
@@ -392,9 +373,7 @@
 
           <a-card>
             <a-space :size="10">
-              <a-button
-                type="primary"
-                @click="chatMessagePluginConfig.save">
+              <a-button type="primary" @click="chatMessagePluginConfig.save">
                 保存设置
               </a-button>
               <a-popconfirm
@@ -409,13 +388,8 @@
         </a-space>
       </a-col>
 
-      <a-col
-        :sm="24"
-        :lg="10"
-        :xl="8">
-        <a-affix
-          :offset-top="16"
-          style="width: 100%">
+      <a-col :sm="24" :lg="10" :xl="8">
+        <a-affix :offset-top="16" style="width: 100%">
           <PluginPreviewWrapper
             class="plugin-chat-message-preview"
             :plugin-name="PluginNames.PLUGIN_CHAT_MESSAGE"
@@ -448,7 +422,9 @@ import { TypeChatMessagePluginConfig } from '../config'
 const ChatMessageListRef = ref<InstanceType<typeof ChatMessageList>>()
 
 let [chatMessagePluginConfig, ticketPluginConfig, paidPluginConfig] = [
-  await usePluginConfig<TypeChatMessagePluginConfig>(PluginNames.PLUGIN_CHAT_MESSAGE),
+  await usePluginConfig<TypeChatMessagePluginConfig>(
+    PluginNames.PLUGIN_CHAT_MESSAGE
+  ),
   await usePluginConfig<TypeTicketPluginConfig>(PluginNames.PLUGIN_TICKET),
   await usePluginConfig<TypePaidPluginConfig>(PluginNames.PLUGIN_PAID)
 ]
