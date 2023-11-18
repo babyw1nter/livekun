@@ -2,6 +2,7 @@
   "name": "livekun-web",
   "version": "1.0.0-alpha.12",
   "description": "A based OBS browser source plugins platform.",
+  "type": "module",
   "private": true,
   "author": {
     "name": "hhui64",
