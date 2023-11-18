@@ -1,5 +1,6 @@
 import path from 'node:path'
 import fs from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { build, defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import eslint from 'vite-plugin-eslint'
@@ -22,7 +23,7 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src')
+        '@': path.resolve(path.dirname(fileURLToPath(import.meta.url)), './src')
       }
     },
     css: {
@@ -71,14 +72,24 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       rollupOptions: {
+        onwarn(warning, defaultHandler) {
+          if (warning.code === 'INVALID_ANNOTATION') {
+            return
+          }
+
+          defaultHandler(warning)
+        },
         output: {
-          sanitizeFileName(name: string) {
+          sanitizeFileName(name) {
             const INVALID_CHAR_REGEX = /[\x00-\x1F\x7F<>*#"{}|^[\]`;?:&=+$,]/g
             const DRIVE_LETTER_REGEX = /^[a-z]:/i
 
             const match = DRIVE_LETTER_REGEX.exec(name)
             const driveLetter = match ? match[0] : ''
-            return driveLetter + name.slice(driveLetter.length).replace(INVALID_CHAR_REGEX, '')
+            return (
+              driveLetter +
+              name.slice(driveLetter.length).replace(INVALID_CHAR_REGEX, '')
+            )
           }
         }
       }
