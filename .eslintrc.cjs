@@ -5,14 +5,17 @@ module.exports = {
     node: true,
     es2021: true
   },
+  globals: {
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefaults: 'readonly'
+  },
+  plugins: ['vue', '@typescript-eslint'],
   extends: [
-    'eslint:recommended',
-    'eslint-config-prettier',
     'plugin:@typescript-eslint/recommended',
-    'plugin:vue/vue3-essential',
     'plugin:vue/vue3-recommended',
-    'prettier',
-    'plugin:prettier/recommended'
+    'prettier'
   ],
   overrides: [],
   parser: 'vue-eslint-parser',
@@ -21,15 +24,8 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  globals: {
-    defineProps: 'readonly',
-    defineEmits: 'readonly',
-    defineExpose: 'readonly',
-    withDefaults: 'readonly'
-  },
-  plugins: ['vue', '@typescript-eslint', 'prettier'],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
   rules: {
-    'prettier/prettier': 'off',
     'no-undef': 'off',
     'no-unref': 'off',
     'no-unused-vars': 'off',
