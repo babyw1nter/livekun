@@ -42,15 +42,13 @@
     "uuid": "^9.0.1",
     "vue": "^3.3.13",
     "vue-router": "^4.2.5",
-    "vue3-colorpicker": "^2.2.3",
-    "websocket": "^1.0.34"
+    "vue3-colorpicker": "^2.2.3"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.10.5",
     "@types/sharedworker": "^0.0.110",
     "@types/uuid": "^9.0.7",
-    "@types/websocket": "^1.0.10",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "@vitejs/plugin-vue": "^4.5.2",
