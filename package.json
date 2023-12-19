@@ -20,8 +20,8 @@
     "build": "vue-tsc && vite build",
     "build-github": "vue-tsc && vite build --base /livekun-web/",
     "preview": "vite preview",
-    "lint": "eslint --cache .",
-    "lint:fix": "eslint --fix --cache .",
+    "lint": "eslint --cache --ext .ts,.tsx,.vue ./src",
+    "lint:fix": "eslint --fix --cache --ext .ts,.tsx,.vue ./src",
     "format": "prettier --write --cache .",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "postinstall": "simple-git-hooks"
