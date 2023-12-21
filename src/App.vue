@@ -1,6 +1,6 @@
 <template>
   <a-config-provider :locale="locale" :autoInsertSpaceInButton="false">
-    <a-app>
+    <AApp>
       <router-view v-slot="{ Component }">
         <template v-if="Component">
           <Suspense>
@@ -13,7 +13,7 @@
           </Suspense>
         </template>
       </router-view>
-    </a-app>
+    </AApp>
   </a-config-provider>
 </template>
 

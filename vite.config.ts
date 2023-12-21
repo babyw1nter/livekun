@@ -53,8 +53,6 @@ export default defineConfig(({ mode }) => {
             switch (componentName) {
               case 'ColorPicker':
                 return { name: 'ColorPicker', from: 'vue3-colorpicker' }
-              case 'AApp':
-                return { name: 'App', from: 'ant-design-vue/es' }
             }
           }
         ],
