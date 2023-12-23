@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hhui64/livekun-web.git"
+    "url": "git+https://github.com/hhui64/livekun.git"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "build-github": "vue-tsc && vite build --base /livekun-web/",
+    "build-github": "vue-tsc && vite build --base /livekun/",
     "preview": "vite preview",
     "lint": "eslint --cache --ext .ts,.tsx,.vue ./src",
     "lint:fix": "eslint --fix --cache --ext .ts,.tsx,.vue ./src",
