@@ -1,5 +1,5 @@
 <template>
-  <a-config-provider :locale="locale" :autoInsertSpaceInButton="false">
+  <AConfigProvider :locale="locale" :autoInsertSpaceInButton="false">
     <AApp>
       <router-view v-slot="{ Component }">
         <template v-if="Component">
@@ -14,7 +14,7 @@
         </template>
       </router-view>
     </AApp>
-  </a-config-provider>
+  </AConfigProvider>
 </template>
 
 <script lang="ts" setup>
