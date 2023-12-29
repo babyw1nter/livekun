@@ -40,10 +40,10 @@ export default defineConfig(({ mode }) => {
       }),
       AutoImport({
         imports: ['vue', 'vue-router'],
-        dts: 'src/typings/auto-imports.d.ts'
+        dts: 'src/types/auto-imports.d.ts'
       }),
       Components({
-        dts: 'src/typings/components.d.ts',
+        dts: 'src/types/components.d.ts',
         globs: ['src/components/**/*.vue', 'src/plugins/**/components/*.vue'],
         deep: true,
         resolvers: [
