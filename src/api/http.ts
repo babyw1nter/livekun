@@ -7,11 +7,10 @@ const baseUrl =
     ? `http://${__DEV_URL__}`
     : `https://${__PROD_URL__}`
 
-axios.defaults.withCredentials = true
-
 const http = axios.create({
   baseURL: baseUrl,
-  timeout: 10000
+  timeout: 10000,
+  withCredentials: true
 })
 
 http.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
