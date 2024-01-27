@@ -10,7 +10,9 @@ const ConnectPage = () => import('../views/Console/ConnectPage.vue')
 const AccountPage = () => import('../views/Console/AccountPage.vue')
 
 const LoginPage = () => import('../views/User/Login.vue')
+
 const TestPage = () => import('../views/TestPage.vue')
+const VoicePage = () => import('../views/VoicePage.vue')
 
 const childrenRoutes: Array<RouteRecordRaw> = [
   /** @todo 控制台首页，重定向至 connect 页面，因为暂时没有完成 */
@@ -85,6 +87,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/test',
     name: 'TestPage',
     component: TestPage,
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/voice',
+    name: 'VoicePage',
+    component: VoicePage,
     meta: { requiresAuth: false }
   },
   {
